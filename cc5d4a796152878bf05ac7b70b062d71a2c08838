@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98f7210e_e8364c5f",
+        "filename": "fuzz/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:44:47Z",
+      "side": 1,
+      "message": "This will probably break the oss-fuzz build. Not a big deal, but may as well get that PR going in parallel I guess.\nhttps://github.com/google/oss-fuzz/blob/master/projects/boringssl/build.sh",
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee7446c_9c271dfe",
+        "filename": "fuzz/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:44:47Z",
+      "side": 1,
+      "message": "Just to avoid duplicating stuff:\n\n```suggestion\n  if(LIBFUZZER_FROM_DEPS)\n    set_target_properties(${name} PROPERTIES LINK_FLAGS \"-fsanitize\u003dfuzzer-no-link\")\n    target_link_libraries(${name} Fuzzer)\n  else()\n    set_target_properties(${name} PROPERTIES LINK_FLAGS \"-fsanitize\u003dfuzzer\")\n  endif()\n  set_target_properties(\n    ${name}\n    PROPERTIES\n    CXX_STANDARD 17\n    CXX_STANDARD_REQUIRED YES\n    COMPILE_FLAGS \"-D_BORINGSSL_LIBPKI_\")\n  endif()\n```\n\nOr perhaps:\n\n```\n  if(LIBFUZZER_FROM_DEPS)\n    set(fuzzer_flags \"-fsanitize\u003dfuzzer-no-link\")\n    target_link_libraries(${name} Fuzzer)\n  else()\n    set(fuzzer_flags \"-fsanitize\u003dfuzzer\")\n  endif()\n  set_target_properties(\n    ${name}\n    PROPERTIES\n    CXX_STANDARD 17\n    CXX_STANDARD_REQUIRED YES\n    COMPILE_FLAGS \"-D_BORINGSSL_LIBPKI_\"\n    LINK_FLAGS ${fuzzer_flags})\n  endif()\n```\n\nBut if we do the latter, I think we want to s/macro/function/ to introduce a new variable scope.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 9
+      },
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22d2c81e_f4ce8661",
+        "filename": "fuzz/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:44:47Z",
+      "side": 1,
+      "message": "You only need the pki library, not ssl, right?",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cccdb757_f0f7880d",
+        "filename": "fuzz/parse_certificate_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:44:47Z",
+      "side": 1,
+      "message": "Should we update the import tool so pki/parse_certificate_fuzzer.cc is imported here?",
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a2a7653_b663cb30",
+        "filename": "fuzz/parse_certificate_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:44:47Z",
+      "side": 1,
+      "message": "A thought: you can probably seed this fuzzer\u0027s corpus from the `cert` one\u0027s corpus. https://boringssl.googlesource.com/boringssl/+/HEAD/FUZZING.md also has some notes on minimizing the corpora.\n\n(Reminds me, I really need to do something about the no_fuzzer_mode things. They\u0027re just weird.)",
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
