@@ -8,6 +8,13 @@ macro(fuzzer name)
   else()
     set_target_properties(${name} PROPERTIES LINK_FLAGS "-fsanitize=fuzzer")
   endif()
+  set_target_properties(
+    ${name}
+    PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+    COMPILE_FLAGS "-D_BORINGSSL_LIBPKI_")
+  endif()
 endmacro()
 
 fuzzer(arm_cpuinfo)
@@ -28,3 +35,4 @@ fuzzer(server ssl)
 fuzzer(session ssl)
 fuzzer(spki)
 fuzzer(ssl_ctx_api ssl)
+fuzzer(parse_certificate_fuzzer ssl pki)
