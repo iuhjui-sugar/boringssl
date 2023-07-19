@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6669bc01_d61f36b1",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-19T20:26:58Z",
+      "side": 1,
+      "message": "Looks like you made the file executable but there isn\u0027t a `#!` line so it wouldn\u0027t do anything useful.",
+      "revId": "fd66041cc42e890b71100278fe87b69623869b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c3b4208_60ae48b4",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-19T20:26:58Z",
+      "side": 1,
+      "message": "Nit: I think we don\u0027t need to re-sort this one because (one hopes) the input is already sorted.",
+      "range": {
+        "startLine": 860,
+        "startChar": 23,
+        "endLine": 860,
+        "endChar": 29
+      },
+      "revId": "fd66041cc42e890b71100278fe87b69623869b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
