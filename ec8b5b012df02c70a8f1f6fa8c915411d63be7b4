@@ -34,6 +34,24 @@
       "parentUuid": "3d512432_255bb30a",
       "revId": "ec8b5b012df02c70a8f1f6fa8c915411d63be7b4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d108e4_bcc8903b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 16601
+      },
+      "writtenOn": "2023-07-19T18:58:47Z",
+      "side": 1,
+      "message": "Cool, got it! Thanks! This fix is nice.",
+      "parentUuid": "6ce7829d_f2749ac0",
+      "revId": "ec8b5b012df02c70a8f1f6fa8c915411d63be7b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
