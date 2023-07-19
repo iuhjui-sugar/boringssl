@@ -16,6 +16,24 @@
       "message": "I don\u0027t think change is safe, and may introduce buffer overflows in some existing callers. OpenSSL updating the documentation is good, but as ebd87230ac96 mentioned, that does not address the concern.  Any code that was written to the older documentation, such as cURL prior to https://github.com/curl/curl/pull/844, would still compile. This change silently causes that code to buffer overflow.\n\nE.g. go/err-buffer-size and go/err-buffer-size-2 is an example of some code I found in the internal repository which was written to the old documentation.\n\nKeeping the maximum at 120 is still aligned with OpenSSL\u0027s documentation of 256 because we can always safely set a smaller upper bound than OpenSSL does. It\u0027s going above it that is dangerous.\n\nI\u0027ll see if we can silence the GCC warning in a less dangerous way.",
       "revId": "ec8b5b012df02c70a8f1f6fa8c915411d63be7b4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ce7829d_f2749ac0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-19T18:06:46Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/61805",
+      "parentUuid": "3d512432_255bb30a",
+      "revId": "ec8b5b012df02c70a8f1f6fa8c915411d63be7b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
