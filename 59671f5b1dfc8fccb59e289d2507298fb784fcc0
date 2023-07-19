@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfd87555_863f5c11",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-19T18:48:17Z",
+      "side": 1,
+      "message": "really we should just sweep for all unchecked snprintfs.",
+      "range": {
+        "startLine": 566,
+        "startChar": 11,
+        "endLine": 566,
+        "endChar": 21
+      },
+      "revId": "59671f5b1dfc8fccb59e289d2507298fb784fcc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
