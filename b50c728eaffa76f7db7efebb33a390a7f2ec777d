@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a855608_cedab14b",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-19T21:49:43Z",
+      "side": 1,
+      "message": "Not everyone is porting to a new platform, and the document only talks about new platforms.\n\nPerhaps this can just be:\n\n\u003e If porting BoringSSL to a new platform, see go/boringssl-on-new-platform (Google-internal).",
+      "revId": "b50c728eaffa76f7db7efebb33a390a7f2ec777d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4767272_fe18c650",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-19T21:49:43Z",
+      "side": 1,
+      "message": "I think this ends up linking to a relative URL. :-) Perhaps:\n\n```suggestion\n[go/boringssl-on-new-platform](https://goto.corp.google.com/boringssl-on-new-platform) about porting\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "b50c728eaffa76f7db7efebb33a390a7f2ec777d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
