@@ -16,6 +16,24 @@
       "message": "How is Entropy gathered on CROS_EC and CROS_ZEPHYR?  is this platform also defining something like __linux__ when it is not linux?",
       "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee06f017_aeb4ae39",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-07-20T16:45:27Z",
+      "side": 1,
+      "message": "The current implementations for them are\n\nhttps://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/third_party/boringssl/common/sysrand.c\n\nhttps://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/third_party/boringssl/common/sysrand_zephyr.c\n\nWe can try to provide \"getentropy\", although that will cause a little bit of problems in our host emulation tests. (the host emulation will use the real linux header \u0026 libraries, and conflicts with the custom getentropy)",
+      "parentUuid": "9c488821_554db04c",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
