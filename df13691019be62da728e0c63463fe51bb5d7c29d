@@ -46,6 +46,30 @@
       },
       "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90ecd563_6b719c3d",
+        "filename": "crypto/bio/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T05:43:45Z",
+      "side": 1,
+      "message": "\u003e armv7m-cros-eabi-clang\n\nWhy is your project defining `OPENSSL_NANOLIBC`? As the comment says, nanolibc is a particular embedded target. It is not CrOS.\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/include/openssl/target.h#100\n\nSpecifically it\u0027s part of a build that we are cleaning up in google3. Just as `__TRUSTY__`, you cannot define that symbol if you are not nanolibc. If you do, we cannot support your platform.\n\nPlease see go/boringssl-on-new-platform",
+      "parentUuid": "35bab702_5bb69717",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
