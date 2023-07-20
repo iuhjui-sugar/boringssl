@@ -70,6 +70,30 @@
       },
       "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9040b17f_acbc09c7",
+        "filename": "crypto/bio/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-07-20T06:09:02Z",
+      "side": 1,
+      "message": "Got it, but I don\u0027t have the access to go/boringssl-on-new-platform.\nAnd Tom is OOO until November.\n\nMaybe we should add a new platform called CROS_EC in boringssl.",
+      "parentUuid": "90ecd563_6b719c3d",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
