@@ -22,6 +22,30 @@
       },
       "revId": "86f3fe71db9a7b149a958a75c6ad51602589ed55",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ecde30_0348f68b",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-20T20:06:21Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "43cb7f3d_5516e4c0",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 9
+      },
+      "revId": "86f3fe71db9a7b149a958a75c6ad51602589ed55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
