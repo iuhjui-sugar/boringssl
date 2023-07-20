@@ -1,0 +1,284 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af5721a0_88f144bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "In an older version of it, no? It was since fixed I assume.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2652ec8d_49707613",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "Nit: There\u0027s no such thing as an ALPS frame. ALPS gives you an opaque byte string, and then HTTP/2 and HTTP/3 put frames in it.\n\nThat also wasn\u0027t the bug. It was specifically in the ACCEPT_CH frame decoder that didn\u0027t allow values greater than 128 bytes. If the overall frame was larger, that was still fine.",
+      "range": {
+        "startLine": 9,
+        "startChar": 102,
+        "endLine": 9,
+        "endChar": 113
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f468079_3f84750d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "Looked over the C++ bits. Haven\u0027t looked at the Go bits yet because I realized this CL doesn\u0027t implement what we discussed, so I assume the corrected version will be pretty different.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e06e7b43_0bf764c7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3038,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "Does your team have a transition plan for switching the default to the new code point, and then for removing the old codepoint altogether?",
+      "range": {
+        "startLine": 3038,
+        "startChar": 57,
+        "endLine": 3038,
+        "endChar": 64
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f66d964f_9ad8cb70",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3039,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "```suggestion\n// SSL_set_alps_use_new_codepoint configures whether to use the new ALPS\n// codepoint. By default, the old codepoint is used.\n```",
+      "range": {
+        "startLine": 3037,
+        "startChar": 0,
+        "endLine": 3039,
+        "endChar": 24
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bebd3dd_b5ee14e8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3041,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "Two blank lines between sections. (There used to be, but this CL lost it.)",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca4622cc_5dc6f35b",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "The split handshake logic in handoff.cc needs to be updated to capture both codepoints. Otherwise the transition plan off the old codepoint will break.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd48a7aa_5aceb201",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "These aren\u0027t referenced externally yet, which means it is still safe to change them. Moreover, you\u0027ll be introducing a new reference to them now, which will suddenly make it hard to change them. That means it\u0027s important to name these correctly from the start:\n\n* Given these two constants do the same thing, it doesn\u0027t make sense for them to be named completely differently. The names should both use `application_settings` as the root, to match the draft.\n\n* The old one is doomed to be removed as part of the transition plan (requested in the other comment). That means having it be \"new\" and having the old one be unsuffixed is just going to cause churn.\n\nSo one option is:\n\n```\n#define TLSEXT_TYPE_application_settings_old 17513\n#define TLSEXT_TYPE_application_settings 17613\n```\n\nThat said, if your team ends up picking up the standardization work here, there\u0027ll be a few more rounds of this, so perhaps they should all be named as experimental?\n\n```\n#define TLSEXT_TYPE_application_settings_exp01 17513\n#define TLSEXT_TYPE_application_settings_exp02 17613\n```\n\nThen we don\u0027t need to rename them. I\u0027d call them \"draft\" but the problem is the drafts don\u0027t contain the codepoints, and they\u0027ll get renumbered if it gets WG adoption anyway.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c05f4cfb_02fda7eb",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "If the new codepoint is used, the old codepoint should not be active.\n\nGiven this didn\u0027t get caught, it seems you\u0027re missing some tests. If the peer sends both old and new codepoints, we need to not get confused. So when fixing this, please add a test that would have caught the bug.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ed99f2d_72bf7dfa",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2996,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "This is a lot of duplicated code. Instead, make a helper function that takes a parameter for which codepoint to expect. See how the QUIC bits are handled.\n\nEdit: Oh wait, this is doing something completely different from what we discussed. It looks like this CL adds an extra signaling extension. That\u0027s not what we meant by rotating the ALPS codepoint and will forever waste 4 bytes in the Chrome ClientHello. It also doesn\u0027t exercise what your team will need to do as part of the standardization process.\n\nRather, the expectation here was that you change the codepoint in the application_settings extension.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3151b916_2caea354",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 3294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "We\u0027ve never used \"cp\" as an abbreviation for \"codepoint\" before. Just \"new\" is sufficient. Or if you go with named experiment numbers, we can name them that way.",
+      "range": {
+        "startLine": 3294,
+        "startChar": 13,
+        "endLine": 3294,
+        "endChar": 21
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65e7cad9_b32aa8d6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "negotiate",
+      "range": {
+        "startLine": 3158,
+        "startChar": 5,
+        "endLine": 3158,
+        "endChar": 14
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b55cf882_db4e8670",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "This is a bit misleading. There\u0027s nothing about the old or new codepoint that allows larger frames. If there were, there would be a protocol change associated with this. This is just working around a bug in an early implementation, right? Not only that, ALPS itself has no idea what frames are. That\u0027s an HTTP/2 and HTTP/3 notion.\n\nWe can probably rephrase this, but probably easiest to just omit it.",
+      "range": {
+        "startLine": 3158,
+        "startChar": 19,
+        "endLine": 3159,
+        "endChar": 11
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805c617e_13261da0",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T20:23:20Z",
+      "side": 1,
+      "message": "This is named \"expect_foo\", yet this is configuring something, rather than checking an expectation.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
