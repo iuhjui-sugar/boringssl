@@ -34,6 +34,24 @@
       "parentUuid": "9c488821_554db04c",
       "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e2494c_1418612a",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-20T18:14:57Z",
+      "side": 1,
+      "message": "if you\u0027re not defining __linux__ on the regular target, and your host tests are running on regular linux with __linux__ defined you could condintionalize your entire getentropy() on !defined(__linux__) - alternatively if your nanolibc does not define __GLIBC__ and your host tests do define it, you could do it with that define as well.",
+      "parentUuid": "ee06f017_aeb4ae39",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
