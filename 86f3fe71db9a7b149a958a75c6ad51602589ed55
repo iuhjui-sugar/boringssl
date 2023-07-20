@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43cb7f3d_5516e4c0",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T16:05:15Z",
+      "side": 1,
+      "message": "Nit: Missing space\n\n```suggestion\n[\"go/boringssl-on-new-platform\"](https://goto.corp.google.com/boringssl-on-new-platform) (Google\nInternal) for information about porting BoringSSL to a new platform for a Google\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 9
+      },
+      "revId": "86f3fe71db9a7b149a958a75c6ad51602589ed55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
