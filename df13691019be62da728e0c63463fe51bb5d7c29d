@@ -94,6 +94,30 @@
       },
       "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef15eb0_14e24e9c",
+        "filename": "crypto/bio/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T16:01:29Z",
+      "side": 1,
+      "message": "\u003e Got it, but I don\u0027t have the access to go/boringssl-on-new-platform.\n\nAh, whoops. Fixed the permissions on that.\n\n\u003e Maybe we should add a new platform called CROS_EC in boringssl.\n\nSGTM",
+      "parentUuid": "9040b17f_acbc09c7",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
