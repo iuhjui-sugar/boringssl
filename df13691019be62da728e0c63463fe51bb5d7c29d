@@ -22,6 +22,30 @@
       },
       "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35bab702_5bb69717",
+        "filename": "crypto/bio/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-07-20T04:01:23Z",
+      "side": 1,
+      "message": "Sent a patch for that:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/61845",
+      "parentUuid": "2cd1242e_55a0a886",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
