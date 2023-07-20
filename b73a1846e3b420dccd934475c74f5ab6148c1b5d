@@ -16,6 +16,24 @@
       "message": "Maybe add \"Seed the corpus from cert_corpus. As part of that, check in the result of minimizing all the corpora.\"\n\nSo that future readers don\u0027t wonder why this is touching so many files. :-)\n\nPossibly also a sentence noting that you\u0027re just trying to get it to build and will update the import process later.",
       "revId": "b73a1846e3b420dccd934475c74f5ab6148c1b5d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4db62f58_bfe9b65c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-20T21:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38f8da7f_995e5783",
+      "revId": "b73a1846e3b420dccd934475c74f5ab6148c1b5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
