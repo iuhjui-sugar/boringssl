@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad022fcf_25314a25",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-20T15:35:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a855608_cedab14b",
+      "revId": "b50c728eaffa76f7db7efebb33a390a7f2ec777d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e4767272_fe18c650",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-07-19T21:49:43Z",
       "side": 1,
       "message": "I think this ends up linking to a relative URL. :-) Perhaps:\n\n```suggestion\n[go/boringssl-on-new-platform](https://goto.corp.google.com/boringssl-on-new-platform) about porting\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "b50c728eaffa76f7db7efebb33a390a7f2ec777d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d822c920_5ca9cff7",
+        "filename": "INCORPORATING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-20T15:35:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4767272_fe18c650",
       "range": {
         "startLine": 7,
         "startChar": 0,
