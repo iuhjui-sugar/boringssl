@@ -16,6 +16,24 @@
       "message": "Is this a candidate for OPENSSL_DEPRECATED? they can surely work around the warning and then others aren\u0027t picking it up without noticing.",
       "revId": "b3f1559cc02be31c440d64419f44778384e89e1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8274a02_e41b84c0",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-20T15:30:54Z",
+      "side": 1,
+      "message": "The offending project is an Android prebuilt anyway, so they wouldn\u0027t notice the warning.\n\nI\u0027ll mark these in a follow-up, so it\u0027s easy to revert if they cause problems.",
+      "parentUuid": "f195e240_0fb4b092",
+      "revId": "b3f1559cc02be31c440d64419f44778384e89e1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
