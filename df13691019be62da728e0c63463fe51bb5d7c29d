@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cd1242e_55a0a886",
+        "filename": "crypto/bio/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-07-20T03:37:15Z",
+      "side": 1,
+      "message": "hmmm, Looks like including this header will cause build error on some NANOLIBC builds.\n```\n/usr/bin/armv7m-cros-eabi-clang -DBORINGSSL_IMPLEMENTATION -DOPENSSL_NANOLIBC -DOPENSSL_NO_ASM -I/mnt/host/source/src/third_party/boringssl/include -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror -Wformat\u003d2 -Wsign-compare -Wwrite-strings -Wvla -Wshadow -Wtype-limits -ggdb -Wall -fvisibility\u003dhidden -fno-common -Wnewline-eof -fcolor-diagnostics -Wstring-concatenation -Wimplicit-fallthrough -Wmissing-prototypes -Wold-style-definition -Wstrict-prototypes -D_XOPEN_SOURCE\u003d700 -O3 -DNDEBUG -Oz -flto -mcpu\u003dcortex-m4 -mfloat-abi\u003dhard -std\u003dgnu11 -MD -MT crypto/CMakeFiles/crypto.dir/bio/errno.c.o -MF crypto/CMakeFiles/crypto.dir/bio/errno.c.o.d -o crypto/CMakeFiles/crypto.dir/bio/errno.c.o -c /mnt/host/source/src/third_party/boringssl/crypto/bio/errno.c\nIn file included from /mnt/host/source/src/third_party/boringssl/crypto/bio/errno.c:61:\n/mnt/host/source/src/third_party/boringssl/crypto/bio/internal.h:68:10: fatal error: \u0027sys/socket.h\u0027 file not found\n#include \u003csys/socket.h\u003e\n         ^~~~~~~~~~~~~~\n1 error generated.\n```",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "df13691019be62da728e0c63463fe51bb5d7c29d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
