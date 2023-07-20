@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f195e240_0fb4b092",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-20T15:27:03Z",
+      "side": 1,
+      "message": "Is this a candidate for OPENSSL_DEPRECATED? they can surely work around the warning and then others aren\u0027t picking it up without noticing.",
+      "revId": "b3f1559cc02be31c440d64419f44778384e89e1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
