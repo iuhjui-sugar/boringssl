@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c488821_554db04c",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-20T16:02:10Z",
+      "side": 1,
+      "message": "How is Entropy gathered on CROS_EC and CROS_ZEPHYR?  is this platform also defining something like __linux__ when it is not linux?",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
