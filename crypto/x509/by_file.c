@@ -62,7 +62,9 @@
 
 #include "internal.h"
 
-#if !defined(OPENSSL_NO_FILESYSTEM)
+// TODO(crbug.com/boringssl/629): Remove this ifdef in favor of just relying on
+// the stub file BIO.
+#if !defined(OPENSSL_TRUSTY)
 
 static int by_file_ctrl(X509_LOOKUP *ctx, int cmd, const char *argc, long argl,
                         char **ret);
@@ -279,4 +281,4 @@ err:
   return count;
 }
 
-#endif  // !OPENSSL_NO_FILESYSTEM
+#endif  // !OPENSSL_TRUSTY

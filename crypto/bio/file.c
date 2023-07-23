@@ -92,11 +92,19 @@
 #define BIO_FP_APPEND 0x08
 
 #if !defined(OPENSSL_NO_FILESYSTEM)
+#define fopen_if_available fopen
+#else
+static FILE *fopen_if_available(const char *path, const char *mode) {
+  errno = ENOENT;
+  return NULL;
+}
+#endif
+
 BIO *BIO_new_file(const char *filename, const char *mode) {
   BIO *ret;
   FILE *file;
 
-  file = fopen(filename, mode);
+  file = fopen_if_available(filename, mode);
   if (file == NULL) {
     OPENSSL_PUT_SYSTEM_ERROR();
 
@@ -117,7 +125,6 @@ BIO *BIO_new_file(const char *filename, const char *mode) {
 
   return ret;
 }
-#endif  // !OPENSSL_NO_FILESYSTEM
 
 BIO *BIO_new_fp(FILE *stream, int close_flag) {
   BIO *ret = BIO_new(BIO_s_file());
@@ -197,7 +204,6 @@ static long file_ctrl(BIO *b, int cmd, long num, void *ptr) {
       b->ptr = ptr;
       b->init = 1;
       break;
-#if !defined(OPENSSL_NO_FILESYSTEM)
     case BIO_C_SET_FILENAME:
       file_free(b);
       b->shutdown = (int)num & BIO_CLOSE;
@@ -219,7 +225,7 @@ static long file_ctrl(BIO *b, int cmd, long num, void *ptr) {
         ret = 0;
         break;
       }
-      fp = fopen(ptr, mode);
+      fp = fopen_if_available(ptr, mode);
       if (fp == NULL) {
         OPENSSL_PUT_SYSTEM_ERROR();
         ERR_add_error_data(5, "fopen('", ptr, "','", mode, "')");
@@ -230,7 +236,6 @@ static long file_ctrl(BIO *b, int cmd, long num, void *ptr) {
       b->ptr = fp;
       b->init = 1;
       break;
-#endif  // !OPENSSL_NO_FILESYSTEM
     case BIO_C_GET_FILE_PTR:
       // the ptr parameter is actually a FILE ** in this case.
       if (ptr != NULL) {
@@ -290,7 +295,6 @@ int BIO_set_fp(BIO *bio, FILE *file, int close_flag) {
   return (int)BIO_ctrl(bio, BIO_C_SET_FILE_PTR, close_flag, (char *)file);
 }
 
-#if !defined(OPENSSL_NO_FILESYSTEM)
 int BIO_read_filename(BIO *bio, const char *filename) {
   return (int)BIO_ctrl(bio, BIO_C_SET_FILENAME, BIO_CLOSE | BIO_FP_READ,
                        (char *)filename);
@@ -311,7 +315,6 @@ int BIO_rw_filename(BIO *bio, const char *filename) {
                        BIO_CLOSE | BIO_FP_READ | BIO_FP_WRITE,
                        (char *)filename);
 }
-#endif  // !OPENSSL_NO_FILESYSTEM
 
 long BIO_tell(BIO *bio) { return BIO_ctrl(bio, BIO_C_FILE_TELL, 0, NULL); }
 

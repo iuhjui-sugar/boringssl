@@ -64,10 +64,12 @@
 #include <openssl/thread.h>
 #include <openssl/x509.h>
 
-#if !defined(OPENSSL_NO_FILESYSTEM)
-
 #include "../internal.h"
 #include "internal.h"
+
+// TODO(crbug.com/boringssl/629): Remove this ifdef in favor of just relying on
+// the stub file BIO.
+#if !defined(OPENSSL_TRUSTY)
 
 typedef struct lookup_dir_hashes_st {
   unsigned long hash;
@@ -403,4 +405,4 @@ finish:
   return ok;
 }
 
-#endif  // OPENSSL_NO_FILESYSTEM
+#endif  // !OPENSSL_TRUSTY
