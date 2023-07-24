@@ -5,8 +5,8 @@
 #ifndef BSSL_PKI_CERT_NET_FETCHER_H_
 #define BSSL_PKI_CERT_NET_FETCHER_H_
 
-#include "webutil/url/url.h"
 #include "fillins/openssl_util.h"
+#include "webutil/url/url.h"
 #include <stdint.h>
 
 #include <memory>
