@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f54459f_36a11829",
+        "filename": "pki/name_constraints.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-24T21:45:57Z",
+      "side": 1,
+      "message": "I think we need to update the regex for this one. :-/\n\nI bet it\u0027s only working right now because of argument-dependent lookup...\nhttps://en.cppreference.com/w/cpp/language/adl",
+      "revId": "eb56170e14bec0b47b278c47d2ebadad523bc731",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dcad82f_e3291c68",
+        "filename": "pki/x509_certificate.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-24T21:45:57Z",
+      "side": 1,
+      "message": "I think we can remove this from the import now.",
+      "revId": "eb56170e14bec0b47b278c47d2ebadad523bc731",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
