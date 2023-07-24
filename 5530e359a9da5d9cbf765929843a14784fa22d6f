@@ -49,6 +49,54 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "903fb37e_0942c521",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "not quite sure I understand the meaning of older version? \nthe arithmetic overflow bug was patched since M100 in chrome. The problem version range in from M96 to M99.",
+      "parentUuid": "af5721a0_88f144bc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec270d8c_93864f46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "i mean the arithmetic overflow bug in the accept_ch frame decoder, it limits server added more than 128 bytes accept_ch frame (the problem range is 128 to 255).",
+      "parentUuid": "2652ec8d_49707613",
+      "range": {
+        "startLine": 9,
+        "startChar": 102,
+        "endLine": 9,
+        "endChar": 113
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3f468079_3f84750d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 12
@@ -87,6 +135,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9889abb_80d39868",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3038,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "we will add chrome supports the new code point in 2023 Q3 if the boringSSL change has been merged. for removing old codepoint, it depends on whether GFE still have old clients connects to it.",
+      "parentUuid": "e06e7b43_0bf764c7",
+      "range": {
+        "startLine": 3038,
+        "startChar": 57,
+        "endLine": 3038,
+        "endChar": 64
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f66d964f_9ad8cb70",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-07-20T20:23:20Z",
       "side": 1,
       "message": "```suggestion\n// SSL_set_alps_use_new_codepoint configures whether to use the new ALPS\n// codepoint. By default, the old codepoint is used.\n```",
+      "range": {
+        "startLine": 3037,
+        "startChar": 0,
+        "endLine": 3039,
+        "endChar": 24
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d60022d_9563be4f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3039,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f66d964f_9ad8cb70",
       "range": {
         "startLine": 3037,
         "startChar": 0,
@@ -127,6 +223,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b31020ab_8dfb6d5c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3041,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bebd3dd_b5ee14e8",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca4622cc_5dc6f35b",
@@ -140,6 +254,24 @@
       "writtenOn": "2023-07-20T20:23:20Z",
       "side": 1,
       "message": "The split handshake logic in handoff.cc needs to be updated to capture both codepoints. Otherwise the transition plan off the old codepoint will break.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a71ac65e_36a8ca38",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "will update the logic if we can\u0027t add a new extension.",
+      "parentUuid": "ca4622cc_5dc6f35b",
       "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -161,6 +293,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf5de34c_0271ba15",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "will update the setting accordingly.",
+      "parentUuid": "fd48a7aa_5aceb201",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c05f4cfb_02fda7eb",
@@ -174,6 +324,24 @@
       "writtenOn": "2023-07-20T20:23:20Z",
       "side": 1,
       "message": "If the new codepoint is used, the old codepoint should not be active.\n\nGiven this didn\u0027t get caught, it seems you\u0027re missing some tests. If the peer sends both old and new codepoints, we need to not get confused. So when fixing this, please add a test that would have caught the bug.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f529cdb_cb454099",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2911,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "will add the caught!",
+      "parentUuid": "c05f4cfb_02fda7eb",
       "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -195,6 +363,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03590d2d_d0b86782",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2996,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "will refactor the code accordingly",
+      "parentUuid": "8ed99f2d_72bf7dfa",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3151b916_2caea354",
@@ -208,6 +394,30 @@
       "writtenOn": "2023-07-20T20:23:20Z",
       "side": 1,
       "message": "We\u0027ve never used \"cp\" as an abbreviation for \"codepoint\" before. Just \"new\" is sufficient. Or if you go with named experiment numbers, we can name them that way.",
+      "range": {
+        "startLine": 3294,
+        "startChar": 13,
+        "endLine": 3294,
+        "endChar": 21
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d464c821_56b5be70",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 3294,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "updated.",
+      "parentUuid": "3151b916_2caea354",
       "range": {
         "startLine": 3294,
         "startChar": 13,
@@ -241,6 +451,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02a8d320_45fd3f01",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65e7cad9_b32aa8d6",
+      "range": {
+        "startLine": 3158,
+        "startChar": 5,
+        "endLine": 3158,
+        "endChar": 14
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b55cf882_db4e8670",
@@ -264,6 +498,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8519f02f_d0ed51f6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3159,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "rephrased.",
+      "parentUuid": "b55cf882_db4e8670",
+      "range": {
+        "startLine": 3158,
+        "startChar": 19,
+        "endLine": 3159,
+        "endChar": 11
+      },
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "805c617e_13261da0",
@@ -277,6 +535,24 @@
       "writtenOn": "2023-07-20T20:23:20Z",
       "side": 1,
       "message": "This is named \"expect_foo\", yet this is configuring something, rather than checking an expectation.",
+      "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4259dde6_7dbce3e4",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 1950,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-07-24T14:09:00Z",
+      "side": 1,
+      "message": "renamed.",
+      "parentUuid": "805c617e_13261da0",
       "revId": "5530e359a9da5d9cbf765929843a14784fa22d6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
