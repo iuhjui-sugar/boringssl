@@ -654,7 +654,7 @@ bool NameConstraints::IsPermittedDirectoryName(
 
 bool NameConstraints::IsPermittedIP(const fillins::IPAddress& ip) const {
   for (const auto& excluded_ip : excluded_subtrees_.ip_address_ranges) {
-    if (fillins::IPAddressMatchesPrefix(ip, excluded_ip.first, excluded_ip.second))
+    if (IPAddressMatchesPrefix(ip, excluded_ip.first, excluded_ip.second))
       return false;
   }
 
@@ -664,7 +664,7 @@ bool NameConstraints::IsPermittedIP(const fillins::IPAddress& ip) const {
     return true;
 
   for (const auto& permitted_ip : permitted_subtrees_.ip_address_ranges) {
-    if (fillins::IPAddressMatchesPrefix(ip, permitted_ip.first, permitted_ip.second))
+    if (IPAddressMatchesPrefix(ip, permitted_ip.first, permitted_ip.second))
       return true;
   }
 
