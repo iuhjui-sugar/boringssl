@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "verify_name_match.h"
+#include "../pki/verify_name_match.h"
 
 #include <stddef.h>
 #include <stdint.h>
@@ -11,7 +11,7 @@
 
 #include <vector>
 
-#include "input.h"
+#include "../pki/input.h"
 
 // Entry point for LibFuzzer.
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
@@ -26,8 +26,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
   bssl::der::Input in1(first_part.data(), first_part.size());
   bssl::der::Input in2(second_part.data(), second_part.size());
-  bool match = net::VerifyNameMatch(in1, in2);
-  bool reverse_order_match = net::VerifyNameMatch(in2, in1);
+  bool match = bssl::VerifyNameMatch(in1, in2);
+  bool reverse_order_match = bssl::VerifyNameMatch(in2, in1);
   // Result should be the same regardless of argument order.
   CHECK_EQ(match, reverse_order_match);
   return 0;
