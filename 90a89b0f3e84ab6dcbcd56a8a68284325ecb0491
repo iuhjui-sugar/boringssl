@@ -16,6 +16,24 @@
       "message": "Not sure we actually want to do this before we have reliable ways to test it.",
       "revId": "90a89b0f3e84ab6dcbcd56a8a68284325ecb0491",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e66de377_b454cae6",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-25T17:23:33Z",
+      "side": 1,
+      "message": "urandom.c has a bunch of stuff in there that Android wants like FIPS and the `ro.boringcrypto.hwrand` mess, so I think we want to leave Linux on urandom.c for now.",
+      "parentUuid": "889df573_541b367d",
+      "revId": "90a89b0f3e84ab6dcbcd56a8a68284325ecb0491",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
