@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "verify_name_match.h"
+#include "../pki/verify_name_match.h"
 
-#include "cert_errors.h"
-#include "input.h"
+#include "../pki/cert_errors.h"
+#include "../pki/input.h"
 
 // Entry point for LibFuzzer.
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
@@ -19,8 +19,12 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
     std::string renormalized_der;
     bool renormalize_success = net::NormalizeName(
         bssl::der::Input(&normalized_der), &renormalized_der, &errors);
-    CHECK(renormalize_success);
-    CHECK_EQ(normalized_der, renormalized_der);
+    if (!renormalize_success) {
+      abort();
+    }
+    if (normalized_der != renormalized_der) {
+      abort();
+    }
   }
   return 0;
 }
