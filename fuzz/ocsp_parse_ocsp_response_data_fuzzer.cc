@@ -5,8 +5,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "ocsp.h"
-#include "input.h"
+#include "../pki/ocsp.h"
+#include "../pki/input.h"
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   bssl::der::Input response_data_der(data, size);
