@@ -5,8 +5,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../pki/cert_errors.h"
-#include "../pki/parsed_certificate.h"
+#include "cert_errors.h"
+#include "parsed_certificate.h"
 #include <openssl/pool.h>
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
