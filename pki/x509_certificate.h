@@ -5,8 +5,8 @@
 #ifndef BSSL_PKI_X509_CERTIFICATE_H_
 #define BSSL_PKI_X509_CERTIFICATE_H_
 
-#include "fillins/openssl_util.h"
 #include "fillins/time.h"
+#include "fillins/openssl_util.h"
 #include <stddef.h>
 #include <string.h>
 
