@@ -7,8 +7,8 @@
 
 #include <tuple>
 
-#include "crl.h"
-#include "input.h"
+#include "../pki/crl.h"
+#include "../pki/input.h"
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   bssl::der::Input crl_der(data, size);
@@ -17,7 +17,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   bssl::der::Input signature_algorithm_tlv;
   bssl::der::BitString signature_value;
 
-  std::ignore = net::ParseCrlCertificateList(
+  std::ignore = bssl::ParseCrlCertificateList(
       crl_der, &tbs_cert_list_tlv, &signature_algorithm_tlv, &signature_value);
 
   return 0;

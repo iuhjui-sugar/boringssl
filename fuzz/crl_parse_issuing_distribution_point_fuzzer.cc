@@ -6,22 +6,22 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "crl.h"
-#include "input.h"
+#include "../pki/crl.h"
+#include "../pki/input.h"
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   bssl::der::Input idp_der(data, size);
 
-  std::unique_ptr<net::GeneralNames> distribution_point_names;
-  net::ContainedCertsType only_contains_cert_type;
+  std::unique_ptr<bssl::GeneralNames> distribution_point_names;
+  bssl::ContainedCertsType only_contains_cert_type;
 
-  if (net::ParseIssuingDistributionPoint(idp_der, &distribution_point_names,
+  if (bssl::ParseIssuingDistributionPoint(idp_der, &distribution_point_names,
                                          &only_contains_cert_type)) {
     bool has_distribution_point_names =
         distribution_point_names &&
-        distribution_point_names->present_name_types != net::GENERAL_NAME_NONE;
+        distribution_point_names->present_name_types != bssl::GENERAL_NAME_NONE;
     if (!has_distribution_point_names &&
-        only_contains_cert_type == net::ContainedCertsType::ANY_CERTS) {
+        only_contains_cert_type == bssl::ContainedCertsType::ANY_CERTS) {
       abort();
     }
   }

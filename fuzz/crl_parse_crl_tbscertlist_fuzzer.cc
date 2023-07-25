@@ -7,14 +7,14 @@
 
 #include <tuple>
 
-#include "crl.h"
-#include "input.h"
+#include "../pki/crl.h"
+#include "../pki/input.h"
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   bssl::der::Input input_der(data, size);
 
-  net::ParsedCrlTbsCertList tbs_cert_list;
-  std::ignore = net::ParseCrlTbsCertList(input_der, &tbs_cert_list);
+  bssl::ParsedCrlTbsCertList tbs_cert_list;
+  std::ignore = bssl::ParseCrlTbsCertList(input_der, &tbs_cert_list);
 
   return 0;
 }
