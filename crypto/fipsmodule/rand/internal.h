@@ -36,7 +36,9 @@ extern "C" {
 #elif defined(OPENSSL_WINDOWS)
 #define OPENSSL_RAND_WINDOWS
 #elif defined(OPENSSL_LINUX)
+#if !defined(ANDROID) || __ANDROID_API__ < 28 // Android has getentropy() on SDK 28
 #define OPENSSL_RAND_URANDOM
+#endif
 #elif defined(OPENSSL_APPLE) && !defined(OPENSSL_MACOS)
 // Unlike macOS, iOS and similar hide away getentropy().
 #define OPENSSL_RAND_IOS
