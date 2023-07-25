@@ -52,6 +52,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a466f1a5_86b739e4",
+        "filename": "rust/bssl-crypto/src/aead/aes_gcm_siv.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-07-25T23:45:26Z",
+      "side": 1,
+      "message": "My thinking was to keep each primitive contained in its own mod, but I agree thats too wordy. Moved into aead mod directly, and we can revisit in the future if this is expanded to support further AEAD\u0027s",
+      "parentUuid": "bd8d1c15_f317f3cd",
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7fb6c5b_950556e4",
@@ -69,6 +87,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb1aa84_a48fe4cf",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-07-25T23:45:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7fb6c5b_950556e4",
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91521a73_2a3ec7a3",
@@ -82,6 +118,30 @@
       "writtenOn": "2023-07-14T18:37:27Z",
       "side": 1,
       "message": "This is an odd calling convention for an in-place encrypt. Usually the idea with in-place encrypt or decrypt is that the buffer is managed however the caller wants. I.e. it would want to take a mutable slice of some sort. This one forces it to be a `Vec`.\n\nFor example, if you\u0027re decrypting TLS packets, your input will be a slice of a much larger packet. This API is actually incompatible with in-place operation because it requires the caller move it into a `Vec` first. At that point, it\u0027s more efficient to take the input as `\u0026[u8]` and put the output in a separate `Vec\u003cu8\u003e`.",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d344fdf_aac85c85",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-07-25T23:45:26Z",
+      "side": 1,
+      "message": "ahh okay, good point, in that case will update to take the input as a slice and output a seperate `Vec\u003cu8\u003e`. \n\nWould another option be to take a mutable slice `\u0026mut [u8]` and a `size_t len` as inputs, where `len` contains the length of the data to be encrypted within the slice. The API would then return an error code in the case that the length of the slice minus the length of the data is not enough to hold the tag for the aead?\n\nThe rust crypto traits solve this by using a `\u0026mut dyn Buffer` trait bound to the input buffer, which can be provided by using either a `BytesMut` type, which would require us taking on a 3p dependency, or a `Vec\u003cu8\u003e` https://docs.rs/aes-gcm-siv/latest/aes_gcm_siv/trait.AeadInPlace.html#",
+      "parentUuid": "91521a73_2a3ec7a3",
       "range": {
         "startLine": 33,
         "startChar": 22,
@@ -117,6 +177,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbc46610_0268c4b4",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-07-25T23:45:26Z",
+      "side": 1,
+      "message": "This is the private internal implementation of the AEAD, which handles calling into the boringssl API. Publicly each AEAD API is exposed with its own symbol. I think of this as similar to how in boringssl every AEAD is a const type, which is passed into `EVP_AEAD_CTX_new`, `EVP_AEAD_CTX_seal`, and `EVP_AEAD_CTX_open`, which are functions shared by all of the different AEAD implementations. \n\nSee the following chained CL for how this generic private implementation can be used to simplify implementing each AEAD which has its own separate public API: https://boringssl-review.googlesource.com/c/boringssl/+/60405/4\n\nI think the statically checking which algorithms are used by each callers is still easy, since that can be checked by which public API the callers are using.",
+      "parentUuid": "58018f9a_53901f17",
+      "range": {
+        "startLine": 63,
+        "startChar": 42,
+        "endLine": 63,
+        "endChar": 61
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "113fe03a_97014174",
         "filename": "rust/bssl-crypto/src/lib.rs",
         "patchSetId": 11
@@ -128,6 +212,24 @@
       "writtenOn": "2023-07-14T18:37:27Z",
       "side": 1,
       "message": "(The convention here will have changed a bit when you rebase.)",
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "850626ba_99774f86",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-07-25T23:45:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "113fe03a_97014174",
       "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
