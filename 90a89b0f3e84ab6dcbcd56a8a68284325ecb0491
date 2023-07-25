@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "889df573_541b367d",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-25T17:08:55Z",
+      "side": 1,
+      "message": "Not sure we actually want to do this before we have reliable ways to test it.",
+      "revId": "90a89b0f3e84ab6dcbcd56a8a68284325ecb0491",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
