@@ -5,13 +5,13 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "ocsp.h"
-#include "input.h"
+#include "../pki/ocsp.h"
+#include "../pki/input.h"
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
-  bssl::der::Input response_data_der(data, size);
-  net::OCSPResponseData response_data;
-  net::ParseOCSPResponseData(response_data_der, &response_data);
+  bssl::der::Input single_response_der(data, size);
+  bssl::OCSPSingleResponse single_response;
+  bssl::ParseOCSPSingleResponse(single_response_der, &single_response);
 
   return 0;
 }
