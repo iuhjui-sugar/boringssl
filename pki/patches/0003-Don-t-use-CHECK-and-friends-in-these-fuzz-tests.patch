@@ -1,0 +1,50 @@
+From df5635679928ea96986c163a2ed266efb10d9087 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Wed, 26 Jul 2023 09:49:02 -0700
+Subject: [PATCH 3/3] Don't use CHECK and friends in these fuzz tests.
+
+This becomes deeply inconvenient in boringssl at the moment
+---
+ net/cert/pki/verify_name_match_normalizename_fuzzer.cc    | 8 ++++++--
+ .../pki/verify_name_match_verifynameinsubtree_fuzzer.cc   | 7 +++++--
+ 2 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/net/cert/pki/verify_name_match_normalizename_fuzzer.cc b/net/cert/pki/verify_name_match_normalizename_fuzzer.cc
+index cd8b3518efc32..54e0a62946ef5 100644
+--- a/net/cert/pki/verify_name_match_normalizename_fuzzer.cc
++++ b/net/cert/pki/verify_name_match_normalizename_fuzzer.cc
+@@ -19,8 +19,12 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
+     std::string renormalized_der;
+     bool renormalize_success = net::NormalizeName(
+         net::der::Input(&normalized_der), &renormalized_der, &errors);
+-    CHECK(renormalize_success);
+-    CHECK_EQ(normalized_der, renormalized_der);
++    if (!renormalize_success) {
++      abort();
++    }
++    if (normalized_der != renormalized_der) {
++      abort();
++    }
+   }
+   return 0;
+ }
+diff --git a/net/cert/pki/verify_name_match_verifynameinsubtree_fuzzer.cc b/net/cert/pki/verify_name_match_verifynameinsubtree_fuzzer.cc
+index c755fba662647..575acaa5c857e 100644
+--- a/net/cert/pki/verify_name_match_verifynameinsubtree_fuzzer.cc
++++ b/net/cert/pki/verify_name_match_verifynameinsubtree_fuzzer.cc
+@@ -29,7 +29,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
+   bool match = net::VerifyNameInSubtree(in1, in2);
+   bool reverse_order_match = net::VerifyNameInSubtree(in2, in1);
+   // If both InSubtree matches are true, then in1 == in2 (modulo normalization).
+-  if (match && reverse_order_match)
+-    CHECK(net::VerifyNameMatch(in1, in2));
++  if (match && reverse_order_match) {
++    if (!net::VerifyNameMatch(in1, in2)) {
++      abort();
++    }
++  }
+   return 0;
+ }
+-- 
+2.41.0.487.g6d72f3e995-goog
+

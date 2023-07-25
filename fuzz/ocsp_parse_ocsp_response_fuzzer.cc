@@ -5,18 +5,13 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include <tuple>
-
-#include "parse_certificate.h"
-#include "input.h"
+#include "../pki/ocsp.h"
+#include "../pki/input.h"
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
-  bssl::der::Input der(data, size);
-
-  net::ParsedAuthorityKeyIdentifier authority_key_identifier;
-
-  std::ignore =
-      net::ParseAuthorityKeyIdentifier(der, &authority_key_identifier);
+  bssl::der::Input response_der(data, size);
+  bssl::OCSPResponse response;
+  bssl::ParseOCSPResponse(response_der, &response);
 
   return 0;
 }
