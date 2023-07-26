@@ -154,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a67429c_444fb77b",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-07-26T00:00:53Z",
+      "side": 1,
+      "message": "On second thought, a potentially better API design could be to separate the resulting tag from the input data? So for example, take a mutable slice as input which contains just the data to be encrypted. Then this operation would encrypt that data in-place and return the tag separately?\n\nSimilarly for decrypt we could accept the tag as a separate input parameter, and then just decrypt the provided input slice in-place on successful tag verification",
+      "parentUuid": "9d344fdf_aac85c85",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58018f9a_53901f17",
         "filename": "rust/bssl-crypto/src/aead/mod.rs",
         "patchSetId": 11
