@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87533a1c_b6e620b6",
+        "filename": "crypto/cpu_aarch64_sysreg.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-27T17:04:56Z",
+      "side": 1,
+      "message": "Oh, could you add this to `crypto/CMakeLists.txt`?",
+      "revId": "373afd82fbbda53dad9b4ecb08a7cd63286322fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92fc9cb_c03ba03e",
+        "filename": "crypto/cpu_aarch64_sysreg.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-27T17:04:56Z",
+      "side": 1,
+      "message": "Hmm, orthogonal to this CL, but I\u0027ll go move this declaration into `internal.h` after this lands. It\u0027s pretty silly that we\u0027re copy-pasting it everywhere. :-)",
+      "revId": "373afd82fbbda53dad9b4ecb08a7cd63286322fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

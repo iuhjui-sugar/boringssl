@@ -170,6 +170,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae69cc0f_43dc6555",
+        "filename": "crypto/cpu_aarch64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-27T17:04:56Z",
+      "side": 1,
+      "message": "Ah yeah, we ran that over some of the code a bit ago. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/53086\n\nI put off putting it in `.clang-format` at the time because there was a big warning on it, and also because clang-format explodes on unrecognized options and, at the time, it was still a bit new.",
+      "parentUuid": "b35cb681_ccee9df4",
+      "revId": "f6a499987ff613799adf6b42c20bc41ec7c5120a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5762302_713b26a0",
