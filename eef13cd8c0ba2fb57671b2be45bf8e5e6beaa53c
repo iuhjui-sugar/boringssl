@@ -178,6 +178,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ccd50c8_86f10e28",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-07-27T16:39:45Z",
+      "side": 1,
+      "message": "Updated to take an input slice and return the encrypted data + tag in a `Result\u003cVec\u003cu8\u003e\u003e`. For decrypt the input is just decrypted in-place for the provided mutable slice.",
+      "parentUuid": "3a67429c_444fb77b",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58018f9a_53901f17",
         "filename": "rust/bssl-crypto/src/aead/mod.rs",
         "patchSetId": 11
