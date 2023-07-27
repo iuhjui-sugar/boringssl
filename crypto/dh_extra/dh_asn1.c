@@ -110,6 +110,11 @@ DH *DH_parse_parameters(CBS *cbs) {
     goto err;
   }
 
+  if (!dh_check_params_fast(ret)) {
+    OPENSSL_PUT_ERROR(DH, DH_R_INVALID_PARAMETERS);
+    goto err;
+  }
+
   return ret;
 
 err:
