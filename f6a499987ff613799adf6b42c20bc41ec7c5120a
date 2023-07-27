@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a661380_de3919f0",
+        "filename": "crypto/cpu_aarch64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15986
+      },
+      "writtenOn": "2023-07-27T12:25:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0af12510_7f1bfd42",
+      "revId": "f6a499987ff613799adf6b42c20bc41ec7c5120a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4955c10c_55a1fb29",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-07-25T15:44:45Z",
       "side": 1,
       "message": "Let\u0027s gate this on `ANDROID_BAREMETAL`.\n\nFor bonus points, we can also fold `cpu_aarch64_freebsd.c` into this one. We\u0027re using FreeBSD\u0027s headers for it, but it\u0027s ultimately just reading the registers. (They trap the instruction in userspace and then emulate it. Remarkably sensible of them! :-) )",
+      "range": {
+        "startLine": 17,
+        "startChar": 40,
+        "endLine": 17,
+        "endChar": 53
+      },
+      "revId": "f6a499987ff613799adf6b42c20bc41ec7c5120a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078ad1f2_4c8b7826",
+        "filename": "crypto/cpu_aarch64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 15986
+      },
+      "writtenOn": "2023-07-27T12:25:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4955c10c_55a1fb29",
       "range": {
         "startLine": 17,
         "startChar": 40,
@@ -75,6 +117,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "566b05b6_989f1635",
+        "filename": "crypto/cpu_aarch64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 15986
+      },
+      "writtenOn": "2023-07-27T12:25:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c29a0f6_cf947d47",
+      "revId": "f6a499987ff613799adf6b42c20bc41ec7c5120a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cb84039_0b99e220",
@@ -92,6 +152,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b35cb681_ccee9df4",
+        "filename": "crypto/cpu_aarch64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 15986
+      },
+      "writtenOn": "2023-07-27T12:25:49Z",
+      "side": 1,
+      "message": "Done; note that `clang-format` can now do that with `InsertBraces`.",
+      "parentUuid": "0cb84039_0b99e220",
+      "revId": "f6a499987ff613799adf6b42c20bc41ec7c5120a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5762302_713b26a0",
@@ -105,6 +183,24 @@
       "writtenOn": "2023-07-25T15:44:45Z",
       "side": 1,
       "message": "Nit: The only other files which try to detect NEON (Linux and Fuchsia) will skip the rest of the logic if NEON is missing, since they depend on the NEON registers anyway. Probably should match to be consistent.\n\n(TBH, I suspect we won\u0027t build anyway for Armv8-R or Armv8-M, so we can probably just assume NEON support. I suspect the Linux and Fuchsia bits are vestigial. But I suppose this file, if any, is the most likely to eventually see -R or -M, so no harm in trying to detect it if the prefer. *shrug*)",
+      "revId": "f6a499987ff613799adf6b42c20bc41ec7c5120a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "511486ad_38d9892a",
+        "filename": "crypto/cpu_aarch64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 15986
+      },
+      "writtenOn": "2023-07-27T12:25:49Z",
+      "side": 1,
+      "message": "\u003e Probably should match to be consistent.\n\nDone\n\n\u003e since they depend on the NEON registers anyway.\n\nFYI (to be pedantic), AArch64 mandates the FP\u0026SIMD registers to be present, even if AdvSIMD (\"NEON\") isn\u0027t supported.\n\n\u003e I suspect the Linux and Fuchsia bits are vestigial.\n\nAgreed, my guess is that the check (taken from OpenSSL according to comments) might have come from some implementation targeting ARMv7A/AArch32, which _might_ have supported CPU implementations without those registers.\n\n\u003e But I suppose this file, if any, is the most likely to eventually see -R or -M, so no harm in trying to detect it if the prefer.\n\nAs it stands, this file isn\u0027t compatible with those architectures anyway as they don\u0027t run AArch64 so `READ_SYSREG`, the system register names (\"`id_aa64xxxn_el1`\"), and the interpretation of their layout, would need to be modified.",
+      "parentUuid": "e5762302_713b26a0",
       "revId": "f6a499987ff613799adf6b42c20bc41ec7c5120a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
