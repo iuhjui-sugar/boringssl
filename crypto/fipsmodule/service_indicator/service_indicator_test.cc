@@ -1783,8 +1783,6 @@ static const struct KDFTestVector {
   const uint8_t *expected_output;
   const FIPSStatus expect_approved;
 } kKDFTestVectors[] = {
-    {EVP_md5, kTLSOutput_md, FIPSStatus::APPROVED},
-    {EVP_sha1, kTLSOutput_sha1, FIPSStatus::APPROVED},
     {EVP_md5_sha1, kTLSOutput_mdsha1, FIPSStatus::APPROVED},
     {EVP_sha224, kTLSOutput_sha224, FIPSStatus::NOT_APPROVED},
     {EVP_sha256, kTLSOutput_sha256, FIPSStatus::APPROVED},
