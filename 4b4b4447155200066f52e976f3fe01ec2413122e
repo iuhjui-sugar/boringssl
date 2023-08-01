@@ -106,6 +106,24 @@
       "parentUuid": "dbb41fd7_119bf731",
       "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35658fea_f5c7760c",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-01T03:19:00Z",
+      "side": 1,
+      "message": "ok.. note that what is merged there does not correctly implement getentropy. You probably need to add the correct failure cases.",
+      "parentUuid": "21835ec5_4c3788aa",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
