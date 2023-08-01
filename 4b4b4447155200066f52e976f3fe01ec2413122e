@@ -70,6 +70,24 @@
       "parentUuid": "d7e2494c_1418612a",
       "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbb41fd7_119bf731",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-01T01:33:21Z",
+      "side": 1,
+      "message": "we were having a look at your newlib - apparently newlib *has* stubs for getentropy() already, so if you are only using newlib *not* on your emulation target you could provide the getentropy in ther newlib build, it would presumably not be used on your emulation target using linux\u0027s libc and headers and you would be fine.",
+      "parentUuid": "a528cc48_56844ab9",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
