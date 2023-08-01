@@ -88,6 +88,24 @@
       "parentUuid": "a528cc48_56844ab9",
       "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21835ec5_4c3788aa",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-08-01T01:53:08Z",
+      "side": 1,
+      "message": "hmmm, we will add the getentropy support in this way:\nhttps://chromium-review.googlesource.com/c/chromiumos/platform/ec/+/4707366\n\nBecause the newlib will be used for different frameworks(EC \u0026 Zephyr).",
+      "parentUuid": "dbb41fd7_119bf731",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
