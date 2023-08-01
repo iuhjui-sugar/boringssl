@@ -16,6 +16,24 @@
       "message": "It looks that current owner is a \"Deleted User\". How this can be fixed?\n\nWhat is required to make progress with this patchset?",
       "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19a5119b_35e64972",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-01T01:17:13Z",
+      "side": 1,
+      "message": "This AES-GCM implementation is nearly 5,000 lines of perl, which takes 4.3 seconds to generate 111,191 (non-blank) lines of assembly, which assembles to a 880,096 object file. That is far, far too large for us to accept. For comparison, our other AES-GCM assembly implementations are well under 2,000 lines of assembly. An 880K object file is 5x larger than even our largest P-256 tables.\n\nTo move forward on AVX-512 AES-GCM optimizations in BoringSSL, we would need a completely different implementation as the starting point.",
+      "parentUuid": "f416f11f_20bf9d6f",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
