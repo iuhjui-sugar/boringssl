@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "320dee40_45d04df5",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-01T04:14:48Z",
+      "side": 1,
+      "message": "Arguably this is being too picky.. (shrug)?",
+      "revId": "27c324568e18146661d435b1a5514e34335e3822",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
