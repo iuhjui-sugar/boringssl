@@ -5,3 +5,9 @@ authors = ["Benjamin Brittain <bwb@google.com>"]
 edition = "2018"
 publish = false
 license = "MIT"
+
+[features]
+_bindgen_only = []
+
+[build-dependencies]
+bindgen = "0.66.1"
