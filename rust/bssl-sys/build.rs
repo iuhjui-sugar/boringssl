@@ -18,6 +18,46 @@ use std::path::Path;
 use std::path::PathBuf;
 
 use bindgen::MacroTypeVariation;
+use bindgen::callbacks::{IntKind, ParseCallbacks};
+
+#[derive(Default, Debug)]
+struct BsslCallbacks;
+
+impl BsslCallbacks {
+    /// Preprocessor macros that are `unsigned long`,
+    /// not the default macro type set on `bindgen::Builder`
+    ///
+    /// Comment: Name of function taking macro values as argument (usually as flags)
+    /// Value: Prefix of macro declarations
+    const ULONG_MACROS: &[&'static str] = &[
+        // ASN1_STRING_print_ex
+        "ASN1_STRFLGS_",
+        // X509_NAME_print_ex
+        "XN_FLAG_",
+        // X509_VERIFY_PARAM_set_flags & internal callers
+        "X509_V_FLAG_",
+        // X509_print_ex
+        "X509_FLAG_NO_",
+        // X509{_CRL}_add1_ext_i2d
+        "X509V3_ADD_",
+        // X509V3_EXT_print
+        "X509V3_EXT_",
+        // ASN1_STRING_TABLE_add
+        "STABLE_",
+        // CONF_modules_load_file
+        "CONF_MFLAGS_",
+    ];
+}
+
+impl ParseCallbacks for BsslCallbacks {
+    fn int_macro(&self, name: &str, _value: i64) -> Option<IntKind> {
+        if Self::ULONG_MACROS.iter().any(|prefix| name.starts_with(prefix)) {
+            Some(IntKind::ULong)
+        } else {
+            None
+        }
+    }
+}
 
 pub fn run_bindgen(output: &Path, target: &str, project_dir: &Path) {
     let depfile = {
@@ -47,6 +87,8 @@ pub fn run_bindgen(output: &Path, target: &str, project_dir: &Path) {
         .use_core()
         .default_macro_constant_type(MacroTypeVariation::Signed)
         .rustified_enum("point_conversion_form_t")
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+        .parse_callbacks(Box::new(BsslCallbacks))
         // These regexes need to accept both / and \ to handle Windows file
         // path differences, due a bindgen issue. See
         // https://crbug.com/boringssl/595. Ideally, we would write [/\\], but
