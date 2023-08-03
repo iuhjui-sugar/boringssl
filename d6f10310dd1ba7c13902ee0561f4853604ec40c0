@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6da651f9_044c3107",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16706
+      },
+      "writtenOn": "2023-08-03T03:55:34Z",
+      "side": 1,
+      "message": "Fixes bug 636: wrong constant types in Rust bindings. Thanks for your time! I\u0027ll be thrilled if this lands.",
+      "revId": "d6f10310dd1ba7c13902ee0561f4853604ec40c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
