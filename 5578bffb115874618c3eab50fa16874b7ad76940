@@ -16,6 +16,23 @@
       "message": "Necessary foundation for change 62146, which resolves bug 636. Thanks for your time. I\u0027ll be thrilled if this lands!",
       "revId": "5578bffb115874618c3eab50fa16874b7ad76940",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae9b986_e3b381c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-07T21:34:26Z",
+      "side": 1,
+      "message": "We have a number of downstream consumers that will have a very hard time with the API approach. The Rust build.rs ecosystem is, unfortunately, a complete disaster w.r.t. reproducibility and hermeticity. And, for better or worse, a lot of folks we support have decided to [reject build.rs](https://security.googleblog.com/2021/05/integrating-rust-into-android-open.html) for that reason.\n\nThe goal here was to fix the types of the macro constants, right? Perhaps we can simply suffix those constants with `ul`? Is that enough to for bindgen to figure out the correct type, or is that a bindgen deficiency we\u0027d have to correct. In general, we prefer in-source solutions over build logic on the side.",
+      "revId": "5578bffb115874618c3eab50fa16874b7ad76940",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
