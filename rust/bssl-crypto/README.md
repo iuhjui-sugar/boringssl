@@ -9,3 +9,8 @@ cd rust/bssl-crypto && cargo clippy && cargo deny check && cargo test
 ```
 
 Unlike BoringSSL itself, this crate does not attempt to handle allocation failures. If an allocation fails, functions in this crate will panic.
+
+WARNING - As with BoringSSL this should *NOT* be considered to have a stable
+API. If you use this crate you must be prepared to adapt your code to future
+changes as they occur and make your code no longer compile.
+
