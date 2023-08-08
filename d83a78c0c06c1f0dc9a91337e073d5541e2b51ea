@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e00e20a_4dd57f2f",
+        "filename": "rust/bssl-crypto/src/ec.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T19:55:48Z",
+      "side": 1,
+      "message": "Oh, this is new as of after you wrote this, but now we have functions `EC_group_p224`, `EC_group_p256`, etc. Those are a bit preferable since they play well with dead code elimination. And you don\u0027t have to worry about the functions being technically fallible.\n\nLet\u0027s use those if we can. They look more like `EVP_MD`.",
+      "revId": "d83a78c0c06c1f0dc9a91337e073d5541e2b51ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
