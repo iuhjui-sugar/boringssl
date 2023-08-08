@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8acb47b_066b2445",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "(We don\u0027t have to worry about this now. I\u0027m just asking this to understand how Rust APIs evolve and what the patterns are.)\n\nFormally, AES-GCM is specified with a variable-length nonce, not a 12-byte nonce. This was bad and a mistake by NIST. Our `EVP_aead_aes_128_gcm` accepts all of them. This was probably also a mistake (https://crbug.com/boringssl/34) and we should have locked the default to 12 bytes. But alas there are protocols that use a non-standard nonce length, so if we did that, we\u0027d need `EVP_aead_aes_128_gcm_non_standard_nonce`. :-( \n\nIf this were to come up in Rust, how would we go about doing this? Do we abandon the `Aead` trait at that point? Abandon compile-time nonce sizing and just use `nonce: \u0026[u8]`?",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea35bb90_5c166ea0",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "Why is the nonce size is specified here, but `TAG_SIZE` is specified below?",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6fd5193_84901cda",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "Should we call this `decrypt_in_place` or something like that? This API is also slightly subtle... I take it the caller needs to know to remove `TAG_SIZE` bytes from the end. That should at least be documented, but it\u0027s probably also a bit unfriendly.\n\nLooking at the RustCrypto APIs, they have `encrypt` and `decrypt` that are similar to `encrypt` above. They take in a slice and return a `Vec`. That\u0027s probably the right model for the basic use case.\n\nThen there\u0027s `encrypt_in_place_detached` and `decrypt_in_place_detached` which returns the tag separately (encrypt) or expects you to pass in the tag separately. Those roughly correspond to our seal_scatter and open_gather APIs. (Except seal_scatter has this weird \"extra_in\" parameter which you probably should ignore... I think we need to bite the bullet and do iovec APIs at the C level...)\n\nThen there\u0027s `encrypt_in_place` and `decrypt_in_place` that uses this complicated `Buffer` machinery... I guess let you do dynamic dispatch to customize the extending/shrinking behavior. Mimicking that right now is probably unreasonable. 😊\n\nI think we will inevitably need some kind of in-place story, but we also don\u0027t have to solve that now if you don\u0027t particularly need it. My inclination is to do the first API, and then maaaybe the \"in-place detached\" API if we feel like it. (Possibly with the same name, possibly different.) It makes the in-place one a little fiddly, but moves the shrinking somewhere obvious in the public API, so it\u0027s not something the caller will forget to do.\n\nWDYT?",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84225653_fe70b6a8",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "For my understanding, why is this needed? Why can\u0027t `new_aes_*_gcm_siv` just return the `AeadImpl`? It seems `AesGcmSiv` as a type doesn\u0027t actually capture anything except nonce\u003d12 and tag\u003d16.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "822f9111_e54894fd",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "Is there a reason `Aead` conditions the trait on `TAG_SIZE` while `EvpAeadType` uses a type? (I don\u0027t understand Rust generics very well.)",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "addd3948_89a54816",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "Nit: Just so we don\u0027t have to think about this, maybe let\u0027s just use `CSlice` consistently everywhere, rather than having to think about whether some input is guaranteed to be non-zero or not. Ditto below.\n\n(Then we could conceivably write some tool in the future to just systematically check that we got this right.)",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b72ca6c_f1ab2a89",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "No need to copy `msg` into `buffer`. Just pass `msg` in as the input `EVP_AEAD_CTX_seal`. Otherwise we do two passes over the input unnecessarily.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2719380c_8dd19588",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "I don\u0027t think these first two bullets are memory safety requirements. If your nonce is the wrong length, `EVP_AEAD_CTX_seal` will just reject it. If the buffer is too small, it will also be rejected. I think the only safety requirements here are that all the buffers you\u0027re passing in are valid, and that you\u0027re correctly passing in ptr and length to everything.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "202b72bd_d1afab1d",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "This works, but `EVP_AEAD_CTX_open` will also just check this for you.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c33e9158_604af5d5",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-08T21:50:14Z",
+      "side": 1,
+      "message": "Ditto that I don\u0027t think this is a safety requirement.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
