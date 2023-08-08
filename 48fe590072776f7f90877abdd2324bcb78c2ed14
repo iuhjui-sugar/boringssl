@@ -16,6 +16,24 @@
       "message": "We actually expect this to be even less stable than BoringSSL. We\u0027ve gotten a handle on how to deal with C and not Rust.\n\nPerhaps:\n\n\u003e WARNING - This crate is experimental and does *NOT* have a stable API. We expect to iterate on the API as it develops. If you use this crate you must be prepared to adapt your code to future changes as they occur.",
       "revId": "48fe590072776f7f90877abdd2324bcb78c2ed14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "469bbcdb_437027a2",
+        "filename": "rust/bssl-crypto/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-08T21:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "692b88d2_1ffb7ce1",
+      "revId": "48fe590072776f7f90877abdd2324bcb78c2ed14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
