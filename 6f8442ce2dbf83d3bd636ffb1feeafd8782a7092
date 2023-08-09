@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36c6d18b_3ff46ce8",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "as discussed offline fixed size nonce per implementation seems like the way to go",
+      "parentUuid": "975752c9_232d3089",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea35bb90_5c166ea0",
@@ -71,6 +89,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d0e12ed_c4de3d08",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "Per discussion, updated nonce to instead by an associated type which is fixed in size by the implementor of the trait, instead of it being a generic",
+      "parentUuid": "b43141ec_c62bf9f5",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6fd5193_84901cda",
@@ -102,6 +138,24 @@
       "side": 1,
       "message": "That makes sense, I\u0027ll start with just changing this decrypt to return a Vec or just the decrypted text, instead of doing it in place so caller doesnt have to worry about the tag size being removed.",
       "parentUuid": "e6fd5193_84901cda",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53331ab6_f354d654",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "Updated so that decrypt API is the same format as encrypt where it returns a Vec\u003cu8\u003e of just the plaintext, instead of decrypting in place",
+      "parentUuid": "fc11e13b_7e47b405",
       "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -193,6 +247,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dc53cb3_81206afd",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "addd3948_89a54816",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b72ca6c_f1ab2a89",
@@ -206,6 +278,24 @@
       "writtenOn": "2023-08-08T21:50:14Z",
       "side": 1,
       "message": "No need to copy `msg` into `buffer`. Just pass `msg` in as the input `EVP_AEAD_CTX_seal`. Otherwise we do two passes over the input unnecessarily.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12046cb4_4a8748bb",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "This was my way of making sure the output buffer contained the correct size. Updated to instead initialize it with all 0\u0027s which should be more efficient than copying it from msg and encrypting in place.",
+      "parentUuid": "7b72ca6c_f1ab2a89",
       "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -227,6 +317,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24825615_4e3e871f",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2719380c_8dd19588",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "202b72bd_d1afab1d",
@@ -244,6 +352,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad587488_ccc0b4a8",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "removed, better to keep this wrapper as thin as possible and let the core lib do its thing",
+      "parentUuid": "202b72bd_d1afab1d",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c33e9158_604af5d5",
@@ -257,6 +383,24 @@
       "writtenOn": "2023-08-08T21:50:14Z",
       "side": 1,
       "message": "Ditto that I don\u0027t think this is a safety requirement.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be99d5c8_7fc14a28",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c33e9158_604af5d5",
       "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

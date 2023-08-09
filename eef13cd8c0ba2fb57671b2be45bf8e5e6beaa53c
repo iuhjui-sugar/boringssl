@@ -200,6 +200,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1c021d5_1bb8ad17",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "discussed this in below comment, so resolving this one.",
+      "parentUuid": "3ccd50c8_86f10e28",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58018f9a_53901f17",
@@ -261,6 +285,30 @@
       "side": 1,
       "message": "I updated this to be a generic parameter on the `new` rather than an enum input, which makes it more clear that this is a different symbol for each aead algorithm just re-using the same code to make the unsafe calls to BoringSSL. Also ensures the key sizes are correct for the given algorithm",
       "parentUuid": "fbc46610_0268c4b4",
+      "range": {
+        "startLine": 63,
+        "startChar": 42,
+        "endLine": 63,
+        "endChar": 61
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44950a3f_8965438f",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T18:19:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8715e04e_839788a2",
       "range": {
         "startLine": 63,
         "startChar": 42,
