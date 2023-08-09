@@ -16,6 +16,24 @@
       "message": "Arguably this is being too picky.. (shrug)?",
       "revId": "27c324568e18146661d435b1a5514e34335e3822",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e0b4b27_7e7028c1",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-09T23:21:00Z",
+      "side": 1,
+      "message": "yeah, I decided it was too picky. updated the language and adapted the test to not care about errno as much.",
+      "parentUuid": "320dee40_45d04df5",
+      "revId": "27c324568e18146661d435b1a5514e34335e3822",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
