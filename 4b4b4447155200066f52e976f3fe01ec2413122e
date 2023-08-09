@@ -159,6 +159,24 @@
       "message": "Since you have mentioned your linux emulator mode which uses real linux libraries linked with this in this way, are you ABSOLUTELY CERTAIN that emulator isn\u0027t used by anything real that would care if memory was corrupted and secrets leaked.",
       "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afedae55_170767c3",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-09T23:10:38Z",
+      "side": 1,
+      "message": "Just a ping on this, I can happily merge this if you are certain your emulator you mentioned that links with linux libraries using this is not used by anything real - if the linux emulator runs with threads bad things will happen with this setting.",
+      "parentUuid": "699cba46_e3402cc7",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
