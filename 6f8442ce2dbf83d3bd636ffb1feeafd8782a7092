@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "975752c9_232d3089",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T14:29:38Z",
+      "side": 1,
+      "message": "Yeah in that case I think it would make sense to just take `nonce: \u0026[u8]` slice as the input and ditch the generic type parameter. This trait was also made to be generic for other AEAD\u0027s as well so it would also depend if they all take fixed or variable sized nonces",
+      "parentUuid": "e8acb47b_066b2445",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ea35bb90_5c166ea0",
         "filename": "rust/bssl-crypto/src/aead.rs",
         "patchSetId": 16
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-08T21:50:14Z",
       "side": 1,
       "message": "Why is the nonce size is specified here, but `TAG_SIZE` is specified below?",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b43141ec_c62bf9f5",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T14:29:38Z",
+      "side": 1,
+      "message": "`TAG_SIZE` below is an associated type, which means for each implementor of this trait it is specified exactly once. So each implementation can only ever have the same tag size. \n\nthe Nonce size is a generic type parameter, which means it can be implemented any number of times for the same struct, or even generically over N, so possibly the same implementation could support more than one nonce size.\n\nIf we wanted to enforce a 1:1 mapping of nonce size to implementation the `N` above could also be moved to an associated type like `TAG_SIZE`",
+      "parentUuid": "ea35bb90_5c166ea0",
       "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc11e13b_7e47b405",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T14:29:38Z",
+      "side": 1,
+      "message": "That makes sense, I\u0027ll start with just changing this decrypt to return a Vec or just the decrypted text, instead of doing it in place so caller doesnt have to worry about the tag size being removed.",
+      "parentUuid": "e6fd5193_84901cda",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84225653_fe70b6a8",
         "filename": "rust/bssl-crypto/src/aead.rs",
         "patchSetId": 16
@@ -65,6 +119,24 @@
       "writtenOn": "2023-08-08T21:50:14Z",
       "side": 1,
       "message": "For my understanding, why is this needed? Why can\u0027t `new_aes_*_gcm_siv` just return the `AeadImpl`? It seems `AesGcmSiv` as a type doesn\u0027t actually capture anything except nonce\u003d12 and tag\u003d16.",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aa075ca_bce12a21",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T14:29:38Z",
+      "side": 1,
+      "message": "Returning the `AeadImpl` would give the caller to much freedom to use it incorrectly, since it is generic over both Nonce size and tag size. If it were exposed in the public API the caller could call it with any values which would result in errors from the underlying boringssl calls. \n\nThis publicly exposed struct makes the public API stricter and ensures that the correctly sized inputs are passed to `EVP_AEAD_CTX_seal` and `EVP_AEAD_CTX_open` as defined by https://commondatastorage.googleapis.com/chromium-boringssl-docs/aead.h.html / https://www.rfc-editor.org/rfc/rfc8452.html#section-4\n\nThe reason the generic implementation exists is so that it can be re-used for other AEAD\u0027s. See the CL\u0027s further up in this chain on context for how its re-used",
+      "parentUuid": "84225653_fe70b6a8",
       "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -82,6 +154,24 @@
       "writtenOn": "2023-08-08T21:50:14Z",
       "side": 1,
       "message": "Is there a reason `Aead` conditions the trait on `TAG_SIZE` while `EvpAeadType` uses a type? (I don\u0027t understand Rust generics very well.)",
+      "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2954d04e_6655f761",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-09T14:29:38Z",
+      "side": 1,
+      "message": "Yeah originally I had this as a `KEY_SIZE` as well, but there is an unstable rust feature that does not allow using the associated cont in a generic array, so being able to take an input of [u8; KEY_SIZE] would require an unstable feature. However if the key itself is a type (instead of just a size), then it can be used as the input parameter in `AeadImpl::New(A::Key)`",
+      "parentUuid": "822f9111_e54894fd",
       "revId": "6f8442ce2dbf83d3bd636ffb1feeafd8782a7092",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
