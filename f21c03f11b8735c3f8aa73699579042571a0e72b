@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6139c90_7553a6ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T19:09:57Z",
+      "side": 1,
+      "message": "nd s",
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7acb4019_8ea3dc80",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T19:09:57Z",
+      "side": 1,
+      "message": "What\u0027s this line for? It seems to be copying a pile of uninitialized memory from one buffer to another. Copy-pasta?",
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a9864f_017ddb60",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T19:09:57Z",
+      "side": 1,
+      "message": "Hmm, are you sure? This is the first commit, and it seems to be EIO.\nhttps://sourceware.org/git/?p\u003dglibc.git;a\u003dblob;f\u003dsysdeps/unix/sysv/linux/getentropy.c;h\u003d1778632ff1f1fd77019401c3fbaa164c167248b0;hb\u003d92dcaa3e2f7bf0f7f1c04cd2fb6a317df1a4e225",
+      "range": {
+        "startLine": 60,
+        "startChar": 37,
+        "endLine": 60,
+        "endChar": 79
+      },
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b945f8f0_1ca2b13d",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T19:09:57Z",
+      "side": 1,
+      "message": "Nit: I think Apple prefers to write it macOS.",
+      "range": {
+        "startLine": 61,
+        "startChar": 34,
+        "endLine": 61,
+        "endChar": 39
+      },
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e542fd98_a3187b83",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T19:09:57Z",
+      "side": 1,
+      "message": "s/returns returns/returns/, though it\u0027s weird since we also talk about returning -1. Maybe also best not to say \"lies about it in its man page\". 😜\n\nPerhaps just saying:\n\n\u003e getentropy should fail returning -1 and setting errno to EIO if you request more than 256 bytes of entropy. macOS\u0027s man page says EIO, but it actually uses EINVAL, so we accept either.\n\nAnd\n\n\u003e getentropy should fail with EINVAL when passed an invalid address. macOS uses EFAULT, so we accept any error.",
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "266393fd_6deaecef",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T19:09:57Z",
+      "side": 1,
+      "message": "Actually, checking for this is a little bit odd. When `getentropy` is a syscall, or a thin wrapper over a syscall, we can reliably get EINVAL/EFAULT/whatever. But when it is some in-memory computation, we can\u0027t.\n\nImagine an embedded platform that decides to implement `getentropy` with RDRAND. They\u0027ll probably just RDRAND, write it to `buf`, and loop, which is a pretty reasonable implementation. But that implementation will actually fault, not returnn a error, when passed a garbage address like `(void*)1234`.\n\nThey could for check for NULL to pass this test, but that\u0027s kinda pointless and still won\u0027t catch `(void*)1234`.\n\nPut another way: it was probably a mistake for `read`, etc., to cleanly `EINVAL`/`EFAULT` because it distinguishes a kernelspace implementation from a userspace one. Probably they should have just sent your process a signal as if you wrote to it.",
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
