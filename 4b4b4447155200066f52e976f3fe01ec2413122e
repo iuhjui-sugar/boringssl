@@ -177,6 +177,24 @@
       "parentUuid": "699cba46_e3402cc7",
       "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f53313c_c90366b2",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-08-10T01:36:13Z",
+      "side": 1,
+      "message": "I\u0027m certain the emulator would not run on the production environment.",
+      "parentUuid": "afedae55_170767c3",
+      "revId": "4b4b4447155200066f52e976f3fe01ec2413122e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
