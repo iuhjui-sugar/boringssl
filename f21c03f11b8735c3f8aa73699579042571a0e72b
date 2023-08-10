@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bef48521_9ab157c1",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T20:13:01Z",
+      "side": 1,
+      "message": "Don\u0027t lines 54-57 do that too?\n\nProbably worth a comment explaining that. And maybe, if it\u0027s not already redundant with 54-57, explicitly initializing it with some non-zero value.\n\nThe reason I\u0027m a little concerned is I can never remember C\u0027s rules on uninitialized memory, but I\u0027m fairly sure they\u0027re more complex than just \"it\u0027s some arbitrary value\", so I\u0027d rather we not tempt the compiler into miscompiling or warning us. :-)",
+      "parentUuid": "d4b4f087_141cd039",
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22a9864f_017ddb60",
         "filename": "crypto/rand_extra/getentropy_test.cc",
         "patchSetId": 5
@@ -213,6 +231,24 @@
       "side": 1,
       "message": "Yeah, the current spec (including the posix draft) seems to expect that there\u0027s some sort of system call underneath and the kernel will check. \n\nI\u0027m happy dropping this one if we expect we might have someone entirely faking it with rdrand type instructions.",
       "parentUuid": "266393fd_6deaecef",
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2bf7a69_6382077d",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-10T20:13:01Z",
+      "side": 1,
+      "message": "Yeah, I guess POSIX gets to assume something like a userspace/kernelspace split, or at least *something* that can check for invalid addresses. I assume if `getentropy` is ever lifted to C itself, they\u0027d switch it to \"doing this is UB\".",
+      "parentUuid": "82c815e1_3910168b",
       "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
