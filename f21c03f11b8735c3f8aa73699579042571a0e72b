@@ -71,6 +71,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "847cf6c3_b702da76",
+        "filename": "crypto/rand_extra/getentropy_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-10T21:17:39Z",
+      "side": 1,
+      "message": "C\u0027s rules are simple -\u003e the value is not defined.  but yes some compilers could warn. anyway, changed since it\u0027s effectively redundant.",
+      "parentUuid": "bef48521_9ab157c1",
+      "revId": "f21c03f11b8735c3f8aa73699579042571a0e72b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22a9864f_017ddb60",
