@@ -521,3 +521,65 @@ TEST(DHTest, InvalidParameters) {
   EXPECT_FALSE(
       DH_generate_parameters_ex(dh.get(), 20000, DH_GENERATOR_5, nullptr));
 }
+
+TEST(DHTest, PrivateKeyLength) {
+  bssl::UniquePtr<BIGNUM> p(BN_get_rfc3526_prime_2048(nullptr));
+  ASSERT_TRUE(p);
+  bssl::UniquePtr<BIGNUM> g(BN_new());
+  bssl::UniquePtr<BIGNUM> q(BN_new());
+  ASSERT_TRUE(q);
+  ASSERT_TRUE(BN_rshift1(q.get(), p.get()));  // (p-1)/2
+  ASSERT_TRUE(g);
+  ASSERT_TRUE(BN_set_word(g.get(), 2));
+
+  EXPECT_EQ(BN_num_bits(p.get()), 2048u);
+  EXPECT_EQ(BN_num_bits(q.get()), 2047u);
+
+  // Some of aspects of this is probabilistic, so we repeat the test many times
+  // to ensure it is correct.
+  constexpr unsigned kIterations = 100;
+
+  // If the private key was chosen from the range [1, M), num_bits(priv_key)
+  // should be very close to num_bits(M), but may be a few bits short. Allow 128
+  // leading zeros, which should fail with negligible probability.
+  constexpr unsigned kMaxLeadingZeros = 128;
+
+  for (unsigned i = 0; i < kIterations; i++) {
+    // If unspecified, the private key is bounded by q = (p-1)/2.
+    bssl::UniquePtr<DH> dh = NewDHGroup(p.get(), /*q=*/nullptr, g.get());
+    ASSERT_TRUE(dh);
+    ASSERT_TRUE(DH_generate_key(dh.get()));
+    EXPECT_LT(BN_cmp(DH_get0_priv_key(dh.get()), q.get()), 0);
+    EXPECT_LE(BN_num_bits(q.get()) - kMaxLeadingZeros,
+              BN_num_bits(DH_get0_priv_key(dh.get())));
+
+    // Setting too large of a private key length should not be a DoS vector. The
+    // key is clamped to q = (p-1)/2.
+    dh = NewDHGroup(p.get(), /*q=*/nullptr, g.get());
+    ASSERT_TRUE(dh);
+    DH_set_length(dh.get(), 10000000);
+    ASSERT_TRUE(DH_generate_key(dh.get()));
+    EXPECT_LT(BN_cmp(DH_get0_priv_key(dh.get()), q.get()), 0);
+    EXPECT_LE(BN_num_bits(q.get()) - kMaxLeadingZeros,
+              BN_num_bits(DH_get0_priv_key(dh.get())));
+
+    // A small private key size should bound the private key.
+    dh = NewDHGroup(p.get(), /*q=*/nullptr, g.get());
+    ASSERT_TRUE(dh);
+    unsigned bits = 1024;
+    DH_set_length(dh.get(), bits);
+    ASSERT_TRUE(DH_generate_key(dh.get()));
+    EXPECT_LE(BN_num_bits(DH_get0_priv_key(dh.get())), bits);
+    EXPECT_LE(bits - kMaxLeadingZeros, BN_num_bits(DH_get0_priv_key(dh.get())));
+
+    // If the private key length is num_bits(q) - 1, the length should be the
+    // limiting factor.
+    dh = NewDHGroup(p.get(), /*q=*/nullptr, g.get());
+    ASSERT_TRUE(dh);
+    bits = BN_num_bits(q.get()) - 1;
+    DH_set_length(dh.get(), bits);
+    ASSERT_TRUE(DH_generate_key(dh.get()));
+    EXPECT_LE(BN_num_bits(DH_get0_priv_key(dh.get())), bits);
+    EXPECT_LE(bits - kMaxLeadingZeros, BN_num_bits(DH_get0_priv_key(dh.get())));
+  }
+}
