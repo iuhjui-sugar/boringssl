@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3589593_5818fc82",
+        "filename": "pki/cert_net_fetcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-14T17:31:54Z",
+      "side": 1,
+      "message": "We can probably remove this file from the set of imported things. Seems to be only used in Chromium. One less place where we have to worry about `webutil/url/url.h`.",
+      "revId": "11ea5d687aaac433a6184a18548c4e4339491b90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76647b6e_c640e834",
+        "filename": "pki/ocsp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-14T17:31:54Z",
+      "side": 1,
+      "message": "Looks like this is the only use of URL... perhaps we can just make this return `std::string` or `std::optional\u003cstd::string\u003e` and leave wrapping it in a URL type to the caller?",
+      "range": {
+        "startLine": 318,
+        "startChar": 15,
+        "endLine": 318,
+        "endChar": 18
+      },
+      "revId": "11ea5d687aaac433a6184a18548c4e4339491b90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
