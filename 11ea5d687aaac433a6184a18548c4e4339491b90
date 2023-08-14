@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4188183_a676a367",
+        "filename": "pki/cert_net_fetcher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-14T18:06:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3589593_5818fc82",
+      "revId": "11ea5d687aaac433a6184a18548c4e4339491b90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76647b6e_c640e834",
