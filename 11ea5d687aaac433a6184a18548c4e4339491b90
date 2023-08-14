@@ -81,6 +81,30 @@
       },
       "revId": "11ea5d687aaac433a6184a18548c4e4339491b90",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "038ef535_3d84dfc7",
+        "filename": "pki/ocsp.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-14T18:09:39Z",
+      "side": 1,
+      "message": "Agreed. Yeah, sorry, I meant both of those as \"oh yes we should do this...\" comments.",
+      "parentUuid": "d3d50ab9_c30fff50",
+      "range": {
+        "startLine": 318,
+        "startChar": 15,
+        "endLine": 318,
+        "endChar": 18
+      },
+      "revId": "11ea5d687aaac433a6184a18548c4e4339491b90",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
