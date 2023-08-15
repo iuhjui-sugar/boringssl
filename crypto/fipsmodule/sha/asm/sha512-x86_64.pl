@@ -111,9 +111,7 @@
 #
 # Modified from upstream OpenSSL to remove the XOP code.
 
-$flavour = shift;
-$output  = shift;
-if ($flavour =~ /\./) { $output = $flavour; undef $flavour; }
+my ($flavour, $hash, $output) = @ARGV;
 
 $win64=0; $win64=1 if ($flavour =~ /[nm]asm|mingw64/ || $output =~ /\.asm$/);
 
@@ -136,7 +134,7 @@ $shaext = 1;
 open OUT,"| \"$^X\" \"$xlate\" $flavour \"$output\"";
 *STDOUT=*OUT;
 
-if ($output =~ /512/) {
+if ($hash eq "sha512") {
 	$func="sha512_block_data_order";
 	$TABLE="K512";
 	$SZ=8;
@@ -148,7 +146,7 @@ if ($output =~ /512/) {
 	@sigma0=(1,  8, 7);
 	@sigma1=(19,61, 6);
 	$rounds=80;
-} else {
+} elsif ($hash eq "sha256") {
 	$func="sha256_block_data_order";
 	$TABLE="K256";
 	$SZ=4;
@@ -160,6 +158,8 @@ if ($output =~ /512/) {
 	@sigma0=( 7,18, 3);
 	@sigma1=(17,19,10);
 	$rounds=64;
+} else {
+	die "unknown hash: $hash";
 }
 
 $ctx="%rdi";	# 1st arg, zapped by $a3

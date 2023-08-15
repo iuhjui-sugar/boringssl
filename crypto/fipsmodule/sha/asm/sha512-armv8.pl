@@ -39,8 +39,7 @@
 #	generated with -mgeneral-regs-only is significantly faster
 #	and the gap is only 40-90%.
 
-$output=pop;
-$flavour=pop;
+my ($flavour, $hash, $output) = @ARGV;
 
 if ($flavour && $flavour ne "void") {
     $0 =~ m/(.*[\/\\])[^\/\\]+$/; $dir=$1;
@@ -55,7 +54,7 @@ if ($flavour && $flavour ne "void") {
     *STDOUT=*OUT;
 }
 
-if ($output =~ /512/) {
+if ($hash eq "sha512") {
 	$BITS=512;
 	$SZ=8;
 	@Sigma0=(28,34,39);
@@ -64,7 +63,7 @@ if ($output =~ /512/) {
 	@sigma1=(19,61, 6);
 	$rounds=80;
 	$reg_t="x";
-} else {
+} elsif ($hash eq "sha256") {
 	$BITS=256;
 	$SZ=4;
 	@Sigma0=( 2,13,22);
@@ -73,6 +72,8 @@ if ($output =~ /512/) {
 	@sigma1=(17,19,10);
 	$rounds=64;
 	$reg_t="w";
+} else {
+	die "unknown hash: $hash";
 }
 
 $func="sha${BITS}_block_data_order";
