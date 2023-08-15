@@ -111,9 +111,7 @@
 #
 # Modified from upstream OpenSSL to remove the XOP code.
 
-$flavour = shift;
-$output  = shift;
-if ($flavour =~ /\./) { $output = $flavour; undef $flavour; }
+my ($flavour, $hash, $output) = @ARGV;
 
 $win64=0; $win64=1 if ($flavour =~ /[nm]asm|mingw64/ || $output =~ /\.asm$/);
 
@@ -136,7 +134,7 @@ $shaext = 1;
 open OUT,"| \"$^X\" \"$xlate\" $flavour \"$output\"";
 *STDOUT=*OUT;
 
-if ($output =~ /512/) {
+if ($hash =~ /512/) {
 	$func="sha512_block_data_order";
 	$TABLE="K512";
 	$SZ=8;

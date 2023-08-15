@@ -39,8 +39,7 @@
 #	generated with -mgeneral-regs-only is significantly faster
 #	and the gap is only 40-90%.
 
-$output=pop;
-$flavour=pop;
+my ($flavour, $hash, $output) = @ARGV;
 
 if ($flavour && $flavour ne "void") {
     $0 =~ m/(.*[\/\\])[^\/\\]+$/; $dir=$1;
@@ -55,7 +54,7 @@ if ($flavour && $flavour ne "void") {
     *STDOUT=*OUT;
 }
 
-if ($output =~ /512/) {
+if ($hash =~ /512/) {
 	$BITS=512;
 	$SZ=8;
 	@Sigma0=(28,34,39);
