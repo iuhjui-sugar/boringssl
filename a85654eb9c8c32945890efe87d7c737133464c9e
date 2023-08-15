@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63931d51_b0043829",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-15T01:21:18Z",
+      "side": 1,
+      "message": "the previous one ignored extra stuff, maybe put an , @rest on the end of that list to pick up any extra arguments which can then be either ignored or error out.",
+      "revId": "a85654eb9c8c32945890efe87d7c737133464c9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51a6373c_a293e720",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-15T01:21:18Z",
+      "side": 1,
+      "message": "Since we\u0027re handing it \"sha256\" or \"sha512\" why don\u0027t we just check for exact equality to that string with eq / neq rather than accepting porkchopexpress512 here.",
+      "revId": "a85654eb9c8c32945890efe87d7c737133464c9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
