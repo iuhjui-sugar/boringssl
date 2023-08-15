@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d501619d_ac8e9acd",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-15T16:12:04Z",
+      "side": 1,
+      "message": "This pattern also ignores extra stuff because Perl is the worst.\n\n```\n$ perl -e \u0027my ($a, $b) \u003d @ARGV; print(\"$a $b\\n\");\u0027 a b c\na b\n$ perl -e \u0027use strict; my ($a, $b) \u003d @ARGV; print(\"$a $b\\n\");\u0027 a b c\na b\n```",
+      "parentUuid": "63931d51_b0043829",
+      "revId": "a85654eb9c8c32945890efe87d7c737133464c9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51a6373c_a293e720",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-15T01:21:18Z",
       "side": 1,
       "message": "Since we\u0027re handing it \"sha256\" or \"sha512\" why don\u0027t we just check for exact equality to that string with eq / neq rather than accepting porkchopexpress512 here.",
+      "revId": "a85654eb9c8c32945890efe87d7c737133464c9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74731abc_4c2e1b19",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-15T16:12:04Z",
+      "side": 1,
+      "message": "Good call. Done.",
+      "parentUuid": "51a6373c_a293e720",
       "revId": "a85654eb9c8c32945890efe87d7c737133464c9e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
