@@ -69,6 +69,24 @@
       "parentUuid": "51a6373c_a293e720",
       "revId": "a85654eb9c8c32945890efe87d7c737133464c9e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f6590b_a3952631",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-15T16:14:29Z",
+      "side": 1,
+      "message": "Also reordered things a bit so error-checking on `$hash` happens before we open the pipe and make the output confusing.",
+      "parentUuid": "74731abc_4c2e1b19",
+      "revId": "a85654eb9c8c32945890efe87d7c737133464c9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
