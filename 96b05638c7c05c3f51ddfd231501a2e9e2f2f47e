@@ -16,6 +16,24 @@
       "message": "If you say `Bug: b:296302767`, just above the `Change-Id` line, that might work.",
       "revId": "96b05638c7c05c3f51ddfd231501a2e9e2f2f47e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b2ccd7f_2f96b41d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-16T23:46:14Z",
+      "side": 1,
+      "message": "I think we need to wrangle someone to get that to work, but it the right syntax, in theory. Done. :-)",
+      "parentUuid": "b712e97d_2777ece1",
+      "revId": "96b05638c7c05c3f51ddfd231501a2e9e2f2f47e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
