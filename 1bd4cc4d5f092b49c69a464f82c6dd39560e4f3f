@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "937c72c0_bcfb2e9d",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-16T19:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57b18d99_b7bbd7ee",
+      "revId": "1bd4cc4d5f092b49c69a464f82c6dd39560e4f3f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f8e1c3a_8ee63418",
@@ -48,6 +66,42 @@
       "writtenOn": "2023-08-16T18:04:08Z",
       "side": 1,
       "message": "Nit: curly braces",
+      "revId": "1bd4cc4d5f092b49c69a464f82c6dd39560e4f3f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c480c77_afeeaaf6",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-16T19:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f8e1c3a_8ee63418",
+      "revId": "1bd4cc4d5f092b49c69a464f82c6dd39560e4f3f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e8cacb6_d6029792",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-16T19:02:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31011951_e5a80f04",
       "revId": "1bd4cc4d5f092b49c69a464f82c6dd39560e4f3f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
