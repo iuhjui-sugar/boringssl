@@ -13,6 +13,13 @@
 #error "_BORINGSSL_LIBPKI_ is not defined when compiling BoringSSL libpki"
 #endif
 
+// This is a temporary hack to get over moving out of chrome as primary
+// source of building. Currently this file is picked up by other headers
+// to ease the transition, and collides when absl includes also happen in
+// google3.
+// TODO(bbe) include this file directly in all consumers, and remove this
+// hack once chrome is using this from boringssl.
+#if !defined(DCHECK)
 #include <cassert>
 
 // This is not used in this include file, but is here temporarily to avoid
@@ -49,5 +56,6 @@
 #define CHECK_LT(val1, val2) CHECK((val1) < (val2))
 #define CHECK_GE(val1, val2) CHECK((val1) >= (val2))
 #define CHECK_GT(val1, val2) CHECK((val1) > (val2))
+#endif
 
 #endif  // PKI_CHECK_H_
