@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b712e97d_2777ece1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-08-16T23:42:58Z",
+      "side": 1,
+      "message": "If you say `Bug: b:296302767`, just above the `Change-Id` line, that might work.",
+      "revId": "96b05638c7c05c3f51ddfd231501a2e9e2f2f47e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
