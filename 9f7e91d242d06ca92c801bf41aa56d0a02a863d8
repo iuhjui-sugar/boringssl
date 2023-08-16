@@ -52,6 +52,24 @@
       "parentUuid": "127f8689_8a8dd000",
       "revId": "9f7e91d242d06ca92c801bf41aa56d0a02a863d8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ce2f1b4_4413839b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-16T23:32:36Z",
+      "side": 1,
+      "message": "Okay its now updated based on the changes in the last CL",
+      "parentUuid": "03324ff6_8f3c8d2a",
+      "revId": "9f7e91d242d06ca92c801bf41aa56d0a02a863d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
