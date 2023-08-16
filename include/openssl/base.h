@@ -383,6 +383,12 @@ typedef struct x509_trust_st X509_TRUST;
 
 typedef void *OPENSSL_BLOCK;
 
+// BSSL_CHECK aborts if a condition is not true.
+#define BSSL_CHECK(A) \
+  do {                \
+    if (!(A))         \
+      abort();        \
+  } while (0);
 
 #if defined(__cplusplus)
 }  // extern C
