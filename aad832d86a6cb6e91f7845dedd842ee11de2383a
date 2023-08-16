@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c01ebcae_1b303ad0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-16T23:41:23Z",
+      "side": 1,
+      "message": "I\u0027ll go change the oss-fuzz build script on github once we land it",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "aad832d86a6cb6e91f7845dedd842ee11de2383a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
