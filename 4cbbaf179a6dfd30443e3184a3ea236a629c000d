@@ -131,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e93e8a53_dcddacb9",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-17T21:52:13Z",
+      "side": 1,
+      "message": "option 3 is sort of attractive in that way, although the other option for that case is to make pthread_atfork() either undo RAND_enable_fork_unsafe_buffering, or simply abort if you do RAND_enable_fork_unsafe_buffering and then it detects a fork. \n\nSo I think keep it simple for now, and we can add something like the above later if we really want it to keep people honest.",
+      "parentUuid": "9d5f977e_6da4fa43",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07879e04_8c6e74f0",
         "filename": "crypto/fipsmodule/rand/fork_detect.c",
         "patchSetId": 9
