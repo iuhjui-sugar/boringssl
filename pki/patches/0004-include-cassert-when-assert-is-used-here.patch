@@ -1,0 +1,25 @@
+From 01ffbb975c591bb5a07dd4847749e4942190d4d6 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 17 Aug 2023 16:33:45 +0000
+Subject: [PATCH 4/4] include cassert when assert is used here
+
+---
+ net/cert/pki/trust_store.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/cert/pki/trust_store.cc b/net/cert/pki/trust_store.cc
+index 8d549922b1932..a08f1d02fb2aa 100644
+--- a/net/cert/pki/trust_store.cc
++++ b/net/cert/pki/trust_store.cc
+@@ -2,6 +2,8 @@
+ // Use of this source code is governed by a BSD-style license that can be
+ // found in the LICENSE file.
+ 
++#include <cassert>
++
+ #include "net/cert/pki/trust_store.h"
+ 
+ #include "net/cert/pki/string_util.h"
+-- 
+2.41.0.694.ge786442a9b-goog
+

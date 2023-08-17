@@ -18,8 +18,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
           {}, &errors);
 
   // Severe errors must be provided iff the parsing failed.
-  CHECK_EQ(errors.ContainsAnyErrorWithSeverity(bssl::CertError::SEVERITY_HIGH),
-           cert == nullptr);
+  BSSL_CHECK(errors.ContainsAnyErrorWithSeverity(bssl::CertError::SEVERITY_HIGH)
+             == (cert == nullptr));
 
   return 0;
 }

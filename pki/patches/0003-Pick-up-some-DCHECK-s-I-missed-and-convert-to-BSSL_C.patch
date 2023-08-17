@@ -1,0 +1,127 @@
+From c77d74309c4f3ae11b28618b263fcd008b4df0fb Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 17 Aug 2023 16:19:26 +0000
+Subject: [PATCH 3/4] Pick up some DCHECK's I missed and convert to BSSL_CHECK.
+
+Bug: 1322914
+---
+ net/cert/pki/certificate_policies.cc     |  7 +++----
+ net/cert/pki/verify_certificate_chain.cc | 11 ++++++-----
+ net/cert/pki/verify_name_match.cc        |  5 +++--
+ 3 files changed, 12 insertions(+), 11 deletions(-)
+
+diff --git a/net/cert/pki/certificate_policies.cc b/net/cert/pki/certificate_policies.cc
+index 57ce66280000d..e85143ed28ea4 100644
+--- a/net/cert/pki/certificate_policies.cc
++++ b/net/cert/pki/certificate_policies.cc
+@@ -4,8 +4,6 @@
+ 
+ #include <algorithm>
+ 
+-#include "third_party/boringssl/src/include/openssl/base.h"
+-
+ #include "net/cert/pki/certificate_policies.h"
+ 
+ #include "net/cert/pki/cert_error_params.h"
+@@ -14,6 +12,7 @@
+ #include "net/der/parse_values.h"
+ #include "net/der/parser.h"
+ #include "net/der/tag.h"
++#include "third_party/boringssl/src/include/openssl/base.h"
+ 
+ namespace net {
+ 
+@@ -134,8 +133,8 @@ bool ParseCertificatePoliciesExtensionImpl(
+     std::vector<der::Input>* policy_oids,
+     std::vector<PolicyInformation>* policy_informations,
+     CertErrors* errors) {
+-  DCHECK(policy_oids);
+-  DCHECK(errors);
++  BSSL_CHECK(policy_oids);
++  BSSL_CHECK(errors);
+   // certificatePolicies ::= SEQUENCE SIZE (1..MAX) OF PolicyInformation
+   der::Parser extension_parser(extension_value);
+   der::Parser policies_sequence_parser;
+diff --git a/net/cert/pki/verify_certificate_chain.cc b/net/cert/pki/verify_certificate_chain.cc
+index 432beea3dbb60..5425095242e6a 100644
+--- a/net/cert/pki/verify_certificate_chain.cc
++++ b/net/cert/pki/verify_certificate_chain.cc
+@@ -17,6 +17,7 @@
+ #include "net/cert/pki/trust_store.h"
+ #include "net/cert/pki/verify_signed_data.h"
+ #include "net/der/input.h"
++#include "third_party/boringssl/src/include/openssl/base.h"
+ 
+ namespace net {
+ 
+@@ -1016,7 +1017,7 @@ void PathVerifier::BasicCertificateProcessing(
+   // match. This isn't part of RFC 5280 section 6.1.3, but is mandated by
+   // sections 4.1.1.2 and 4.1.2.3.
+   if (!VerifySignatureAlgorithmsMatch(cert, errors)) {
+-    CHECK(errors->ContainsAnyErrorWithSeverity(CertError::SEVERITY_HIGH));
++    BSSL_CHECK(errors->ContainsAnyErrorWithSeverity(CertError::SEVERITY_HIGH));
+     *shortcircuit_chain_validation = true;
+   }
+ 
+@@ -1472,8 +1473,8 @@ void PathVerifier::Run(
+     CertPathErrors* errors) {
+   // This implementation is structured to mimic the description of certificate
+   // path verification given by RFC 5280 section 6.1.
+-  DCHECK(delegate);
+-  DCHECK(errors);
++  BSSL_CHECK(delegate);
++  BSSL_CHECK(errors);
+ 
+   delegate_ = delegate;
+ 
+@@ -1557,7 +1558,7 @@ void PathVerifier::Run(
+         // Chains that don't start from a trusted root should short-circuit the
+         // rest of the verification, as accumulating more errors from untrusted
+         // certificates would not be meaningful.
+-        CHECK(cert_errors->ContainsAnyErrorWithSeverity(
++        BSSL_CHECK(cert_errors->ContainsAnyErrorWithSeverity(
+             CertError::SEVERITY_HIGH));
+         return;
+       }
+@@ -1579,7 +1580,7 @@ void PathVerifier::Run(
+       // Signature errors should short-circuit the rest of the verification, as
+       // accumulating more errors from untrusted certificates would not be
+       // meaningful.
+-      CHECK(
++      BSSL_CHECK(
+           cert_errors->ContainsAnyErrorWithSeverity(CertError::SEVERITY_HIGH));
+       return;
+     }
+diff --git a/net/cert/pki/verify_name_match.cc b/net/cert/pki/verify_name_match.cc
+index b92c4eb5c960d..d9d82a8da3f2a 100644
+--- a/net/cert/pki/verify_name_match.cc
++++ b/net/cert/pki/verify_name_match.cc
+@@ -10,6 +10,7 @@
+ #include "net/der/input.h"
+ #include "net/der/parser.h"
+ #include "net/der/tag.h"
++#include "third_party/boringssl/src/include/openssl/base.h"
+ #include "third_party/boringssl/src/include/openssl/bytestring.h"
+ 
+ namespace net {
+@@ -114,7 +115,7 @@ enum CharsetEnforcement {
+ [[nodiscard]] bool NormalizeValue(X509NameAttribute attribute,
+                                   std::string* output,
+                                   CertErrors* errors) {
+-  DCHECK(errors);
++  BSSL_CHECK(errors);
+ 
+   if (!attribute.ValueAsStringUnsafe(output)) {
+     errors->AddError(kFailedConvertingAttributeValue,
+@@ -301,7 +302,7 @@ bool VerifyNameMatchInternal(const der::Input& a,
+ bool NormalizeName(const der::Input& name_rdn_sequence,
+                    std::string* normalized_rdn_sequence,
+                    CertErrors* errors) {
+-  DCHECK(errors);
++  BSSL_CHECK(errors);
+ 
+   // RFC 5280 section 4.1.2.4
+   // RDNSequence ::= SEQUENCE OF RelativeDistinguishedName
+-- 
+2.41.0.694.ge786442a9b-goog
+
