@@ -77,6 +77,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a8b0968_7063f59e",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-17T20:32:48Z",
+      "side": 1,
+      "message": "Yes, your understanding is correct at the top. My thought was for the moment (when showing this to you) was for us to pause and consider if we thought that kernels without MADV_WIPEONFORK but which are potentially old enough that clone and freinds are not in use is it \"safe enough\" to put them in the non-Linux posix category or not? \n\nI\u0027m not sure personally where I\u0027d land on that one, or if we just say \"the heck with it, MADV_WIPEONFORK are the ones we care about\" and be done with it. \n\nIn which case, yes I\u0027m with the \"past you was being silly\" and we can just switch this to one or the other. \n\nWDYT?",
+      "parentUuid": "43a1336a_fab71c6e",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07879e04_8c6e74f0",
         "filename": "crypto/fipsmodule/rand/fork_detect.c",
         "patchSetId": 9
