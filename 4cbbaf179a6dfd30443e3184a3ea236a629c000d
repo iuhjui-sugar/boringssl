@@ -113,6 +113,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d5f977e_6da4fa43",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T21:12:44Z",
+      "side": 1,
+      "message": "Oh right! I remember now what past me was on about. *If* someone calls `RAND_enable_fork_unsafe_buffering` (disables per-call entropy) on an old kernel, but is wrong and actually did fork, using `pthread_atfork` would provide a hardening measure to catch them getting it wrong. So that\u0027s a concrete benefit of option (3).\n\nBut I still think past me was silly and this is not worth spending that much time on. :-)",
+      "parentUuid": "04d55848_0ea0cefa",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07879e04_8c6e74f0",
         "filename": "crypto/fipsmodule/rand/fork_detect.c",
         "patchSetId": 9
