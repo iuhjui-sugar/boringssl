@@ -1,3 +1,4 @@
+#include <openssl/asm_base.h>
 .text
 .file 1 "inserted_by_delocate.c"
 .loc 1 1 0
@@ -145,6 +146,7 @@ BORINGSSL_bcm_text_end:
 .type bcm_redirector_remote_function, @function
 bcm_redirector_remote_function:
 .cfi_startproc
+	AARCH64_VALID_CALL_TARGET
 	b remote_function
 .cfi_endproc
 .size bcm_redirector_remote_function, .-bcm_redirector_remote_function
@@ -153,6 +155,7 @@ bcm_redirector_remote_function:
 .type bcm_redirector_y0, @function
 bcm_redirector_y0:
 .cfi_startproc
+	AARCH64_VALID_CALL_TARGET
 	b y0
 .cfi_endproc
 .size bcm_redirector_y0, .-bcm_redirector_y0
@@ -161,6 +164,7 @@ bcm_redirector_y0:
 .type bcm_redirector_y12, @function
 bcm_redirector_y12:
 .cfi_startproc
+	AARCH64_VALID_CALL_TARGET
 	b y12
 .cfi_endproc
 .size bcm_redirector_y12, .-bcm_redirector_y12
@@ -169,6 +173,7 @@ bcm_redirector_y12:
 .type bss_symbol_bss_get, @function
 bss_symbol_bss_get:
 .cfi_startproc
+	AARCH64_VALID_CALL_TARGET
 	adrp x0, .Lbss_symbol_local_target
 	add x0, x0, :lo12:.Lbss_symbol_local_target
 	ret
@@ -179,6 +184,7 @@ bss_symbol_bss_get:
 .type .Lboringssl_loadgot_stderr, @function
 .Lboringssl_loadgot_stderr:
 .cfi_startproc
+	AARCH64_VALID_CALL_TARGET
 	adrp x0, :got:stderr
 	ldr x0, [x0, :got_lo12:stderr]
 	ret
@@ -189,6 +195,7 @@ bss_symbol_bss_get:
 .type .LOPENSSL_armcap_P_addr, @function
 .LOPENSSL_armcap_P_addr:
 .cfi_startproc
+	AARCH64_VALID_CALL_TARGET
 	adrp x0, OPENSSL_armcap_P
 	add x0, x0, :lo12:OPENSSL_armcap_P
 	ret
