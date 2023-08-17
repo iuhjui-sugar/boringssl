@@ -95,6 +95,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "04d55848_0ea0cefa",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T21:11:04Z",
+      "side": 1,
+      "message": "\u003e consider if we thought that kernels without MADV_WIPEONFORK but which are potentially old enough that clone and freinds are not in use is it \"safe enough\" to put them in the non-Linux posix category or not?\n\nSo I think our choices for those kernels is either:\n\n1. pthread_atfork is good enough, fully rely on it\n2. pthread_atfork is not good enough, completely ignore it and add per-call entropy (status quo)\n3. pthread_atfork is not good enough, use it anyway, but don\u0027t trust it and add per-call entropy\n\nSounds like we both agree past me was being silly, so (3) is out.\n\nBetween (1) and (2), I\u0027m inclined to keep the status quo. (1) makes those kernels faster, at the cost of some security risk that someone\u0027s calling clone. No one\u0027s asked us to improve perf on those kernels[*], and our willingness to take on inconvenience for them should only go down over time, as that population shrinks. So I think we should prefer the status quo.\n\nIf (1) would simplify code by letting us remove the \"we can\u0027t detect fork but think it might fork\" case, that might change things, but I think we need that case anyway, so maybe we just leave old kernels in that state and don\u0027t worry about it too much. :-)\n\nSo, I guess let\u0027s do the last option then? That sound reasonable to you?\n\n[*] Well, other than the Chromium //base folks, but they sound happy enough with RAND_bytes now?",
+      "parentUuid": "5a8b0968_7063f59e",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07879e04_8c6e74f0",
         "filename": "crypto/fipsmodule/rand/fork_detect.c",
         "patchSetId": 9
