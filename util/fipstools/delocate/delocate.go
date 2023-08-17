@@ -263,6 +263,47 @@ func (d *delocation) processDirective(statement, directive *node32) (*node32, er
 	return statement, nil
 }
 
+func (d *delocation) processSymbolExpr(expr *node32, b *strings.Builder) bool {
+	changed := false
+	assertNodeType(expr, ruleSymbolExpr)
+
+	for expr != nil {
+		atom := expr.up
+		assertNodeType(atom, ruleSymbolAtom)
+
+		for term := atom.up; term != nil; term = skipWS(term.next) {
+			if term.pegRule == ruleSymbolExpr {
+				changed = d.processSymbolExpr(term, b) || changed
+				continue
+			}
+
+			if term.pegRule != ruleLocalSymbol {
+				b.WriteString(d.contents(term))
+				continue
+			}
+
+			oldSymbol := d.contents(term)
+			newSymbol := d.mapLocalSymbol(oldSymbol)
+			if newSymbol != oldSymbol {
+				changed = true
+			}
+
+			b.WriteString(newSymbol)
+		}
+
+		next := skipWS(atom.next)
+		if next == nil {
+			break
+		}
+		assertNodeType(next, ruleSymbolOperator)
+		b.WriteString(d.contents(next))
+		next = skipWS(next.next)
+		assertNodeType(next, ruleSymbolExpr)
+		expr = next
+	}
+	return changed
+}
+
 func (d *delocation) processLabelContainingDirective(statement, directive *node32) (*node32, error) {
 	// The symbols within directives need to be mapped so that local
 	// symbols in two different .s inputs don't collide.
@@ -280,24 +321,12 @@ func (d *delocation) processLabelContainingDirective(statement, directive *node3
 	for node = skipWS(node.up); node != nil; node = skipWS(node.next) {
 		assertNodeType(node, ruleSymbolArg)
 		arg := node.up
-		var mapped string
+		assertNodeType(arg, ruleSymbolExpr)
 
-		for term := arg; term != nil; term = term.next {
-			if term.pegRule != ruleLocalSymbol {
-				mapped += d.contents(term)
-				continue
-			}
+		var b strings.Builder
+		changed = d.processSymbolExpr(arg, &b) || changed
 
-			oldSymbol := d.contents(term)
-			newSymbol := d.mapLocalSymbol(oldSymbol)
-			if newSymbol != oldSymbol {
-				changed = true
-			}
-
-			mapped += newSymbol
-		}
-
-		args = append(args, mapped)
+		args = append(args, b.String())
 	}
 
 	if !changed {
@@ -1260,6 +1289,7 @@ func writeAarch64Function(w stringWriter, funcName string, writeContents func(st
 	w.WriteString(".type " + funcName + ", @function\n")
 	w.WriteString(funcName + ":\n")
 	w.WriteString(".cfi_startproc\n")
+	w.WriteString("\tAARCH64_VALID_CALL_TARGET\n")
 	writeContents(w)
 	w.WriteString(".cfi_endproc\n")
 	w.WriteString(".size " + funcName + ", .-" + funcName + "\n")
@@ -1366,6 +1396,10 @@ func transform(w stringWriter, inputs []inputFile) error {
 	w.WriteString(".text\n")
 	w.WriteString(fmt.Sprintf(".loc %d 2 0\n", maxObservedFileNumber+1))
 	w.WriteString("BORINGSSL_bcm_text_end:\n")
+
+	if d.processor == aarch64 {
+		w.WriteString("#include <openssl/asm_base.h>\n")
+	}
 
 	// Emit redirector functions. Each is a single jump instruction.
 	var redirectorNames []string
