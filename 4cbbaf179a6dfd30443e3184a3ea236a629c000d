@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ac63754_20d00331",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T20:24:49Z",
+      "side": 1,
+      "message": "`OPENSSL_LINUX` won\u0027t be defined yet[*]. But by the time we include a header that defines `OPENSSL_LINUX`, it\u0027ll be too late to define `_GNU_SOURCE`. Does something break if we just define it unconditionally?\n\n[*] Mostly. Any file in `crypto/fipsmodule` is sometimes built on its own and sometimes built by being included in `bcm.c`. In the latter, it\u0027s too late to define it, which is why `bcm.c` needs to contain the superset of every file\u0027s feature flags at the top.",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14138aa3_935e9b31",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T20:24:49Z",
+      "side": 1,
+      "message": "Probably worth a comment here like \"Immediately after a fork, the process must be single-threaded.\"",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4af2fbba_5cf0d216",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T20:24:49Z",
+      "side": 1,
+      "message": "It occurs to me that, if we remove the magic zero value and make it something like\n\n```\nuint64_t CRYPTO_get_fork_generation(int *out_is_reliable);\n```\n\nThen we can also stop fudging zero everything. Dunno if that\u0027s a good idea or not. (See comment below.)",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43a1336a_fab71c6e",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T20:24:49Z",
+      "side": 1,
+      "message": "To make sure I understand correctly, this is doing:\n\n* non-Linux POSIX \u003d\u003e on pthread_atfork, reseed the DRBG and wipe RSA blinding cache; no per-call entropy\n\n* New Linux \u003d\u003e on MADV_WIPEONFORK or pthread_atfork, reseed the DRBG and wipe RSA blinding cache; no per-call entropy\n\n* Old Linux \u003d\u003e don\u0027t attempt to reseed the DRBG and wipe RSA blinding cache; mix in per-call entropy (slow)\n\nIs that right?\n\nI\u0027m not sure how much we\u0027re gaining out of checking both MADV_WIPEONFORK and pthread_atfork vs just MADV_WIPEONFORK. I mean, presumably the kernel signal would surely be strictly more reliable than the userspace one...\n\nI think previously I was thinking about mixing them for the sake of Old Linux, to make that into:\n\n* on pthread_atfork, reset the DRBG and wipe RSA blinding cache; still mix in per-call entropy because we don\u0027t trust it\n\nTo do that, we\u0027d need to change the calling convention, as in the out_is_reliable suggestion above. But now that I think about it, it\u0027s unclear what that buys us anyway. Reseeding the DRBG vs per-call entropy are slightly different, but it\u0027s kinda weird that we do those differently anyway. It does wipe the RSA blinding cache, but I dunno how much we care about that.\n\nSo perhaps past me was being silly and we should just have done:\n\n* non-Linux POSIX \u003d\u003e on pthread_atfork, reseed the DRBG and wipe RSA blinding cache; no per-call entropy\n\n* New Linux \u003d\u003e on MADV_WIPEONFORK, reseed the DRBG and wipe RSA blinding cache; no per-call entropy\n\n* Old Linux \u003d\u003e don\u0027t attempt to reseed the DRBG and wipe RSA blinding cache; mix in per-call entropy (slow)\n\nI.e. don\u0027t bother using two methods at once and keep it simple. That avoids having to worry about how to cleanly combine two methods together, worry about overflowing to hit the zero value, etc.\n\n(Although we can also avoid caring about hitting the magic zero value with the out_is_reliable idea, so maybe that\u0027s useful anyway? I dunno.)\n\nThoughts?",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07879e04_8c6e74f0",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T20:24:49Z",
+      "side": 1,
+      "message": "If you\u0027re just summing them instead of putting them in upper/lower halves (I think just summing them works, magic zero value aside?), is there a reason not to just stick with uint64_t? Then we can pretty solidly assume wraparound won\u0027t happen, whereas counting to 2^32 is... honestly also very unlikely, but a little more iffy.",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a9b3d2e_78da54d2",
+        "filename": "crypto/fipsmodule/rand/fork_detect.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T20:24:49Z",
+      "side": 1,
+      "message": "addition",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
