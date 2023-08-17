@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27248879_8018363d",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-17T14:17:39Z",
+      "side": 1,
+      "message": "So a lot of this uses int as array and byte offsets, that\u0027s an anti-pattern in boringssl, please change them to use size_t.",
+      "revId": "d1c362812f5396f03bbffd051df733f2695dd53f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
