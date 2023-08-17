@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbf42fb_d0ee2a0a",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-17T16:43:27Z",
+      "side": 1,
+      "message": "This should just cleanly return with `AeadError`. (Needs a test.) Making this a caller requirement is unnecessarily unfriendly.\n\nBoringSSL would normally handle this within the library, but I guess needing to size `out` the way was done here means Rust is responsible for doing this. I.e. this was a bug in `decrypt` from the AES-GCM-SIV version.",
+      "revId": "f0e675b21fceef9007a49d59534fa18b9b6835fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
