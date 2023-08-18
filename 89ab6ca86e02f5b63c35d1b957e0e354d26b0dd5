@@ -52,6 +52,24 @@
       "parentUuid": "99444280_f50d630d",
       "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b2acef8_c2782e97",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-18T20:19:00Z",
+      "side": 1,
+      "message": "I was able to get it working by running `RUSTFLAGS\u003d\"-Z sanitizer\u003daddress\" cargo test -Zbuild-std  --target\u003dx86_64-unknown-linux-gnu` on linux, and it detected the leaks:\n\n```\nDirect leak of 592 byte(s) in 1 object(s) allocated from:\n    #0 0x560082147dbe in malloc /rustc/llvm/src/llvm-project/compiler-rt/lib/asan/asan_malloc_linux.cpp:69:3\n    #1 0x5600825106c3 in OPENSSL_malloc /usr/local/google/home/nwadih/git/boringssl/crypto/mem.c:254:15\n    #2 0x56008252f94c in EVP_AEAD_CTX_new /usr/local/google/home/nwadih/git/boringssl/crypto/fipsmodule/cipher/aead.c:42:23\n    #3 0x56008218dcc7 in bssl_crypto::aead::AeadImpl$LT$_$C$_$GT$::new::h69d30a4e6aeaa22e /usr/local/google/home/nwadih/git/boringssl/rust/bssl-crypto/src/aead.rs:109:13\n    #4 0x56008219553d in bssl_crypto::aead::new_aes_256_gcm_siv::h351dcce09068adb0 /usr/local/google/home/nwadih/git/boringssl/rust/bssl-crypto/src/aead.rs:53:15\n    #5 0x5600821b9806 in bssl_crypto::aead::test::aes_256_gcm_siv_tests::_$u7b$$u7b$closure$u7d$$u7d$::hd568eeeb49b073f4 /usr/local/google/home/nwadih/git/boringssl/rust/bssl-crypto/src/aead.rs:242:32\n```",
+      "parentUuid": "d3da4c25_1bc6af92",
+      "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
