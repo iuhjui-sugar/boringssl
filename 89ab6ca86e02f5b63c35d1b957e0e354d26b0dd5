@@ -34,6 +34,24 @@
       "parentUuid": "ba479564_354eebbb",
       "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3da4c25_1bc6af92",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-18T19:38:36Z",
+      "side": 1,
+      "message": "I tried the obvious option of just building against an ASan-build BoringSSL, but that breaks because most of the ASan runtime is missing. I tried using nightly with `RUSTFLAGS\u003d-Zsanitizer\u003dleak` but that fails even earlier because\n\n```\n  LeakSanitizer: CHECK failed: lsan_interceptors.cpp:82 \"((!lsan_init_is_running)) !\u003d (0)\" (0x0, 0x0) (tid\u003d33218)\n```",
+      "parentUuid": "99444280_f50d630d",
+      "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
