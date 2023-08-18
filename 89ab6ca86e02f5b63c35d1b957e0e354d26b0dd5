@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba479564_354eebbb",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-18T16:48:43Z",
+      "side": 1,
+      "message": "Hmm, actually, where is the call to `EVP_AEAD_CTX_free`?\n\nDoes LSan work with Rust? For our C code, we have a testing strategy to catch memory leaks. We should have something similar for parity.",
+      "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
