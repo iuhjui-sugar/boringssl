@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c02fc29d_d19a83ca",
+        "filename": "crypto/spx/util.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-18T18:06:04Z",
+      "side": 1,
+      "message": "So effectively, I can pass this a unit64_t with a length of \u003c 8, and I get truncated output.  That\u0027s not what the comment says above, and looking at the call sites there\u0027s a lot of length magic calculation and passing in of a potentially 32 bit value that make me pause and go \"hmm\". \n\nYou already have a unit32_to_bytes that just does a uint32.  Can this be a unit64_to_bytes, and if not, the comment should really be fixed to explain the use case.",
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d12067d2_e23888f5",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-18T18:06:04Z",
+      "side": 1,
+      "message": "now that i is a size_t effectively they can\u0027t. Can these be an explicitly sized type like uint32_t?",
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c02f13ca_47135738",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-18T18:06:04Z",
+      "side": 1,
+      "message": "to_bytes takes a unit64_t ? should this be a unit64_t? - also see my comment about to_bytes and lengths. You appear to have magical size computations here to ensure you are fiddling with 8 bytes or less at a time. and yet your source could be only four bytes.. \n\nThis might be slightly less spider sense triggering if it makes sense to replace 8 with sizeof(uint64_t) and make csum be a unit64_t.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64b30432_4c114a4e",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-18T18:06:04Z",
+      "side": 1,
+      "message": "to_bytes takes a unit64_t - should this just be that?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
