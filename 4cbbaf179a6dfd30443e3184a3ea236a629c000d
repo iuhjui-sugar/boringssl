@@ -149,6 +149,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c6668a2_4c4d4ce0",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-18T14:31:08Z",
+      "side": 1,
+      "message": "Ah, yeah. I don\u0027t think simply aborting would work because you might fork+exec to launch processes, but still reasonably disavow fork safety because you never RAND_bytes in between the two. But clearing the flag would be pretty straightforward.\n\n+1 to keeping it simple for now.",
+      "parentUuid": "e93e8a53_dcddacb9",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07879e04_8c6e74f0",
         "filename": "crypto/fipsmodule/rand/fork_detect.c",
         "patchSetId": 9
