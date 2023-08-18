@@ -70,6 +70,24 @@
       "parentUuid": "d3da4c25_1bc6af92",
       "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3736a18e_ef259bcd",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-18T20:28:58Z",
+      "side": 1,
+      "message": "okay added a `Drop` impl which will make sure the resouces are freed once the struct goes out of scope, and verified no leaks are detected now. We\u0027ll have to look into adding leak detection into CI once its set up",
+      "parentUuid": "2b2acef8_c2782e97",
+      "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
