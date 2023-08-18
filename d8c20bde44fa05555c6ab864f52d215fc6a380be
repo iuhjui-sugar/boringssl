@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72598571_46803f16",
+        "filename": "crypto/spx/address.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-18T11:56:51Z",
+      "side": 1,
+      "message": "Discussed offline, but to document the decision here: As every hash call requires at least one address manipulation, avoiding overhead here as much as possible is desirable. The address has been changed to a byte array, to avoid the hard to read casting here.",
+      "parentUuid": "411643da_e5030932",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "d8c20bde44fa05555c6ab864f52d215fc6a380be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51c0e680_ece68ae1",
