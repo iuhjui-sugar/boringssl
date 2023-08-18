@@ -16,6 +16,24 @@
       "message": "Hmm, actually, where is the call to `EVP_AEAD_CTX_free`?\n\nDoes LSan work with Rust? For our C code, we have a testing strategy to catch memory leaks. We should have something similar for parity.",
       "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99444280_f50d630d",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 9
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-18T16:58:29Z",
+      "side": 1,
+      "message": "hmmm good catch. I know the google3 rust toolchain team is working on support for LSan, Asan, etc, not sure if there are any external tools we can use in the meantime, will look into it",
+      "parentUuid": "ba479564_354eebbb",
+      "revId": "89ab6ca86e02f5b63c35d1b957e0e354d26b0dd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
