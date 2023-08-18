@@ -33,6 +33,24 @@
       "message": "Similar to AEADs, this is missing `EVP_CIPHER_CTX_free`.",
       "revId": "ce00ee23525cbaf031306dac28e36bcc844c2388",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42f024aa_51d02d76",
+        "filename": "rust/bssl-crypto/src/cipher/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-08-18T20:37:23Z",
+      "side": 1,
+      "message": "Good catch. Updated to include the `Drop` impl and verified that the LSan output came back clean",
+      "parentUuid": "d18df86d_7ce3a014",
+      "revId": "ce00ee23525cbaf031306dac28e36bcc844c2388",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
