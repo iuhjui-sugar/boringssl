@@ -22,6 +22,30 @@
       },
       "revId": "09096a98f303f3adcc893ede87a49472b7e6be14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25a905d6_38b2ffe4",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-18T15:58:48Z",
+      "side": 0,
+      "message": "Oh, it\u0027s just because it doesn\u0027t work for comparing `int`s in general because you might overflow or underflow. It\u0027s fine if you know the `int` is non-negative, because `0 - INT_MAX \u003e\u003d INT_MIN`, but I\u0027d taught myself to write out the long form as a result. :-)\n\nWhat happened was I originally wrote this not realizing that it\u0027s okay for non-negative values and then figured, eh, the dedup is still useful and I may as well keep it at the more straightforward version.",
+      "parentUuid": "67cad184_63f8b19a",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 30
+      },
+      "revId": "09096a98f303f3adcc893ede87a49472b7e6be14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
