@@ -34,6 +34,24 @@
       "parentUuid": "f2956b57_4c56c3a8",
       "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d19cd871_09296f70",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-21T18:06:06Z",
+      "side": 1,
+      "message": "The compiler-generated assembly is, yeah, the compiler\u0027s problem. Our assembly *should* be fine, though it sure would be nice to have a way to test it. But there\u0027s also delocate-generated assembly. For various horrible reasons, any time BCM references a function outside of BCM it goes through a redirector function.\n\nIf that reference is an indirect call, I think we\u0027d need a BTI marker in the redirector.\n\nUnfortunately, I don\u0027t think delocate can use the `AARCH64_VALID_CALL_TARGET` macros because the preprocessor has already run, but `hint` is just a nop, right? Perhaps the thing to do is update `writeAarch64Function` as:\n\n```\nfunc writeAarch64Function(w stringWriter, funcName string, writeContents func(stringWriter)) {\n\tw.WriteString(\".p2align 2\\n\")\n\tw.WriteString(\".hidden \" + funcName + \"\\n\")\n\tw.WriteString(\".type \" + funcName + \", @function\\n\")\n\tw.WriteString(funcName + \":\\n\")\n\tw.WriteString(\".cfi_startproc\\n\")\n\tw.WriteString(\"\\thint #34\\n\")  // bti c\n\twriteContents(w)\n\tw.WriteString(\".cfi_endproc\\n\")\n\tw.WriteString(\".size \" + funcName + \", .-\" + funcName + \"\\n\")\n}\n```\n\nOr if we want to save an instruction in the non-BTI configurations:\n\n```\nfunc writeAarch64Function(w stringWriter, funcName string, writeContents func(stringWriter)) {\n\tw.WriteString(\".p2align 2\\n\")\n\tw.WriteString(\".hidden \" + funcName + \"\\n\")\n\tw.WriteString(\".type \" + funcName + \", @function\\n\")\n\tw.WriteString(funcName + \":\\n\")\n\tw.WriteString(\".cfi_startproc\\n\")\n\tw.WriteString(\"#if defined(__ARM_FEATURE_BTI_DEFAULT) \u0026\u0026 __ARM_FEATURE_BTI_DEFAULT \u003d\u003d 1\\n\")\n\tw.WriteString(\"\\thint #34\\n\")  // bti c\n\tw.WriteString(\"#endif\\n\")\n\twriteContents(w)\n\tw.WriteString(\".cfi_endproc\\n\")\n\tw.WriteString(\".size \" + funcName + \", .-\" + funcName + \"\\n\")\n}\n```",
+      "parentUuid": "349caf29_8e03041f",
+      "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
