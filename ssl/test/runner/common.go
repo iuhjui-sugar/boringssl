@@ -10,9 +10,12 @@ import (
 	"crypto/ecdsa"
 	"crypto/rand"
 	"crypto/x509"
+	"crypto/x509/pkix"
+	"encoding/pem"
 	"fmt"
 	"io"
 	"math/big"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -2151,6 +2154,7 @@ func (c *Config) BuildNameToCertificate() {
 
 // A Certificate is a chain of one or more certificates, leaf first.
 type Certificate struct {
+	ID          testCert
 	Certificate [][]byte
 	PrivateKey  crypto.PrivateKey // supported types: *rsa.PrivateKey, *ecdsa.PrivateKey
 	// OCSPStaple contains an optional OCSP response which will be served
@@ -2165,6 +2169,11 @@ type Certificate struct {
 	// processing for TLS clients doing client authentication. If nil, the
 	// leaf certificate will be parsed as needed.
 	Leaf *x509.Certificate
+	// CertPath is the path to the temporary on disk copy of the certificate
+	// chain.
+	CertPath string
+	// KeyPath is the path to the temporary on disk copy of the key.
+	KeyPath string
 }
 
 // A TLS record.
@@ -2375,4 +2384,73 @@ func isAllZero(v []byte) bool {
 		}
 	}
 	return true
+}
+
+var baseCertTemplate = &x509.Certificate{
+	SerialNumber: big.NewInt(57005),
+	Subject: pkix.Name{
+		CommonName:   "test cert",
+		Country:      []string{"US"},
+		Province:     []string{"Some-State"},
+		Organization: []string{"Internet Widgits Pty Ltd"},
+	},
+	NotBefore:             time.Now().Add(-time.Hour),
+	NotAfter:              time.Now().Add(time.Hour),
+	DNSNames:              []string{"test"},
+	IsCA:                  true,
+	BasicConstraintsValid: true,
+}
+
+var tmpDir string
+
+func generateTestCert(id testCert, template *x509.Certificate, key crypto.Signer, ocspStaple, sctList []byte) Certificate {
+	if template == nil {
+		template = baseCertTemplate
+	}
+	der, err := x509.CreateCertificate(rand.Reader, template, template, key.Public(), key)
+	if err != nil {
+		panic(fmt.Sprintf("failed to create test certificate: %s", err))
+	}
+	cert, err := x509.ParseCertificate(der)
+	if err != nil {
+		panic(fmt.Sprintf("failed to parse test certificate: %s", err))
+	}
+
+	f, err := os.CreateTemp(tmpDir, "test-cert")
+	if err != nil {
+		panic(fmt.Sprintf("failed to create temp file: %s", err))
+	}
+	if _, err := f.Write(pem.EncodeToMemory(&pem.Block{Type: "CERTIFICATE", Bytes: der})); err != nil {
+		panic(fmt.Sprintf("failed to write test certificate: %s", err))
+	}
+	tmpCertPath := f.Name()
+	if err := f.Close(); err != nil {
+		panic(fmt.Sprintf("failed to close test certificate temp file: %s", err))
+	}
+	f, err = os.CreateTemp(tmpDir, "test-key")
+	if err != nil {
+		panic(fmt.Sprintf("failed to create temp file: %s", err))
+	}
+	keyDER, err := x509.MarshalPKCS8PrivateKey(key)
+	if err != nil {
+		panic(fmt.Sprintf("failed to marshal test key: %s", err))
+	}
+	if _, err := f.Write(pem.EncodeToMemory(&pem.Block{Type: "PRIVATE KEY", Bytes: keyDER})); err != nil {
+		panic(fmt.Sprintf("failed to write test key: %s", err))
+	}
+	tmpKeyPath := f.Name()
+	if err := f.Close(); err != nil {
+		panic(fmt.Sprintf("failed to close test key temp file: %s", err))
+	}
+
+	return Certificate{
+		ID:                             id,
+		Certificate:                    [][]byte{der},
+		PrivateKey:                     key,
+		OCSPStaple:                     ocspStaple,
+		SignedCertificateTimestampList: sctList,
+		Leaf:                           cert,
+		CertPath:                       tmpCertPath,
+		KeyPath:                        tmpKeyPath,
+	}
 }
