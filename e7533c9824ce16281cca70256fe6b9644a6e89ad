@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96860b67_ca5995b5",
+        "filename": "crypto/spx/util.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-21T12:00:35Z",
+      "side": 1,
+      "message": "I changed this now to uint64_to_bytes and added a comment clarifying the effect of out_len. Unfortunately we need this flexible encoding of an integer to its \"minimal\" byte size. We could simplify it to the specific size we need though (as we only support a single parameter set). This would make the code cleaner, but on the other hand the size calculations match the specification right now. WDYT?",
+      "parentUuid": "c02fc29d_d19a83ca",
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d12067d2_e23888f5",
         "filename": "crypto/spx/wots.c",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-18T18:06:04Z",
       "side": 1,
       "message": "now that i is a size_t effectively they can\u0027t. Can these be an explicitly sized type like uint32_t?",
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e55a04_a022fdd0",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-21T12:00:35Z",
+      "side": 1,
+      "message": "Yes, start/steps should just be uint32_t instead. Updated it accordingly.",
+      "parentUuid": "d12067d2_e23888f5",
       "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "192cd14e_e96ee4c2",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-21T12:00:35Z",
+      "side": 1,
+      "message": "Changed csum to be uint64_t. See other comment regarding the size/encoding.",
+      "parentUuid": "c02f13ca_47135738",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 14
+      },
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64b30432_4c114a4e",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-08-18T18:06:04Z",
       "side": 1,
       "message": "to_bytes takes a unit64_t - should this just be that?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 24
+      },
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e95453_6b6b9764",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-21T12:00:35Z",
+      "side": 1,
+      "message": "Changed csum to be uint64_t. See other comment regarding the size/encoding.",
+      "parentUuid": "64b30432_4c114a4e",
       "range": {
         "startLine": 96,
         "startChar": 0,
