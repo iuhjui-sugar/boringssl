@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9b432c6_96f82224",
+        "filename": "crypto/spx/address.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-21T16:14:58Z",
+      "side": 1,
+      "message": "Style nit:  I\u0027d rather see the comment block above the definition\nand then just a #define SPX_SOME_THING 42\n\nIncluding the comments inside the macro seems odd.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c02fc29d_d19a83ca",
         "filename": "crypto/spx/util.c",
         "patchSetId": 9
@@ -32,6 +55,24 @@
       "side": 1,
       "message": "I changed this now to uint64_to_bytes and added a comment clarifying the effect of out_len. Unfortunately we need this flexible encoding of an integer to its \"minimal\" byte size. We could simplify it to the specific size we need though (as we only support a single parameter set). This would make the code cleaner, but on the other hand the size calculations match the specification right now. WDYT?",
       "parentUuid": "c02fc29d_d19a83ca",
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "812cd131_82e10dad",
+        "filename": "crypto/spx/util.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-21T16:14:58Z",
+      "side": 1,
+      "message": "As a nit I might rename it to something to indicate it\u0027s really not the same as the uint32_to_bytes, but (shrug). I think you can keep it as is for now, and we\u0027ll decide what happens here withouter reviewers if they have strong opinions.",
+      "parentUuid": "96860b67_ca5995b5",
       "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa89aa0_065d454d",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-21T16:14:58Z",
+      "side": 1,
+      "message": "sizeof(csum) instead of magical 8",
+      "range": {
+        "startLine": 42,
+        "startChar": 60,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "d2b89bff8a4838e93a1f69a7d1f064b654512ebe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "728d5d3a_5ae34120",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-21T16:14:58Z",
+      "side": 1,
+      "message": "sizeof(csum) here in place of magic 8",
+      "range": {
+        "startLine": 100,
+        "startChar": 60,
+        "endLine": 100,
+        "endChar": 61
+      },
+      "revId": "d2b89bff8a4838e93a1f69a7d1f064b654512ebe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
