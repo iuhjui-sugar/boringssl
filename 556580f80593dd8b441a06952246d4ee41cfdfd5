@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d3c680_6276f83f",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-21T18:33:33Z",
+      "side": 1,
+      "message": "I mean, it can\u0027t just be a random garbage pointer, or a double-free. :-) Perhaps:\n\n```\n- `self.0` was allocated by `EVP_AEAD_CTX_new` and has not yet been freed.\n```",
+      "revId": "556580f80593dd8b441a06952246d4ee41cfdfd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
