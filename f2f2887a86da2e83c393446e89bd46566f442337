@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2956b57_4c56c3a8",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-21T17:32:18Z",
+      "side": 1,
+      "message": "Do we have automated test coverage for PAC/BTI configurations internally? I suspect these functions will need a BTI marker if we (or the compiler) ever indirects one of them through a function pointer.\n\nDoesn\u0027t have to be for this CL, but since it sounds like you\u0027re interested in PAC/BTI, I wanted to make sure we\u0027re thinking about this.\n\n(I don\u0027t know off-hand if we currently do. We may be getting lucky right now. But at least for asm, our story so far has been to conservatively tag every function as a BTI entrypoint because we can\u0027t stop the compiler from deciding to indirect a call.)",
+      "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
