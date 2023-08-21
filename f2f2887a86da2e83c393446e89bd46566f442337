@@ -52,6 +52,24 @@
       "parentUuid": "349caf29_8e03041f",
       "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "565c43c7_885ce37e",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-21T18:07:41Z",
+      "side": 1,
+      "message": "(Although I don\u0027t know off-hand if the preprocessor works on delocate output right now. It might generate a `.s` file instead of a `.S` file...)",
+      "parentUuid": "d19cd871_09296f70",
+      "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
