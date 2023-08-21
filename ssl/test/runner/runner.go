@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"crypto"
 	"crypto/ecdsa"
+	"crypto/ed25519"
 	"crypto/elliptic"
 	"crypto/rand"
 	"crypto/rsa"
@@ -114,8 +115,8 @@ type testCert int
 
 const (
 	testCertRSA testCert = iota
-	testCertRSA1024
 	testCertRSAChain
+	testCertRSA1024
 	testCertECDSAP224
 	testCertECDSAP256
 	testCertECDSAP384
@@ -124,96 +125,78 @@ const (
 )
 
 const (
-	rsaCertificateFile       = "cert.pem"
-	rsa1024CertificateFile   = "rsa_1024_cert.pem"
-	rsaChainCertificateFile  = "rsa_chain_cert.pem"
-	ecdsaP224CertificateFile = "ecdsa_p224_cert.pem"
-	ecdsaP256CertificateFile = "ecdsa_p256_cert.pem"
-	ecdsaP384CertificateFile = "ecdsa_p384_cert.pem"
-	ecdsaP521CertificateFile = "ecdsa_p521_cert.pem"
-	ed25519CertificateFile   = "ed25519_cert.pem"
-)
+	rsa2048KeyFile = "rsa_2048_key.pem"
+	rsa1024KeyFile = "rsa_1024_key.pem"
 
-const (
-	rsaKeyFile       = "key.pem"
-	rsa1024KeyFile   = "rsa_1024_key.pem"
-	rsaChainKeyFile  = "rsa_chain_key.pem"
 	ecdsaP224KeyFile = "ecdsa_p224_key.pem"
 	ecdsaP256KeyFile = "ecdsa_p256_key.pem"
 	ecdsaP384KeyFile = "ecdsa_p384_key.pem"
 	ecdsaP521KeyFile = "ecdsa_p521_key.pem"
-	ed25519KeyFile   = "ed25519_key.pem"
+
+	ed25519KeyFile = "ed25519_key.pem"
+
 	channelIDKeyFile = "channel_id_key.pem"
 )
 
 var (
-	rsaCertificate       Certificate
-	rsa1024Certificate   Certificate
-	rsaChainCertificate  Certificate
-	ecdsaP224Certificate Certificate
-	ecdsaP256Certificate Certificate
-	ecdsaP384Certificate Certificate
-	ecdsaP521Certificate Certificate
-	ed25519Certificate   Certificate
-	garbageCertificate   Certificate
+	rsa1024Key rsa.PrivateKey
+	rsa2048Key rsa.PrivateKey
+
+	ecdsaP224Key ecdsa.PrivateKey
+	ecdsaP256Key ecdsa.PrivateKey
+	ecdsaP384Key ecdsa.PrivateKey
+	ecdsaP521Key ecdsa.PrivateKey
+
+	ed25519Key ed25519.PrivateKey
+
+	channelIDKey ecdsa.PrivateKey
 )
 
-var testCerts = []struct {
-	id                testCert
-	certFile, keyFile string
-	cert              *Certificate
-}{
-	{
-		id:       testCertRSA,
-		certFile: rsaCertificateFile,
-		keyFile:  rsaKeyFile,
-		cert:     &rsaCertificate,
-	},
-	{
-		id:       testCertRSA1024,
-		certFile: rsa1024CertificateFile,
-		keyFile:  rsa1024KeyFile,
-		cert:     &rsa1024Certificate,
-	},
-	{
-		id:       testCertRSAChain,
-		certFile: rsaChainCertificateFile,
-		keyFile:  rsaChainKeyFile,
-		cert:     &rsaChainCertificate,
-	},
-	{
-		id:       testCertECDSAP224,
-		certFile: ecdsaP224CertificateFile,
-		keyFile:  ecdsaP224KeyFile,
-		cert:     &ecdsaP224Certificate,
-	},
-	{
-		id:       testCertECDSAP256,
-		certFile: ecdsaP256CertificateFile,
-		keyFile:  ecdsaP256KeyFile,
-		cert:     &ecdsaP256Certificate,
-	},
-	{
-		id:       testCertECDSAP384,
-		certFile: ecdsaP384CertificateFile,
-		keyFile:  ecdsaP384KeyFile,
-		cert:     &ecdsaP384Certificate,
-	},
-	{
-		id:       testCertECDSAP521,
-		certFile: ecdsaP521CertificateFile,
-		keyFile:  ecdsaP521KeyFile,
-		cert:     &ecdsaP521Certificate,
-	},
-	{
-		id:       testCertEd25519,
-		certFile: ed25519CertificateFile,
-		keyFile:  ed25519KeyFile,
-		cert:     &ed25519Certificate,
-	},
+func initKeys() {
+	// Since key generation is not particularly cheap (especially RSA), and the
+	// runner is intended to run on systems which may be resource constrained,
+	// we load keys from disk instead of dynamically generating them. We treat
+	// key files the same as dynamically generated certificates, writing them
+	// out to temporary files before passing them to the shim.
+
+	for _, k := range []struct {
+		path string
+		key  *rsa.PrivateKey
+	}{
+		{rsa1024KeyFile, &rsa1024Key},
+		{rsa2048KeyFile, &rsa2048Key},
+	} {
+		key, err := loadPEMKey(k.path)
+		if err != nil {
+			panic(fmt.Sprintf("failed to load RSA test key: %s", err))
+		}
+		*k.key = *(key.(*rsa.PrivateKey))
+	}
+
+	for _, k := range []struct {
+		path string
+		key  *ecdsa.PrivateKey
+	}{
+		{ecdsaP224KeyFile, &ecdsaP224Key},
+		{ecdsaP256KeyFile, &ecdsaP256Key},
+		{ecdsaP384KeyFile, &ecdsaP384Key},
+		{ecdsaP521KeyFile, &ecdsaP521Key},
+		{channelIDKeyFile, &channelIDKey},
+	} {
+		key, err := loadPEMKey(k.path)
+		if err != nil {
+			panic(fmt.Sprintf("failed to load ECDSA test key: %s", err))
+		}
+		*k.key = *(key.(*ecdsa.PrivateKey))
+	}
+
+	k, err := loadPEMKey(ed25519KeyFile)
+	if err != nil {
+		panic(fmt.Sprintf("failed to load Ed25519 test key: %s", err))
+	}
+	ed25519Key = k.(ed25519.PrivateKey)
 }
 
-var channelIDKey *ecdsa.PrivateKey
 var channelIDBytes []byte
 
 var testOCSPResponse = []byte{1, 2, 3, 4}
@@ -224,31 +207,36 @@ var testSCTList2 = []byte{0, 6, 0, 4, 1, 2, 3, 4}
 var testOCSPExtension = append([]byte{byte(extensionStatusRequest) >> 8, byte(extensionStatusRequest), 0, 8, statusTypeOCSP, 0, 0, 4}, testOCSPResponse...)
 var testSCTExtension = append([]byte{byte(extensionSignedCertificateTimestamp) >> 8, byte(extensionSignedCertificateTimestamp), 0, byte(len(testSCTList))}, testSCTList...)
 
-func initCertificates() {
-	for i := range testCerts {
-		cert, err := LoadX509KeyPair(path.Join(*resourceDir, testCerts[i].certFile), path.Join(*resourceDir, testCerts[i].keyFile))
-		if err != nil {
-			panic(err)
-		}
-		cert.OCSPStaple = testOCSPResponse
-		cert.SignedCertificateTimestampList = testSCTList
-		*testCerts[i].cert = cert
-	}
+var (
+	rsaCertificate       Certificate
+	rsaChainCertificate  Certificate
+	rsa1024Certificate   Certificate
+	ecdsaP224Certificate Certificate
+	ecdsaP256Certificate Certificate
+	ecdsaP384Certificate Certificate
+	ecdsaP521Certificate Certificate
+	ed25519Certificate   Certificate
+	garbageCertificate   Certificate
+)
 
-	channelIDPEMBlock, err := os.ReadFile(path.Join(*resourceDir, channelIDKeyFile))
-	if err != nil {
-		panic(err)
-	}
-	channelIDDERBlock, _ := pem.Decode(channelIDPEMBlock)
-	if channelIDDERBlock.Type != "EC PRIVATE KEY" {
-		panic("bad key type")
-	}
-	channelIDKey, err = x509.ParseECPrivateKey(channelIDDERBlock.Bytes)
-	if err != nil {
-		panic(err)
-	}
-	if channelIDKey.Curve != elliptic.P256() {
-		panic("bad curve")
+var testCerts []*Certificate
+
+func initCertificates() {
+	for _, def := range []struct {
+		id  testCert
+		key crypto.Signer
+		out *Certificate
+	}{
+		{testCertRSA1024, &rsa1024Key, &rsa1024Certificate},
+		{testCertRSA, &rsa2048Key, &rsaCertificate},
+		{testCertECDSAP224, &ecdsaP224Key, &ecdsaP224Certificate},
+		{testCertECDSAP256, &ecdsaP256Key, &ecdsaP256Certificate},
+		{testCertECDSAP384, &ecdsaP384Key, &ecdsaP384Certificate},
+		{testCertECDSAP521, &ecdsaP521Key, &ecdsaP521Certificate},
+		{testCertEd25519, ed25519Key, &ed25519Certificate},
+	} {
+		*def.out = generateTestCert(def.id, nil, nil, def.key, testOCSPResponse, testSCTList)
+		testCerts = append(testCerts, def.out)
 	}
 
 	channelIDBytes = make([]byte, 64)
@@ -257,6 +245,32 @@ func initCertificates() {
 
 	garbageCertificate.Certificate = [][]byte{[]byte("GARBAGE")}
 	garbageCertificate.PrivateKey = rsaCertificate.PrivateKey
+
+	// Generate a chain for additional testing, this is somewhat hacky, but gets
+	// us what we want without a lot of additional complexity.
+	rootTmpl := *baseCertTemplate
+	rootTmpl.Subject.CommonName = "test root"
+	chainRoot := generateTestCert(testCertRSAChain, &rootTmpl, nil, &rsa2048Key, testOCSPResponse, testSCTList)
+	chainLeaf := generateTestCert(testCertRSAChain, nil, chainRoot.Leaf, &rsa2048Key, testOCSPResponse, testSCTList)
+
+	chainRoot.Certificate = append(chainRoot.Certificate, chainLeaf.Certificate...)
+	chainRoot.Leaf = chainLeaf.Leaf
+
+	leafBytes, err := os.ReadFile(chainLeaf.CertPath)
+	if err != nil {
+		panic(fmt.Sprintf("failed to open cert file %s: %s", chainRoot.CertPath, err))
+	}
+
+	rootFile, err := os.OpenFile(chainRoot.CertPath, os.O_APPEND|os.O_RDWR, 0600)
+	if err != nil {
+		panic(fmt.Sprintf("failed to open cert file %s: %s", chainRoot.CertPath, err))
+	}
+	if _, err := rootFile.Write(leafBytes); err != nil {
+		panic(fmt.Sprintf("failed to write to %s: %s", chainRoot.CertPath, err))
+	}
+	rootFile.Close()
+
+	rsaChainCertificate = chainRoot
 }
 
 func flagInts(flagName string, vals []int) []string {
@@ -293,30 +307,28 @@ type delegatedCredentialConfig struct {
 	algo signatureAlgorithm
 }
 
-func loadRSAPrivateKey(filename string) (priv *rsa.PrivateKey, privPKCS8 []byte, err error) {
+func loadPEMKey(filename string) (crypto.PrivateKey, error) {
 	pemPath := path.Join(*resourceDir, filename)
 	pemBytes, err := os.ReadFile(pemPath)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	block, _ := pem.Decode(pemBytes)
 	if block == nil {
-		return nil, nil, fmt.Errorf("no PEM block found in %q", pemPath)
+		return nil, fmt.Errorf("no PEM block found in %q", pemPath)
 	}
-	privPKCS8 = block.Bytes
 
-	parsed, err := x509.ParsePKCS8PrivateKey(privPKCS8)
+	if block.Type != "PRIVATE KEY" {
+		return nil, fmt.Errorf("unexpected PEM type in %q (expected \"PRIVATE KEY\"): %s", pemPath, block.Type)
+	}
+
+	k, err := x509.ParsePKCS8PrivateKey(block.Bytes)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to parse PKCS#8 key from %q", pemPath)
+		return nil, fmt.Errorf("failed to parse PKCS#8 key from %q: %s", pemPath, err)
 	}
 
-	priv, ok := parsed.(*rsa.PrivateKey)
-	if !ok {
-		return nil, nil, fmt.Errorf("found %T in %q rather than an RSA private key", parsed, pemPath)
-	}
-
-	return priv, privPKCS8, nil
+	return k, nil
 }
 
 func createDelegatedCredential(config delegatedCredentialConfig, parentDER []byte, parentPriv crypto.PrivateKey) (dc, privPKCS8 []uint8, err error) {
@@ -329,13 +341,11 @@ func createDelegatedCredential(config delegatedCredentialConfig, parentDER []byt
 
 	switch dcAlgo {
 	case signatureRSAPKCS1WithMD5, signatureRSAPKCS1WithSHA1, signatureRSAPKCS1WithSHA256, signatureRSAPKCS1WithSHA384, signatureRSAPKCS1WithSHA512, signatureRSAPSSWithSHA256, signatureRSAPSSWithSHA384, signatureRSAPSSWithSHA512:
-		// RSA keys are expensive to generate so load from disk instead.
-		var priv *rsa.PrivateKey
-		if priv, privPKCS8, err = loadRSAPrivateKey(rsaKeyFile); err != nil {
+		pub = &rsa2048Key.PublicKey
+		privPKCS8, err = x509.MarshalPKCS8PrivateKey(rsa2048Key)
+		if err != nil {
 			return nil, nil, err
 		}
-
-		pub = &priv.PublicKey
 
 	case signatureECDSAWithSHA1, signatureECDSAWithP256AndSHA256, signatureECDSAWithP384AndSHA384, signatureECDSAWithP521AndSHA512:
 		var curve elliptic.Curve
@@ -414,8 +424,8 @@ func createDelegatedCredential(config delegatedCredentialConfig, parentDER []byt
 
 func getRunnerCertificate(t testCert) Certificate {
 	for _, cert := range testCerts {
-		if cert.id == t {
-			return *cert.cert
+		if cert.ID == t {
+			return *cert
 		}
 	}
 	panic("Unknown test certificate")
@@ -423,8 +433,8 @@ func getRunnerCertificate(t testCert) Certificate {
 
 func getShimCertificate(t testCert) string {
 	for _, cert := range testCerts {
-		if cert.id == t {
-			return cert.certFile
+		if cert.ID == t {
+			return cert.CertPath
 		}
 	}
 	panic("Unknown test certificate")
@@ -432,8 +442,8 @@ func getShimCertificate(t testCert) string {
 
 func getShimKey(t testCert) string {
 	for _, cert := range testCerts {
-		if cert.id == t {
-			return cert.keyFile
+		if cert.ID == t {
+			return cert.KeyPath
 		}
 	}
 	panic("Unknown test certificate")
@@ -583,10 +593,6 @@ type testCase struct {
 	messageLen int
 	// messageCount is the number of test messages that will be sent.
 	messageCount int
-	// certFile is the path to the certificate to use for the server.
-	certFile string
-	// keyFile is the path to the private key to use for the server.
-	keyFile string
 	// resumeSession controls whether a second connection should be tested
 	// which attempts to resume the first session.
 	resumeSession bool
@@ -708,6 +714,9 @@ type testCase struct {
 	// skipVersionNameCheck, if true, will skip the consistency check between
 	// test name and the versions.
 	skipVersionNameCheck bool
+	// shimCertificate, if populated, is the certificate/chain which should be sent
+	// by the server/client (this populates the -cert-file and -key-file flags).
+	shimCertificate *Certificate
 }
 
 var testCases []testCase
@@ -764,17 +773,14 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 			config.ServerSessionCache = NewLRUServerSessionCache(1)
 		}
 	}
-	if test.testType == clientTest {
-		if len(config.Certificates) == 0 {
-			config.Certificates = []Certificate{rsaCertificate}
-		}
-	} else {
+	if test.testType != clientTest {
 		// Supply a ServerName to ensure a constant session cache key,
 		// rather than falling back to net.Conn.RemoteAddr.
 		if len(config.ServerName) == 0 {
 			config.ServerName = "test"
 		}
 	}
+
 	if *fuzzer {
 		config.Bugs.NullAllCiphers = true
 	}
@@ -1378,6 +1384,9 @@ func doExchanges(test *testCase, shim *shimProcess, resumeCount int, transcripts
 		if test.resumeConfig != nil {
 			resumeConfig = *test.resumeConfig
 			resumeConfig.Rand = config.Rand
+			if resumeConfig.Certificates == nil {
+				resumeConfig.Certificates = config.Certificates
+			}
 		} else {
 			resumeConfig = config
 		}
@@ -1447,20 +1456,14 @@ func runTest(dispatcher *shimDispatcher, statusChan chan statusMsg, test *testCa
 	}
 	if test.testType == serverTest {
 		flags = append(flags, "-server")
+	}
 
-		flags = append(flags, "-key-file")
-		if test.keyFile == "" {
-			flags = append(flags, path.Join(*resourceDir, rsaKeyFile))
-		} else {
-			flags = append(flags, path.Join(*resourceDir, test.keyFile))
-		}
-
-		flags = append(flags, "-cert-file")
-		if test.certFile == "" {
-			flags = append(flags, path.Join(*resourceDir, rsaCertificateFile))
-		} else {
-			flags = append(flags, path.Join(*resourceDir, test.certFile))
-		}
+	if test.shimCertificate != nil {
+		flags = append(flags, "-key-file", test.shimCertificate.KeyPath)
+		flags = append(flags, "-cert-file", test.shimCertificate.CertPath)
+	} else if test.testType == serverTest {
+		flags = append(flags, "-key-file", rsaCertificate.KeyPath)
+		flags = append(flags, "-cert-file", rsaCertificate.CertPath)
 	}
 
 	if test.protocol == dtls {
@@ -1629,6 +1632,19 @@ func runTest(dispatcher *shimDispatcher, statusChan chan statusMsg, test *testCa
 		}
 		transcriptPrefix = filepath.Join(dir, test.name+"-")
 		flags = append(flags, "-write-settings", transcriptPrefix)
+	}
+
+	if test.testType == clientTest {
+		if len(test.config.Certificates) == 0 {
+			test.config.Certificates = []Certificate{rsaCertificate}
+		}
+
+		rootFiles := make([]string, 0, len(test.config.Certificates))
+		for _, c := range test.config.Certificates {
+			rootFiles = append(rootFiles, c.CertPath)
+		}
+
+		flags = append(flags, "-trust-cert", strings.Join(rootFiles, ","))
 	}
 
 	flags = append(flags, test.flags...)
@@ -2100,13 +2116,13 @@ read alert 1 0
 			name:     "ServerSkipCertificateVerify",
 			config: Config{
 				MaxVersion:   VersionTLS12,
-				Certificates: []Certificate{rsaChainCertificate},
+				Certificates: []Certificate{rsaCertificate},
 				Bugs: ProtocolBugs{
 					SkipCertificateVerify: true,
 				},
 			},
 			expectations: connectionExpectations{
-				peerCertificate: &rsaChainCertificate,
+				peerCertificate: &rsaCertificate,
 			},
 			flags: []string{
 				"-require-any-client-certificate",
@@ -3672,16 +3688,10 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 	prefix := protocol.String() + "-"
 
 	var cert Certificate
-	var certFile string
-	var keyFile string
 	if hasComponent(suite.name, "ECDSA") {
 		cert = ecdsaP256Certificate
-		certFile = ecdsaP256CertificateFile
-		keyFile = ecdsaP256KeyFile
 	} else {
 		cert = rsaCertificate
-		certFile = rsaCertificateFile
-		keyFile = rsaKeyFile
 	}
 
 	var flags []string
@@ -3737,8 +3747,7 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 				AdvertiseAllConfiguredCiphers: true,
 			},
 		},
-		certFile:             certFile,
-		keyFile:              keyFile,
+		shimCertificate:      &cert,
 		flags:                flags,
 		resumeSession:        true,
 		shouldFail:           shouldFail,
@@ -3992,12 +4001,9 @@ func addCipherSuiteTests() {
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":NO_SHARED_CIPHER:",
+		shimCertificate: &rsaCertificate,
+		shouldFail:      true,
+		expectedError:   ":NO_SHARED_CIPHER:",
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
@@ -4006,12 +4012,9 @@ func addCipherSuiteTests() {
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-			"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":NO_SHARED_CIPHER:",
+		shimCertificate: &ecdsaP256Certificate,
+		shouldFail:      true,
+		expectedError:   ":NO_SHARED_CIPHER:",
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
@@ -4020,12 +4023,9 @@ func addCipherSuiteTests() {
 			MaxVersion:   VersionTLS12,
 			CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ed25519CertificateFile),
-			"-key-file", path.Join(*resourceDir, ed25519KeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":NO_SHARED_CIPHER:",
+		shimCertificate: &ed25519Certificate,
+		shouldFail:      true,
+		expectedError:   ":NO_SHARED_CIPHER:",
 	})
 
 	// Test cipher suite negotiation works as expected. Configure a
@@ -4292,10 +4292,7 @@ func addClientAuthTests() {
 				ClientAuth: RequireAnyClientCert,
 				ClientCAs:  certPool,
 			},
-			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
-			},
+			shimCertificate: &rsaCertificate,
 		})
 		testCases = append(testCases, testCase{
 			testType: serverTest,
@@ -4326,10 +4323,7 @@ func addClientAuthTests() {
 				ClientAuth: RequireAnyClientCert,
 				ClientCAs:  certPool,
 			},
-			flags: []string{
-				"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-				"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-			},
+			shimCertificate: &ecdsaP256Certificate,
 		})
 
 		testCases = append(testCases, testCase{
@@ -4431,7 +4425,7 @@ func addClientAuthTests() {
 			config: Config{
 				MinVersion: ver.version,
 				MaxVersion: ver.version,
-				ChannelID:  channelIDKey,
+				ChannelID:  &channelIDKey,
 			},
 			expectations: connectionExpectations{
 				channelID: true,
@@ -4469,9 +4463,8 @@ func addClientAuthTests() {
 				ClientAuth:   RequireAnyClientCert,
 				ClientCAs:    certPool,
 			},
+			shimCertificate: &rsaCertificate,
 			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
 				"-expect-client-ca-list", encodeDERValues(caNames),
 			},
 		})
@@ -4487,9 +4480,8 @@ func addClientAuthTests() {
 			PreSharedKey: []byte("secret"),
 			ClientAuth:   RequireAnyClientCert,
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-psk", "secret",
 		},
 		shouldFail:    true,
@@ -4504,9 +4496,8 @@ func addClientAuthTests() {
 			PreSharedKey: []byte("secret"),
 			ClientAuth:   RequireAnyClientCert,
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-psk", "secret",
 		},
 		shouldFail:    true,
@@ -5051,10 +5042,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion: VersionTLS12,
 				ClientAuth: RequireAnyClientCert,
 			},
-			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
-			},
+			shimCertificate: &rsaCertificate,
 		})
 	}
 	tests = append(tests, testCase{
@@ -5064,10 +5052,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			MaxVersion: VersionTLS13,
 			ClientAuth: RequireAnyClientCert,
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate: &rsaCertificate,
 	})
 	if config.protocol != quic {
 		tests = append(tests, testCase{
@@ -5077,10 +5062,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion: VersionTLS12,
 				ClientAuth: RequireAnyClientCert,
 			},
-			flags: []string{
-				"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-				"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-			},
+			shimCertificate: &ecdsaP256Certificate,
 		})
 	}
 	tests = append(tests, testCase{
@@ -5090,10 +5072,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			MaxVersion: VersionTLS13,
 			ClientAuth: RequireAnyClientCert,
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-			"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-		},
+		shimCertificate: &ecdsaP256Certificate,
 	})
 	if config.protocol != quic {
 		tests = append(tests, testCase{
@@ -5123,9 +5102,8 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion: VersionTLS12,
 				ClientAuth: RequireAnyClientCert,
 			},
+			shimCertificate: &rsaCertificate,
 			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
 				"-use-old-client-cert-callback",
 			},
 		})
@@ -5137,9 +5115,8 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 			MaxVersion: VersionTLS13,
 			ClientAuth: RequireAnyClientCert,
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-use-old-client-cert-callback",
 		},
 	})
@@ -5173,10 +5150,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion:   VersionTLS12,
 				CipherSuites: []uint16{TLS_RSA_WITH_AES_128_GCM_SHA256},
 			},
-			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
-			},
+			shimCertificate: &rsaCertificate,
 		})
 		tests = append(tests, testCase{
 			testType: serverTest,
@@ -5185,10 +5159,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion:   VersionTLS12,
 				CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256},
 			},
-			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
-			},
+			shimCertificate: &rsaCertificate,
 		})
 		tests = append(tests, testCase{
 			testType: serverTest,
@@ -5197,10 +5168,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion:   VersionTLS12,
 				CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
 			},
-			flags: []string{
-				"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-				"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-			},
+			shimCertificate: &ecdsaP256Certificate,
 		})
 		tests = append(tests, testCase{
 			testType: serverTest,
@@ -5209,9 +5177,8 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 				MaxVersion:   VersionTLS12,
 				CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
 			},
+			shimCertificate: &ed25519Certificate,
 			flags: []string{
-				"-cert-file", path.Join(*resourceDir, ed25519CertificateFile),
-				"-key-file", path.Join(*resourceDir, ed25519KeyFile),
 				"-verify-prefs", strconv.Itoa(int(signatureEd25519)),
 			},
 		})
@@ -5821,7 +5788,7 @@ read alert 1 0
 				NextProtos:       []string{"foo"},
 			},
 			flags: []string{
-				"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile),
+				"-send-channel-id", channelIDKeyFile,
 				"-select-next-proto", "foo",
 			},
 			resumeSession: true,
@@ -5836,7 +5803,7 @@ read alert 1 0
 			name:     "ChannelID-NPN-Server",
 			config: Config{
 				MaxVersion: VersionTLS12,
-				ChannelID:  channelIDKey,
+				ChannelID:  &channelIDKey,
 				NextProtos: []string{"bar"},
 			},
 			flags: []string{
@@ -5877,7 +5844,7 @@ read alert 1 0
 					MaxVersion:       ver.version,
 					RequestChannelID: true,
 				},
-				flags:         []string{"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile)},
+				flags:         []string{"-send-channel-id", channelIDKeyFile},
 				resumeSession: true,
 				expectations: connectionExpectations{
 					channelID: true,
@@ -5890,7 +5857,7 @@ read alert 1 0
 				name:     "ChannelID-Server-" + ver.name,
 				config: Config{
 					MaxVersion: ver.version,
-					ChannelID:  channelIDKey,
+					ChannelID:  &channelIDKey,
 				},
 				flags: []string{
 					"-expect-channel-id",
@@ -5907,7 +5874,7 @@ read alert 1 0
 				name:     "InvalidChannelIDSignature-" + ver.name,
 				config: Config{
 					MaxVersion: ver.version,
-					ChannelID:  channelIDKey,
+					ChannelID:  &channelIDKey,
 					Bugs: ProtocolBugs{
 						InvalidChannelIDSignature: true,
 					},
@@ -5925,7 +5892,7 @@ read alert 1 0
 					config: Config{
 						MaxVersion:   ver.version,
 						CipherSuites: []uint16{TLS_RSA_WITH_AES_128_CBC_SHA},
-						ChannelID:    channelIDKey,
+						ChannelID:    &channelIDKey,
 					},
 					expectations: connectionExpectations{
 						channelID: false,
@@ -5940,7 +5907,7 @@ read alert 1 0
 					config: Config{
 						MaxVersion:   ver.version,
 						CipherSuites: []uint16{TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA},
-						ChannelID:    channelIDKey,
+						ChannelID:    &channelIDKey,
 					},
 					expectations: connectionExpectations{
 						channelID: false,
@@ -8474,7 +8441,7 @@ func addExtensionTests() {
 				resumeSession: true,
 			})
 
-			emptySCTListCert := *testCerts[0].cert
+			emptySCTListCert := rsaCertificate
 			emptySCTListCert.SignedCertificateTimestampList = []byte{0, 0}
 
 			// Test empty SCT list.
@@ -8493,7 +8460,7 @@ func addExtensionTests() {
 				expectedError: ":ERROR_PARSING_EXTENSION:",
 			})
 
-			emptySCTCert := *testCerts[0].cert
+			emptySCTCert := rsaCertificate
 			emptySCTCert.SignedCertificateTimestampList = []byte{0, 6, 0, 2, 1, 2, 0, 0}
 
 			// Test empty SCT in non-empty list.
@@ -8797,9 +8764,8 @@ func addExtensionTests() {
 				ExpectNoExtensionsOnIntermediate: true,
 			},
 		},
+		shimCertificate: &rsaChainCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaChainCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaChainKeyFile),
 			"-ocsp-response",
 			base64FlagValue(testOCSPResponse),
 			"-signed-cert-timestamps",
@@ -8814,9 +8780,8 @@ func addExtensionTests() {
 			MaxVersion: VersionTLS13,
 			ClientAuth: RequireAnyClientCert,
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-ocsp-response",
 			base64FlagValue(testOCSPResponse),
 			"-signed-cert-timestamps",
@@ -9832,7 +9797,7 @@ func addRenegotiationTests() {
 			MaxVersion:   VersionTLS12,
 			Certificates: []Certificate{rsaCertificate},
 			Bugs: ProtocolBugs{
-				RenegotiationCertificate: &rsaChainCertificate,
+				RenegotiationCertificate: &ecdsaP256Certificate,
 			},
 		},
 		renegotiate:   1,
@@ -10058,6 +10023,7 @@ func addSignatureAlgorithmTests() {
 				}
 
 				// Test the shim using the algorithm for signing.
+				cert := getRunnerCertificate(alg.cert)
 				signTest := testCase{
 					testType: testType,
 					name:     prefix + "Sign" + suffix,
@@ -10069,13 +10035,8 @@ func addSignatureAlgorithmTests() {
 							fakeSigAlg2,
 						},
 					},
-					flags: append(
-						[]string{
-							"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
-							"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-						},
-						curveFlags...,
-					),
+					shimCertificate:    &cert,
+					flags:              curveFlags,
 					shouldFail:         shouldFail,
 					expectedError:      signError,
 					expectedLocalError: signLocalError,
@@ -10093,13 +10054,8 @@ func addSignatureAlgorithmTests() {
 						MaxVersion:                ver.version,
 						VerifySignatureAlgorithms: allAlgorithms,
 					},
-					flags: append(
-						[]string{
-							"-cert-file", path.Join(*resourceDir, getShimCertificate(alg.cert)),
-							"-key-file", path.Join(*resourceDir, getShimKey(alg.cert)),
-						},
-						curveFlags...,
-					),
+					shimCertificate: &cert,
+					flags:           curveFlags,
 					expectations: connectionExpectations{
 						peerSignatureAlgorithm: alg.id,
 					},
@@ -10240,9 +10196,8 @@ func addSignatureAlgorithmTests() {
 					signatureECDSAWithP256AndSHA256,
 				},
 			},
+			shimCertificate: &rsaCertificate,
 			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
 				"-expect-peer-verify-pref", strconv.Itoa(int(signatureRSAPSSWithSHA256)),
 				"-expect-peer-verify-pref", strconv.Itoa(int(signatureEd25519)),
 				"-expect-peer-verify-pref", strconv.Itoa(int(signatureECDSAWithP256AndSHA256)),
@@ -10260,9 +10215,8 @@ func addSignatureAlgorithmTests() {
 					signatureECDSAWithP256AndSHA256,
 				},
 			},
+			shimCertificate: &rsaCertificate,
 			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
 				"-expect-peer-verify-pref", strconv.Itoa(int(signatureRSAPSSWithSHA256)),
 				"-expect-peer-verify-pref", strconv.Itoa(int(signatureEd25519)),
 				"-expect-peer-verify-pref", strconv.Itoa(int(signatureECDSAWithP256AndSHA256)),
@@ -10283,10 +10237,7 @@ func addSignatureAlgorithmTests() {
 				signatureECDSAWithSHA1,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate: &rsaCertificate,
 		expectations: connectionExpectations{
 			peerSignatureAlgorithm: signatureRSAPKCS1WithSHA384,
 		},
@@ -10304,10 +10255,7 @@ func addSignatureAlgorithmTests() {
 				signatureECDSAWithSHA1,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate: &rsaCertificate,
 		expectations: connectionExpectations{
 			peerSignatureAlgorithm: signatureRSAPSSWithSHA384,
 		},
@@ -10433,10 +10381,7 @@ func addSignatureAlgorithmTests() {
 				NoSignatureAlgorithms: true,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate: &rsaCertificate,
 	})
 
 	testCases = append(testCases, testCase{
@@ -10451,10 +10396,7 @@ func addSignatureAlgorithmTests() {
 				NoSignatureAlgorithms: true,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-			"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-		},
+		shimCertificate: &ecdsaP256Certificate,
 	})
 
 	testCases = append(testCases, testCase{
@@ -10488,10 +10430,7 @@ func addSignatureAlgorithmTests() {
 				NoSignatureAlgorithms: true,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate:    &rsaCertificate,
 		shouldFail:         true,
 		expectedError:      ":DECODE_ERROR:",
 		expectedLocalError: "remote error: error decoding message",
@@ -10509,10 +10448,7 @@ func addSignatureAlgorithmTests() {
 				NoSignatureAlgorithms: true,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-			"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-		},
+		shimCertificate:    &ecdsaP256Certificate,
 		shouldFail:         true,
 		expectedError:      ":DECODE_ERROR:",
 		expectedLocalError: "remote error: error decoding message",
@@ -10530,10 +10466,7 @@ func addSignatureAlgorithmTests() {
 				NoSignatureAlgorithms: true,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate:    &rsaCertificate,
 		shouldFail:         true,
 		expectedError:      ":DECODE_ERROR:",
 		expectedLocalError: "remote error: error decoding message",
@@ -10621,9 +10554,8 @@ func addSignatureAlgorithmTests() {
 				signatureRSAPKCS1WithSHA1,
 			},
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithSHA256)),
 		},
 		shouldFail:    true,
@@ -10639,9 +10571,8 @@ func addSignatureAlgorithmTests() {
 				signatureRSAPSSWithSHA384,
 			},
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPSSWithSHA256)),
 		},
 		shouldFail:    true,
@@ -10657,9 +10588,8 @@ func addSignatureAlgorithmTests() {
 				signatureRSAPKCS1WithSHA256,
 			},
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithSHA256)),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithSHA1)),
 		},
@@ -10676,9 +10606,8 @@ func addSignatureAlgorithmTests() {
 				signatureRSAPKCS1WithSHA1,
 			},
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithSHA512)),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithSHA256)),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithSHA1)),
@@ -10699,10 +10628,7 @@ func addSignatureAlgorithmTests() {
 				signatureECDSAWithSHA1,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate: &rsaCertificate,
 		expectations: connectionExpectations{
 			peerSignatureAlgorithm: signatureRSAPKCS1WithSHA256,
 		},
@@ -10719,9 +10645,8 @@ func addSignatureAlgorithmTests() {
 				signatureRSAPKCS1WithSHA256,
 			},
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
 			"-signing-prefs", strconv.Itoa(int(signatureECDSAWithP256AndSHA256)),
 			"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithSHA256)),
 		},
@@ -10796,10 +10721,7 @@ func addSignatureAlgorithmTests() {
 				signatureECDSAWithP256AndSHA256,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
-			"-key-file", path.Join(*resourceDir, ecdsaP256KeyFile),
-		},
+		shimCertificate: &ecdsaP256Certificate,
 		expectations: connectionExpectations{
 			peerSignatureAlgorithm: signatureECDSAWithP256AndSHA256,
 		},
@@ -10816,12 +10738,9 @@ func addSignatureAlgorithmTests() {
 				signatureRSAPSSWithSHA512,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsa1024CertificateFile),
-			"-key-file", path.Join(*resourceDir, rsa1024KeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":NO_COMMON_SIGNATURE_ALGORITHMS:",
+		shimCertificate: &rsa1024Certificate,
+		shouldFail:      true,
+		expectedError:   ":NO_COMMON_SIGNATURE_ALGORITHMS:",
 	})
 
 	// Test that RSA-PSS is enabled by default for TLS 1.2.
@@ -10872,12 +10791,9 @@ func addSignatureAlgorithmTests() {
 		config: Config{
 			MaxVersion: VersionTLS11,
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ed25519CertificateFile),
-			"-key-file", path.Join(*resourceDir, ed25519KeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":NO_SHARED_CIPHER:",
+		shimCertificate: &ed25519Certificate,
+		shouldFail:      true,
+		expectedError:   ":NO_SHARED_CIPHER:",
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
@@ -10904,12 +10820,9 @@ func addSignatureAlgorithmTests() {
 			MaxVersion: VersionTLS11,
 			ClientAuth: RequireAnyClientCert,
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, ed25519CertificateFile),
-			"-key-file", path.Join(*resourceDir, ed25519KeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":NO_COMMON_SIGNATURE_ALGORITHMS:",
+		shimCertificate: &ed25519Certificate,
+		shouldFail:      true,
+		expectedError:   ":NO_COMMON_SIGNATURE_ALGORITHMS:",
 	})
 
 	// Test Ed25519 is not advertised by default.
@@ -11036,9 +10949,8 @@ func addSignatureAlgorithmTests() {
 					ClientAuth:                RequireAnyClientCert,
 					VerifySignatureAlgorithms: []signatureAlgorithm{signatureRSAPKCS1WithMD5AndSHA1},
 				},
+				shimCertificate: &rsaCertificate,
 				flags: []string{
-					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-					"-key-file", path.Join(*resourceDir, rsaKeyFile),
 					"-signing-prefs", strconv.Itoa(int(signatureRSAPKCS1WithMD5AndSHA1)),
 					// Include a valid algorithm as well, to avoid an empty list
 					// if filtered out.
@@ -11062,9 +10974,8 @@ func addSignatureAlgorithmTests() {
 						SendSignatureAlgorithm:                  signatureRSAPKCS1WithMD5AndSHA1,
 					},
 				},
+				shimCertificate: &rsaCertificate,
 				flags: []string{
-					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-					"-key-file", path.Join(*resourceDir, rsaKeyFile),
 					"-verify-prefs", strconv.Itoa(int(signatureRSAPKCS1WithMD5AndSHA1)),
 					// Include a valid algorithm as well, to avoid an empty list
 					// if filtered out.
@@ -13289,7 +13200,7 @@ func makePerMessageTests() []perMessageTest {
 					name:     "ChannelID" + suffix,
 					config: Config{
 						MaxVersion: VersionTLS12,
-						ChannelID:  channelIDKey,
+						ChannelID:  &channelIDKey,
 					},
 					flags: []string{
 						"-expect-channel-id",
@@ -14333,12 +14244,9 @@ func addTLS13HandshakeTests() {
 				SendRequestContext: []byte("request context"),
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":DECODE_ERROR:",
+		shimCertificate: &rsaCertificate,
+		shouldFail:      true,
+		expectedError:   ":DECODE_ERROR:",
 	})
 
 	testCases = append(testCases, testCase{
@@ -14351,10 +14259,7 @@ func addTLS13HandshakeTests() {
 				SendCustomCertificateRequest: 0x1212,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
+		shimCertificate: &rsaCertificate,
 	})
 
 	testCases = append(testCases, testCase{
@@ -14367,12 +14272,9 @@ func addTLS13HandshakeTests() {
 				OmitCertificateRequestAlgorithms: true,
 			},
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaKeyFile),
-		},
-		shouldFail:    true,
-		expectedError: ":DECODE_ERROR:",
+		shimCertificate: &rsaCertificate,
+		shouldFail:      true,
+		expectedError:   ":DECODE_ERROR:",
 	})
 
 	testCases = append(testCases, testCase{
@@ -14459,9 +14361,9 @@ func addTLS13HandshakeTests() {
 			"-on-retry-expect-early-data-reason", "session_not_resumed",
 			// Test the peer certificate is reported correctly in each of the
 			// three logical connections.
-			"-on-initial-expect-peer-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-on-resume-expect-peer-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-on-retry-expect-peer-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
+			"-on-initial-expect-peer-cert-file", rsaCertificate.CertPath,
+			"-on-resume-expect-peer-cert-file", rsaCertificate.CertPath,
+			"-on-retry-expect-peer-cert-file", ecdsaP256Certificate.CertPath,
 			// Session tickets are disabled, so the runner will not send a ticket.
 			"-on-retry-expect-no-session",
 		},
@@ -14559,9 +14461,9 @@ func addTLS13HandshakeTests() {
 			"-on-retry-expect-early-data-reason", "hello_retry_request",
 			// Test the peer certificate is reported correctly in each of the
 			// three logical connections.
-			"-on-initial-expect-peer-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-on-resume-expect-peer-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-			"-on-retry-expect-peer-cert-file", path.Join(*resourceDir, ecdsaP256CertificateFile),
+			"-on-initial-expect-peer-cert-file", rsaCertificate.CertPath,
+			"-on-resume-expect-peer-cert-file", rsaCertificate.CertPath,
+			"-on-retry-expect-peer-cert-file", ecdsaP256Certificate.CertPath,
 			// Session tickets are disabled, so the runner will not send a ticket.
 			"-on-retry-expect-no-session",
 		},
@@ -14993,7 +14895,7 @@ func addTLS13HandshakeTests() {
 		expectedError:      ":UNEXPECTED_EXTENSION_ON_EARLY_DATA:",
 		expectedLocalError: "remote error: illegal parameter",
 		flags: []string{
-			"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile),
+			"-send-channel-id", channelIDKeyFile,
 		},
 	})
 
@@ -15016,7 +14918,7 @@ func addTLS13HandshakeTests() {
 			channelID: true,
 		},
 		flags: []string{
-			"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile),
+			"-send-channel-id", channelIDKeyFile,
 			// The client never learns the reason was Channel ID.
 			"-on-retry-expect-early-data-reason", "peer_declined",
 		},
@@ -15033,7 +14935,7 @@ func addTLS13HandshakeTests() {
 		resumeSession: true,
 		earlyData:     true,
 		flags: []string{
-			"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile),
+			"-send-channel-id", channelIDKeyFile,
 		},
 	})
 
@@ -15044,7 +14946,7 @@ func addTLS13HandshakeTests() {
 		name:     "EarlyDataChannelID-OfferBoth-Server-TLS13",
 		config: Config{
 			MaxVersion: VersionTLS13,
-			ChannelID:  channelIDKey,
+			ChannelID:  &channelIDKey,
 		},
 		resumeSession:           true,
 		earlyData:               true,
@@ -15195,17 +15097,16 @@ func addTLS13HandshakeTests() {
 		config: Config{
 			MinVersion:   VersionTLS13,
 			MaxVersion:   VersionTLS13,
-			Certificates: []Certificate{rsaChainCertificate},
+			Certificates: []Certificate{rsaCertificate},
 			Bugs: ProtocolBugs{
 				SkipCertificateVerify: true,
 			},
 		},
 		expectations: connectionExpectations{
-			peerCertificate: &rsaChainCertificate,
+			peerCertificate: &rsaCertificate,
 		},
+		shimCertificate: &rsaCertificate,
 		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaChainCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaChainKeyFile),
 			"-require-any-client-certificate",
 		},
 		shouldFail:         true,
@@ -15218,18 +15119,15 @@ func addTLS13HandshakeTests() {
 		config: Config{
 			MinVersion:   VersionTLS13,
 			MaxVersion:   VersionTLS13,
-			Certificates: []Certificate{rsaChainCertificate},
+			Certificates: []Certificate{rsaCertificate},
 			Bugs: ProtocolBugs{
 				SkipCertificateVerify: true,
 			},
 		},
 		expectations: connectionExpectations{
-			peerCertificate: &rsaChainCertificate,
+			peerCertificate: &rsaCertificate,
 		},
-		flags: []string{
-			"-cert-file", path.Join(*resourceDir, rsaChainCertificateFile),
-			"-key-file", path.Join(*resourceDir, rsaChainKeyFile),
-		},
+		shimCertificate:    &rsaCertificate,
 		shouldFail:         true,
 		expectedError:      ":UNEXPECTED_MESSAGE:",
 		expectedLocalError: "remote error: unexpected message",
@@ -15593,10 +15491,9 @@ func addCertificateTests() {
 			expectations: connectionExpectations{
 				peerCertificate: &rsaChainCertificate,
 			},
+			shimCertificate: &rsaChainCertificate,
 			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaChainCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaChainKeyFile),
-				"-expect-peer-cert-file", path.Join(*resourceDir, rsaChainCertificateFile),
+				"-expect-peer-cert-file", rsaChainCertificate.CertPath,
 			},
 		})
 
@@ -15611,11 +15508,10 @@ func addCertificateTests() {
 			expectations: connectionExpectations{
 				peerCertificate: &rsaChainCertificate,
 			},
+			shimCertificate: &rsaChainCertificate,
 			flags: []string{
-				"-cert-file", path.Join(*resourceDir, rsaChainCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaChainKeyFile),
 				"-require-any-client-certificate",
-				"-expect-peer-cert-file", path.Join(*resourceDir, rsaChainCertificateFile),
+				"-expect-peer-cert-file", rsaChainCertificate.CertPath,
 			},
 		})
 
@@ -15731,19 +15627,13 @@ func addRetainOnlySHA256ClientCertTests() {
 }
 
 func addECDSAKeyUsageTests() {
-	p256 := elliptic.P256()
-	priv, err := ecdsa.GenerateKey(p256, rand.Reader)
-	if err != nil {
-		panic(err)
-	}
-
 	serialNumberLimit := new(big.Int).Lsh(big.NewInt(1), 128)
 	serialNumber, err := rand.Int(rand.Reader, serialNumberLimit)
 	if err != nil {
 		panic(err)
 	}
 
-	template := x509.Certificate{
+	template := &x509.Certificate{
 		SerialNumber: serialNumber,
 		Subject: pkix.Name{
 			Organization: []string{"Acme Co"},
@@ -15758,15 +15648,7 @@ func addECDSAKeyUsageTests() {
 		BasicConstraintsValid: true,
 	}
 
-	derBytes, err := x509.CreateCertificate(rand.Reader, &template, &template, &priv.PublicKey, priv)
-	if err != nil {
-		panic(err)
-	}
-
-	cert := Certificate{
-		Certificate: [][]byte{derBytes},
-		PrivateKey:  priv,
-	}
+	cert := generateTestCert(0, template, nil, &ecdsaP256Key, nil, nil)
 
 	for _, ver := range tlsVersions {
 		if ver.version < VersionTLS12 {
@@ -15833,25 +15715,9 @@ func addRSAKeyUsageTests() {
 		BasicConstraintsValid: true,
 	}
 
-	dsDerBytes, err := x509.CreateCertificate(rand.Reader, &dsTemplate, &dsTemplate, &priv.PublicKey, priv)
-	if err != nil {
-		panic(err)
-	}
+	dsCert := generateTestCert(0, &dsTemplate, nil, priv, nil, nil)
 
-	encDerBytes, err := x509.CreateCertificate(rand.Reader, &encTemplate, &encTemplate, &priv.PublicKey, priv)
-	if err != nil {
-		panic(err)
-	}
-
-	dsCert := Certificate{
-		Certificate: [][]byte{dsDerBytes},
-		PrivateKey:  priv,
-	}
-
-	encCert := Certificate{
-		Certificate: [][]byte{encDerBytes},
-		PrivateKey:  priv,
-	}
+	encCert := generateTestCert(0, &encTemplate, nil, priv, nil, nil)
 
 	dsSuites := []uint16{
 		TLS_AES_128_GCM_SHA256,
@@ -16641,26 +16507,9 @@ func addJDK11WorkaroundTests() {
 }
 
 func addDelegatedCredentialTests() {
-	certPath := path.Join(*resourceDir, rsaCertificateFile)
-	pemBytes, err := os.ReadFile(certPath)
-	if err != nil {
-		panic(err)
-	}
-
-	block, _ := pem.Decode(pemBytes)
-	if block == nil {
-		panic(fmt.Sprintf("no PEM block found in %q", certPath))
-	}
-	parentDER := block.Bytes
-
-	rsaPriv, _, err := loadRSAPrivateKey(rsaKeyFile)
-	if err != nil {
-		panic(err)
-	}
-
 	ecdsaDC, ecdsaPKCS8, err := createDelegatedCredential(delegatedCredentialConfig{
 		algo: signatureRSAPSSWithSHA256,
-	}, parentDER, rsaPriv)
+	}, rsaCertificate.Leaf.Raw, rsaCertificate.PrivateKey)
 	if err != nil {
 		panic(err)
 	}
@@ -16721,7 +16570,7 @@ func addDelegatedCredentialTests() {
 	_, badTLSVersionPKCS8, err := createDelegatedCredential(delegatedCredentialConfig{
 		algo:       signatureRSAPSSWithSHA256,
 		tlsVersion: 0x1234,
-	}, parentDER, rsaPriv)
+	}, rsaCertificate.Leaf.Raw, rsaCertificate.PrivateKey)
 	if err != nil {
 		panic(err)
 	}
@@ -18670,9 +18519,8 @@ write hs 4
 					ServerECHConfigs: []ServerECHConfig{echConfig},
 					ClientAuth:       RequireAnyClientCert,
 				},
+				shimCertificate: &rsaCertificate,
 				flags: append([]string{
-					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-					"-key-file", path.Join(*resourceDir, rsaKeyFile),
 					"-ech-config-list", base64FlagValue(CreateECHConfigList(echConfig.ECHConfig.Raw)),
 					"-expect-ech-accept",
 				}, flags...),
@@ -18690,9 +18538,8 @@ write hs 4
 					MaxVersion: VersionTLS13,
 					ClientAuth: RequireAnyClientCert,
 				},
+				shimCertificate: &rsaCertificate,
 				flags: append([]string{
-					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-					"-key-file", path.Join(*resourceDir, rsaKeyFile),
 					"-ech-config-list", base64FlagValue(CreateECHConfigList(echConfig.ECHConfig.Raw)),
 				}, flags...),
 				shouldFail:         true,
@@ -18708,9 +18555,8 @@ write hs 4
 						MaxVersion: VersionTLS12,
 						ClientAuth: RequireAnyClientCert,
 					},
+					shimCertificate: &rsaCertificate,
 					flags: append([]string{
-						"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-						"-key-file", path.Join(*resourceDir, rsaKeyFile),
 						"-ech-config-list", base64FlagValue(CreateECHConfigList(echConfig.ECHConfig.Raw)),
 					}, flags...),
 					shouldFail:         true,
@@ -18729,7 +18575,7 @@ write hs 4
 				RequestChannelID: true,
 			},
 			flags: []string{
-				"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile),
+				"-send-channel-id", channelIDKeyFile,
 				"-ech-config-list", base64FlagValue(CreateECHConfigList(echConfig.ECHConfig.Raw)),
 				"-expect-ech-accept",
 			},
@@ -18753,7 +18599,7 @@ write hs 4
 				},
 			},
 			flags: []string{
-				"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile),
+				"-send-channel-id", channelIDKeyFile,
 				"-ech-config-list", base64FlagValue(CreateECHConfigList(echConfig.ECHConfig.Raw)),
 			},
 			shouldFail:         true,
@@ -18773,7 +18619,7 @@ write hs 4
 					},
 				},
 				flags: []string{
-					"-send-channel-id", path.Join(*resourceDir, channelIDKeyFile),
+					"-send-channel-id", channelIDKeyFile,
 					"-ech-config-list", base64FlagValue(CreateECHConfigList(echConfig.ECHConfig.Raw)),
 				},
 				shouldFail:         true,
@@ -19129,10 +18975,9 @@ func addHintMismatchTests() {
 					signatureRSAPSSWithSHA384,
 				},
 			},
+			shimCertificate: &rsaCertificate,
 			flags: []string{
 				"-allow-hint-mismatch",
-				"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-				"-key-file", path.Join(*resourceDir, rsaKeyFile),
 				"-on-shim-signing-prefs", strconv.Itoa(int(signatureRSAPSSWithSHA256)),
 				"-on-handshaker-signing-prefs", strconv.Itoa(int(signatureRSAPSSWithSHA384)),
 			},
@@ -19154,10 +18999,9 @@ func addHintMismatchTests() {
 						signatureRSAPSSWithSHA384,
 					},
 				},
+				shimCertificate: &rsaCertificate,
 				flags: []string{
 					"-allow-hint-mismatch",
-					"-cert-file", path.Join(*resourceDir, rsaCertificateFile),
-					"-key-file", path.Join(*resourceDir, rsaKeyFile),
 					"-on-shim-signing-prefs", strconv.Itoa(int(signatureRSAPSSWithSHA256)),
 					"-on-handshaker-signing-prefs", strconv.Itoa(int(signatureRSAPSSWithSHA384)),
 				},
@@ -19457,17 +19301,11 @@ func addCompliancePolicyTests() {
 				isWPACipherSuite = true
 			}
 
-			var certFile string
-			var keyFile string
-			var certs []Certificate
+			var cert Certificate
 			if hasComponent(suite.name, "ECDSA") {
-				certFile = ecdsaP384CertificateFile
-				keyFile = ecdsaP384KeyFile
-				certs = []Certificate{ecdsaP384Certificate}
+				cert = ecdsaP384Certificate
 			} else {
-				certFile = rsaCertificateFile
-				keyFile = rsaKeyFile
-				certs = []Certificate{rsaCertificate}
+				cert = rsaCertificate
 			}
 
 			maxVersion := uint16(VersionTLS13)
@@ -19496,8 +19334,7 @@ func addCompliancePolicyTests() {
 						MaxVersion:   maxVersion,
 						CipherSuites: []uint16{suite.id},
 					},
-					certFile: certFile,
-					keyFile:  keyFile,
+					shimCertificate: &cert,
 					flags: []string{
 						policy.flag,
 					},
@@ -19512,7 +19349,7 @@ func addCompliancePolicyTests() {
 						MinVersion:   VersionTLS12,
 						MaxVersion:   maxVersion,
 						CipherSuites: []uint16{suite.id},
-						Certificates: certs,
+						Certificates: []Certificate{cert},
 					},
 					flags: []string{
 						policy.flag,
@@ -19643,6 +19480,7 @@ func addCompliancePolicyTests() {
 			}
 
 			for _, policy := range policies {
+				cert := getRunnerCertificate(sigalg.cert)
 				testCases = append(testCases, testCase{
 					testType: serverTest,
 					protocol: protocol,
@@ -19652,12 +19490,9 @@ func addCompliancePolicyTests() {
 						MaxVersion:                maxVersion,
 						VerifySignatureAlgorithms: []signatureAlgorithm{sigalg.id},
 					},
-					flags: []string{
-						policy.flag,
-						"-cert-file", path.Join(*resourceDir, getShimCertificate(sigalg.cert)),
-						"-key-file", path.Join(*resourceDir, getShimKey(sigalg.cert)),
-					},
-					shouldFail: !policy.sigAlgOk,
+					shimCertificate: &cert,
+					flags:           []string{policy.flag},
+					shouldFail:      !policy.sigAlgOk,
 				})
 
 				testCases = append(testCases, testCase{
@@ -19857,6 +19692,13 @@ func checkTests() {
 func main() {
 	flag.Parse()
 	*resourceDir = path.Clean(*resourceDir)
+	var err error
+	if tmpDir, err = os.MkdirTemp("", "testing-certs"); err != nil {
+		fmt.Fprintf(os.Stderr, "failed to make temporary directory: %s", err)
+		os.Exit(1)
+	}
+	defer os.RemoveAll(tmpDir)
+	initKeys()
 	initCertificates()
 
 	if len(*shimConfigFile) != 0 {
