@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5640eb43_f385d1de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2023-08-21T18:17:49Z",
+      "side": 1,
+      "message": "This still needs a little polish, but there was one main question I wanted to ask how you felt about before paging this out of my brain. When I first started this change I decided to generate both the keys and certificates on the fly. I realized there is no _strong_ need to generate the keys on startup, but it also makes the code somewhat simpler. On my machine (M1 pro macbook) it takes \u003c100ms to generate all the necessary keys, which given the time it takes for the rest of the suite to run seems somewhat insignificant.\n\nAny objection to this?",
+      "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
