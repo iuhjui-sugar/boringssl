@@ -88,6 +88,24 @@
       "parentUuid": "565c43c7_885ce37e",
       "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f8c98bb_f2c21b41",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T17:10:24Z",
+      "side": 1,
+      "message": "Ah cool. So we don\u0027t forget, mind adding to the CL description:\n\n```\nUpdate-Note: The output of delocate now needs to end in .S instead of .s to run\nthrough the preprocessor. See cl/557871388.\n```\n\n(Just a note to our future selves so we don\u0027t forget.)\n\nUsing `#include \u003copenssl/asm_base.h\u003e` is a little interesting because including it adds a bunch of marker sections as side effects. Then again, delocate is already combining lots of asm files together so evidently we\u0027re okay with the duplicates of those marker sections anyway.",
+      "parentUuid": "3f22420c_f06352a4",
+      "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
