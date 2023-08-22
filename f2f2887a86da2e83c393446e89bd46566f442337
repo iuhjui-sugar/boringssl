@@ -70,6 +70,24 @@
       "parentUuid": "d19cd871_09296f70",
       "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f22420c_f06352a4",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 16846
+      },
+      "writtenOn": "2023-08-22T00:12:42Z",
+      "side": 1,
+      "message": "The CMake -\u003e Ninja build process actually generates a `.S` file, but internally we name the file with `.s`.\n\nI use the `AARCH64_VALID_CALL_TARGET` macro along with `#include \u003copenssl/asm_base.h\u003e`. It works internally once I changed the file suffix to `.S` (and add the header as a dependency to it). See the last file in cl/557871388 for the required change.",
+      "parentUuid": "565c43c7_885ce37e",
+      "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
