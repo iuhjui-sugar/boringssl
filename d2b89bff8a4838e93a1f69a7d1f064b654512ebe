@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1e22a05_b335c996",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-22T10:02:08Z",
+      "side": 1,
+      "message": "This wouldn\u0027t work then if we change the type of csum at some point, as it actually relies on the byte alignment here. The encoding is a bit complicated: csum is a 12-bit number (for the given parameters), which we want to encode in an array containing the base 4 representation. The existing base_b takes as input a byte array and supports truncating the output array, so to use it directly we need to always shift csum by 4, so the \"unused\" upper nibble of the first byte does not get used.\n\nI think there are two options:\n1) Keep as is [which is closer to the description in the standard].\n2) Convert csum directly into an array of bytes without the complex shifting calculations. Convert the resulting bytes array to base 4 (i.e. into a 4 bytes array where each byte contains the base 4 representation), and then truncate this array.",
+      "parentUuid": "afa89aa0_065d454d",
+      "range": {
+        "startLine": 42,
+        "startChar": 60,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "d2b89bff8a4838e93a1f69a7d1f064b654512ebe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "728d5d3a_5ae34120",
         "filename": "crypto/spx/wots.c",
         "patchSetId": 10

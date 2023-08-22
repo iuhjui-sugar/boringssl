@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e582b3ef_c0840138",
+        "filename": "crypto/spx/address.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-22T10:02:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9b432c6_96f82224",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c02fc29d_d19a83ca",
@@ -73,6 +97,24 @@
       "side": 1,
       "message": "As a nit I might rename it to something to indicate it\u0027s really not the same as the uint32_to_bytes, but (shrug). I think you can keep it as is for now, and we\u0027ll decide what happens here withouter reviewers if they have strong opinions.",
       "parentUuid": "96860b67_ca5995b5",
+      "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8367a16_69334372",
+        "filename": "crypto/spx/util.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-08-22T10:02:08Z",
+      "side": 1,
+      "message": "Yea agree, this is misleading in the name. I changed it now to uint64_to_len_bytes so it\u0027s harder to assume these two functions do the same thing :-).",
+      "parentUuid": "812cd131_82e10dad",
       "revId": "e7533c9824ce16281cca70256fe6b9644a6e89ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
