@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e236c3e_fcba3a1c",
+        "filename": "ssl/test/settings_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-22T20:16:34Z",
+      "side": 1,
+      "message": "This desperately needs a comment here about why this hack is needed and when we might make it go away :)",
+      "revId": "5f3e0989116baa88a6583dae5ae8acd6d6033170",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
