@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26083b88_b3db2b75",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-22T20:13:42Z",
+      "side": 1,
+      "message": "We should really just call it anyway, even if it is defined, and override the return value, that way we can guarantee CRYPTO_library_init() has happened as soon as these are called, even in the case where it has been defined. \n\nI mean we could just put the CRYPTO_library_init right at the top of each of these functions, before any of the ifdef override.  it\u0027s only going to \ndo anything once in any case.",
+      "range": {
+        "startLine": 1252,
+        "startChar": 0,
+        "endLine": 1256,
+        "endChar": 6
+      },
+      "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
