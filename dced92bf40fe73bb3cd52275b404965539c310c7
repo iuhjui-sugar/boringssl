@@ -1,0 +1,381 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "459dafd2_6a5b7a22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06f99619_f23fbdbf",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "The interaction with \"capabilities\" and \"config\" and split handshakes is a giant mess. What we actually want is to serialize both codepoints. As this comment suggests, we want to serialize both codepoints and then filter what the handshaker might try to send.\n\nAlthough given ALPS might be configured late in the ALPN callback, I do wonder if this whole mechanism ever did anything useful in the first place...",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "752d3ee9_5a20f0c2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "Looks like the rest of this sentence got mixed up between two versions. :-)",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7408584f_8e823716",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8001,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "\"Expecte\" looks like it should be \"Expect\" or \"Expected\".",
+      "range": {
+        "startLine": 8001,
+        "startChar": 12,
+        "endLine": 8001,
+        "endChar": 19
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40eff056_405e4402",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8039,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "ASSERT_TRUE on each of these and then ASSERT_NO_FATAL_FAILURES on the calls.",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f76b4a52_b673383b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "It\u0027s unclear to me what these are testing, and what \"it would be fine\" refers too. Should these tests be checking whether ALPS was negotiated? That is, ultimately, what this change ends up doing.",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aece6a30_41f1117c",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "Do we need an Neither option? Seems we could just not configure ALPS if that\u0027s what we\u0027re trying to test.",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d90eed98_1442757d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 2095,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "Style nit: Give `go fmt` a run in this directory.",
+      "range": {
+        "startLine": 2095,
+        "startChar": 0,
+        "endLine": 2095,
+        "endChar": 2
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a12e03_a86ac3b5",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 2108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "We don\u0027t expect the peer to ever negotiate both, so I think we can write this as:\n\n\n```\nif serverExtensions.hasApplicationSettings \u0026\u0026 serverExtensions.hasApplicationSettingsOld {\n  return errors.New(\"tls: server negotiated both old and new application settings together\")\n}\nif serverExtensions.hasApplicationSettings || serverExtensions.hasApplicationSettingsOld {\n   // all the various error checks\n}\n```",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "547d9278_f8e2fa89",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "If we\u0027re storing the two application settings separately, this should be `\u0026\u0026`, not `||`. The point if this check is so that connection state doesn\u0027t change in the middle.",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ba9a934_2cc7ddf7",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 1294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "This shouldn\u0027t run twice. If we were to, hypothetically, negotiate both, the client should respond with a single EncryptedExtensions. (Except the client should never be in this situation so it\u0027s kind of moot.) The idea is that client EE is sent if and only if some extension forces it to exist.\n\nWe also should check that the extension we didn\u0027t expect isn\u0027t in there. I.e. if we requested the new one, the peer should not send an EncryptedExtensions message with both.\n\nLet\u0027s write this as something like...\n\n```\n\tif encryptedExtensions.extensions.hasApplicationSettings || encryptedExtensions.extensions.hasApplicationSettingsOld {\n\t\tmsg, err :\u003d c.readHandshake()\n\t\tif err !\u003d nil {\n\t\t\treturn err\n\t\t}\n\t\tclientEncryptedExtensions, ok :\u003d msg.(*clientEncryptedExtensionsMsg)\n\t\tif !ok {\n\t\t\tc.sendAlert(alertUnexpectedMessage)\n\t\t\treturn unexpectedMessageError(clientEncryptedExtensions, msg)\n\t\t}\n\t\ths.writeClientHash(clientEncryptedExtensions.marshal())\n\t\t\n\t\t...\n\t}\n\t\n\tif encryptedExtensions.extensions.hasEarlyData {\n\t\t// 0-RTT sessions carry application settings over.\n\t\tc.peerApplicationSettings \u003d hs.sessionState.peerApplicationSettings\n\t\tc.peerApplicationSettingsOld \u003d hs.sessionState.peerApplicationSettingsOld\n\t}\n```",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f480c1e2_f309e1c2",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 1626,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "`var alpsAllowed, alpsAllowedOld bool`",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5cb08b_7bde0234",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7199,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 7199,
+        "startChar": 40,
+        "endLine": 7199,
+        "endChar": 44
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b6a8462_2333e549",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 7222,
+        "startChar": 51,
+        "endLine": 7222,
+        "endChar": 55
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ada4e24_13d2821a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "been negotiated,",
+      "range": {
+        "startLine": 7224,
+        "startChar": 9,
+        "endLine": 7224,
+        "endChar": 17
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efd1dc26_9d86347c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 7271,
+        "startChar": 40,
+        "endLine": 7271,
+        "endChar": 44
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc04f9e_6a3cebc2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 7294,
+        "startChar": 51,
+        "endLine": 7294,
+        "endChar": 55
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "736f6184_a20d02d2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "been negotiated,",
+      "range": {
+        "startLine": 7296,
+        "startChar": 9,
+        "endLine": 7296,
+        "endChar": 17
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb67be36_a84a3cf5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 7341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T00:03:55Z",
+      "side": 1,
+      "message": "alpsCodePoint\n\n(Local variables in Go are lowercase)",
+      "range": {
+        "startLine": 7341,
+        "startChar": 11,
+        "endLine": 7341,
+        "endChar": 24
+      },
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
