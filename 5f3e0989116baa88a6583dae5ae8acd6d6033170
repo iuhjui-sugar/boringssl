@@ -52,6 +52,24 @@
       "parentUuid": "4c77bc3c_91df37db",
       "revId": "5f3e0989116baa88a6583dae5ae8acd6d6033170",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b9c4513_7c01bcb8",
+        "filename": "ssl/test/settings_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-22T20:30:43Z",
+      "side": 1,
+      "message": "bleah, but ok :)",
+      "parentUuid": "9583c3ba_67293459",
+      "revId": "5f3e0989116baa88a6583dae5ae8acd6d6033170",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
