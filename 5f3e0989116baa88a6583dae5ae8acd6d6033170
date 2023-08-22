@@ -34,6 +34,24 @@
       "parentUuid": "1e236c3e_fcba3a1c",
       "revId": "5f3e0989116baa88a6583dae5ae8acd6d6033170",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9583c3ba_67293459",
+        "filename": "ssl/test/settings_writer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-22T20:27:35Z",
+      "side": 1,
+      "message": "I mean, for better or worse, it is the usual pattern for making a deleter in C++. 😞\nhttps://source.chromium.org/search?q\u003doperator%5C(%5C)%20file:boringssl%20case:yes\u0026ss\u003dchromium\n\n(There\u0027s actually already a FILE scoper in there, but the amount of fuss it\u0027d take to get it somewhere common is probably not worth just writing it twice.)\n\nThe old version actually made a stateful deleter. It\u0027s a handy shortcut, but it isn\u0027t what we want. I... don\u0027t know why there isn\u0027t a helpful utility in the STL to make one of these. Basically the problem is we need an empty type that, when constructed and then called, calls `fclose`.",
+      "parentUuid": "4c77bc3c_91df37db",
+      "revId": "5f3e0989116baa88a6583dae5ae8acd6d6033170",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
