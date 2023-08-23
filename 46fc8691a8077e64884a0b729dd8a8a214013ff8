@@ -46,6 +46,30 @@
       },
       "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d01aac2_98ef6791",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-23T22:12:31Z",
+      "side": 1,
+      "message": "I\u0027m pondering how you legitimately get into there via public API without hitting something like EVP, i.e. If we ensured that the entry points into EVP called it, what\u0027s left.",
+      "parentUuid": "e473aed7_01bfd11b",
+      "range": {
+        "startLine": 1252,
+        "startChar": 0,
+        "endLine": 1256,
+        "endChar": 6
+      },
+      "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
