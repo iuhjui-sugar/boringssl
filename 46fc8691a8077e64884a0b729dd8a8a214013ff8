@@ -22,6 +22,30 @@
       },
       "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e473aed7_01bfd11b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-23T21:14:57Z",
+      "side": 1,
+      "message": "Hmm. That does mean we can\u0027t as easily squirrel it behind `OPENSSL_ia32cap_has_bit` and `OPENSSL_get_armcap` functions, but we can always just stick the line in every function, so that\u0027s not that strong of an argument against it.\n\nSince `CRYPTO_library_init` *only* initializes the CPU vector, I think adding extra calls can only help for assembly. I believe this is the list of asm functions that care:\nhttps://paste.googleplex.com/5556261343985664\n\nIt would definitely help with the `aes_hw_*` case. I think the others would still need their own calls though.\n\nThis also precludes us from marking these functions as `const` and allow the compiler to delete duplicate calls. Although it is *slightly* unclear to what extent this is valid:\nhttps://stackoverflow.com/questions/6867696/gcc-attributes-for-init-on-first-use-functions\n\nNot that this CL currently achieves it. Looks like we actually need to make an out-of-line function that combines CRYPTO_library_init and reading the value:\nhttps://godbolt.org/z/ohzrxY8e3\n\nI\u0027m slightly tempted to do that though. It\u0027s not uncommon for us to call these in series. WDYT?\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/third_party/boringssl/src/crypto/fipsmodule/cipher/e_aes.c;drc\u003d5fdc03f74adfd3d270aa6f64b3f3050c19e52e49;l\u003d158",
+      "parentUuid": "26083b88_b3db2b75",
+      "range": {
+        "startLine": 1252,
+        "startChar": 0,
+        "endLine": 1256,
+        "endChar": 6
+      },
+      "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
