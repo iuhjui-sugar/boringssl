@@ -94,6 +94,30 @@
       },
       "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a1201be_45fcb84c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-23T22:17:52Z",
+      "side": 1,
+      "message": "similar to something like https://boringssl-review.googlesource.com/c/boringssl/+/62605",
+      "parentUuid": "fa512881_dcea8254",
+      "range": {
+        "startLine": 1252,
+        "startChar": 0,
+        "endLine": 1256,
+        "endChar": 6
+      },
+      "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
