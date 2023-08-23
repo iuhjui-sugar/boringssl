@@ -61,6 +61,7 @@ void EVP_AEAD_CTX_free(EVP_AEAD_CTX *ctx) {
 int EVP_AEAD_CTX_init(EVP_AEAD_CTX *ctx, const EVP_AEAD *aead,
                       const uint8_t *key, size_t key_len, size_t tag_len,
                       ENGINE *impl) {
+  CRYPTO_library_init();
   if (!aead->init) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_NO_DIRECTION_SET);
     ctx->aead = NULL;

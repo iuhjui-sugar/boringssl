@@ -97,6 +97,7 @@ static const struct {
 };
 
 const EVP_CIPHER *EVP_get_cipherbynid(int nid) {
+  CRYPTO_library_init();
   for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(kCiphers); i++) {
     if (kCiphers[i].nid == nid) {
       return kCiphers[i].func();
@@ -106,6 +107,7 @@ const EVP_CIPHER *EVP_get_cipherbynid(int nid) {
 }
 
 const EVP_CIPHER *EVP_get_cipherbyname(const char *name) {
+  CRYPTO_library_init();
   if (name == NULL) {
     return NULL;
   }
