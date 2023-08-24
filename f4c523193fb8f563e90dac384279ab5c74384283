@@ -427,6 +427,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0176fd08_0aae480d",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-08-24T19:58:05Z",
+      "side": 1,
+      "message": "Per our discussion in the meeting, I think this is resolved by moving from EphemeralSecret to PrivateKey, which doesn\u0027t consume the secret upon performing Diffie-Hellman",
+      "parentUuid": "b3901ae1_3fd79b12",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "286fec75_8676f55c",
