@@ -16,6 +16,24 @@
       "message": "This still needs a little polish, but there was one main question I wanted to ask how you felt about before paging this out of my brain. When I first started this change I decided to generate both the keys and certificates on the fly. I realized there is no _strong_ need to generate the keys on startup, but it also makes the code somewhat simpler. On my machine (M1 pro macbook) it takes \u003c100ms to generate all the necessary keys, which given the time it takes for the rest of the suite to run seems somewhat insignificant.\n\nAny objection to this?",
       "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae5c80a9_d02c8c72",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-24T18:42:22Z",
+      "side": 1,
+      "message": "Haven\u0027t had time to look over the CL yet, but thinking more generally for now.\n\nHaving the keys be part of the runner rather than referenced by path has a certain niceness to it. Whether they\u0027re pre-generated or generated on the fly, having runner responsible for plopping them into a random file is probably a good model. util/run_android_test.go (which needs to be updated) would be made a lot simpler if runner were a self-contained binary. Also some internal infra we have (we\u0027ll take care of updating that).\n\nAlthough, why do the certificates need to be generated on the fly? Is it just notBefore/notAfter and wanting them short-lived enough to pass maximum validity constraints?\n\nRegarding keys, I *think* I\u0027d prefer if the keys were pre-generated, but I think it\u0027s a weak preference. RSA key generation is... not exactly fast. We even run this on Android devices sometimes, and it might take longer there?\n\nSomething I thought about, but I think it\u0027s fine: runner actually integrates with our fuzzing strategy. We record transcripts from all the tests here and then use that to seed our TLS fuzzers. We mostly run the TLS fuzzers in a [funny mode with cryptography disabled](https://boringssl.googlesource.com/boringssl/+/HEAD/FUZZING.md#tls-transcripts), so it doesn\u0027t really matter. We also fuzz with that mode off, but in so far as that mode isn\u0027t hopeless (it probably is...), I can\u0027t think of any cases where randomizing the cert and key won\u0027t break transcripts that aren\u0027t already horribly broken.",
+      "parentUuid": "5640eb43_f385d1de",
+      "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
