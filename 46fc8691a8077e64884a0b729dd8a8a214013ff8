@@ -118,6 +118,30 @@
       },
       "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5593e00_8ac3b09a",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-24T00:16:24Z",
+      "side": 1,
+      "message": "The public API is pretty big. E.g. `EVP_get_cipherbynid` doesn\u0027t cover folks calling `EVP_aes_128_cbc` directly, which is our preferred API anyway. `EVP_get_cipherbynid` is hard to grep for and breaks dead code elimination.\n\nAnd then there\u0027s folks calling into `AES_set_encrypt_key` and friends directly. We could do it this way, but I figure a strategy like this is easier to be sure we\u0027ve gotten it all. (It also helps that, unlike upstream, our init function truly is just CPU capabilities. We don\u0027t need to add algorithms to a giant in-memory table or anything.)",
+      "parentUuid": "0a1201be_45fcb84c",
+      "range": {
+        "startLine": 1252,
+        "startChar": 0,
+        "endLine": 1256,
+        "endChar": 6
+      },
+      "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
