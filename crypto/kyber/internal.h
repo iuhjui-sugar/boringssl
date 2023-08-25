@@ -80,8 +80,8 @@ OPENSSL_EXPORT void KYBER_generate_key_external_entropy(
 // function is should only be used for tests, regular callers should use the
 // non-deterministic |KYBER_encap| directly.
 OPENSSL_EXPORT void KYBER_encap_external_entropy(
-    uint8_t out_ciphertext[KYBER_CIPHERTEXT_BYTES], uint8_t *out_shared_secret,
-    size_t out_shared_secret_len, const struct KYBER_public_key *public_key,
+    uint8_t out_ciphertext[KYBER_CIPHERTEXT_BYTES], uint8_t out_shared_secret[KYBER_SHARED_SECRET_BYTES],
+    const struct KYBER_public_key *public_key,
     const uint8_t entropy[KYBER_ENCAP_ENTROPY]);
 
 #if defined(__cplusplus)

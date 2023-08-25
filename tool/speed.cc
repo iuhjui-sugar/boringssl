@@ -1096,7 +1096,7 @@ static bool SpeedKyber(const std::string &selected) {
         uint8_t encoded_public_key[KYBER_PUBLIC_KEY_BYTES];
         KYBER_generate_key(encoded_public_key, &priv);
         uint8_t shared_secret[32];
-        KYBER_decap(shared_secret, sizeof(shared_secret), ciphertext, &priv);
+        KYBER_decap(shared_secret, ciphertext, &priv);
         return true;
       })) {
     fprintf(stderr, "Failed to time KYBER_generate_key + KYBER_decap.\n");
@@ -1117,7 +1117,7 @@ static bool SpeedKyber(const std::string &selected) {
           return false;
         }
         uint8_t shared_secret[32];
-        KYBER_encap(ciphertext, shared_secret, sizeof(shared_secret), &pub);
+        KYBER_encap(ciphertext, shared_secret, &pub);
         return true;
       })) {
     fprintf(stderr, "Failed to time KYBER_encap.\n");
