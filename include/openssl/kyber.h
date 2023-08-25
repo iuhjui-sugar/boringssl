@@ -62,28 +62,30 @@ OPENSSL_EXPORT void KYBER_public_from_private(
     struct KYBER_public_key *out_public_key,
     const struct KYBER_private_key *private_key);
 
-// KYBER_CIPHERTEXT_BYTES is number of bytes in the Kyber768 ciphertext.
+// KYBER_CIPHERTEXT_BYTES is the number of bytes in the Kyber768 ciphertext.
 #define KYBER_CIPHERTEXT_BYTES 1088
 
-// KYBER_encap encrypts a random secret key of length |out_shared_secret_len| to
-// |public_key|, writes the ciphertext to |ciphertext|, and writes the random
-// key to |out_shared_secret|. The party calling |KYBER_decap| must already know
-// the correct value of |out_shared_secret_len|.
-OPENSSL_EXPORT void KYBER_encap(uint8_t out_ciphertext[KYBER_CIPHERTEXT_BYTES],
-                                uint8_t *out_shared_secret,
-                                size_t out_shared_secret_len,
-                                const struct KYBER_public_key *public_key);
+// KYBER_SHARED_SECRET_BYTES is the number of bytes in the Kyber768 shared
+// secret.
+#define KYBER_SHARED_SECRET_BYTES 32
 
-// KYBER_decap decrypts a key of length |out_shared_secret_len| from
-// |ciphertext| using |private_key| and writes it to |out_shared_secret|. If
-// |ciphertext| is invalid, |out_shared_secret| is filled with a key that
-// will always be the same for the same |ciphertext| and |private_key|, but
-// which appears to be random unless one has access to |private_key|. These
-// alternatives occur in constant time. Any subsequent symmetric encryption
-// using |out_shared_secret| must use an authenticated encryption scheme in
-// order to discover the decapsulation failure.
+// KYBER_encap encrypts a random secret key to |public_key|, writes the
+// ciphertext to |ciphertext|, and writes the random key to |out_shared_secret|.
+OPENSSL_EXPORT void KYBER_encap(
+    uint8_t out_ciphertext[KYBER_CIPHERTEXT_BYTES],
+    uint8_t out_shared_secret[KYBER_SHARED_SECRET_BYTES],
+    const struct KYBER_public_key *public_key);
+
+// KYBER_decap decrypts a shared secret from |ciphertext| using |private_key|
+// and writes it to |out_shared_secret|. If |ciphertext| is invalid,
+// |out_shared_secret| is filled with a key that will always be the same for the
+// same |ciphertext| and |private_key|, but which appears to be random unless
+// one has access to |private_key|. These alternatives occur in constant time.
+// Any subsequent symmetric encryption using |out_shared_secret| must use an
+// authenticated encryption scheme in order to discover the decapsulation
+// failure.
 OPENSSL_EXPORT void KYBER_decap(
-    uint8_t *out_shared_secret, size_t out_shared_secret_len,
+    uint8_t out_shared_secret[KYBER_SHARED_SECRET_BYTES],
     const uint8_t ciphertext[KYBER_CIPHERTEXT_BYTES],
     const struct KYBER_private_key *private_key);
 
