@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbda4e76_0ebc4f51",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-28T20:40:43Z",
+      "side": 1,
+      "message": "It\u0027s not, it complains it is exported in the header, but not here.",
+      "parentUuid": "ef58653c_acb9f78b",
+      "revId": "8d43f0b47de81338ca654faac9d2636007ad85ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aaf0de49_d710df29",
         "filename": "pki/fillins/path_service.cc",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2023-08-28T18:58:58Z",
       "side": 1,
       "message": "Hmm, I think these shouldn\u0027t be needed. An `OPENSSL_EXPORT` on the class should be sufficient.",
+      "revId": "8d43f0b47de81338ca654faac9d2636007ad85ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf7cbb30_c943ac3c",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-08-28T20:40:43Z",
+      "side": 1,
+      "message": "That\u0027s what I thought, but it complains. \n\nhttps://logs.chromium.org/logs/chromium/buildbucket/cr-buildbucket/8771496828112466385/+/u/compile__with_patch_/stdout",
+      "parentUuid": "aaf0de49_d710df29",
       "revId": "8d43f0b47de81338ca654faac9d2636007ad85ee",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
