@@ -11,13 +11,13 @@ namespace bssl {
 
 namespace fillins {
 
-FilePath::FilePath() {}
+OPENSSL_EXPORT FilePath::FilePath() {}
 
-FilePath::FilePath(const std::string &path) : path_(path) {}
+OPENSSL_EXPORT FilePath::FilePath(const std::string &path) : path_(path) {}
 
-const std::string &FilePath::value() const { return path_; }
+OPENSSL_EXPORT const std::string &FilePath::value() const { return path_; }
 
-FilePath FilePath::AppendASCII(const std::string &ascii_path_element) const {
+OPENSSL_EXPORT FilePath FilePath::AppendASCII(const std::string &ascii_path_element) const {
   // Append a path element to a path. Use the \ separator if this appears to
   // be a Windows path, otherwise the Unix one.
   if (path_.find(":\\") != std::string::npos) {
@@ -27,7 +27,7 @@ FilePath FilePath::AppendASCII(const std::string &ascii_path_element) const {
 }
 
 // static
-void PathService::Get(PathKey key, FilePath *out) {
+OPENSSL_EXPORT void PathService::Get(PathKey key, FilePath *out) {
   // We expect our test data to live in "pki" underneath a
   // test root directory, or in the current directry.
   char *root_from_env = getenv("BORINGSSL_TEST_DATA_ROOT");

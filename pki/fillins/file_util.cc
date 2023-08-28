@@ -13,7 +13,7 @@ namespace bssl {
 
 namespace fillins {
 
-bool ReadFileToString(const FilePath &path, std::string *out) {
+OPENSSL_EXPORT bool ReadFileToString(const FilePath &path, std::string *out) {
   std::ifstream file(path.value(), std::ios::binary);
   file.unsetf(std::ios::skipws);
 
