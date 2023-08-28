@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "289d8822_f5f0cfcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-28T18:58:58Z",
+      "side": 1,
+      "message": "Hmm, what\u0027s the error you\u0027re getting? Those don\u0027t match where we end up needing them in Chromium.",
+      "revId": "8d43f0b47de81338ca654faac9d2636007ad85ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef58653c_acb9f78b",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-28T18:58:58Z",
+      "side": 1,
+      "message": "The one in the header should be sufficient.",
+      "revId": "8d43f0b47de81338ca654faac9d2636007ad85ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaf0de49_d710df29",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-28T18:58:58Z",
+      "side": 1,
+      "message": "Hmm, I think these shouldn\u0027t be needed. An `OPENSSL_EXPORT` on the class should be sufficient.",
+      "revId": "8d43f0b47de81338ca654faac9d2636007ad85ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
