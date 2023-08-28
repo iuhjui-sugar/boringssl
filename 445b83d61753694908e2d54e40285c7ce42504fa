@@ -16,6 +16,40 @@
       "message": "Functional correctness check using Fiat Cryptography still passes (and fails with pop rax instead of pop rbp).",
       "revId": "445b83d61753694908e2d54e40285c7ce42504fa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69d064fd_65172c67",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-08-28T18:56:11Z",
+      "side": 1,
+      "message": "Doesn\u0027t matter, but this is moot, right? Doesn\u0027t look like rsp is changed below and so this code runs entirely in the redzone. (I guess we don\u0027t use this code on Windows?)",
+      "revId": "445b83d61753694908e2d54e40285c7ce42504fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8152cd52_aae556f3",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_square.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-08-28T18:56:11Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "445b83d61753694908e2d54e40285c7ce42504fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
