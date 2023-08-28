@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "14d1d3e7_639195d7",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-28T19:21:03Z",
+      "side": 1,
+      "message": "We don\u0027t use this code on Windows, yeah. We\u0027d need a bunch of changes to make this work on Windows:\n\n* gas vs nasm vs masm mess\n* different calling convention\n* replace red zone with actual stack allocation\n* Windows unwind directives for prolog\n* Windows-compatible epilog\n* move register saves to the top so we don\u0027t run afoul of the 256-byte limit on the prolog size\n\nRemoved the redundant CFI directives. (The restores are also unnecessary since they\u0027re just relying on the red zone right now.)",
+      "parentUuid": "69d064fd_65172c67",
+      "revId": "445b83d61753694908e2d54e40285c7ce42504fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8152cd52_aae556f3",
         "filename": "third_party/fiat/asm/fiat_curve25519_adx_square.S",
         "patchSetId": 1
