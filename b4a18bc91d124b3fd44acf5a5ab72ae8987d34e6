@@ -52,6 +52,24 @@
       "parentUuid": "ae5c80a9_d02c8c72",
       "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b514e36a_10c16058",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2023-08-29T16:11:27Z",
+      "side": 1,
+      "message": "\u003e util/run_android_test.go (which needs to be updated) would be made a lot simpler if runner were a self-contained binary. Also some internal infra we have (we\u0027ll take care of updating that).\n\nOh I didn\u0027t catch this, will take a look at how it works.\n\n\u003e Although, why do the certificates need to be generated on the fly? Is it just notBefore/notAfter and wanting them short-lived enough to pass maximum validity constraints?\n\nPretty much. To a degree though it also prevents bit rot around how/why certs were generated in a particular fashion, making updates to tests more deterministic. When I was looking through the existing certificates, it was extremely confusing why some certs had certain properties and others didn\u0027t (i.e. the RSA chain certificate seemed unnecessary, had unique properties, and was being used in a handful of places, but it turns out none of those properties were required in order for the tests to pass).\n\n\u003e Regarding keys, I think I\u0027d prefer if the keys were pre-generated, but I think it\u0027s a weak preference. RSA key generation is... not exactly fast. We even run this on Android devices sometimes, and it might take longer there?\n\nI\u0027m not particularly strongly opinionated either way here myself. Pretty much all the same logic can be retained with pre-generated keys, and as you say while RSA key gen is _generally_ fast enough on most machines, it gets slow very quickly on machines with constrained resources. Probably makes sense to just retain the current in-tree keys.\n\n\u003e Something I thought about, but I think it\u0027s fine: runner actually integrates with our fuzzing strategy. We record transcripts from all the tests here and then use that to seed our TLS fuzzers. We mostly run the TLS fuzzers in a funny mode with cryptography disabled, so it doesn\u0027t really matter. We also fuzz with that mode off, but in so far as that mode isn\u0027t hopeless (it probably is...), I can\u0027t think of any cases where randomizing the cert and key won\u0027t break transcripts that aren\u0027t already horribly broken.\n\nHah, interesting. I can\u0027t imagine it\u0027d make things worse, it\u0027ll produce an ever so slightly less diverse corpus in terms of the certificates that appear in transcripts (although I guess technically there will be more diversity in the serial numbers and notBefore/notAfter dates), but I\u0027d be quite surprised if that led to anything interesting.",
+      "parentUuid": "74ca438c_ef853e5a",
+      "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
