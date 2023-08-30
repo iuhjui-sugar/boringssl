@@ -70,6 +70,24 @@
       "parentUuid": "74ca438c_ef853e5a",
       "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19ac4ed4_6237dccb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-30T17:51:21Z",
+      "side": 1,
+      "message": "Cool. Let\u0027s do pre-generated keys (at least RSA keys; ECDSA keygen is fast) and dynamically generated certificates.\n\nMay as well keep the thing where keys are passed in via temporary files though. I.e. whether it\u0027s pre-generated or dynamically generated is an implementation detail of `runner`, and `runner` no longer needs to find data files relative to itself. If we\u0027re going to teach the system how to deal with temporary files, we may as well get those deployment simplicities everywhere.",
+      "parentUuid": "b514e36a_10c16058",
+      "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
