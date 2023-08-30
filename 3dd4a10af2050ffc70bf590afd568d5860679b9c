@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b4136d_27f0822c",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-30T17:45:18Z",
+      "side": 1,
+      "message": "We require that all our asm files include `asm_base.h`, so the inputs should reliably contain the note. I mean, if they don\u0027t, that means the normal, non-delocate build isn\u0027t BTI/PAC-clean, which would already be a problem. 😊\n\nBut including it again works.",
+      "parentUuid": "dd8a5d6f_d26049bd",
+      "revId": "3dd4a10af2050ffc70bf590afd568d5860679b9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aef07611_9dfefbdf",

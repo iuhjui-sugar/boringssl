@@ -124,6 +124,24 @@
       "parentUuid": "3f8c98bb_f2c21b41",
       "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5eed59_9b8d91a0",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-08-30T17:45:18Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "d64fe73e_4de1921f",
+      "revId": "f2f2887a86da2e83c393446e89bd46566f442337",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
