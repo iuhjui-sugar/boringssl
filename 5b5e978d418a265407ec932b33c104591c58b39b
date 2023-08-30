@@ -16,6 +16,24 @@
       "message": "Haha. Apparently the CMake file can\u0027t handle it either:\nhttps://ci.chromium.org/ui/p/boringssl/builders/try/android_aarch64_fips_static_compile/b8771316602215810449/overview\n\nTBH, given this is generated code anyway, it\u0027s probably simplest to just not rely on external headers. We can just write it this way and not worry about it very much. (I don\u0027t think we need to inject a `.note.gnu.property` because the inputs will have it.)\n\n```\n    w.WriteString(\"#if defined(__ARM_FEATURE_BTI_DEFAULT) \u0026\u0026 __ARM_FEATURE_BTI_DEFAULT \u003d\u003d 1\\n\")\n    w.WriteString(\"\\thint #34\\n\")  // bti c\n    w.WriteString(\"#endif\\n\")\n```\n\n(Or we could even go the preprocessor-free route and just unconditionally stick the `hint` instruction in, since they\u0027re just NOPs. But it will waste a few bytes in configurations that aren\u0027t trying to support BTI in the first place. *shrug*)",
       "revId": "5b5e978d418a265407ec932b33c104591c58b39b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169d67ab_54dcf6f5",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1387,
+      "author": {
+        "id": 16846
+      },
+      "writtenOn": "2023-08-30T20:38:26Z",
+      "side": 1,
+      "message": "Yup, I scrapped the whole thing and just insert `hint #34` unconditionally. We don\u0027t need preprocesser anymore so I can abandon cl/557871388 as well.",
+      "parentUuid": "00ca1dd0_e446afdf",
+      "revId": "5b5e978d418a265407ec932b33c104591c58b39b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
