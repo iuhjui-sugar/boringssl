@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dd8a5d6f_d26049bd",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 16846
+      },
+      "writtenOn": "2023-08-30T00:33:41Z",
+      "side": 1,
+      "message": "Moved to the beginning of the generated file and commented what we need. I don\u0027t want to rely on the input assembly files containing the note section so we\u0027ll need to copy ~40 lines from asm_base.h so I decided to keep the #include.",
+      "parentUuid": "f4273bfa_64354dcb",
+      "revId": "3dd4a10af2050ffc70bf590afd568d5860679b9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aef07611_9dfefbdf",
         "filename": "util/fipstools/delocate/testdata/x86_64-LabelRewrite/out.s",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-22T17:10:24Z",
       "side": 1,
       "message": "I suspect these need to be regenerated. Just run `go test -update`.",
+      "revId": "3dd4a10af2050ffc70bf590afd568d5860679b9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e70a2ffa_6e1f9c41",
+        "filename": "util/fipstools/delocate/testdata/x86_64-LabelRewrite/out.s",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16846
+      },
+      "writtenOn": "2023-08-30T00:33:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef07611_9dfefbdf",
       "revId": "3dd4a10af2050ffc70bf590afd568d5860679b9c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
