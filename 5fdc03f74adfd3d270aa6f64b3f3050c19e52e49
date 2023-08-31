@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6728b2ba_abba1ff3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16991
+      },
+      "writtenOn": "2023-08-31T07:35:42Z",
+      "side": 1,
+      "message": "I really don\u0027t understand the need to remove ppc64 assembly. The community still maintains it and it\u0027s being used in Chromium ppc64le. Firefox stance on ppc64le is accepting external contributions but not guaranteeing it won\u0027t break and from time to time it gets fixed after the release. Google, on the other end, plainly refuses to mainline any kind of patches. So much for a company who\u0027s motto used to be \"don\u0027t be evil\".",
+      "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
