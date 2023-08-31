@@ -70,6 +70,24 @@
       "parentUuid": "77ccc98a_5b35cdc0",
       "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c1178a5_b5fab768",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16991
+      },
+      "writtenOn": "2023-08-31T14:37:37Z",
+      "side": 1,
+      "message": "It\u0027s the company who produces the Talos 2 and the Blackbird, the only fully free (down to the firmware) high end workstations available in the market. You might not have heard of them because they offered CI infrastructure mostly on the Chromium groups. They gave up on upstreaming ppc64le support in Chromium long time ago because Google didn\u0027t care to accept any contribution and they\u0027re maintaining external patches since then. Chromium\u0027s engine is at the core of the web, including things like electron applications which constitutes a big part of cross platform applications and Google\u0027s irresponsibility is deeply damaging the whole ecosystem, especially considering there are no other fully free platforms available. BoringSSL is just a small part of the picture, but Google\u0027s attitude remains the same across the whole board.\nAgain, please don\u0027t hide behind the \"we lack the hardware\"/\"external resources don\u0027t suffice\" excuse: I\u0027m sure Raptor CS would be more than happy to donate one of their servers if that means getting Google aboard. Let me know if I need to get you in contact with them.",
+      "parentUuid": "d21ccf8a_80ed23ee",
+      "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
