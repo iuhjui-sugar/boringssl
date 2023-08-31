@@ -16,6 +16,24 @@
       "message": "I really don\u0027t understand the need to remove ppc64 assembly. The community still maintains it and it\u0027s being used in Chromium ppc64le. Firefox stance on ppc64le is accepting external contributions but not guaranteeing it won\u0027t break and from time to time it gets fixed after the release. Google, on the other end, plainly refuses to mainline any kind of patches. So much for a company who\u0027s motto used to be \"don\u0027t be evil\".",
       "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48ae3203_0cac2894",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-08-31T13:52:45Z",
+      "side": 1,
+      "message": "We don\u0027t have access to ppc64le machines nor do we have ppc64le builders in our CI any longer. We can\u0027t do a good job of maintaining dedicated assembly for ppc64le now, hand-crafted assembly is obviously very expensive code to carry, and we won\u0027t ship anything that we can\u0027t stand behind. ppc64le still works using generic code and, if you want to carry the assembly in a local patch you can, of course, do so.",
+      "parentUuid": "6728b2ba_abba1ff3",
+      "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
