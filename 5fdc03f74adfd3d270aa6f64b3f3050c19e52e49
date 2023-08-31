@@ -34,6 +34,24 @@
       "parentUuid": "6728b2ba_abba1ff3",
       "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77ccc98a_5b35cdc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16991
+      },
+      "writtenOn": "2023-08-31T14:01:19Z",
+      "side": 1,
+      "message": "Hiding behind the lack of builders is a poor excuse, because Raptor Computing offered multiple times to provide CI infrastructure. Their offer is still valid so let me know if you changed your mind.",
+      "parentUuid": "48ae3203_0cac2894",
+      "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
