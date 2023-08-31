@@ -52,6 +52,24 @@
       "parentUuid": "48ae3203_0cac2894",
       "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d21ccf8a_80ed23ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-08-31T14:22:01Z",
+      "side": 1,
+      "message": "(I\u0027ve not heard of \"Raptor Computing\" and do not have that phrase in my email.)\n\nBut our CI is integrated into here and into other systems, external resources don\u0027t suffice I\u0027m afraid. We get carried along with wider decisions across Google and ppc64le is no longer a top-tier platform that Google supports. I know this pattern differs from more community driven open-source projects, but the first line of our README, from the very beginning, has never hidden this difference: \"BoringSSL is a fork of OpenSSL that is designed to meet Google\u0027s needs.\".",
+      "parentUuid": "77ccc98a_5b35cdc0",
+      "revId": "5fdc03f74adfd3d270aa6f64b3f3050c19e52e49",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
