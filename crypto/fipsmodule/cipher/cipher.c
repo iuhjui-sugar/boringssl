@@ -586,6 +586,10 @@ unsigned EVP_CIPHER_CTX_key_length(const EVP_CIPHER_CTX *ctx) {
 }
 
 unsigned EVP_CIPHER_CTX_iv_length(const EVP_CIPHER_CTX *ctx) {
+  if (EVP_CIPHER_mode(ctx->cipher) == EVP_CIPH_GCM_MODE) {
+    return EVP_CIPHER_CTX_ctrl((EVP_CIPHER_CTX *)ctx, EVP_CTRL_AEAD_GET_IVLEN,
+                               0, 0);
+  }
   return ctx->cipher->iv_len;
 }
 
