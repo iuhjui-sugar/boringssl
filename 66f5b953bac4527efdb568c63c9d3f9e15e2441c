@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23de4c18_92e60a5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-09-01T19:34:15Z",
+      "side": 1,
+      "message": "I\u0027m not confident about the new ctrl: a) Do you actually want this to be a public API? b) If yes, is the style of \"ctrl returns an int directly\" acceptable, or should it always go via an out-param?",
+      "revId": "66f5b953bac4527efdb568c63c9d3f9e15e2441c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
