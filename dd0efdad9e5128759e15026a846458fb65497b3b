@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a798d4_ce68f783",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 8004,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T18:59:16Z",
+      "side": 1,
+      "message": "Nit: Can you rerun clang-format on this region? BoringSSL differs from Chromium in that we prefer right-aligned `*` and `\u0026`. (Mostly a C thing. Also to because the grammar is weird. `int* foo, bar;` does not define two pointers. It defines `int *foo` and `int bar`. `int *foo, bar` and `int *foo, *bar` makes that a bit clearer.\n\n(Looks like this used to be correct but got flipped?)",
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8369f8_655cdea4",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T18:59:16Z",
+      "side": 1,
+      "message": "Nit: Now that these are all `\u0026\u0026`, no more need for parens.\n```suggestion\n\t\t\tif hs.sessionState.cipherSuite \u003d\u003d hs.suite.id \u0026\u0026\n\t\t\t\tc.clientProtocol \u003d\u003d string(hs.sessionState.earlyALPN) \u0026\u0026\n\t\t\t\tc.hasApplicationSettings \u003d\u003d hs.sessionState.hasApplicationSettings \u0026\u0026\n\t\t\t\tbytes.Equal(c.localApplicationSettings, hs.sessionState.localApplicationSettings) \u0026\u0026\n\t\t\t\tc.hasApplicationSettingsOld \u003d\u003d hs.sessionState.hasApplicationSettingsOld \u0026\u0026\n\t\t\t\tbytes.Equal(c.localApplicationSettingsOld, hs.sessionState.localApplicationSettingsOld) {\n```",
+      "range": {
+        "startLine": 911,
+        "startChar": 0,
+        "endLine": 916,
+        "endChar": 97
+      },
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f860c622_916613d6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 7201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T18:59:16Z",
+      "side": 1,
+      "message": "See comment in common.go. This isn\u0027t actually testing the server sending the wrong codepoint.",
+      "range": {
+        "startLine": 7201,
+        "startChar": 12,
+        "endLine": 7201,
+        "endChar": 23
+      },
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39f773e6_bad9807e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 7936,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T18:59:16Z",
+      "side": 1,
+      "message": "This says Server but is marked as a clientTest. This whole loop looks like a copy-paste error.",
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

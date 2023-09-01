@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b14bc762_dfa55582",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T18:59:16Z",
+      "side": 1,
+      "message": "Oof. The more I stare at this, the more I realize the ALPS + handback machinery just didn\u0027t work at all, because of when this would typically get configured. In fact, none of this works at all because the internal caller calls this before configuring *anything* on the SSL object. Wonderful.\n\nGood news is, the new handshake hints mechanism makes this moot, so we only care about this until the split handshakes folks stop using it.\n\nI will... stare at this and figure out what we want to do here. Apologies for the mess in this corner of the codebase. :-(",
+      "parentUuid": "27910c81_78809068",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "752d3ee9_5a20f0c2",
         "filename": "ssl/internal.h",
         "patchSetId": 18
@@ -207,6 +225,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c6c1d56_fc3a12cb",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T18:59:16Z",
+      "side": 1,
+      "message": "But this doesn\u0027t actually test that the server ignored it. I.e., at no point does it assert on `SSL_has_application_settings`.",
+      "parentUuid": "ef74747d_d36a5236",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aece6a30_41f1117c",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 18
@@ -236,6 +272,24 @@
       "side": 1,
       "message": "neither option can help us avoid writes separate tests to verity the logics, prefer to leave for test coverages. I can remove it if you feel it\u0027s unnecessary",
       "parentUuid": "aece6a30_41f1117c",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5301659_f3bf160b",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T18:59:16Z",
+      "side": 1,
+      "message": "The \"neither\" cases aren\u0027t actually testing anything. Looking through your tests:\n\n* ALPS-Basic-Client: when server sends neither, you\u0027re just that the client doesn\u0027t crash when the server ignores your codepoint. Looks like there\u0027s a bigger problem with this one. Right now, clientConfig\u003dALPSUseCodepointNew, serverSends\u003dALPSUseCodepointOld and clientConfig\u003dALPSUseCodepointNew, serverSends\u003dALPSUseCodepointNeither test the exact same thing: server sending nothing. But given the variable name serverSends, I assume you meant to test that the server *actually* sends the wrong codepoint. For that, you need a protocol bug like AlwaysNegotiateApplicationSettingsNew. (I don\u0027t see another test that covers this case.)\n\n  Once you fix tha, \"neither\" is no longer redundant with codepoint mismatch, but it is redundant with ALPS-EarlyData-Client-ServerDecline, which tests this and more.\n\n* ALPS-Basic-Server: this is just testing that a server with ALPS enabled still works against clients that don\u0027t support ALPS. This is likewise redundant with ALPS-EarlyData-Server-ClientNoOffer, which tests this and more. (Also it\u0027s testing basically the same codepaths as codepoint mismatch.)\n\n* ALPS-Reject-Client: the neither case isn\u0027t doing anything because you\u0027re just forcing it to old via AlwaysNegotiateApplicationSettingsOld. This is also not a case that needs to be tested multi-version. The codepoint mismatch cases are just the generic \"you sent an extension I didn\u0027t offer\" code, which is amply tested, while the codepoint match cases are the interesting ones. This test only needs to consider the codepoint match case. \n\n* ALPS-Reject-Server: this is the same test as above and looks like a copy-paste error. I\u0027ve left a comment in runner.go about that.\n\n* ALPS-Decline-Server: the neither test isn\u0027t doing anything. It\u0027s identical to the neither case in ALPS-Basic-Server. In general, this test only needs to consider the codepoint match case because the mismatch case is uninteresting and redundant with ALPS-Basic-Server.",
+      "parentUuid": "7d486b95_f05f67fa",
       "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
