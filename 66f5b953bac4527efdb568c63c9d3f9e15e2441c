@@ -16,6 +16,58 @@
       "message": "I\u0027m not confident about the new ctrl: a) Do you actually want this to be a public API? b) If yes, is the style of \"ctrl returns an int directly\" acceptable, or should it always go via an out-param?",
       "revId": "66f5b953bac4527efdb568c63c9d3f9e15e2441c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ef4eeb7_7d5ec165",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T23:59:11Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "66f5b953bac4527efdb568c63c9d3f9e15e2441c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a2a9e1d_36cc22f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T23:59:11Z",
+      "side": 1,
+      "message": "I don\u0027t especially care for `EVP_CIPHER_CTX_ctrl` and `EVP_CTRL_*` as public APIs, but that\u0027s where OpenSSL is, and it\u0027s probably not worth the fuss to diverge here. Especially for an AES-GCM API that we don\u0027t even like anyway. 😊 So while I actually prefer your version of the ctrl over theirs in a vacuum, I\u0027m inclined to just match upstream in both calling it `EVP_CTRL_GET_IVLEN` and using an `int *` out-param. Kinda odd, but I suppose it works. *shrug*\n\nTo make it private, we could just add a new function pointer on `EVP_CIPHER`. (Unlike upstream, we don\u0027t believe in user-defined `EVP_CIPHER`s.) But I think just doing the silly ioctl is fine.",
+      "parentUuid": "23de4c18_92e60a5f",
+      "revId": "66f5b953bac4527efdb568c63c9d3f9e15e2441c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aac913b2_987c8e3c",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-01T23:59:11Z",
+      "side": 1,
+      "message": "I think this is already run on different AES-GCM IV lengths, so we can omit setting back and forth from `iv.size()` and just assert `EVP_CIPHER_CTX_iv_length` reflects the IV size at the end of the day.\n\nThis way we don\u0027t have to think about dumb questions like \"what if `iv.size()` is zero?\" (Though zero-length IVs aren\u0027t allowed for GCM, so the dumb question does have an answer.)",
+      "revId": "66f5b953bac4527efdb568c63c9d3f9e15e2441c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
