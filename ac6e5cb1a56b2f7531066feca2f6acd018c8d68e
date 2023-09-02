@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5508d9f3_b319e820",
+        "filename": "rust/bssl-crypto/src/ecdh.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-09-02T01:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "788dae94_90b6ceee",
+      "revId": "ac6e5cb1a56b2f7531066feca2f6acd018c8d68e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fabe874_a5238d97",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-08-30T15:09:44Z",
       "side": 1,
       "message": "warning: this expression creates a reference which is immediately dereferenced by the compiler\n  --\u003e src/ecdh.rs:75:35\n   |\n75 |         EcKey::try_from_raw_bytes(\u0026C::ec_group(), private_key_bytes)\n   |                                   ^^^^^^^^^^^^^^ help: change this to: `C::ec_group()`\n   |\n\nplease fix",
+      "revId": "ac6e5cb1a56b2f7531066feca2f6acd018c8d68e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89a3d0a6_3404dfc2",
+        "filename": "rust/bssl-crypto/src/ecdh.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-09-02T01:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fabe874_a5238d97",
       "revId": "ac6e5cb1a56b2f7531066feca2f6acd018c8d68e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd9ad2e0_0dc7ab12",
+        "filename": "rust/bssl-crypto/src/ecdh.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-09-02T01:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59875d54_75d8fa53",
+      "revId": "ac6e5cb1a56b2f7531066feca2f6acd018c8d68e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c16a05d2_1bc83951",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-08-30T15:09:44Z",
       "side": 1,
       "message": "warning: this expression creates a reference which is immediately dereferenced by the compiler\n   --\u003e src/ecdh.rs:174:46\n    |\n174 |         EcKey::try_new_public_key_from_bytes(\u0026C::ec_group(), value)\n    |                                              ^^^^^^^^^^^^^^ help: change this to: `C::ec_group()`\n    |\n    \u003d help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#needless_borrow\n    \n    \nplease fix.",
+      "revId": "ac6e5cb1a56b2f7531066feca2f6acd018c8d68e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3416aa83_5a2bedb2",
+        "filename": "rust/bssl-crypto/src/ecdh.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-09-02T01:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c16a05d2_1bc83951",
       "revId": "ac6e5cb1a56b2f7531066feca2f6acd018c8d68e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
