@@ -284,6 +284,30 @@
       },
       "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a1a4a22_70d85a73",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-05T19:03:55Z",
+      "side": 1,
+      "message": "We can always rename later, I think this is fine.",
+      "parentUuid": "846e3c72_0b745337",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 42
+      },
+      "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
