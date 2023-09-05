@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa589f65_b8d39930",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 8004,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-05T19:39:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39a798d4_ce68f783",
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a8369f8_655cdea4",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-01T18:59:16Z",
       "side": 1,
       "message": "Nit: Now that these are all `\u0026\u0026`, no more need for parens.\n```suggestion\n\t\t\tif hs.sessionState.cipherSuite \u003d\u003d hs.suite.id \u0026\u0026\n\t\t\t\tc.clientProtocol \u003d\u003d string(hs.sessionState.earlyALPN) \u0026\u0026\n\t\t\t\tc.hasApplicationSettings \u003d\u003d hs.sessionState.hasApplicationSettings \u0026\u0026\n\t\t\t\tbytes.Equal(c.localApplicationSettings, hs.sessionState.localApplicationSettings) \u0026\u0026\n\t\t\t\tc.hasApplicationSettingsOld \u003d\u003d hs.sessionState.hasApplicationSettingsOld \u0026\u0026\n\t\t\t\tbytes.Equal(c.localApplicationSettingsOld, hs.sessionState.localApplicationSettingsOld) {\n```",
+      "range": {
+        "startLine": 911,
+        "startChar": 0,
+        "endLine": 916,
+        "endChar": 97
+      },
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03edbb19_96a257e4",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-05T19:39:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a8369f8_655cdea4",
       "range": {
         "startLine": 911,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec2ad3c_b5fd62b5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 7201,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-05T19:39:36Z",
+      "side": 1,
+      "message": "addressed in the common.go",
+      "parentUuid": "f860c622_916613d6",
+      "range": {
+        "startLine": 7201,
+        "startChar": 12,
+        "endLine": 7201,
+        "endChar": 23
+      },
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39f773e6_bad9807e",
@@ -77,6 +143,24 @@
       "writtenOn": "2023-09-01T18:59:16Z",
       "side": 1,
       "message": "This says Server but is marked as a clientTest. This whole loop looks like a copy-paste error.",
+      "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "125da775_64510493",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 7936,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-05T19:39:36Z",
+      "side": 1,
+      "message": "oh, the name seems wrong, actually it\u0027s match the origin test: ALPS-Reject-Client-Resume: https://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/ssl/test/runner/runner.go;l\u003d7731",
+      "parentUuid": "39f773e6_bad9807e",
       "revId": "dd0efdad9e5128759e15026a846458fb65497b3b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
