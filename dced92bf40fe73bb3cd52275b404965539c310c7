@@ -297,6 +297,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6166da48_1352e99a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8077,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T17:38:08Z",
+      "side": 1,
+      "message": "yea, with the existing CL test codes `SSL_has_application_settings` will be always false for all conditions since no sessions has been created. correct me if I\u0027m wrong, assume to make the ssl_has_application_settings works on the unit test, we need to setup sessions to work correctly which follows the necessary setup code in: https://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/ssl/test/test_config.cc;l\u003d1415, I also have tried a couple of examples on the ssl_test.cc to create a session, all seems not working.",
+      "parentUuid": "7adf88a6_ad665b53",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aece6a30_41f1117c",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 18
