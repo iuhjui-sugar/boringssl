@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abbdeb43_b7d579dd",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T20:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf67bf31_7aca3049",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc855d61_80f5982a",
@@ -52,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eae0b6ef_4b003bca",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7201,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T20:47:08Z",
+      "side": 1,
+      "message": "will make it as a single loop and refactor the tests.",
+      "parentUuid": "bc855d61_80f5982a",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9644d91a_40f18e1d",
@@ -65,6 +101,24 @@
       "writtenOn": "2023-09-07T18:50:28Z",
       "side": 1,
       "message": "We usually use \"decline\" to mean something was offered but you ignored it. That\u0027s something general servers do, not clients. Here the client is outright rejecting it because it is invalid for the server to send this.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c2369ee_2aa33d45",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7475,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T20:47:08Z",
+      "side": 1,
+      "message": "update the description.",
+      "parentUuid": "9644d91a_40f18e1d",
       "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -92,6 +146,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ac9662f_fb78fb3f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7488,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T20:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8770b63c_62f646c5",
+      "range": {
+        "startLine": 7488,
+        "startChar": 44,
+        "endLine": 7488,
+        "endChar": 52
+      },
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2803b1a7_6528da8d",
@@ -105,6 +183,24 @@
       "writtenOn": "2023-09-07T18:50:28Z",
       "side": 1,
       "message": "Mentioned this in the common.go comment, but this neither the mismatch nor both cases are doing anything here. This can just be a single simple loop.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc8e0bbe_ad239852",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7918,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T20:47:08Z",
+      "side": 1,
+      "message": "see reply in above comment line #7201.",
+      "parentUuid": "2803b1a7_6528da8d",
       "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -126,6 +222,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "686c3733_4225c59d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7952,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T20:47:08Z",
+      "side": 1,
+      "message": "see reply in above comment line #7201.",
+      "parentUuid": "bd03fd01_cae94e74",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8dde3efd_c7a456bf",
@@ -139,6 +253,24 @@
       "writtenOn": "2023-09-07T18:50:28Z",
       "side": 1,
       "message": "Mentioned this in the common.go comment, but this neither the mismatch nor both cases are doing anything here. This can just be a single simple loop.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "295f6564_b5425a97",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7992,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-07T20:47:08Z",
+      "side": 1,
+      "message": "see reply in above comment line #7201.",
+      "parentUuid": "8dde3efd_c7a456bf",
       "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
