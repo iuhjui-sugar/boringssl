@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79740c06_9b918709",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T21:53:54Z",
+      "side": 1,
+      "message": "It\u0027s kinda weird that `g_force_madv_wipeonfork` is not gated on using madvise. Conversely that the `pthread_atfork` stuff is built in the madvise version.\n\nPerhaps instead this should just be:\n\n\n```\n#if defined(OPENSSL_FORK_DETECTION_MADVISE)\n\nDEFINE_BSS_GET(int, g_force_madv_wipeonfork);\nDEFINE_BSS_GET(int, g_force_madv_wipeonfork_enabled);\nDEFINE_STATIC_ONCE(g_fork_detect_once);\nDEFINE_STATIC_MUTEX(g_fork_detect_lock);\nDEFINE_BSS_GET(CRYPTO_atomic_u32 *, g_fork_detect_addr);\nDEFINE_BSS_GET(uint64_t, g_fork_generation);\n\nstatic void init_fork_detect(void) { ... }\n\nuint64_t CRYPTO_get_fork_generation(void) {\n  ... the madv impl ...\n}\n\n#elif defined(OPENSSL_FORK_DETECTION_PTHREAD_ATFORK)\n\nDEFINE_STATIC_ONCE(g_pthread_fork_detection_once);\nDEFINE_BSS_GET(uint64_t, g_atfork_fork_generation);\n\nstatic void we_are_forked(void) { ... }\n\nstatic void init_pthread_fork_detection(void) { ... }\n\nuint64_t CRYPTO_get_fork_generation(void) {\n  CRYPTO_once(g_pthread_fork_detection_once_bss_get(), init_pthread_fork_detection);\n\n  return  *g_atfork_fork_generation_bss_get();\n}\n\n#elif defined(OPENSSL_DOES_NOT_FORK)\n\n...\n```",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05cc1801_2dceb74d",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T21:53:54Z",
+      "side": 1,
+      "message": "uint64_t",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 10
+      },
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cc2d591_0f10585f",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T21:53:54Z",
+      "side": 1,
+      "message": "Does this actually do anything? The only place we check the fork-unsafe-buffering flag is in `RAND_bytes_with_additional_data`. But the condition is:\n\n```\n  if (fork_generation !\u003d 0 || fork_unsafe_buffering) {\n```\n\nAnd if we get here, we know `fork_generation` is never zero, which means enabling or disabling buffering doesn\u0027t do anything. I think disabling buffering only makes a difference on platforms where we *don\u0027t* trust `pthread_atfork` (Linux), but we\u0027re not trying to apply `pthread_atfork` to those platforms right now. So I think we can punt `RAND_disable_fork_unsafe_buffering` for now.",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef48df20_55587196",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T21:53:54Z",
+      "side": 1,
+      "message": "I\u0027m surprised this didn\u0027t flag a warning. I assume you meant to leave this at `current_generation \u003d 1`.",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b915a24_578b16df",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T21:53:54Z",
+      "side": 1,
+      "message": "Nit: extra space after `return`",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4ff92c6_a8f6160c",
+        "filename": "crypto/fipsmodule/rand/fork_detect.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T21:53:54Z",
+      "side": 1,
+      "message": "duplication",
+      "range": {
+        "startLine": 28,
+        "startChar": 44,
+        "endLine": 28,
+        "endChar": 55
+      },
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4658a35_e2296fbe",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T21:53:54Z",
+      "side": 1,
+      "message": "Nit: stray space at the end, blank line between the two functions.",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
