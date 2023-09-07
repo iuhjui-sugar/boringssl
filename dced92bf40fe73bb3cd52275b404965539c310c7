@@ -351,6 +351,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9b8f0002_f23c0b6b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:51:46Z",
+      "side": 1,
+      "message": "That configures it on the client. ALPN follows most TLS features where the client offers options and the server picks things. `SSL_set_alpn_protos` configured the client to offer options. You need to configure the callback on the server.",
+      "parentUuid": "c0231c43_5c603ea8",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aece6a30_41f1117c",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 18
