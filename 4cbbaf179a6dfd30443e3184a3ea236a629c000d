@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "816160e0_09c7f3ce",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-07T21:25:49Z",
+      "side": 1,
+      "message": "well, on the off chance it isn\u0027t safe, let\u0027s just use __linux__ which should be.",
+      "parentUuid": "2ac63754_20d00331",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14138aa3_935e9b31",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-08-17T20:24:49Z",
       "side": 1,
       "message": "Probably worth a comment here like \"Immediately after a fork, the process must be single-threaded.\"",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7e2a69f_e91c1756",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-07T21:25:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14138aa3_935e9b31",
       "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -165,6 +207,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc009bd_28e914be",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-07T21:25:49Z",
+      "side": 1,
+      "message": "ok changed the world back to the existing way of doing things for madvise, so there\u0027s no change when we are using that, and this just adds pthread_atfork support for things that are not madvise but posix.\n\nHowever whacking the fork_unsafe_buffering flag here is still pretty easy, so I did this anyway in the atfork handler as the atomic is safe to do there.",
+      "parentUuid": "4c6668a2_4c4d4ce0",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07879e04_8c6e74f0",
@@ -182,6 +242,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a537b39_6a2bf915",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-07T21:25:49Z",
+      "side": 1,
+      "message": "Since we\u0027re back to either or with madvise, I\u0027ve just switched back to unint64 and kept it simple.",
+      "parentUuid": "07879e04_8c6e74f0",
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a9b3d2e_78da54d2",
@@ -195,6 +273,30 @@
       "writtenOn": "2023-08-17T20:24:49Z",
       "side": 1,
       "message": "addition",
+      "range": {
+        "startLine": 21,
+        "startChar": 27,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "4cbbaf179a6dfd30443e3184a3ea236a629c000d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f16146a7_ba5552a3",
+        "filename": "crypto/fipsmodule/rand/fork_detect.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-07T21:25:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a9b3d2e_78da54d2",
       "range": {
         "startLine": 21,
         "startChar": 27,
