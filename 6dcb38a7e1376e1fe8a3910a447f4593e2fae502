@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4249dfe9_545af767",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "t",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf67bf31_7aca3049",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "Please rerun `go fmt`. The indentation here isn\u0027t right.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc855d61_80f5982a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "Mentioned this in the common.go comment, but this still isn\u0027t testing what happens when the server sends the wrong codepoint. `serverSends` here is not actually testing what the server sends. If we\u0027re going to extract those into separate \"Mismatch\" tests, then the only cases here that matter is when the codepoints across the two match---i.e. you can just have a single loop.\n\nThat is, serverSends \u003d clientConfig and serverSends \u003d Both do the exact same thing. And then serverSends being the opposite of clientConfig is just testing what happens when the server doesn\u0027t negotiate ALPS. As mentioned in common.go, that\u0027s already covered by other tests.\n\nRemember: the shim is the implementation under test. The runner is just a very programmable fake. Only what it *actually* sends to the shim matters for the test.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9644d91a_40f18e1d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7475,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "We usually use \"decline\" to mean something was offered but you ignored it. That\u0027s something general servers do, not clients. Here the client is outright rejecting it because it is invalid for the server to send this.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8770b63c_62f646c5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7488,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "Nit: \"Mismatch\" is ambiguous because it could also be talking about the ALPS value not matching across 0-RTT. Perhaps something like WrongServerCodepoint.",
+      "range": {
+        "startLine": 7488,
+        "startChar": 44,
+        "endLine": 7488,
+        "endChar": 52
+      },
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2803b1a7_6528da8d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7918,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "Mentioned this in the common.go comment, but this neither the mismatch nor both cases are doing anything here. This can just be a single simple loop.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd03fd01_cae94e74",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7952,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "Mentioned this in the common.go comment, but this neither the mismatch nor both cases are doing anything here. This can just be a single simple loop.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dde3efd_c7a456bf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 7992,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T18:50:28Z",
+      "side": 1,
+      "message": "Mentioned this in the common.go comment, but this neither the mismatch nor both cases are doing anything here. This can just be a single simple loop.",
+      "revId": "6dcb38a7e1376e1fe8a3910a447f4593e2fae502",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
