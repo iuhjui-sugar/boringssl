@@ -373,6 +373,10 @@ if(OPENSSL_NO_ASM)
   add_definitions(-DOPENSSL_NO_ASM)
 endif()
 
+if(OPENSSL_NO_SOCK)
+  add_definitions(-DOPENSSL_NO_SOCK)
+endif()
+
 if(FIPS_DELOCATE OR NOT OPENSSL_NO_ASM)
   # On x86 and x86_64 Windows, we use the NASM output.
   if(WIN32 AND CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64|x86_64|amd64|x86|i[3-6]86")
