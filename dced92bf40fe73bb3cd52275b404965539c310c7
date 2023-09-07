@@ -279,6 +279,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7adf88a6_ad665b53",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T17:21:29Z",
+      "side": 1,
+      "message": "I\u0027m not following. I\u0027m just saying you should add `EXPECT_TRUE(SSL_has_application_settings(client_.get()));` or `EXPECT_FALSE(SSL_has_application_settings(client_.get()));` to each test based on what the test is expecting. That isn\u0027t duplicating integration test infrastructure.\n\nOtherwise these tests aren\u0027t doing anything and should just be removed. That said, even fixed, they are indeed redundant with the runner.go tests, so I think removing them is also fine.",
+      "parentUuid": "dc3e5e50_7fc47a21",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aece6a30_41f1117c",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 18
