@@ -315,6 +315,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d6eb4ef_0cb87b4f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 8077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-07T17:45:36Z",
+      "side": 1,
+      "message": "Oh, I see. That means these tests truly aren\u0027t testing anything. No, you don\u0027t need to set up a session. You just need to select an ALPN on the server side.",
+      "parentUuid": "6166da48_1352e99a",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aece6a30_41f1117c",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 18
