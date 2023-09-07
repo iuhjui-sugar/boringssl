@@ -142,6 +142,30 @@
       },
       "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58533f2c_a87b434b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-07T21:57:33Z",
+      "side": 1,
+      "message": "Yeah, I guess we can\u0027t really get away with just coming in from the theortical entry points like that.\n\nIt seems hacky to have to do it that way, but godbolt probably is not lying - and so since this will get called \"frequently\" we should probably make the out of line version of the init and read value that will optimize..\n\nI just realized this was sitting there in draft for a week, because I had ht the save button. but not the send button.. sigh.",
+      "parentUuid": "b5593e00_8ac3b09a",
+      "range": {
+        "startLine": 1252,
+        "startChar": 0,
+        "endLine": 1256,
+        "endChar": 6
+      },
+      "revId": "46fc8691a8077e64884a0b729dd8a8a214013ff8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
