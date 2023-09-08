@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2ffe686_b3e0482f",
+        "filename": "rust/bssl-crypto/src/ecdh.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-09-08T23:44:17Z",
+      "side": 1,
+      "message": "Do you need anything other than P256? (Don\u0027t expose things just to support All The Things. P224, for example, should never be used.)",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "b488d136a012e54178a490d227d6f891ec9e719a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
