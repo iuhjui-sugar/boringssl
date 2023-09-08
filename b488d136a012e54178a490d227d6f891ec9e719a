@@ -46,6 +46,30 @@
       },
       "revId": "b488d136a012e54178a490d227d6f891ec9e719a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "035b7813_f9536c39",
+        "filename": "rust/bssl-crypto/src/ecdh.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-09-08T23:50:51Z",
+      "side": 1,
+      "message": "I would just expose P256. A speed bump for people trying to use any of the others is useful.",
+      "parentUuid": "0f6a1ae6_d73c9263",
+      "range": {
+        "startLine": 24,
+        "startChar": 20,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "b488d136a012e54178a490d227d6f891ec9e719a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
