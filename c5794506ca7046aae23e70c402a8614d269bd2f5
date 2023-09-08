@@ -16,6 +16,40 @@
       "message": "Adding reviewers as per contributing guidelines.",
       "revId": "c5794506ca7046aae23e70c402a8614d269bd2f5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d5395e1_b01a41e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-08T18:26:06Z",
+      "side": 1,
+      "message": "We usually don\u0027t do this",
+      "revId": "c5794506ca7046aae23e70c402a8614d269bd2f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "219a20de_eef5cf19",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-08T18:26:06Z",
+      "side": 1,
+      "message": "It sounds like you\u0027re asking us to support WASI. Platform support is quite expensive, so we don\u0027t generally support platforms we can\u0027t test, or where there isn\u0027t a need on our end to support them.\n\nIn addition to whether we want to support it, this CL doesn\u0027t seem to be doing it right. Rather than doing it at the build level, we usually do this in code, so it\u0027s build-system-agnostic. Looks like WASI defines the `__wasi__` preprocessor symbol, so we could exclude it based on that.\n\nAlthough, is that even correct? I see the \"[preview1](https://github.com/WebAssembly/WASI/blob/main/legacy/preview1/docs.md)\" iteration of WASI has sockets. I see that\u0027s \"legacy\" and there\u0027s also a \"preview 2\" but that seems to be empty? I haven\u0027t been following WASI very clearly, but it doesn\u0027t seem to quite yet exist.\n\nIn the meantime, short of official support, you can always set options via `CMAKE_C_FLAGS` and `CMAKE_CXX_FLAGS`.",
+      "revId": "c5794506ca7046aae23e70c402a8614d269bd2f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
