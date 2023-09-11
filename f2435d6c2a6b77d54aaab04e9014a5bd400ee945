@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f11552af_df806a12",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7201,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-11T20:47:44Z",
+      "side": 1,
+      "message": "will refactor all the loop.",
+      "parentUuid": "6191b992_c2464a30",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e6103f2_df0b6a06",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-09-11T19:57:27Z",
       "side": 1,
       "message": "`shouldFail` is always false and the expected errors are always empty. As they\u0027re all the default zero values, just delete these lines and then also delete the lines in the test definition.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "408dc2f9_2721c642",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7211,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-11T20:47:44Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "4e6103f2_df0b6a06",
       "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ada7b057_0d007f14",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7261,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-11T20:47:44Z",
+      "side": 1,
+      "message": "i\u0027m not quite follow this comment, do you mean this loop doing nothing? this is the basic server test that matching the existing basic server tests.",
+      "parentUuid": "de259bf8_f12c54f1",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "801a41dd_5f764b49",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 25
@@ -82,6 +136,24 @@
       "writtenOn": "2023-09-11T19:57:27Z",
       "side": 1,
       "message": "Same comment as above: all three of these values are unnecessary.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5b21f1_ac8bd215",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7271,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-11T20:47:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "801a41dd_5f764b49",
       "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -99,6 +171,24 @@
       "writtenOn": "2023-09-11T19:57:27Z",
       "side": 1,
       "message": "e don\u0027t actually need the \"both\" thing here. Just use the pattern you did above:\n\n```\nfor _, alpsCodePoint :\u003d range []ALPSUseCodepoint{ALPSUseCodepointNew, ALPSUseCodepointOld} {\n```\n\nAnd then you can even combine these into one loop, like you already did above. That\u0027s what I was getting at above.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b82ea6ae_87ed3807",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7896,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-11T20:47:44Z",
+      "side": 1,
+      "message": "refactored",
+      "parentUuid": "13bcb687_e6808318",
       "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
