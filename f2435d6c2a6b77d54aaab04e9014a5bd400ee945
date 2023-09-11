@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fedc3e3f_076e0771",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-11T19:57:27Z",
+      "side": 1,
+      "message": "Should be the last round of comments, mostly clarifying what I was trying to convey last iteration about the tests.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6191b992_c2464a30",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-11T19:57:27Z",
+      "side": 1,
+      "message": "It\u0027s confusing to call this one \"both\" when it\u0027s not actually exercise that. Just do this.\n\n```\nfor _, alpsCodePoint :\u003d range []ALPSUseCodepoint{ALPSUseCodepointNew, ALPSUseCodepointOld} {\n```",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e6103f2_df0b6a06",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7211,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-11T19:57:27Z",
+      "side": 1,
+      "message": "`shouldFail` is always false and the expected errors are always empty. As they\u0027re all the default zero values, just delete these lines and then also delete the lines in the test definition.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de259bf8_f12c54f1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7261,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-11T19:57:27Z",
+      "side": 1,
+      "message": "The comment about the single loop was just for the client test, because you pulled the codepoint logic out into WrongServerCodepoint, and because servers don\u0027t send their preferences.\n\nFor this test, the loop was actually doing something.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "801a41dd_5f764b49",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-11T19:57:27Z",
+      "side": 1,
+      "message": "Same comment as above: all three of these values are unnecessary.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13bcb687_e6808318",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7896,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-11T19:57:27Z",
+      "side": 1,
+      "message": "e don\u0027t actually need the \"both\" thing here. Just use the pattern you did above:\n\n```\nfor _, alpsCodePoint :\u003d range []ALPSUseCodepoint{ALPSUseCodepointNew, ALPSUseCodepointOld} {\n```\n\nAnd then you can even combine these into one loop, like you already did above. That\u0027s what I was getting at above.",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

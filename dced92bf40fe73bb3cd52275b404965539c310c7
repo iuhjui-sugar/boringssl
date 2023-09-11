@@ -89,6 +89,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a5c575b_d99fbed5",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-11T19:57:27Z",
+      "side": 1,
+      "message": "Alright, let\u0027s land this as-is, but we\u0027ll need to follow this up with either a bugfix to have the handshaker tell the frontend which codepoint was used, or you\u0027ll need to work with the split handshake folks to make sure the two halves are consistently configured.",
+      "parentUuid": "e4430c35_75c9b801",
+      "revId": "dced92bf40fe73bb3cd52275b404965539c310c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "752d3ee9_5a20f0c2",
