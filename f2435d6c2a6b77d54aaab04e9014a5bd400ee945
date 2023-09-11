@@ -125,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "092cb55b_42ae5a33",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 7261,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-09-11T21:45:55Z",
+      "side": 1,
+      "message": "added one additional test for server ignore the client wrong code point.",
+      "parentUuid": "ada7b057_0d007f14",
+      "revId": "f2435d6c2a6b77d54aaab04e9014a5bd400ee945",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "801a41dd_5f764b49",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 25
