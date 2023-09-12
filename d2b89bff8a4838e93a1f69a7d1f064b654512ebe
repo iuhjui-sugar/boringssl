@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77756032_0aca8833",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-12T15:36:27Z",
+      "side": 1,
+      "message": "OK, yeah, having looked, this magic matches the spec. Chuck a comment at the top of this function referencing algorithm 7 (and maybe the same for some of the other bits now that the spec is final) and call it a day.",
+      "parentUuid": "d1e22a05_b335c996",
+      "range": {
+        "startLine": 42,
+        "startChar": 60,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "d2b89bff8a4838e93a1f69a7d1f064b654512ebe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "728d5d3a_5ae34120",
@@ -61,6 +85,30 @@
       "writtenOn": "2023-08-21T16:14:58Z",
       "side": 1,
       "message": "sizeof(csum) here in place of magic 8",
+      "range": {
+        "startLine": 100,
+        "startChar": 60,
+        "endLine": 100,
+        "endChar": 61
+      },
+      "revId": "d2b89bff8a4838e93a1f69a7d1f064b654512ebe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "897a9ad2_f76042c4",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-12T15:36:27Z",
+      "side": 1,
+      "message": "As mentioned above, same thing, chuck a comment in here referencing algorithm 6 in the spec, just to save future people some time.",
+      "parentUuid": "728d5d3a_5ae34120",
       "range": {
         "startLine": 100,
         "startChar": 60,
