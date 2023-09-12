@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f81cf009_fed6a54a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 7232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-12T15:35:09Z",
+      "side": 1,
+      "message": "```suggestion\n\t\t\t\t\t\tname:               fmt.Sprintf(\"ALPS-Basic-Client-%s-%s\", alpsCodePoint, suffix),\n```",
+      "revId": "8cfddd40349019efdedc984444b0d6caa15f3ccb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a64d6630_7192a2ab",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 7283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-12T15:35:09Z",
+      "side": 1,
+      "message": "```suggestion\n\t\t\t\t\t\tname:               fmt.Sprintf(\"ALPS-Basic-Server-%s-%s\", alpsCodePoint, suffix),\n```",
+      "revId": "8cfddd40349019efdedc984444b0d6caa15f3ccb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
