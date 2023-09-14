@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c7cb59_3fd35eea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17066
+      },
+      "writtenOn": "2023-09-14T18:36:54Z",
+      "side": 1,
+      "message": "My first CL in this repo! Reviewers selected based on https://github.com/google/boringssl/blob/master/CONTRIBUTING.md",
+      "revId": "1c8192a64e2ae64d7a260aca64c837e0c68fa7cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
