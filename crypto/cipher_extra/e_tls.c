@@ -408,6 +408,14 @@ static int aead_aes_128_cbc_sha256_tls_init(EVP_AEAD_CTX *ctx,
                        EVP_sha256(), 0);
 }
 
+static int aead_aes_256_cbc_sha256_tls_init(EVP_AEAD_CTX *ctx,
+                                            const uint8_t *key, size_t key_len,
+                                            size_t tag_len,
+                                            enum evp_aead_direction_t dir) {
+  return aead_tls_init(ctx, key, key_len, tag_len, dir, EVP_aes_256_cbc(),
+                       EVP_sha256(), 0);
+}
+
 static int aead_aes_256_cbc_sha1_tls_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
                                           size_t key_len, size_t tag_len,
                                           enum evp_aead_direction_t dir) {
@@ -501,6 +509,23 @@ static const EVP_AEAD aead_aes_128_cbc_sha256_tls = {
     aead_tls_tag_len,
 };
 
+static const EVP_AEAD aead_aes_256_cbc_sha256_tls = {
+    SHA256_DIGEST_LENGTH + 32,  // key len (SHA256 + AES256)
+    16,                         // nonce len (IV)
+    16 + SHA256_DIGEST_LENGTH,  // overhead (padding + SHA256)
+    SHA256_DIGEST_LENGTH,       // max tag length
+    0,                          // seal_scatter_supports_extra_in
+
+    NULL,  // init
+    aead_aes_256_cbc_sha256_tls_init,
+    aead_tls_cleanup,
+    aead_tls_open,
+    aead_tls_seal_scatter,
+    NULL,  // open_gather
+    NULL,  // get_iv
+    aead_tls_tag_len,
+};
+
 static const EVP_AEAD aead_aes_256_cbc_sha1_tls = {
     SHA_DIGEST_LENGTH + 32,  // key len (SHA1 + AES256)
     16,                      // nonce len (IV)
@@ -579,6 +604,10 @@ const EVP_AEAD *EVP_aead_aes_128_cbc_sha1_tls_implicit_iv(void) {
 
 const EVP_AEAD *EVP_aead_aes_128_cbc_sha256_tls(void) {
   return &aead_aes_128_cbc_sha256_tls;
+}
+
+const EVP_AEAD *EVP_aead_aes_256_cbc_sha256_tls(void) {
+  return &aead_aes_256_cbc_sha256_tls;
 }
 
 const EVP_AEAD *EVP_aead_aes_256_cbc_sha1_tls(void) {

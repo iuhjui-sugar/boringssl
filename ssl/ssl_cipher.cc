@@ -197,6 +197,30 @@ static constexpr SSL_CIPHER kCiphers[] = {
      SSL_HANDSHAKE_MAC_DEFAULT,
     },
 
+    // Cipher 3C
+    {
+     TLS1_TXT_RSA_WITH_AES_128_SHA256,
+     "TLS_RSA_WITH_AES_128_CBC_SHA256",
+     TLS1_CK_RSA_WITH_AES_128_SHA256,
+     SSL_kRSA,
+     SSL_aRSA,
+     SSL_AES128,
+     SSL_SHA256,
+     SSL_HANDSHAKE_MAC_SHA256,
+    },
+
+    // Cipher 3D
+    {
+     TLS1_TXT_RSA_WITH_AES_256_SHA256,
+     "TLS_RSA_WITH_AES_256_CBC_SHA256",
+     TLS1_CK_RSA_WITH_AES_256_SHA256,
+     SSL_kRSA,
+     SSL_aRSA,
+     SSL_AES256,
+     SSL_SHA256,
+     SSL_HANDSHAKE_MAC_SHA256,
+    },
+
     // PSK cipher suites.
 
     // Cipher 8C
@@ -333,6 +357,18 @@ static constexpr SSL_CIPHER kCiphers[] = {
      SSL_AES256,
      SSL_SHA1,
      SSL_HANDSHAKE_MAC_DEFAULT,
+    },
+
+    // Cipher C023
+    {
+     TLS1_TXT_ECDHE_ECDSA_WITH_AES_128_SHA256,
+     "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+     TLS1_CK_ECDHE_ECDSA_WITH_AES_128_SHA256,
+     SSL_kECDHE,
+     SSL_aECDSA,
+     SSL_AES128,
+     SSL_SHA256,
+     SSL_HANDSHAKE_MAC_SHA256,
     },
 
     // Cipher C027
@@ -645,6 +681,8 @@ bool ssl_cipher_get_evp_aead(const EVP_AEAD **out_aead,
   } else if (cipher->algorithm_mac == SSL_SHA256) {
     if (cipher->algorithm_enc == SSL_AES128) {
       *out_aead = EVP_aead_aes_128_cbc_sha256_tls();
+    } else if (cipher->algorithm_enc == SSL_AES256){
+      *out_aead = EVP_aead_aes_256_cbc_sha256_tls();
     } else {
       return false;
     }
@@ -774,6 +812,9 @@ void SSLCipherPreferenceList::Remove(const SSL_CIPHER *cipher) {
 
 bool ssl_cipher_is_deprecated(const SSL_CIPHER *cipher) {
   return cipher->id == TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA256 ||
+         cipher->id == TLS1_CK_ECDHE_ECDSA_WITH_AES_128_SHA256 ||
+         cipher->id == TLS1_CK_RSA_WITH_AES_128_SHA256 ||
+         cipher->id == TLS1_CK_RSA_WITH_AES_256_SHA256 ||
          cipher->algorithm_enc == SSL_3DES;
 }
 
@@ -1158,14 +1199,17 @@ bool ssl_create_cipher_list(UniquePtr<SSLCipherPreferenceList> *out_cipher_list,
       TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA & 0xffff,
       TLS1_CK_ECDHE_PSK_WITH_AES_128_CBC_SHA & 0xffff,
       TLS1_CK_ECDHE_ECDSA_WITH_AES_256_CBC_SHA & 0xffff,
+      TLS1_CK_ECDHE_ECDSA_WITH_AES_128_SHA256 & 0xffff,
       TLS1_CK_ECDHE_RSA_WITH_AES_256_CBC_SHA & 0xffff,
       TLS1_CK_ECDHE_PSK_WITH_AES_256_CBC_SHA & 0xffff,
       TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA256 & 0xffff,
       TLS1_CK_RSA_WITH_AES_128_GCM_SHA256 & 0xffff,
       TLS1_CK_RSA_WITH_AES_256_GCM_SHA384 & 0xffff,
       TLS1_CK_RSA_WITH_AES_128_SHA & 0xffff,
+      TLS1_CK_RSA_WITH_AES_128_SHA256 & 0xffff,
       TLS1_CK_PSK_WITH_AES_128_CBC_SHA & 0xffff,
       TLS1_CK_RSA_WITH_AES_256_SHA & 0xffff,
+      TLS1_CK_RSA_WITH_AES_256_SHA256 & 0xffff,
       TLS1_CK_PSK_WITH_AES_256_CBC_SHA & 0xffff,
       SSL3_CK_RSA_DES_192_CBC3_SHA & 0xffff,
   };
