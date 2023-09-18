@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ee1a4b_7f1b6770",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-18T21:15:17Z",
+      "side": 1,
+      "message": "You mean July 2018..",
+      "revId": "5b098994de1c6a08733afc0d93fb07235a4cc32b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
