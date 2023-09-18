@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9ed6776_b5900717",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17066
+      },
+      "writtenOn": "2023-09-18T17:06:09Z",
+      "side": 1,
+      "message": "Per out-of-band comms, we\u0027re not going to target this for inclusion in upstream BoringSSL, we\u0027ll build a custom Envoy binary with this patch.\n\nWould never-the-less appreciate your code review on the correctness / style of this change.",
+      "revId": "3530028306984e3a786e934425099efcc66e7681",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
