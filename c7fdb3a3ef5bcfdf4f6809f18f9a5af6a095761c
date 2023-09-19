@@ -16,6 +16,24 @@
       "message": "Nit: I realize they are the same thing, but technically isn\u0027t this one algorithm 7 line 9?",
       "revId": "c7fdb3a3ef5bcfdf4f6809f18f9a5af6a095761c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb92669e_d48047ad",
+        "filename": "crypto/spx/wots.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-09-19T07:48:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86dd3fa1_a15b040b",
+      "revId": "c7fdb3a3ef5bcfdf4f6809f18f9a5af6a095761c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
