@@ -16,6 +16,24 @@
       "message": "Per out-of-band comms, we\u0027re not going to target this for inclusion in upstream BoringSSL, we\u0027ll build a custom Envoy binary with this patch.\n\nWould never-the-less appreciate your code review on the correctness / style of this change.",
       "revId": "3530028306984e3a786e934425099efcc66e7681",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b654a8a_b41c1d9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-20T00:14:34Z",
+      "side": 1,
+      "message": "FYI, I don\u0027t think the CL is actually correct. The CL description says it only enables the new ciphers by name, but that\u0027s not actually true. (You forgot to mark them deprecated.) Also SSL_HANDSHAKE_MAC_DEFAULT should be SSL_HANDSHAKE_MAC_SHA256. Only matters for TLS 1.0 and 1.1, where this cipher doesn\u0027t work, but that mistake was why you had to adjust the min_version function.",
+      "parentUuid": "c9ed6776_b5900717",
+      "revId": "3530028306984e3a786e934425099efcc66e7681",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
