@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36450844_78b45164",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17066
+      },
+      "writtenOn": "2023-09-20T23:10:00Z",
+      "side": 1,
+      "message": "PTAL - deprecated these properly",
+      "revId": "8577c2af2913443111970e753b7f8bd794935fd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

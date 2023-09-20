@@ -34,6 +34,24 @@
       "parentUuid": "c9ed6776_b5900717",
       "revId": "3530028306984e3a786e934425099efcc66e7681",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13064b7f_8103ef11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17066
+      },
+      "writtenOn": "2023-09-20T23:10:00Z",
+      "side": 1,
+      "message": "Thanks for the feedback!\n\n\u003e The CL description says it only enables the new ciphers by name, but that\u0027s not actually true. (You forgot to mark them deprecated.)\n\nAh, I see. I need to add them to `ssl_cipher_is_deprecated()`, not just `kLegacyCiphers` (done).\n\nOut of curiosity: it\u0027s surprising to me that a cipher such as `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256` is deprecated, whereas `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA` is not. Aren\u0027t the SHA256 variants strictly better?\n\n\u003e Also SSL_HANDSHAKE_MAC_DEFAULT should be SSL_HANDSHAKE_MAC_SHA256. Only matters for TLS 1.0 and 1.1, where this cipher doesn\u0027t work, but that mistake was why you had to adjust the min_version function.\n\nFixed, thanks!",
+      "parentUuid": "9b654a8a_b41c1d9d",
+      "revId": "3530028306984e3a786e934425099efcc66e7681",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
