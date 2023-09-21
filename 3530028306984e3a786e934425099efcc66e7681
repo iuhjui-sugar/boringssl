@@ -52,6 +52,24 @@
       "parentUuid": "9b654a8a_b41c1d9d",
       "revId": "3530028306984e3a786e934425099efcc66e7681",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb7c0ed_23bc5087",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-21T02:21:17Z",
+      "side": 1,
+      "message": "To clarify, my comment was not to suggest that we\u0027ve changed our mind on the CL. You asked for comments on correctness, and I happened to see it, so I left a note.",
+      "parentUuid": "13064b7f_8103ef11",
+      "revId": "3530028306984e3a786e934425099efcc66e7681",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
