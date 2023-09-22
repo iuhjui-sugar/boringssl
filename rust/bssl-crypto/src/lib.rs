@@ -24,9 +24,11 @@
 #![cfg_attr(not(any(feature = "std", test)), no_std)]
 
 //! Rust BoringSSL bindings
-extern crate alloc;
 
-extern crate core;
+#[cfg(not(any(feature = "std", test)))]
+extern crate core as std;
+
+extern crate alloc;
 
 /// Authenticated Encryption with Additional Data algorithms.
 pub mod aead;

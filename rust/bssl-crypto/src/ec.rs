@@ -17,13 +17,12 @@
 //! intended for internal use within this crate only, to create higher-level abstractions suitable
 //! to be exposed externally.
 
-use alloc::borrow::ToOwned;
+use crate::{bn::BigNum, CSlice, CSliceMut, ForeignType};
 use alloc::vec;
 use alloc::vec::Vec;
+use core::fmt::Debug;
 use core::panic;
-use core::{borrow::Borrow, fmt::Debug, ops::Deref};
-
-use crate::{bn::BigNum, CSlice, CSliceMut, ForeignType, ForeignTypeRef};
+use foreign_types::{foreign_type, ForeignType as _};
 
 #[derive(Debug)]
 pub(crate) struct EcKey {
@@ -64,7 +63,7 @@ impl Clone for EcKey {
 pub(crate) struct ConversionFailed;
 
 impl EcKey {
-    pub fn new_by_ec_group(ec_group: &EcGroupRef) -> Self {
+    pub fn new_by_ec_group(ec_group: EcGroup) -> Self {
         // Safety: `EC_KEY_new` does not have preconditions
         let eckey = unsafe { bssl_sys::EC_KEY_new() };
         assert!(!eckey.is_null());
@@ -88,7 +87,7 @@ impl EcKey {
     /// `curve_nid` should be a value defined in `bssl_sys::NID_*`.
     #[allow(clippy::panic)]
     pub(crate) fn try_new_public_key_from_bytes(
-        ec_group: &EcGroupRef,
+        ec_group: EcGroup,
         value: &[u8],
     ) -> Result<Self, ConversionFailed> {
         let eckey = Self::new_by_ec_group(ec_group);
@@ -133,7 +132,7 @@ impl EcKey {
         (bn_x, bn_y)
     }
 
-    pub(crate) fn generate(ec_group: &EcGroupRef) -> Self {
+    pub(crate) fn generate(ec_group: EcGroup) -> Self {
         let eckey = EcKey::new_by_ec_group(ec_group);
         // Safety: `EcKey` ensures eckey.ptr is valid.
         let result = unsafe { bssl_sys::EC_KEY_generate_key(eckey.as_ptr()) };
@@ -142,7 +141,7 @@ impl EcKey {
     }
 
     pub(crate) fn try_new_public_key_from_affine_coordinates(
-        ec_group: &EcGroupRef,
+        ec_group: EcGroup,
         x: &[u8],
         y: &[u8],
     ) -> Result<Self, ConversionFailed> {
@@ -171,7 +170,7 @@ impl EcKey {
     /// `private_key_bytes` must be padded to the size of `curve_nid`'s group order, otherwise the
     /// conversion will fail.
     pub(crate) fn try_from_raw_bytes(
-        ec_group: &EcGroupRef,
+        ec_group: EcGroup,
         private_key_bytes: &[u8],
     ) -> Result<Self, ConversionFailed> {
         let eckey = EcKey::new_by_ec_group(ec_group);
@@ -218,9 +217,9 @@ impl EcKey {
     pub(crate) fn public_key_eq(&self, other: &Self) -> bool {
         let result = unsafe {
             bssl_sys::EC_POINT_cmp(
-                bssl_sys::EC_KEY_get0_group(self.ptr),
-                bssl_sys::EC_KEY_get0_public_key(self.ptr),
-                bssl_sys::EC_KEY_get0_public_key(other.ptr),
+                bssl_sys::EC_KEY_get0_group(self.as_ptr()),
+                bssl_sys::EC_KEY_get0_public_key(self.as_ptr()),
+                bssl_sys::EC_KEY_get0_public_key(other.as_ptr()),
                 core::ptr::null_mut(),
             )
         };
@@ -265,47 +264,29 @@ impl EcKey {
     }
 }
 
-impl Drop for EcKey {
-    fn drop(&mut self) {
-        // Safety: `self.ptr` is owned by this struct
-        unsafe { bssl_sys::EC_KEY_free(self.ptr) }
-    }
-}
-
-/// Describes an elliptic curve.
-#[non_exhaustive]
-pub struct EcGroupRef;
-
-// Safety: Default implementation in ForeignTypeRef ensures the preconditions
-//   required by that trait holds.
-unsafe impl ForeignTypeRef for EcGroupRef {
+#[cfg(any(feature = "std", test))]
+foreign_type! {
     type CType = bssl_sys::EC_GROUP;
+    fn drop = bssl_sys::EC_GROUP_free;
+    fn clone = bssl_sys::EC_GROUP_dup;
+
+    /// A foreign type representation of `EC_GROUP`.
+    pub struct EcGroup;
+    /// A borrowed EcGroup.
+    pub struct EcGroupRef;
+}
+#[cfg(not(any(feature = "std", test)))]
+foreign_type! {
+    type CType = bssl_sys::EC_GROUP;
+    fn drop = bssl_sys::EC_GROUP_free;
+
+    /// A foreign type representation of `EC_GROUP`.
+    pub struct EcGroup;
+    /// A borrowed EcGroup.
+    pub struct EcGroupRef;
 }
 
-impl Borrow<EcGroupRef> for EcGroup {
-    fn borrow(&self) -> &EcGroupRef {
-        unsafe { EcGroupRef::from_ptr(self.ptr) }
-    }
-}
-
-impl ToOwned for EcGroupRef {
-    type Owned = EcGroup;
-
-    fn to_owned(&self) -> Self::Owned {
-        // Safety: `EcGroupRef` is a valid pointer
-        let new_ec_group = unsafe { bssl_sys::EC_GROUP_dup(self.as_ptr()) };
-        assert!(!new_ec_group.is_null(), "EC_GROUP_dup failed");
-        EcGroup { ptr: new_ec_group }
-    }
-}
-
-impl AsRef<EcGroupRef> for EcGroup {
-    fn as_ref(&self) -> &EcGroupRef {
-        self.deref()
-    }
-}
-
-impl PartialEq for EcGroupRef {
+impl PartialEq for EcGroup {
     fn eq(&self, other: &Self) -> bool {
         // Safety:
         // - Self and other are valid pointers since they come from `EcGroupRef`
@@ -320,25 +301,7 @@ impl PartialEq for EcGroupRef {
     }
 }
 
-impl Eq for EcGroupRef {}
-
-pub struct EcGroup {
-    ptr: *mut bssl_sys::EC_GROUP,
-}
-
-impl Deref for EcGroup {
-    type Target = EcGroupRef;
-
-    fn deref(&self) -> &Self::Target {
-        unsafe { EcGroupRef::from_ptr(self.ptr) }
-    }
-}
-
-impl Drop for EcGroup {
-    fn drop(&mut self) {
-        unsafe { bssl_sys::EC_GROUP_free(self.ptr) }
-    }
-}
+impl Eq for EcGroup {}
 
 /// An elliptic curve, used as the type parameter for [`PublicKey`] and [`PrivateKey`].
 pub trait Curve: Debug {
@@ -346,7 +309,7 @@ pub trait Curve: Debug {
     const AFFINE_COORDINATE_SIZE: usize;
 
     /// Create a new [`EcGroup`] for this curve.
-    fn ec_group() -> &'static EcGroupRef;
+    fn ec_group() -> EcGroup;
 }
 
 /// The P-224 curve, corresponding to `NID_secp224r1`.
@@ -356,9 +319,9 @@ pub struct P224;
 impl Curve for P224 {
     const AFFINE_COORDINATE_SIZE: usize = 28;
 
-    fn ec_group() -> &'static EcGroupRef {
+    fn ec_group() -> EcGroup {
         // Safety: EC_group_p224 does not have any preconditions
-        unsafe { EcGroupRef::from_ptr(bssl_sys::EC_group_p224() as *mut _) }
+        unsafe { EcGroup::from_ptr(bssl_sys::EC_group_p224() as *mut _) }
     }
 }
 
@@ -369,9 +332,9 @@ pub struct P256;
 impl Curve for P256 {
     const AFFINE_COORDINATE_SIZE: usize = 32;
 
-    fn ec_group() -> &'static EcGroupRef {
+    fn ec_group() -> EcGroup {
         // Safety: EC_group_p256 does not have any preconditions
-        unsafe { EcGroupRef::from_ptr(bssl_sys::EC_group_p256() as *mut _) }
+        unsafe { EcGroup::from_ptr(bssl_sys::EC_group_p256() as *mut _) }
     }
 }
 
@@ -382,9 +345,9 @@ pub struct P384;
 impl Curve for P384 {
     const AFFINE_COORDINATE_SIZE: usize = 48;
 
-    fn ec_group() -> &'static EcGroupRef {
+    fn ec_group() -> EcGroup {
         // Safety: EC_group_p384 does not have any preconditions
-        unsafe { EcGroupRef::from_ptr(bssl_sys::EC_group_p384() as *mut _) }
+        unsafe { EcGroup::from_ptr(bssl_sys::EC_group_p384() as *mut _) }
     }
 }
 
@@ -395,9 +358,9 @@ pub struct P521;
 impl Curve for P521 {
     const AFFINE_COORDINATE_SIZE: usize = 66;
 
-    fn ec_group() -> &'static EcGroupRef {
+    fn ec_group() -> EcGroup {
         // Safety: EC_group_p521 does not have any preconditions
-        unsafe { EcGroupRef::from_ptr(bssl_sys::EC_group_p521() as *mut _) }
+        unsafe { EcGroup::from_ptr(bssl_sys::EC_group_p521() as *mut _) }
     }
 }
 
@@ -405,14 +368,13 @@ impl Curve for P521 {
 mod test {
     use crate::ec::P521;
 
-    use super::{Curve, EcGroupRef, P256};
+    use super::{Curve, P256};
 
     #[test]
     fn test_ec_group_clone_and_eq() {
         let group = P256::ec_group();
-        let group_clone = group.to_owned();
-        let group2: &EcGroupRef = &group_clone;
-        assert!(group == group2);
+        let group_clone = group.clone();
+        assert!(group == group_clone);
     }
 
     #[test]

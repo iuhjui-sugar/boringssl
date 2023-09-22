@@ -13,23 +13,17 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-use crate::{CSlice, ForeignType};
+use crate::CSlice;
+use foreign_types::{foreign_type, ForeignType};
 
-pub(crate) struct BigNum {
-    ptr: *mut bssl_sys::BIGNUM,
-}
-
-// Safety: Implementation ensures `from_ptr(x).as_ptr() == x`
-unsafe impl ForeignType for BigNum {
+foreign_type! {
     type CType = bssl_sys::BIGNUM;
+    fn drop = bssl_sys::BN_free;
 
-    unsafe fn from_ptr(ptr: *mut Self::CType) -> Self {
-        Self { ptr }
-    }
-
-    fn as_ptr(&self) -> *mut Self::CType {
-        self.ptr
-    }
+    /// A foreign type representation of `BIGNUM`.
+    pub struct BigNum;
+    /// A borrowed `BIGNUM`.
+    pub struct BigNumRef;
 }
 
 impl BigNum {
@@ -49,13 +43,6 @@ impl From<&[u8]> for BigNum {
             bssl_sys::BN_bin2bn(value_ffi.as_ptr(), value_ffi.len(), core::ptr::null_mut())
         };
         assert!(!ptr.is_null());
-        Self { ptr }
-    }
-}
-
-impl Drop for BigNum {
-    fn drop(&mut self) {
-        // Safety: `self.ptr` is owned by `self`.
-        unsafe { bssl_sys::BN_free(self.ptr) }
+        unsafe { Self::from_ptr(ptr) }
     }
 }

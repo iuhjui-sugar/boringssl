@@ -15,11 +15,12 @@
 
 use alloc::vec::Vec;
 use core::marker::PhantomData;
+use foreign_types::ForeignType as _;
 
 use crate::{
     ec::{Curve, EcKey},
     pkey::{Pkey, PkeyCtx},
-    CSliceMut, ForeignType,
+    CSliceMut,
 };
 
 pub use crate::ec::P256;

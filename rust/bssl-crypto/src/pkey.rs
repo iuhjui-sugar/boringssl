@@ -17,25 +17,19 @@
 //! use within this crate only, to create higher-level abstractions suitable to be exposed
 //! externally.
 
-use crate::{ec::EcKey, CSliceMut, ForeignType};
+use crate::{ec::EcKey, CSliceMut, ForeignType as _};
 use alloc::borrow::ToOwned;
 use alloc::string::String;
+use foreign_types::{foreign_type, ForeignType};
 
-pub(crate) struct Pkey {
-    ptr: *mut bssl_sys::EVP_PKEY,
-}
-
-// Safety: Implementation ensures `from_ptr(x).as_ptr == x`
-unsafe impl ForeignType for Pkey {
+foreign_type! {
     type CType = bssl_sys::EVP_PKEY;
+    fn drop = bssl_sys::EVP_PKEY_free;
 
-    unsafe fn from_ptr(ptr: *mut Self::CType) -> Self {
-        Self { ptr }
-    }
-
-    fn as_ptr(&self) -> *mut Self::CType {
-        self.ptr
-    }
+    /// A foreign type representation of `EVP_PKEY`.
+    pub struct Pkey;
+    /// A borrowed `EVP_PKEY`.
+    pub struct PkeyRef;
 }
 
 impl From<&EcKey> for Pkey {
@@ -49,28 +43,29 @@ impl From<&EcKey> for Pkey {
         // - EVP_PKEY_set1_EC_KEY doesn't take ownership
         let result = unsafe { bssl_sys::EVP_PKEY_set1_EC_KEY(pkey, eckey.as_ptr()) };
         assert_eq!(result, 1, "bssl_sys::EVP_PKEY_set1_EC_KEY failed");
-        Self { ptr: pkey }
+        // SAFETY: `pkey` has been checked as non-null.
+        unsafe { Self::from_ptr(pkey) }
     }
 }
 
-impl Drop for Pkey {
-    fn drop(&mut self) {
-        // Safety: `self.ptr` is owned by this struct
-        unsafe { bssl_sys::EVP_PKEY_free(self.ptr) }
-    }
-}
+foreign_type! {
+    type CType = bssl_sys::EVP_PKEY_CTX;
+    fn drop = bssl_sys::EVP_PKEY_CTX_free;
 
-pub(crate) struct PkeyCtx {
-    ptr: *mut bssl_sys::EVP_PKEY_CTX,
+    /// A foreign type representation of `EVP_PKEY_CTX`.
+    pub struct PkeyCtx;
+    /// A borrowed `EVP_PKEY_CTX`.
+    pub struct PkeyCtxRef;
 }
 
 impl PkeyCtx {
     pub fn new(pkey: &Pkey) -> Self {
         // Safety:
         // - `Pkey` ensures `pkey.ptr` is valid, and EVP_PKEY_CTX_new does not take ownership.
-        let pkeyctx = unsafe { bssl_sys::EVP_PKEY_CTX_new(pkey.ptr, core::ptr::null_mut()) };
+        let pkeyctx = unsafe { bssl_sys::EVP_PKEY_CTX_new(pkey.as_ptr(), core::ptr::null_mut()) };
         assert!(!pkeyctx.is_null());
-        Self { ptr: pkeyctx }
+        // SAFETY: `pkeyctx` has been checked as non-null.
+        unsafe { Self::from_ptr(pkeyctx) }
     }
 
     #[allow(clippy::panic)]
@@ -79,25 +74,20 @@ impl PkeyCtx {
         other_public_key: &Pkey,
         mut output: CSliceMut,
     ) -> Result<(), String> {
-        let result = unsafe { bssl_sys::EVP_PKEY_derive_init(self.ptr) };
+        let result = unsafe { bssl_sys::EVP_PKEY_derive_init(self.as_ptr()) };
         assert_eq!(result, 1, "bssl_sys::EVP_PKEY_derive_init failed");
 
-        let result = unsafe { bssl_sys::EVP_PKEY_derive_set_peer(self.ptr, other_public_key.ptr) };
+        let result =
+            unsafe { bssl_sys::EVP_PKEY_derive_set_peer(self.as_ptr(), other_public_key.as_ptr()) };
         assert_eq!(result, 1, "bssl_sys::EVP_PKEY_derive_set_peer failed");
 
-        let result =
-            unsafe { bssl_sys::EVP_PKEY_derive(self.ptr, output.as_mut_ptr(), &mut output.len()) };
+        let result = unsafe {
+            bssl_sys::EVP_PKEY_derive(self.as_ptr(), output.as_mut_ptr(), &mut output.len())
+        };
         match result {
             0 => Err("bssl_sys::EVP_PKEY_derive failed".to_owned()),
             1 => Ok(()),
             _ => panic!("Unexpected result {result:?} from bssl_sys::EVP_PKEY_derive"),
         }
-    }
-}
-
-impl Drop for PkeyCtx {
-    fn drop(&mut self) {
-        // Safety: self.ptr is owned by this struct
-        unsafe { bssl_sys::EVP_PKEY_CTX_free(self.ptr) }
     }
 }

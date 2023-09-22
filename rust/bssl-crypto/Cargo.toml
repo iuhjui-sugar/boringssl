@@ -10,3 +10,6 @@ features = [
 
 [dependencies]
 bssl-sys = {path = "../bssl-sys"}
+
+[dependencies.foreign-types]
+version = "0.3.1"
