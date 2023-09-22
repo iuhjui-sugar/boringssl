@@ -86,6 +86,24 @@
       "parentUuid": "1b023699_506717f0",
       "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "548b4e56_46896cb8",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-22T19:51:04Z",
+      "side": 1,
+      "message": "Ah, thanks! Now both seem to work!\n\nJust to confirm: do people generally expect a `no_std`-compatible crate to enable or disable `std` by default? https://www.lurklurk.org/effective-rust/no-std.html didn\u0027t say much about the convention here. (I would have expected `std` to be the default, but I don\u0027t know. Figure we should probably align with the standard convention, whatever it is.)\n\nCan a normal, `std`-using target link with `no_std` crates fine?",
+      "parentUuid": "ef011660_d6ca3bc7",
+      "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
