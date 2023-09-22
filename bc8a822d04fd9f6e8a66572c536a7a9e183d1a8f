@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cdbf80c_3c94d60e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17111
+      },
+      "writtenOn": "2023-09-22T19:11:22Z",
+      "side": 1,
+      "message": "`cargo test` runs the package in nostd (since default features \u003d []). Or you can run `cargo test --no-default-features` if one day the default setup changes.",
+      "parentUuid": "4c3f3bda_7134ab04",
+      "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b023699_506717f0",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-09-22T18:48:18Z",
       "side": 1,
       "message": "Does this need a `[features]` section? I tried `cargo test -F std` and it complained:\n```\nwarning: unused manifest key: package.features\nerror: none of the selected packages contains these features: std\n```\n\nBut I don\u0027t understand Cargo.",
+      "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef011660_d6ca3bc7",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 17111
+      },
+      "writtenOn": "2023-09-22T19:11:22Z",
+      "side": 1,
+      "message": "Oh the crate is assumed to be nostd by default. I added a few lines to make this clear. Now the command you mention should work to test with `std` on.",
+      "parentUuid": "1b023699_506717f0",
       "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
