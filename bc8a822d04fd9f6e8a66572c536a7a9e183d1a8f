@@ -16,6 +16,23 @@
       "message": "Hi David, PTAL.",
       "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c3f3bda_7134ab04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-22T18:44:01Z",
+      "side": 1,
+      "message": "Thanks! So that we don\u0027t regress this in the future, how do we test `no_std`? I searched around and couldn\u0027t find anything obvious.\n\n(We don\u0027t actually have Rust CI right now, but when we do, I want to make sure no_std is part of it.)",
+      "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
