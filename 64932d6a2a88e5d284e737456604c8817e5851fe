@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dc461c6_b5e4f955",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 17111
+      },
+      "writtenOn": "2023-09-25T07:54:13Z",
+      "side": 1,
+      "message": "Oh I remember it was used before. I\u0027ll remove this line.",
+      "parentUuid": "0f9aa030_cc324beb",
+      "revId": "64932d6a2a88e5d284e737456604c8817e5851fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2608f77a_8360ba87",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-09-22T19:51:04Z",
       "side": 1,
       "message": "Super nitpicky nitpick: looks like your editor didn\u0027t put a newline at the end here and Gerrit is complaining.",
+      "revId": "64932d6a2a88e5d284e737456604c8817e5851fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "262f7ae0_198b1b73",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 17111
+      },
+      "writtenOn": "2023-09-25T07:54:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2608f77a_8360ba87",
       "revId": "64932d6a2a88e5d284e737456604c8817e5851fe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

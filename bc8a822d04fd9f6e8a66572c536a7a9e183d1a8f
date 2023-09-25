@@ -104,6 +104,24 @@
       "parentUuid": "ef011660_d6ca3bc7",
       "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea8ef0e0_367b5271",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 17111
+      },
+      "writtenOn": "2023-09-25T07:54:13Z",
+      "side": 1,
+      "message": "\u003e do people generally expect a no_std-compatible crate to enable or disable std by default?\n\ntbh, I have come across both scenarios. However, personally, I prefer not enabling the `std` by default in `no_std` crates. Because when users encounter a `no_std` crate, they usually assume that it is intended to work in resource-constrained environments or situations where the std library is unavailable. Instead, I feel it is better to offer std as an optional feature that users can enable when they need it.\n\nIn general, crates targeting the `std` environment can still use `no_std` crates.",
+      "parentUuid": "548b4e56_46896cb8",
+      "revId": "bc8a822d04fd9f6e8a66572c536a7a9e183d1a8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
