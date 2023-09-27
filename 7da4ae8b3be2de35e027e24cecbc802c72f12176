@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a24ac7d5_42a2ffe8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-27T20:00:11Z",
+      "side": 1,
+      "message": "Didn\u0027t look carefully, just noticed a few things.",
+      "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1402048_923e2a07",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-27T20:00:11Z",
+      "side": 1,
+      "message": "Nit: Missing license header. Ditto for the other files.",
+      "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c33d6a6_2ffa8320",
+        "filename": "crypto/spx/util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-27T20:00:11Z",
+      "side": 1,
+      "message": "Nit: newline after the license header in most of these. Ditto for the other files.",
+      "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b03a4d0_4ecb2fdf",
+        "filename": "crypto/spx/util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-27T20:00:11Z",
+      "side": 1,
+      "message": "Squatting these unamespaced names is pretty rude and likely to clash with someone. Can we prefix them with something? Ditto for the other files.\n\nBut also most of these should be replaced with `CRYPTO_{load,store}_{u64,u32}_be`.",
+      "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
