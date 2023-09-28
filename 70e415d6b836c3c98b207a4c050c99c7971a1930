@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea8e3f4c_ad3d6bff",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 3903,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-09-28T19:14:33Z",
+      "side": 1,
+      "message": "Probably not necessary for your goals but you could have removed this dead code too.",
+      "revId": "70e415d6b836c3c98b207a4c050c99c7971a1930",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
