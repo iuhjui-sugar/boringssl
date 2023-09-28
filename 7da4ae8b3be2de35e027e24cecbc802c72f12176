@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "308e6cfc_c750e151",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-28T00:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1402048_923e2a07",
+      "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c33d6a6_2ffa8320",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-09-27T20:00:11Z",
       "side": 1,
       "message": "Nit: newline after the license header in most of these. Ditto for the other files.",
+      "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f81c5adc_d3032be4",
+        "filename": "crypto/spx/util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-28T00:03:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c33d6a6_2ffa8320",
       "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -83,6 +119,24 @@
       "side": 1,
       "message": "yeah see the previous comments, the uint64_to_len_bytes is a bit special. having said that, yes these could be prefixed with spx_",
       "parentUuid": "1b03a4d0_4ecb2fdf",
+      "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f75b7a_f249266c",
+        "filename": "crypto/spx/util.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-28T00:03:03Z",
+      "side": 1,
+      "message": "Did a pass through prefixing all the things with spx_ so it shouldn\u0027t collide with stuff, along with a clang-format pass after.",
+      "parentUuid": "7fe390b8_a6bb43e1",
       "revId": "7da4ae8b3be2de35e027e24cecbc802c72f12176",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

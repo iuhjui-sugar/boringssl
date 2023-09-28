@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bdf925d_18e23565",
+        "filename": "util/doc.config",
+        "patchSetId": 18
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-09-28T00:03:03Z",
+      "side": 1,
+      "message": "I hate json.. I wish the alternatives were not worse.",
+      "revId": "913d268002e92222e62c0543142d8eb985a0bcd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
