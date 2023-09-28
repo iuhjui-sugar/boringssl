@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "957a3847_57d4f75f",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-09-28T23:48:42Z",
+      "side": 1,
+      "message": "In the C header the last two parameters are declared as `const u128 Htable[16], uint64_t *Xi),` which is different than what they are declared as here.\n\nI\u0027m not sure if you intended the `9` here while leaving `16` in the header file. It would be great if they matched.\n\nI think the correct declarations for these two parameters are `const u128 Htable[16], uint64_t Xip[2])` or maybe `Htable[9]` depending on what you\u0027re trying to do.\n\nI think there is a desire/hope/requirement that `Htable` and `Xip` are 16-byte aligned as well, which would be good to mention.\n\nIt would be nice if the documentation \u0026 declaration here and in the header were updated accordingly.",
+      "range": {
+        "startLine": 437,
+        "startChar": 3,
+        "endLine": 437,
+        "endChar": 12
+      },
+      "revId": "62f9751ade8373ae3339daee581c80a173206321",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "def6ada9_f09cc72b",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-09-28T23:48:42Z",
+      "side": 1,
+      "message": "These are dangerously confusing because `Xi` definitely isn\u0027t just a single 64-bit value, but an array of 2 64-bit values.\n\nLike I mentioned elsewhere, it would be nice to have a tighter bound on the length of `Htable` here.",
+      "revId": "62f9751ade8373ae3339daee581c80a173206321",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
