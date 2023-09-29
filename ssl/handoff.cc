@@ -41,7 +41,7 @@ enum early_data_t {
 
 // serialize_features adds a description of features supported by this binary to
 // |out|.  Returns true on success and false on error.
-static bool serialize_features(CBB *out, uint16_t alps_extension_type) {
+static bool serialize_features(CBB *out) {
   CBB ciphers;
   if (!CBB_add_asn1(out, &ciphers, CBS_ASN1_OCTETSTRING)) {
     return false;
@@ -68,7 +68,8 @@ static bool serialize_features(CBB *out, uint16_t alps_extension_type) {
   // removed.
   CBB alps;
   if (!CBB_add_asn1(out, &alps, kHandoffTagALPS) ||
-      !CBB_add_u16(&alps, alps_extension_type)) {
+      !CBB_add_u16(&alps, TLSEXT_TYPE_application_settings_old) ||
+      !CBB_add_u16(&alps, TLSEXT_TYPE_application_settings)) {
     return false;
   }
   return CBB_flush(out);
@@ -87,17 +88,13 @@ bool SSL_serialize_handoff(const SSL *ssl, CBB *out,
   SSLMessage msg;
   Span<const uint8_t> transcript = s3->hs->transcript.buffer();
 
-  uint16_t alps_extension_type = TLSEXT_TYPE_application_settings_old;
-  if (s3->hs->config->alps_use_new_codepoint) {
-    alps_extension_type = TLSEXT_TYPE_application_settings;
-  }
   if (!CBB_add_asn1(out, &seq, CBS_ASN1_SEQUENCE) ||
       !CBB_add_asn1_uint64(&seq, kHandoffVersion) ||
       !CBB_add_asn1_octet_string(&seq, transcript.data(), transcript.size()) ||
       !CBB_add_asn1_octet_string(&seq,
                                  reinterpret_cast<uint8_t *>(s3->hs_buf->data),
                                  s3->hs_buf->length) ||
-      !serialize_features(&seq, alps_extension_type) ||
+      !serialize_features(&seq) ||
       !CBB_flush(out) ||
       !ssl->method->get_message(ssl, &msg) ||
       !ssl_client_hello_init(ssl, out_hello, msg.body)) {
@@ -377,6 +374,7 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
                                  s3->next_proto_negotiated.size()) ||
       !CBB_add_asn1_octet_string(&seq, s3->alpn_selected.data(),
                                  s3->alpn_selected.size()) ||
+      !CBB_add_asn1_bool(&seq, hs->config->alps_use_new_codepoint) ||
       !CBB_add_asn1_octet_string(
           &seq, reinterpret_cast<uint8_t *>(s3->hostname.get()),
           hostname_len) ||
@@ -475,7 +473,7 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
       next_proto, alpn, hostname, unused_channel_id, transcript, key_share;
   int session_reused, channel_id_negotiated, cert_request,
       extended_master_secret, ticket_expected, unused_token_binding,
-      next_proto_neg_seen;
+      next_proto_neg_seen, alps_use_new_codepoint;
   SSL_SESSION *session = nullptr;
 
   CBS handback_cbs(handback);
@@ -524,6 +522,7 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
 
   if (!session || !CBS_get_asn1(&seq, &next_proto, CBS_ASN1_OCTETSTRING) ||
       !CBS_get_asn1(&seq, &alpn, CBS_ASN1_OCTETSTRING) ||
+      !CBS_get_asn1_bool(&seq, &alps_use_new_codepoint) ||
       !CBS_get_asn1(&seq, &hostname, CBS_ASN1_OCTETSTRING) ||
       !CBS_get_asn1(&seq, &unused_channel_id, CBS_ASN1_OCTETSTRING) ||
       !CBS_get_asn1_bool(&seq, &unused_token_binding) ||
@@ -644,6 +643,7 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   hs->channel_id_negotiated = channel_id_negotiated;
   s3->next_proto_negotiated.CopyFrom(next_proto);
   s3->alpn_selected.CopyFrom(alpn);
+  hs->config->alps_use_new_codepoint = alps_use_new_codepoint;
 
   const size_t hostname_len = CBS_len(&hostname);
   if (hostname_len == 0) {
@@ -750,13 +750,8 @@ using namespace bssl;
 
 int SSL_serialize_capabilities(const SSL *ssl, CBB *out) {
   CBB seq;
-  const SSL_HANDSHAKE *hs = ssl->s3->hs.get();
-  uint16_t alps_extension_type = TLSEXT_TYPE_application_settings_old;
-  if (hs->config->alps_use_new_codepoint) {
-    alps_extension_type = TLSEXT_TYPE_application_settings;
-  }
   if (!CBB_add_asn1(out, &seq, CBS_ASN1_SEQUENCE) ||
-      !serialize_features(&seq, alps_extension_type) ||  //
+      !serialize_features(&seq) ||  //
       !CBB_flush(out)) {
     return 0;
   }
