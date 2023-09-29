@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f80e3f0e_206df9ee",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-29T02:13:28Z",
+      "side": 1,
+      "message": "Re alignment, everything uses vmovdqu, so I think it\u0027s fine.\n\nI think the only one that cares about alignment is the SSSE3 implementation and TBH that alignment requirement is probably not pulling its weight anymore. See https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d604",
+      "parentUuid": "7f77f51b_8e866dd2",
+      "range": {
+        "startLine": 437,
+        "startChar": 3,
+        "endLine": 437,
+        "endChar": 12
+      },
+      "revId": "62f9751ade8373ae3339daee581c80a173206321",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "def6ada9_f09cc72b",
