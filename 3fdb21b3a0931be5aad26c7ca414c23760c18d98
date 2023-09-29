@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e75dd130_2286fa0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-09-29T13:34:21Z",
+      "side": 1,
+      "message": "I\u0027m adding links to relevant fiat-crypto files below. The algorithm is now fully proven, but its compilation to fiat-crypto IR (before C or asm) depends on an unverified optimization fix to the fiat-crypto compiler. I am not sure how much work it would be to reprove the compiler, and I am not working on it right now. Even without compiler-correctness proofs, I think the level of assurance is quite good (e.g. on par with other popular toolchains for verifying cryptographic implementation), so I am not blocking submitting it on compiler-proof catch-up. The assembly code here also uses optimizations to cryptopt which are still under review, but the generated code is checked by fiat-crypto anyway.\n\nPerformance effect of the initial usage of the new functions is in the commit message. I also benchmarked the new field-arithmetic functions against inlined variants of the existing P-256 assembly code and found that the differences are small, with one or the other being slightly faster depending on the microarchitecture. However, replacing the field arithmetic as in this change does not seem to close the overall performance gap between the two implementations, with perf report showing substantial differences in time spent in point-arithmetic functions.\n\nSource code: https://github.com/mit-plv/fiat-crypto/blob/e6077dba175b0c47b20987c4fa3918252dc1bb0d/src/Arithmetic/P256ADX.v#L11-L50\nMul spec: https://github.com/mit-plv/fiat-crypto/blob/e6077dba175b0c47b20987c4fa3918252dc1bb0d/src/Arithmetic/P256ADX.v#L180-L183\nSqr spec: https://github.com/mit-plv/fiat-crypto/blob/e6077dba175b0c47b20987c4fa3918252dc1bb0d/src/Arithmetic/P256ADX.v#L264-L269\nCorresponding generated C code: https://github.com/mit-plv/fiat-crypto/blob/e6077dba175b0c47b20987c4fa3918252dc1bb0d/src/SlowPrimeSynthesisExamples.v#L379-L586\nCryptopt version used: https://github.com/0xADE1A1DE/CryptOpt/pull/210",
+      "revId": "3fdb21b3a0931be5aad26c7ca414c23760c18d98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a10f5918_f8f03d8b",
+        "filename": "third_party/fiat/asm/fiat_p256_adx_mul.S",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-09-29T13:34:21Z",
+      "side": 1,
+      "message": "Do you think we (later?) want to capture this boilerplate in macros along the lines of `BEGIN_C_ABI_FUNCTION(name)` and `END_C_ABI_FUNCTION(name)` in `base_asm.h`?",
+      "revId": "3fdb21b3a0931be5aad26c7ca414c23760c18d98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
