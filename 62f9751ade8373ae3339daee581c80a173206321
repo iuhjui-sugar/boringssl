@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f77f51b_8e866dd2",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-29T02:11:51Z",
+      "side": 1,
+      "message": "See reply to other comment. I suspect noticing the 9 was what prompted past me to start trying to audit all the functions before he decided he didn\u0027t have the time for it quite yet. But I\u0027ve filed a bug now so, uh, maybe someday someone will remember to do it. 😊",
+      "parentUuid": "957a3847_57d4f75f",
+      "range": {
+        "startLine": 437,
+        "startChar": 3,
+        "endLine": 437,
+        "endChar": 12
+      },
+      "revId": "62f9751ade8373ae3339daee581c80a173206321",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "def6ada9_f09cc72b",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-09-28T23:48:42Z",
       "side": 1,
       "message": "These are dangerously confusing because `Xi` definitely isn\u0027t just a single 64-bit value, but an array of 2 64-bit values.\n\nLike I mentioned elsewhere, it would be nice to have a tighter bound on the length of `Htable` here.",
+      "revId": "62f9751ade8373ae3339daee581c80a173206321",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6354b31d_a5af5b8e",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-09-29T02:11:51Z",
+      "side": 1,
+      "message": "\u003e These are dangerously confusing because Xi definitely isn\u0027t just a single 64-bit value, but an array of 2 64-bit values.\n\nAlready done a few CLs later in https://boringssl-review.googlesource.com/c/boringssl/+/59528, except now it\u0027s a byte array to avoid a mess of unions.\n\n\u003e Like I mentioned elsewhere, it would be nice to have a tighter bound on the length of Htable here.\n\nYeah, I remember starting to bound it more tightly, either in this CL or the linked one, but gave up for some reason. I suspect because it was taking a lot of time to audit that code, so I didn\u0027t want it in the way of the other stuff I was trying to fix. \n\nFiled https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d651\n\n(I don\u0027t suppose you feel particularly motivated to do it? 😜)",
+      "parentUuid": "def6ada9_f09cc72b",
       "revId": "62f9751ade8373ae3339daee581c80a173206321",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
