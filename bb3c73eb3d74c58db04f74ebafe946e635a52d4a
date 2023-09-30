@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abc0e361_73f83d0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-09-30T14:11:59Z",
+      "side": 1,
+      "message": "Once this is reviewed/merged, I have a corresponding PR for rust-openssl to take advantage of this. The end goal is reduced maintenance burden and fewer `cfg(boringssl)` checks.",
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
