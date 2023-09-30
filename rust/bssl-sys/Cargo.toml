@@ -5,3 +5,7 @@ authors = ["Benjamin Brittain <bwb@google.com>"]
 edition = "2018"
 publish = false
 license = "MIT"
+
+# This key is needed so that the key-value pairs we emit in build.rs are
+# available to dependents.
+links = "bssl"
