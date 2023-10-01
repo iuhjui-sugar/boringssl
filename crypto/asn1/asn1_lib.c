@@ -273,9 +273,10 @@ int ASN1_STRING_set(ASN1_STRING *str, const void *_data, ossl_ssize_t len_s) {
     len = (size_t)len_s;
   }
 
-  // |ASN1_STRING| cannot represent strings that exceed |int|, and we must
-  // reserve space for a trailing NUL below.
-  if (len > INT_MAX || len + 1 < len) {
+  // |ASN1_STRING| cannot represent strings that exceed |int|. However, most of
+  // this module does not handle overflow, so cap allowed string sizes slightly
+  // more tightly than necessary.
+  if (len > INT_MAX / 2) {
     OPENSSL_PUT_ERROR(ASN1, ERR_R_OVERFLOW);
     return 0;
   }
