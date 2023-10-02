@@ -88,6 +88,24 @@
       "parentUuid": "b514e36a_10c16058",
       "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6b2cd4_2ca1ac1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2023-10-02T06:24:54Z",
+      "side": 1,
+      "message": "Sorry for the lapse, kept getting side-tracked by Go things. I think I\u0027ve hit all the major points here.\n\nrunner now still relies on the *\\_key.pem files in the directory, but could reasonably be made a truly bundled binary using the [embed](https://pkg.go.dev/embed) library (or by just putting the keys in the source, the PEM encodings aren\u0027t _that_ big...).",
+      "parentUuid": "19ac4ed4_6237dccb",
+      "revId": "b4a18bc91d124b3fd44acf5a5ab72ae8987d34e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
