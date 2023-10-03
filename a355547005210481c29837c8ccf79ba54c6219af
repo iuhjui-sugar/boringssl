@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ddc17e7_21683e69",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 17186
+      },
+      "writtenOn": "2023-10-03T15:02:24Z",
+      "side": 1,
+      "message": "clang-cl will go down this path.",
+      "parentUuid": "796e99de_b6a700a5",
+      "revId": "a355547005210481c29837c8ccf79ba54c6219af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7583c2e5_7806c09e",
         "filename": "crypto/mem.c",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-03T14:54:37Z",
       "side": 1,
       "message": "I don\u0027t think this works if building with `-fdata-sections`. Then the compiler emit the data in its own section, but the linker would then happily delete it, seeing it\u0027s unused.",
+      "revId": "a355547005210481c29837c8ccf79ba54c6219af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "670306a5_6880008b",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 17186
+      },
+      "writtenOn": "2023-10-03T15:02:24Z",
+      "side": 1,
+      "message": "The used attribute should force the symbol to be preserved even in light of -fdata-sections or /Gy (clang-cl uses MSVC spellings).  The intention here was to remove the cast assignment to preserve the symbol.",
+      "parentUuid": "7583c2e5_7806c09e",
       "revId": "a355547005210481c29837c8ccf79ba54c6219af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
