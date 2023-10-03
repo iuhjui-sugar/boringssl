@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "279d8567_0bae8292",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-03T16:47:06Z",
+      "side": 1,
+      "message": "This is an incompatible change to the format and will cause outages. The new field needs to be added at the end.",
+      "revId": "adb86c8c45eb77c379bdee51531389c7cf0e7ecb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c0207f2_89b45d8a",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-03T16:47:06Z",
+      "side": 1,
+      "message": "Likewise, the parser needs to tolerate the field being missing, for compatibility with old senders.",
+      "revId": "adb86c8c45eb77c379bdee51531389c7cf0e7ecb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db582fd3_ed821c20",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-03T16:47:06Z",
+      "side": 1,
+      "message": "Since this is a serialization format that needs to work across versions, I think it would be better to serialize the actual codepoint. What \"new codepoint\" means may be different if, say, you all need to cycle the codepoint again.\n\nI.e. on the sender side, serialize the codepoint itself. On the receiver, set it to false if it\u0027s the old codepoint, true if it\u0027s the new one, and error if it\u0027s unrecognized.",
+      "revId": "adb86c8c45eb77c379bdee51531389c7cf0e7ecb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
