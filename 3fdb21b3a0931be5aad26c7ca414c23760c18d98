@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac24cf12_439772bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-04T17:11:57Z",
+      "side": 1,
+      "message": "🎉",
+      "revId": "3fdb21b3a0931be5aad26c7ca414c23760c18d98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e75dd130_2286fa0d",
@@ -37,6 +54,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38f2f973_833b67fa",
+        "filename": "crypto/fipsmodule/ec/p256_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-04T17:11:57Z",
+      "side": 1,
+      "message": "Style nit:\n\n```suggestion\n#if !defined(OPENSSL_NO_ASM) \u0026\u0026 defined(__GNUC__) \u0026\u0026 defined(__x86_64__) \u0026\u0026 \\\n    defined(SUPPORTS_ABI_TEST)\n```",
+      "revId": "3fdb21b3a0931be5aad26c7ca414c23760c18d98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a10f5918_f8f03d8b",
         "filename": "third_party/fiat/asm/fiat_p256_adx_mul.S",
         "patchSetId": 5
@@ -48,6 +82,24 @@
       "writtenOn": "2023-09-29T13:34:21Z",
       "side": 1,
       "message": "Do you think we (later?) want to capture this boilerplate in macros along the lines of `BEGIN_C_ABI_FUNCTION(name)` and `END_C_ABI_FUNCTION(name)` in `base_asm.h`?",
+      "revId": "3fdb21b3a0931be5aad26c7ca414c23760c18d98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdd658e7_a71f1645",
+        "filename": "third_party/fiat/asm/fiat_p256_adx_mul.S",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-04T17:11:57Z",
+      "side": 1,
+      "message": "Probably! (If you feel inspired, go for it.) We\u0027ve currently not had to do much of it because everything is buried in perlasm anyway. But if we\u0027re starting to pull in non-perl-generated assembly, helper macros sound pretty solid.\n\nOne minor nuisance: I think `@function` won\u0027t work everywhere because 32-bit Arm uses `@` as a comment marker.\nhttps://sourceware.org/binutils/docs/as/Type.html\nhttps://sourceware.org/binutils/docs/as/ARM_002dChars.html\n\nLooks like perlasm generates `%function` on Arm. I suspect that one will work on all architectures, though the gas manual has a ton of different options.",
+      "parentUuid": "a10f5918_f8f03d8b",
       "revId": "3fdb21b3a0931be5aad26c7ca414c23760c18d98",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
