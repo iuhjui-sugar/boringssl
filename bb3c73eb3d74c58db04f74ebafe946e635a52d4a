@@ -16,6 +16,46 @@
       "message": "Once this is reviewed/merged, I have a corresponding PR for rust-openssl to take advantage of this. The end goal is reduced maintenance burden and fewer `cfg(boringssl)` checks.",
       "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96dd9701_84fc8946",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-04T17:19:23Z",
+      "side": 1,
+      "message": "What exactly are the implications of this attribute, other than working around a Cargo deficiency?\n\nThis talks about linking a native library, but we do not link a `libbssl.a`\nhttps://doc.rust-lang.org/cargo/reference/manifest.html#the-links-field\n\nThen this says links forces there to be exactly one copy of bssl-sys. This sounds... completely incoherent. This crate doesn\u0027t bundle a copy of BoringSSL. It doesn\u0027t seem like there are any actual consequences to having two of them, beyond the usual size consequences of duplicating any of them.\nhttps://doc.rust-lang.org/cargo/reference/build-scripts.html#the-links-manifest-key\n\nWhat in the world is Cargo doing here?",
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0124c1c_11b1446a",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-04T17:19:23Z",
+      "side": 1,
+      "message": "include/openssl/opensslconf.h",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 54
+      },
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
