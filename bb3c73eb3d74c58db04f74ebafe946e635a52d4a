@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c621cc8_3744dcfd",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-10-04T23:58:39Z",
+      "side": 1,
+      "message": "As far as I know, the implications of having the links key are:\n\n1. It will error if there are two separate crates with the same links value (n.b., this includes two different versions of bssl-sys) in the same compilation graph.\n2. It results in `DEP_${links}_${key}` env vars being passed down to dependent crates.\n\nI do not know why they chose to connect (2) with links, when \"the ability to pass configuration to another library\" seems entirely orthogonal to me.\n\nIf you\u0027d prefer not to do the `links` thing, I can file an issue with cargo to request an alternate mechanism. Then we could either wait until that\u0027s available, or land this and then remove once it\u0027s available.",
+      "parentUuid": "96dd9701_84fc8946",
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0124c1c_11b1446a",
         "filename": "rust/bssl-sys/build.rs",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2023-10-04T17:19:23Z",
       "side": 1,
       "message": "include/openssl/opensslconf.h",
+      "range": {
+        "startLine": 20,
+        "startChar": 33,
+        "endLine": 20,
+        "endChar": 54
+      },
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3be249a_3aa050a9",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-10-04T23:58:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0124c1c_11b1446a",
       "range": {
         "startLine": 20,
         "startChar": 33,
