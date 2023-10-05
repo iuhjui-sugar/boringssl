@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5f88b0d_f67cb062",
+        "filename": "crypto/dsa/dsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-05T18:11:03Z",
+      "side": 0,
+      "message": "this one was extra special.",
+      "revId": "bd20800c22fc8402611b537287bd6948c3f2a5a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35bec162_e79775a0",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-05T18:11:03Z",
+      "side": 0,
+      "message": "I presume this is public API and we can\u0027t just unroll of these now one-line aliases that don\u0027t even end up being new and delete...\n\n(similarly in a few other places)",
+      "revId": "bd20800c22fc8402611b537287bd6948c3f2a5a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
