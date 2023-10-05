@@ -33,6 +33,24 @@
       "message": "I presume this is public API and we can\u0027t just unroll of these now one-line aliases that don\u0027t even end up being new and delete...\n\n(similarly in a few other places)",
       "revId": "bd20800c22fc8402611b537287bd6948c3f2a5a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b00b82f_8621e470",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-05T18:38:19Z",
+      "side": 0,
+      "message": "Upstream made the struct opaque, so callers expect this function. And I guess, in general, these kinds of wrappers exist for when we want to abstract the contents of the struct from the caller.",
+      "parentUuid": "35bec162_e79775a0",
+      "revId": "bd20800c22fc8402611b537287bd6948c3f2a5a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
