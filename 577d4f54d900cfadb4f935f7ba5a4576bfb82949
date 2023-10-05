@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1402ce7_e663a024",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-05T14:50:15Z",
+      "side": 0,
+      "message": "Oh, we were missing an `OPENSSL_PUT_ERROR` here. Well, now it\u0027s there!",
+      "revId": "577d4f54d900cfadb4f935f7ba5a4576bfb82949",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
