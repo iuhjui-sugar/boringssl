@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41a35c0c_ba577b81",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-05T14:17:46Z",
+      "side": 1,
+      "message": "Thinking about this some more, I think the single-copy restriction is fine. We expect bssl-sys to be 1:1 with BoringSSL itself, and BoringSSL itself cannot be multiply-linked because you cannot multiply-link C libraries. So the Cargo limitation is fine here, but for the wrong reasons.\n\nThere\u0027s this bug already https://github.com/rust-lang/cargo/issues/3544, which is about just this deficiency. So maybe update the comment to mention this is working around that bug?\n\nMuch as I would like to get someone to fix that silly limitation. 😊 Though, really, rather than env vars, the bssl crate should be able to publish cfg values for the downstream crate to import. Then we don\u0027t need this build.rs mess in the first place. (I will point out that C has hard this capability since forever...)\n\n...actually, a thought: instead of cfgs, could we do something dumb with macros? Like instead of exporting a crate `foo`, a crate could export an `ifdef!` macro such that `ifdef!(token)` will either delete the contents or include them if `token` applies to the version of the crate you\u0027re linking? Pretty gross though. And it looks like you can\u0027t do it with attribute syntax unless it\u0027s a proc macro, which sounds a bit extreme. (This language is so incomplete...)",
+      "parentUuid": "5c621cc8_3744dcfd",
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0124c1c_11b1446a",
         "filename": "rust/bssl-sys/build.rs",
         "patchSetId": 1
