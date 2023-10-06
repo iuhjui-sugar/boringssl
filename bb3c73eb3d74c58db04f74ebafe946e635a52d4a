@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "494007e4_246a4113",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-10-06T00:24:25Z",
+      "side": 1,
+      "message": "Even if ifdef worked as an attribute macro, I don\u0027t think there\u0027d be a way for rust-openssl to use it to map these values into their own cfgs (which is my motivation).\n\nI\u0027ll leave a comment on the cargo bug to see if I can get it moving ago.\n\n(Also, crap: I took my mac to the apple store today for a repair, and I just realized that my patch to rust-openssl to take advantage of this is the _one_ thing that I don\u0027t have pushed anywhere. Ah well, it only took an hour to write)",
+      "parentUuid": "41a35c0c_ba577b81",
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0124c1c_11b1446a",
         "filename": "rust/bssl-sys/build.rs",
         "patchSetId": 1
