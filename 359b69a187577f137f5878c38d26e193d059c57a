@@ -16,6 +16,23 @@
       "message": "Merge conflict should go away after parent change is submitted and this one rebased.",
       "revId": "359b69a187577f137f5878c38d26e193d059c57a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aee6786b_3aacb888",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-10-09T16:05:17Z",
+      "side": 1,
+      "message": "I\u0027ll assume that you\u0027ve run this and it works! Once upon a time I knew bash well, but that was a long ago.",
+      "revId": "359b69a187577f137f5878c38d26e193d059c57a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
