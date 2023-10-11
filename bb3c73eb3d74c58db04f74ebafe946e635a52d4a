@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37490d38_a461d768",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-11T16:32:24Z",
+      "side": 1,
+      "message": "\u003e Even if ifdef worked as an attribute macro, I don\u0027t think there\u0027d be a way for rust-openssl to use it to map these values into their own cfgs (which is my motivation).\n\nWell, the idea would be that openssl-sys starts exporting those same values and the rust-openssl can consume both together. I assume any kind of less `build.rs`-heavy solution will require changes to the rust-openssl/openssl-sys boundary.\n\nAnyway, mind updating the comment to link to the bug and clarify what\u0027s going on here? What we\u0027re doing here doesn\u0027t match the documentation since we don\u0027t link a `libbssl.a`. Rather this is a workaround for a Rust feature gap.",
+      "parentUuid": "494007e4_246a4113",
+      "revId": "bb3c73eb3d74c58db04f74ebafe946e635a52d4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0124c1c_11b1446a",
         "filename": "rust/bssl-sys/build.rs",
         "patchSetId": 1
