@@ -1104,6 +1104,16 @@ static bool ssl_cipher_process_rulestr(const char *rule_str,
 
     // Ok, we have the rule, now apply it.
     if (rule == CIPHER_SPECIAL) {
+      if (buf_len == 8 && strncmp(buf, "SECLEVEL", 8) == 0) {
+        // We are getting OpenSSL 3.0 SECLEVEL cipher configurations.
+        // this usually indicates that someone compiled with OpenSSL 3.0
+        // but then linked against BoringSSL or something else bad.
+        // Rather than fail nicely where things throw out our error
+        // and fail generically (Hello python) make this situation
+        // more obvious to whoever built this way since this is
+        // possibly terribly dangerous.
+        abort();
+      }
       if (buf_len != 8 || strncmp(buf, "STRENGTH", 8) != 0) {
         OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_COMMAND);
         return false;
