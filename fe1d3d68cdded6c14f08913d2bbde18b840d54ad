@@ -16,6 +16,24 @@
       "message": "We seem to be assuming that `__ARM_ARCH` is externally defined, so wouldn\u0027t it be defined in the kernel context too? Probably doesn\u0027t matter.",
       "revId": "fe1d3d68cdded6c14f08913d2bbde18b840d54ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48884883_2efcc604",
+        "filename": "crypto/fipsmodule/sha/asm/sha256-armv4.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-11T18:20:15Z",
+      "side": 1,
+      "message": "I don\u0027t think we\u0027ve ever attempted to build this for the kernel. :-)\n\nBut `__ARM_ARCH` is part of [ACLE](https://arm-software.github.io/acle/main/acle.html), which are the preprocessor `#define`s Arm defines for compilers to set. Recent GCCs and Clangs all define it, so I assume it\u0027s available in the kernel too.",
+      "parentUuid": "c188c77d_9ec7fa45",
+      "revId": "fe1d3d68cdded6c14f08913d2bbde18b840d54ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
