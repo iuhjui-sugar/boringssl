@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fe3866a_278225ac",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-11T19:41:49Z",
+      "side": 1,
+      "message": "```suggestion\n    if (!CBB_add_asn1_uint64(\u0026seq, alps_codepoint)) {\n```",
+      "range": {
+        "startLine": 455,
+        "startChar": 4,
+        "endLine": 455,
+        "endChar": 7
+      },
+      "revId": "174ee29fd6e6ead6afcc3b4011de14ffcdaf36bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67404307_30d52685",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-11T19:41:49Z",
+      "side": 1,
+      "message": "```suggestion\n    if (!CBS_get_asn1_uint64(\u0026seq, \u0026alps_codepoint)) {\n```",
+      "revId": "174ee29fd6e6ead6afcc3b4011de14ffcdaf36bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805cd3e5_410e5a11",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-11T19:41:49Z",
+      "side": 1,
+      "message": "This will break compatibility with older handshakers. Older handshakers won\u0027t send the field. Let\u0027s make it optional.\n\nMaking it optional will also help when ALPS isn\u0027t negotiated. When ALPS isn\u0027t negotiated, the value of `alps_use_new_codepoint` doesn\u0027t matter. Serializing it only risks problems if it happens to pick a codepoint the other side doesn\u0027t understand. So, on the serialize side, we should omit the field when ALPS is off.",
+      "revId": "174ee29fd6e6ead6afcc3b4011de14ffcdaf36bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45397e65_fa85e265",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-11T19:41:49Z",
+      "side": 1,
+      "message": "This is a boolean, so `\u003d true` and `\u003d false`.",
+      "revId": "174ee29fd6e6ead6afcc3b4011de14ffcdaf36bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
