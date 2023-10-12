@@ -52,6 +52,24 @@
       "parentUuid": "13ecf770_97c0e306",
       "revId": "630bfac104a8e7ee4cc04133413ce06161090695",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fd43273_f8ebb7c6",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-12T14:09:16Z",
+      "side": 1,
+      "message": "I suppose this is also just a single `ASN1_STRING`, not (usually) the whole structure, so it probably doesn\u0027t need much. Although that does also mean this doesn\u0027t help with overflow on the i2d side. (But we\u0027ll just fix that by rewriting all the encoders with `CBB`.)",
+      "parentUuid": "54ddaab3_549d4976",
+      "revId": "630bfac104a8e7ee4cc04133413ce06161090695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
