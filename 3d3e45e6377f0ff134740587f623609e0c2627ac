@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aca7f5f6_66b475fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-10-12T02:42:18Z",
+      "side": 1,
+      "message": "Well motivated, but probably too dangerous to assume that nobody will ever try to parse externally-supplied cipher lists.",
+      "revId": "3d3e45e6377f0ff134740587f623609e0c2627ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
