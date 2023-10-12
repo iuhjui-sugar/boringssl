@@ -34,6 +34,24 @@
       "parentUuid": "1c624b63_c6d2da23",
       "revId": "630bfac104a8e7ee4cc04133413ce06161090695",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54ddaab3_549d4976",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-12T14:04:02Z",
+      "side": 1,
+      "message": "It\u0027s just the limit we used here.\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/asn1/tasn_dec.c#215\n\nAs for where that limit came from, I pulled it out of a hat. I guess it means you can hex-encode the string, but just barely. :-)\n\nI\u0027d be a little worried about `SSL_MAX_CERT_LIST_DEFAULT` being too tight for some uses, but picking a smaller value sounds reasonable. We\u0027re currently at 2GiB. X509_NAME uses 1MiB, but that\u0027s just for a single name. BIGNUM uses 64MiB for a single BIGNUM, which is kinda absurd. I think it\u0027s set so that bit counts fit in int, with room to spare?\n\nI dunno, how about 64MiB or 128MiB? BIT STRINGs exist, so being concerned about bit counts makes sense. (Still picking a number out of a hat.)",
+      "parentUuid": "13ecf770_97c0e306",
+      "revId": "630bfac104a8e7ee4cc04133413ce06161090695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
