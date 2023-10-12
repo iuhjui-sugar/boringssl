@@ -70,6 +70,24 @@
       "parentUuid": "54ddaab3_549d4976",
       "revId": "630bfac104a8e7ee4cc04133413ce06161090695",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a160b9da_ef9c8979",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-12T15:02:07Z",
+      "side": 1,
+      "message": "Yeah my thought on the smaller side was that it\u0027s just a single asn1_string, I was only pushing for something larger because of the possibly silly case where somehow someone has put an entire structure in there. I\u0027m thinking of the like of an OID with a string value that someone encodes an entire other certificate in or something silly like that.  \n\nI\u0027d say make a ASN1_STRING_MAX defined to 64 MiB, with a comment about why we sort of chose that number out of the air, and do that with the statement that \"any real world use of these at enormous lengths is almost certainly untrusted input attempting an attack.\" or something to that effect.",
+      "parentUuid": "2fd43273_f8ebb7c6",
+      "revId": "630bfac104a8e7ee4cc04133413ce06161090695",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
