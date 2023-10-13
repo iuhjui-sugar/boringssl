@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0297f4ea_d5468c22",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 6690,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:56:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cccd612_95829725",
+      "range": {
+        "startLine": 6690,
+        "startChar": 21,
+        "endLine": 6690,
+        "endChar": 36
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01ef1fb0_52c3eb1e",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-04-13T22:31:33Z",
       "side": 1,
       "message": "ASSERT_TRUE(name) and ASSERT_TRUE(ne).\n\nThe former is just malloc failure nonsense. The latter is also catches encoding errors if you use an `MBSTRING_*` type. Though see note above.\n\n(See the documentation for `X509_NAME_ENTRY_set_data` for what this API is doing. It\u0027s a huge mess.)",
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b058d603_b6aa917a",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 6703,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:56:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01ef1fb0_52c3eb1e",
       "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
