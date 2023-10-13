@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66e1bbf6_49ec7e31",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T19:02:38Z",
+      "side": 1,
+      "message": "Yeah this was an artifact of pthread happening in addtion to madvise.  \n\nI separated them out now.",
+      "parentUuid": "79740c06_9b918709",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "05cc1801_2dceb74d",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-09-07T21:53:54Z",
       "side": 1,
       "message": "uint64_t",
+      "range": {
+        "startLine": 55,
+        "startChar": 2,
+        "endLine": 55,
+        "endChar": 10
+      },
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36596a05_2a7be3c7",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T19:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05cc1801_2dceb74d",
       "range": {
         "startLine": 55,
         "startChar": 2,
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d75de43_00437802",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T19:02:38Z",
+      "side": 1,
+      "message": "yeah, now removed, again, kind of an artifact of us formerly trying to do both.",
+      "parentUuid": "1cc2d591_0f10585f",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef48df20_55587196",
@@ -75,6 +135,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1783c0c0_d44e3313",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T19:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef48df20_55587196",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b915a24_578b16df",
@@ -88,6 +166,24 @@
       "writtenOn": "2023-09-07T21:53:54Z",
       "side": 1,
       "message": "Nit: extra space after `return`",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a5fecfa_75bcff92",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T19:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b915a24_578b16df",
       "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -115,6 +211,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce64dc29_235df3f1",
+        "filename": "crypto/fipsmodule/rand/fork_detect.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T19:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4ff92c6_a8f6160c",
+      "range": {
+        "startLine": 28,
+        "startChar": 44,
+        "endLine": 28,
+        "endChar": 55
+      },
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4658a35_e2296fbe",
@@ -128,6 +248,24 @@
       "writtenOn": "2023-09-07T21:53:54Z",
       "side": 1,
       "message": "Nit: stray space at the end, blank line between the two functions.",
+      "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cb9acc3_7ff52290",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T19:02:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4658a35_e2296fbe",
       "revId": "0776a5ddaab56423c8df1cfdded14c348e05a2cb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
