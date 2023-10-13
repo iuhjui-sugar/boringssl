@@ -210,6 +210,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88f70bb3_8dae23bb",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f1ecceb_fba858e7",
+      "range": {
+        "startLine": 1528,
+        "startChar": 11,
+        "endLine": 1529,
+        "endChar": 41
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22e0a265_7a049d4b",
@@ -233,6 +257,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff42ff7a_2158842e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1540,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22e0a265_7a049d4b",
+      "range": {
+        "startLine": 1540,
+        "startChar": 53,
+        "endLine": 1540,
+        "endChar": 56
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66097e8f_3836305e",
@@ -246,6 +294,24 @@
       "writtenOn": "2023-04-13T22:31:33Z",
       "side": 1,
       "message": "Probably should also mention that it will fail if the value is not a recognized string type.",
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f88eaf11_bd6a0900",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66097e8f_3836305e",
       "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
