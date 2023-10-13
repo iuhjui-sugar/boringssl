@@ -75,6 +75,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0979e609_26cd523c",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a25382d0_23ab1db7",
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2fdaed1c_a2a45c99",
@@ -98,6 +116,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e216e716_ac8b4336",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:38:12Z",
+      "side": 1,
+      "message": "redid this with CBS similar to what I ended up doing in libre",
+      "parentUuid": "2fdaed1c_a2a45c99",
+      "range": {
+        "startLine": 107,
+        "startChar": 44,
+        "endLine": 107,
+        "endChar": 56
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e73659e1_99cb62c1",
@@ -111,6 +153,30 @@
       "writtenOn": "2023-04-13T22:31:33Z",
       "side": 1,
       "message": "Maybe give this another go in clang-format. It seems to have gotten very confused. (Newline after colon might unconfuse it?)\n\nAlso an extra space on line 110.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 7
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac681a0b_66fe9d66",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-13T21:38:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e73659e1_99cb62c1",
       "range": {
         "startLine": 108,
         "startChar": 0,
