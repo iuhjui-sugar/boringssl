@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80812d82_8ed9d1af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-16T14:46:15Z",
+      "side": 1,
+      "message": "LGTM though I\u0027ll wait for AGL to also approve this.",
+      "revId": "c158dc24558330a6b5e6864fcaf4d6761f4d2f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
