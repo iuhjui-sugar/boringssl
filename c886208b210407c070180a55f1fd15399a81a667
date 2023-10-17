@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5201b5f_243a31af",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 6786,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-17T22:19:55Z",
+      "side": 1,
+      "message": "This is what I ended up doing anyway.",
+      "parentUuid": "8829b041_1c1376dd",
+      "revId": "c886208b210407c070180a55f1fd15399a81a667",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15ed6b9e_37861844",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-10-17T21:30:31Z",
       "side": 1,
       "message": "Oh huh. This is failing because we actually *don\u0027t* write to the buffer in the error case. I guess we can delete this line. Sorry, my bad, wasn\u0027t paying attention.",
+      "revId": "c886208b210407c070180a55f1fd15399a81a667",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f89daae0_0322332e",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 6789,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-17T22:19:55Z",
+      "side": 1,
+      "message": "Yeah I already noticed\nand changed it to test that we don\u0027t write the buffer in the error case.",
+      "parentUuid": "15ed6b9e_37861844",
       "revId": "c886208b210407c070180a55f1fd15399a81a667",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
