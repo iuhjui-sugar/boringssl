@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50e270af_f7945cd8",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 6779,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-17T21:16:48Z",
+      "side": 1,
+      "message": "Aha, yeah I origninally had this and then split them out when I was fighting with the types of the string.",
+      "parentUuid": "b4d272da_e1ea6c3d",
+      "range": {
+        "startLine": 6774,
+        "startChar": 0,
+        "endLine": 6779,
+        "endChar": 74
+      },
+      "revId": "98920de07c65048e8c0220079cd09c80b91ec23c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "364e7106_8984c97b",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-17T21:04:37Z",
       "side": 1,
       "message": "```suggestion\n      // buffer needs to be one bigger than the expected result.\n```",
+      "range": {
+        "startLine": 6787,
+        "startChar": 32,
+        "endLine": 6787,
+        "endChar": 37
+      },
+      "revId": "98920de07c65048e8c0220079cd09c80b91ec23c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e778d0_9565cceb",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 6787,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-17T21:16:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "364e7106_8984c97b",
       "range": {
         "startLine": 6787,
         "startChar": 32,
