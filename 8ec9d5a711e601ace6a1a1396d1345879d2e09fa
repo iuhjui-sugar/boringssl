@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1283c28_56d673cb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 5843,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-10-17T19:43:26Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "05b551e4_81eb29e9",
+      "revId": "8ec9d5a711e601ace6a1a1396d1345879d2e09fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "900d381b_2158fb23",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-17T18:19:19Z",
       "side": 1,
       "message": "This is ignoring parse errors. Instead, we should pattern this after early_traffic_secret:\n\n1. Condition the field on whether ALPS was negotiated (session-\u003ehas_application_settings)\n2. If `CBS_len(\u0026seq) \u003d\u003d 0`, act as if the peer sent `TLSEXT_TYPE_application_settings_old`, with a comment about supporting older handshakers.",
+      "revId": "8ec9d5a711e601ace6a1a1396d1345879d2e09fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a4bc0f9_32ac3f62",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-10-17T19:43:26Z",
+      "side": 1,
+      "message": "refactor and move the logic near early_traffic_secret",
+      "parentUuid": "900d381b_2158fb23",
       "revId": "8ec9d5a711e601ace6a1a1396d1345879d2e09fa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
