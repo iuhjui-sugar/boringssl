@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d272da_e1ea6c3d",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 6779,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T21:04:37Z",
+      "side": 1,
+      "message": "I realized we could make this slightly tighter:\n\n\n```suggestion\n    ASSERT_TRUE(X509_NAME_add_entry_by_NID(\n        name.get(), NID_commonName, test.content_type,\n        reinterpret_cast\u003cconst uint8_t *\u003e(test.content), test.len, /*loc\u003d*/-1,\n        /*set\u003d*/0));\n```",
+      "range": {
+        "startLine": 6774,
+        "startChar": 0,
+        "endLine": 6779,
+        "endChar": 74
+      },
+      "revId": "98920de07c65048e8c0220079cd09c80b91ec23c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "364e7106_8984c97b",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 6787,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T21:04:37Z",
+      "side": 1,
+      "message": "```suggestion\n      // buffer needs to be one bigger than the expected result.\n```",
+      "range": {
+        "startLine": 6787,
+        "startChar": 32,
+        "endLine": 6787,
+        "endChar": 37
+      },
+      "revId": "98920de07c65048e8c0220079cd09c80b91ec23c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
