@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c01c4417_46abbc26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "Update-Note: X509_NAME_get_text_by_* changes behavior, but as the function was impossible to use correctly before, we expect that the change will actually fix a bug in almost all existing callers.",
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e1cbd36_6a6eddbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "s/Bug/Fixed/",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78dd3701_df87439d",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 6741,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "Probably worth having a test for the empty string, since empty strings are often odd corner cases.",
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b311b6c9_4eb69a1c",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 6745,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "So `X509_NAME_ENTRY_create_by_NID` and `X509_NAME_ENTRY_set_data` has some weird behavior. If you pass in `MBSTRING_*`, it will convert to UTF-8. Which means none of the `MBSTRING_*` constants are actually using the UTF-8 conversion. The `V_ASN1_*` mode will just create a string of the type we want.\n\nSo I think we should just replace all the `MBSTRING_*` cases with `V_ASN1_*`, testing whatever string type we\u0027re interested in testing. (Maybe cover a few of them.)",
+      "range": {
+        "startLine": 6745,
+        "startChar": 10,
+        "endLine": 6745,
+        "endChar": 22
+      },
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "533bbb88_dba69ef9",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 6769,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "I was going to say we should have a test for invalid BMPStrings, etc, but now that I look at it, I\u0027m not sure if it\u0027s even possible to create them, since we check on parse. Excellent. 😄",
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "608b14c9_fc13fe6d",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 6791,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "Do we actually need to separate these categories? It looks like `X509_NAME_ENTRY_create_by_NID` is already implemented by `new; set_object; set_data`. So I think we can just fold them into a single `kTests` and just use the first loop. (Apart from the buffer size question, see below.)",
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9909d559_81db5ff5",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 6800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "Rather than have the tests be built around 10 (and sometimes 80), perhaps we just test with a large buffer followed by a small one. That is:\n\n```\nchar text[256];\nASSERT_LT(test.expected_result, static_cast\u003cint\u003e(sizeof(text)));\nEXPECT_EQ(test.expected_result, X509_NAME_get_text_by_NID(...));\nif (test.expected_result \u003e\u003d 0) {\n  // Test truncation. The function writes a trailing NUL, so the buffer\n  // needs to be one more than the expected result.\n  EXPECT_EQ(-1, X509_NAME_get_text_by_NID(..., test.expected_result));\n  if (test.expected_result \u003e 0) {\n    EXPECT_STREQ(text, \"\");\n  }\n}\n```",
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb164374_a8527d50",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 6805,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "I think this can just be\"\n\n\n\nhttps://github.com/google/googletest/blob/main/docs/reference/assertions.md#expect_streq-expect_streq\n```suggestion\n    EXPECT_STREQ(text, test.expected_string);\n```",
+      "range": {
+        "startLine": 6804,
+        "startChar": 0,
+        "endLine": 6805,
+        "endChar": 73
+      },
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a39f3ef2_5db642f7",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-17T14:54:07Z",
+      "side": 1,
+      "message": "Should this be `text_len \u003e\u003d len`? We write `text_len + 1` bytes. The old functions seems to interpret `len` as \"maximum bytes we will write\", not \"maximum length of string we will output\".",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 22
+      },
+      "revId": "2acbfd7c0b31aee79036972080933831c85ce2b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
