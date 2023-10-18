@@ -54,6 +54,10 @@
 #define OPENSSL_32_BIT
 #elif defined(__myriad2__)
 #define OPENSSL_32_BIT
+// To prevent compilation errors, let's assume OPENSSL_64_BIT compatibility
+// for unspecified 64-bit little-endian processors.
+#elif defined(__LP64__) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#define OPENSSL_64_BIT
 #else
 // Note BoringSSL only supports standard 32-bit and 64-bit two's-complement,
 // little-endian architectures. Functions will not produce the correct answer
