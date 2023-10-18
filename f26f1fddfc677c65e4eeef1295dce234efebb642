@@ -33,6 +33,24 @@
       "message": "This list enumerates the platforms that BoringSSL supports. For those platforms we keep a reasonable bar of not breaking them: automated test coverage, for one, but also we need access to those types for machines for fixing them. If people want to run BoringSSL on other platforms it\u0027s on them and things may not work.\n\nHowever, we well know that anything that seems to work will soon be expected to work and, quickly, the implicit expectation is that every machine will work always. (See what happened to OpenSSL.)\n\nSo this list marks the boundary of what we guarantee. Of course, you can run the code any many more machines, but then you\u0027re taking on the burden of fixing it and, if you\u0027re doing that, then you must be able to carry local patches. In which case patching this list is trivial.",
       "revId": "f26f1fddfc677c65e4eeef1295dce234efebb642",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89e98b2e_40ab83f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17327
+      },
+      "writtenOn": "2023-10-18T19:16:17Z",
+      "side": 1,
+      "message": "I understand your concerns. Do you think adding a warning saying additional testing is required and the current platform is not supported if this branch is chosen as a viable workaround here?\n\nWhile BoringSSL claims to be an internal library, it\u0027s worth noting that some tools for the public, like Android Platform Tools, depends on or even bundles BoringSSL. Supporting additional platforms can benefit end users at this point.\n\nInitially, I only intended to add LoongArch64 to this platform list, as all tests pass when defining OPENSSL_64_BIT. However, I noticed that ppc64el was removed from the list some time ago, which raises doubts about the acceptance of such a patch. Could you provide more details on the platform support policies? Your insights would be greatly appreciated.\n\nLocal patches are certainly fine for us, this change is only for the convenience.",
+      "parentUuid": "aa6f02fc_1ccc12da",
+      "revId": "f26f1fddfc677c65e4eeef1295dce234efebb642",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
