@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffd373d_8f9093a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17327
+      },
+      "writtenOn": "2023-10-18T08:08:10Z",
+      "side": 1,
+      "message": "Adding reviewers as described in CONTRIBUTING.md",
+      "revId": "f26f1fddfc677c65e4eeef1295dce234efebb642",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
