@@ -144,6 +144,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaff1673_b9b5e5f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-10-19T22:05:03Z",
+      "side": 1,
+      "message": "Very possible. Two more obvious candidates: rust-openssl and pyca/cryptography, and both are winners.\n\nIn rust-openssl\u0027s [types.rs](https://github.com/sfackler/rust-openssl/blob/master/openssl-sys/src/handwritten/types.rs#L332) we probably want `#[cfg(any(ossl110,boringssl,libressl350))]`.\n\nThis is obviously pulled into newer pyca/cryptography, who have their own [x509.py](https://github.com/pyca/cryptography/blob/main/src/_cffi_src/openssl/x509.py#L27-L30) where `typedef ... X509_ALGOR` passes regress.\n\nI\u0027ll send a mail or PR to Alex after sleep.",
+      "parentUuid": "ecd62bf8_12b68081",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa2c00ff_67e46e5c",
