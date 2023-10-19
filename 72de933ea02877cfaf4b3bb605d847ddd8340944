@@ -67,6 +67,23 @@
       "message": "this is an experimental directory in the middle of some wholesale changes. this sort of churn isn\u0027t really desired now, and a bunch of this is going to go away very shortly.",
       "revId": "72de933ea02877cfaf4b3bb605d847ddd8340944",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8c01ec1_77fb1368",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15456
+      },
+      "writtenOn": "2023-10-19T18:52:16Z",
+      "side": 1,
+      "message": "ok got it\n\nthank you",
+      "revId": "72de933ea02877cfaf4b3bb605d847ddd8340944",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
