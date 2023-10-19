@@ -120,6 +120,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecd62bf8_12b68081",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-19T21:09:27Z",
+      "side": 1,
+      "message": "Ah nice! Yeah, I think I did Node and Curl. IIRC, someone\u0027s R OpenSSL bindings are another culprit?",
+      "parentUuid": "9dbc7f25_7f02ad27",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa2c00ff_67e46e5c",
