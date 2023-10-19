@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d711fa56_d855e5ed",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-19T19:09:14Z",
+      "side": 1,
+      "message": "```suggestion\n  // Immediately after a fork, the process must be single-threaded.\n```\n\n\n(Hopefully no one is dumb enough to spin up a thread in a `pthread_atfork` child handler! 😄)",
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f80e36_819f329b",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-19T19:09:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t quite work, does it? Post-decrement is weird. I think `if (++value \u003d\u003d 0)` would be right, but maybe we should just write it like this to avoid confusion:\n\n\n```suggestion\n  uint64_t value \u003d *g_atfork_fork_generation_bss_get() + 1;\n  if (value \u003d\u003d 0) {\n    value \u003d 1;\n  }\n```",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 3
+      },
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e86b2848_8baee0a5",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-19T19:09:14Z",
+      "side": 1,
+      "message": "Do we still need to make it a `minimum_expected` if we\u0027re no longer combining MADV and pthread_atfork together?\n\nI think `minimum_expected` may not quite work right. Consider this test below:\n\n```\n    // Now the child also observes |start| + 1. This is fine because it has\n    // already diverged from the grandchild at this point.\n    CheckGenerationInChild(\"Child\", start + 1);\n\n    // Forked grandchildren will now observe |start| + 2.\n    for (int i \u003d 0; i \u003c 2; i++) {\n      ForkInChild([\u0026] { CheckGenerationInChild(\"Grandchild\", start + 2); });\n    }\n```\n\nSuppose we had a bug such that the child\u0027s `start + 1` was actually `start + 2`, but then the grandchildren were stuck at `start + 2`. This logic wouldn\u0027t notice. If the child\u0027s generation is greater than expected, we then need to use that to rebase the grandchild\u0027s expectations.\n\nBut that\u0027s a mess and if strict equality works, let\u0027s just revert to the original one. :-)",
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af3dfb6e_6eae3dbe",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-19T19:09:14Z",
+      "side": 1,
+      "message": "I think this will fail on older Linux kernels, where we don\u0027t believe we can reliably detect fork. I suspect that\u0027s true of some of our Android devices in CI. (Though the old `fprintf(...); return;` can probably be replaced with `GTEST_SKIP() \u003c\u003c \"...\"`).",
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
