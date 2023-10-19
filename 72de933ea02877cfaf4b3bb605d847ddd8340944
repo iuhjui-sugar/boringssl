@@ -16,6 +16,23 @@
       "message": "Adam@\n\nBob@\n\nPTAL thank you",
       "revId": "72de933ea02877cfaf4b3bb605d847ddd8340944",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "544d4cb4_2a8f132f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15456
+      },
+      "writtenOn": "2023-10-19T17:23:23Z",
+      "side": 1,
+      "message": "+David@\n\nPTAL thank you",
+      "revId": "72de933ea02877cfaf4b3bb605d847ddd8340944",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
