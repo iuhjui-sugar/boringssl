@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "530048e3_b09a94da",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-19T19:32:21Z",
+      "side": 1,
+      "message": "Never underestimate the power of different thinking, but if they do and get bit, well, I think I\u0027m ok with that.",
+      "parentUuid": "d711fa56_d855e5ed",
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84f80e36_819f329b",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-10-19T19:09:14Z",
       "side": 1,
       "message": "This doesn\u0027t quite work, does it? Post-decrement is weird. I think `if (++value \u003d\u003d 0)` would be right, but maybe we should just write it like this to avoid confusion:\n\n\n```suggestion\n  uint64_t value \u003d *g_atfork_fork_generation_bss_get() + 1;\n  if (value \u003d\u003d 0) {\n    value \u003d 1;\n  }\n```",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 3
+      },
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62931e46_49ffc2ce",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-19T19:32:21Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "84f80e36_819f329b",
       "range": {
         "startLine": 159,
         "startChar": 0,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "200c0c68_7d9a6ce7",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-19T19:32:21Z",
+      "side": 1,
+      "message": "It doesn\u0027t quite work, because the way those tests are written with madvise and forking twice in the child, then proceeding with two grandchildren, they both see start+1, because they both just get madv_wipeonfork happening in each grandchild process. \n\nwith pthread_atfork, we see an increment of the generation happening for each fork, so we do actually see start + 2",
+      "parentUuid": "e86b2848_8baee0a5",
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af3dfb6e_6eae3dbe",
         "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
         "patchSetId": 13
@@ -71,6 +131,24 @@
       "writtenOn": "2023-10-19T19:09:14Z",
       "side": 1,
       "message": "I think this will fail on older Linux kernels, where we don\u0027t believe we can reliably detect fork. I suspect that\u0027s true of some of our Android devices in CI. (Though the old `fprintf(...); return;` can probably be replaced with `GTEST_SKIP() \u003c\u003c \"...\"`).",
+      "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1863ecdf_d0ed20e0",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-19T19:32:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af3dfb6e_6eae3dbe",
       "revId": "28566acc72ab2d51fea4813f4ca22fa2d9c89e64",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
