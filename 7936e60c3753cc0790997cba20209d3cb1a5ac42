@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d16a7b5_43357466",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-19T20:58:05Z",
+      "side": 1,
+      "message": "Yeah where are you seeing use of X509_algor_set_md? I only see it in the usual suspects of the \"bind all the OpenSSL things\" and copies of OpenSSL/boringssl poorly forked and lurking under rocks.",
+      "parentUuid": "ddc571f7_8b5aca6d",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa2c00ff_67e46e5c",
