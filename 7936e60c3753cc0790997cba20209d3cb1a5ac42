@@ -96,6 +96,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dbc7f25_7f02ad27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-10-19T21:07:45Z",
+      "side": 1,
+      "message": "Oh, I see. Yes I saw the one you sent to curl the other day...\nI just sent such a patch to the good people at Ruby and ran into a const conundrum because they still have 1.0.2 in their CI...\n\nOh well, it\u0027s too late to figure a nice solution for this one out before tomorrow 😊\nhttps://github.com/ruby/openssl/pull/687",
+      "parentUuid": "a055542e_472f85cf",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa2c00ff_67e46e5c",
