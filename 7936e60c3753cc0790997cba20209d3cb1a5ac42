@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ddc571f7_8b5aca6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-10-19T16:50:24Z",
+      "side": 1,
+      "message": "What is that one 3p user? I did not find any on codesearch or our ports. I did find lua-openssl exposing a binding, but they target a very outdated version of LibreSSL anyway.",
+      "parentUuid": "422c9c92_c4244dd8",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fa2c00ff_67e46e5c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -54,6 +78,23 @@
       "writtenOn": "2023-10-19T16:28:37Z",
       "side": 1,
       "message": "Thanks!",
+      "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d78f597_94f236e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-10-19T16:50:24Z",
+      "side": 1,
+      "message": "Thanks for the review. Yes, it would have been nice if the opaquification had been a bit more thorough in this part of the tree...",
       "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
