@@ -33,6 +33,23 @@
       "message": "+David@\n\nPTAL thank you",
       "revId": "72de933ea02877cfaf4b3bb605d847ddd8340944",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60fd4cde_8330f7b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-19T18:47:00Z",
+      "side": 1,
+      "message": "I *suspect* the answer is we want to make the change in Chromium first, but deferring to Bob. The relationship between this code and the source of truth in Chromium is a little messy. But that\u0027ll get unwound in the future.",
+      "revId": "72de933ea02877cfaf4b3bb605d847ddd8340944",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
