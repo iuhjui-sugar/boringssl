@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd1f418f_118e97a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17231
+      },
+      "writtenOn": "2023-10-19T08:20:08Z",
+      "side": 1,
+      "message": "63485: Add some IWYU export pragmas | https://boringssl-review.googlesource.com/c/boringssl/+/63485",
+      "revId": "9e6144382ca4752591910b38b71a3301d97999df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
