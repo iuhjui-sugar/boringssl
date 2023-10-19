@@ -27,7 +27,7 @@ class FilePath {
 };
 
 enum PathKey {
-  DIR_SOURCE_ROOT = 0,
+  DIR_SRC_TEST_DATA_ROOT = 0,
 };
 
 class PathService {
