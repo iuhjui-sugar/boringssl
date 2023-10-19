@@ -72,6 +72,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a055542e_472f85cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-19T21:01:52Z",
+      "side": 1,
+      "message": "Oh, the use isn\u0027t 3p, it\u0027s just external to BoringSSL. It\u0027s in Android.\nhttps://cs.android.com/android/platform/superproject/+/main:system/security/keystore2/src/crypto/certificate_utils.cpp;drc\u003d0da31150597c7c741e50f7b93ed07a2c46de6980;l\u003d436\n\nThe thing 3p packages do is reach into `X509_ALGOR` instead of calling the accessors, because OpenSSL didn\u0027t make it opaque. I\u0027ve been sending folks patches to fix those (we might be able to make it opaque anyway?). Without making it opaque, we\u0027re a bit more limited in the tricks we can play.",
+      "parentUuid": "3d16a7b5_43357466",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 33
+      },
+      "revId": "7936e60c3753cc0790997cba20209d3cb1a5ac42",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa2c00ff_67e46e5c",
