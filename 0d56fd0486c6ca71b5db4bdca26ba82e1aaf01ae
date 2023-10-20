@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c38426be_b2622a2a",
+        "filename": "crypto/keccak/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-10-20T16:46:29Z",
+      "side": 1,
+      "message": "Sorry to mess you around, but since this is creating API it\u0027s worth paying some more attention.\n\nThis function shouldn\u0027t be needed. The object itself should take care of doing this before the first call to squeeze.",
+      "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9dc6f178_bc16a18b",
         "filename": "crypto/keccak/keccak.c",
         "patchSetId": 3
