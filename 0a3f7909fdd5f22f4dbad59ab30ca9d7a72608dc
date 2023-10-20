@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa88d68e_5ea98703",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-20T17:10:26Z",
+      "side": 1,
+      "message": "Lost these bits. (I think I\u0027ve seen a compiler config that complains on redefining macros.)\n\n```suggestion\n#if !defined(_GNU_SOURCE)\n#define _GNU_SOURCE  // needed for madvise() and MAP_ANONYMOUS on Linux.\n#endif\n```",
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f888314_8fbb844c",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-20T17:10:26Z",
+      "side": 1,
+      "message": "Minor style nit.\n\n```suggestion\n#elif defined(OPENSSL_FORK_DETECTION_PTHREAD_ATFORK)\n```",
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcffbc07_33b93964",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-20T17:10:26Z",
+      "side": 1,
+      "message": "```suggestion\n    }\n\n```\n\nRedundant with the check above now.",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 54
+      },
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a872acc_6a4d6dff",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-20T17:10:26Z",
+      "side": 1,
+      "message": "This is no longer true, is it? Probably should either delete this sentence, or perhaps delete the function if we don\u0027t know of anyone that needs it.",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
