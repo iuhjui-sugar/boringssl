@@ -34,6 +34,24 @@
       "parentUuid": "9dc6f178_bc16a18b",
       "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d10d10b4_2d33dd08",
+        "filename": "crypto/keccak/keccak.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-20T12:38:27Z",
+      "side": 1,
+      "message": "just ensure keccak_init zeros it, and don\u0027t bother with it in here.",
+      "parentUuid": "8e3f9700_6ec6a7d3",
+      "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
