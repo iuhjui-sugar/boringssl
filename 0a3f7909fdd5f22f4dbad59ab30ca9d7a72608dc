@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d15a37b_18b00833",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-20T17:30:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa88d68e_5ea98703",
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f888314_8fbb844c",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-10-20T17:10:26Z",
       "side": 1,
       "message": "Minor style nit.\n\n```suggestion\n#elif defined(OPENSSL_FORK_DETECTION_PTHREAD_ATFORK)\n```",
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06674f49_74a7835d",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-20T17:30:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f888314_8fbb844c",
       "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71baeed1_8dba4ecc",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-20T17:30:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcffbc07_33b93964",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 162,
+        "endChar": 54
+      },
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a872acc_6a4d6dff",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-10-20T17:10:26Z",
       "side": 1,
       "message": "This is no longer true, is it? Probably should either delete this sentence, or perhaps delete the function if we don\u0027t know of anyone that needs it.",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8e3b677_6539dc46",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-20T17:30:19Z",
+      "side": 1,
+      "message": "Yeah, fixed the comment. I\u0027m inclined to keep it for some of the special casers who know when they will/will not fork.",
+      "parentUuid": "9a872acc_6a4d6dff",
       "range": {
         "startLine": 51,
         "startChar": 3,
