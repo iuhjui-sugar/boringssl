@@ -52,6 +52,24 @@
       "parentUuid": "8e3f9700_6ec6a7d3",
       "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1645de75_62360283",
+        "filename": "crypto/keccak/keccak.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-10-20T12:58:53Z",
+      "side": 1,
+      "message": "- The offset must be initialized to zero in keccak_init() for the subsequent absorb() call(s) to work properly. Each absorb() call moves the offset (this wasn\u0027t the case before this CL).\n- The offset must be reset to zero again in keccak_finalize() for the subsequent squeeze() call(s) to work properly. This is needed here because the absorb() calls have moved the offset.\n\nNote that the main difference between the previous code and this CL is that the API now allows splitting the absorb() phase into multiple consecutive calls (which is useful for implementing Dilithium), and therefore we need to keep track of the absorbing offset (separately from the squeezing offset).\n\nIn the previous code, there was only a single pass absorption in the initialization function, which processed the whole input from an offset of zero (so there was no need to keep track of an offset during this absorption phase, but only in the squeezing phase that could be split into multiple calls).",
+      "parentUuid": "d10d10b4_2d33dd08",
+      "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
