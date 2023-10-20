@@ -163,6 +163,30 @@
       },
       "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bdbfb1f_071196f6",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-20T17:36:44Z",
+      "side": 1,
+      "message": "Fair enough, but if you know you don\u0027t fork, you could just not call this function. :P",
+      "parentUuid": "f8e3b677_6539dc46",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "0a3f7909fdd5f22f4dbad59ab30ca9d7a72608dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

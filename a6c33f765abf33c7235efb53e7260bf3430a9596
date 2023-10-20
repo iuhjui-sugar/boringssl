@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "326a31fb_ebc097f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-20T17:36:44Z",
+      "side": 1,
+      "message": "still lgtm",
+      "revId": "a6c33f765abf33c7235efb53e7260bf3430a9596",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55774bf7_cb65d529",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-20T17:36:44Z",
+      "side": 1,
+      "message": "Lost a space here. :-P\n```suggestion\n  if (generation \u003c minimum_expected) {\n```\n\n(Just the one suggestion so hopefully it\u0027s okay to apply.)",
+      "revId": "a6c33f765abf33c7235efb53e7260bf3430a9596",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
