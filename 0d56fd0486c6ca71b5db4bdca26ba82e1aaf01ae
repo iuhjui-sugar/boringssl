@@ -16,6 +16,24 @@
       "message": "just do this in keccak_init.",
       "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3f9700_6ec6a7d3",
+        "filename": "crypto/keccak/keccak.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-10-20T06:58:16Z",
+      "side": 1,
+      "message": "It\u0027s needed in finalize, because now the same offset field will be used for the absorb phase (where it represents offsets w.r.t. the input), and then for the squeeze phase (where it represents offsets w.r.t. the output).\n\nOr did you mean to explicitly set the offset to zero in init (which is currently implicit as part of memset)?",
+      "parentUuid": "9dc6f178_bc16a18b",
+      "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
