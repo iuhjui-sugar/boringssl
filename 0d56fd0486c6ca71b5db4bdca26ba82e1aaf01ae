@@ -70,6 +70,24 @@
       "parentUuid": "d10d10b4_2d33dd08",
       "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46e8c920_5cacf308",
+        "filename": "crypto/keccak/keccak.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-20T14:37:57Z",
+      "side": 1,
+      "message": "Ahh NVM, gerrit tricked me into believing this was in BORINGSSL_keccack_init, not in the finalize routine. Mea Culpa.",
+      "parentUuid": "1645de75_62360283",
+      "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
