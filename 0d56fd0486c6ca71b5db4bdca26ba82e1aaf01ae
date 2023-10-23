@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7200b428_657655c3",
+        "filename": "crypto/keccak/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-10-23T09:06:18Z",
+      "side": 1,
+      "message": "Done.\n\nThis required splitting the `offset` into two separate `absorb_offset` and `squeeze_offset` because Kyber had an assertion on it at the beginning of the squeezing phase, but that\u0027s probably cleaner this way.\n\nI also added a check to prevent calling `absorb()` again after `squeeze()`.",
+      "parentUuid": "c38426be_b2622a2a",
+      "revId": "0d56fd0486c6ca71b5db4bdca26ba82e1aaf01ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dc6f178_bc16a18b",
