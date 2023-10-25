@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "466e1892_225eaff5",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-25T21:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1013deda_a3e10efe",
+      "revId": "9b02d611e4437bbb4dfda2889947cb977f028296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "854eb24c_fa076271",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-10-25T21:15:48Z",
       "side": 1,
       "message": "Nit: Let\u0027s just call it `pki_internal_headers`, just to be consistent with everything else.",
+      "range": {
+        "startLine": 363,
+        "startChar": 38,
+        "endLine": 363,
+        "endChar": 57
+      },
+      "revId": "9b02d611e4437bbb4dfda2889947cb977f028296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59116fe_3e08fb37",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-25T21:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "854eb24c_fa076271",
       "range": {
         "startLine": 363,
         "startChar": 38,
