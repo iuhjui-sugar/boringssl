@@ -203,9 +203,9 @@ typedef __int128_t int128_t;
 typedef __uint128_t uint128_t;
 
 // __uint128_t division depends on intrinsics in the compiler runtime. Those
-// intrinsics are missing in clang-cl (https://crbug.com/787617) and nanolibc.
-// These may be bugs in the toolchain definition, but just disable it for now.
-#if !defined(_MSC_VER) && !defined(OPENSSL_NANOLIBC)
+// intrinsics are missing in nanolibc. This may be a bug in the toolchain
+// definition, but just disable it for now.
+#if !defined(OPENSSL_NANOLIBC)
 #define BORINGSSL_CAN_DIVIDE_UINT128
 #endif
 #endif
