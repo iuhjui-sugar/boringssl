@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e6d34ed_c35050a3",
+        "filename": "pki/import_spec.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-25T20:32:46Z",
+      "side": 1,
+      "message": "Optional: Mostly so the people grepping for DIR_SOURCE_ROOT don\u0027t get excited, should we just finish the rename to DIR_SOURCE_ROOT on the fillin side while we\u0027re here?",
+      "range": {
+        "startLine": 165,
+        "startChar": 26,
+        "endLine": 165,
+        "endChar": 41
+      },
+      "revId": "1032aa53dc2ae85a5ab02cffb87be884eea23963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
