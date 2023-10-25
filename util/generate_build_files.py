@@ -360,6 +360,8 @@ class GN(object):
       self.PrintVariableSection(out, 'ssl_headers', files['ssl_headers'])
       self.PrintVariableSection(out, 'pki_sources',
                                 files['pki'] + files['pki_internal_headers'])
+      self.PrintVariableSection(out, 'pki_private_headers',
+                                files['pki_internal_headers'])
       self.PrintVariableSection(out, 'tool_sources',
                                 files['tool'] + files['tool_headers'])
 
