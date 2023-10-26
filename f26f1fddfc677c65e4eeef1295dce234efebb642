@@ -69,6 +69,24 @@
       "parentUuid": "89e98b2e_40ab83f8",
       "revId": "f26f1fddfc677c65e4eeef1295dce234efebb642",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77c2c41_c3638563",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17327
+      },
+      "writtenOn": "2023-10-26T07:04:10Z",
+      "side": 1,
+      "message": "Thank you for the update, and I appreciate the improved comments.\n\nRegarding platforms like LoongArch64 and PPC64, I\u0027ve observed that they work by patching the targets list and have all tests passing on them. While I understand your concerns, I still believe that adding support for these platforms would be beneficial for users of those platforms.\n\nWith this in mind, I propose a new resolution: let\u0027s introduce a new option in CMake. This option would require an explicit definition, and it would also provide a warning to users about the unsupported nature of these platforms, while enabling compilation on them.",
+      "parentUuid": "9937e7c5_9b903f87",
+      "revId": "f26f1fddfc677c65e4eeef1295dce234efebb642",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
