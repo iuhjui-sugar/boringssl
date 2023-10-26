@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "383bb02f_527668fe",
+        "filename": "crypto/spx/address.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T20:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4a537d0_c621d221",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 3
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfb5d452_5ac2fa99",
@@ -54,6 +78,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "Nit: Not that it matters, but let\u0027s keep the `#define`s inside the `extern C` blocks. They\u0027re more associated with the actual declarations than all the setup.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa4b267b_30cb8457",
+        "filename": "crypto/spx/address.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T20:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfb5d452_5ac2fa99",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -88,6 +130,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "This header seems unused. (Does sys/types.h even exist on Windows?)",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3825b62b_3796abce",
+        "filename": "crypto/spx/fors.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T20:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49c3e8dc_76fa9713",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
