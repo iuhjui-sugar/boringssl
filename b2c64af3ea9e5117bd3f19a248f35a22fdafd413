@@ -815,6 +815,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3ab83f2_44668ecf",
+        "filename": "tool/speed.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:49:10Z",
+      "side": 1,
+      "message": "looks like it wants to re-order them that way.. that\u0027s really annoying.",
+      "parentUuid": "4b88196f_badc7ce1",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56e022c8_99fdadaf",
@@ -828,6 +846,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "We don\u0027t want to binpack these. Before we would manually fix up clang-format\u0027s output. To avoid doing that, add trailing `//` to the lines as needed to keep them one per line.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41232978_c124bf7f",
+        "filename": "tool/speed.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56e022c8_99fdadaf",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
