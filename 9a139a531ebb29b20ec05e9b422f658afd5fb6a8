@@ -201,6 +201,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15fffce0_58c20ddc",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5266,
+      "author": {
+        "id": 16391
+      },
+      "writtenOn": "2023-10-26T19:07:51Z",
+      "side": 1,
+      "message": "ok, refactor to use bool instead.",
+      "parentUuid": "eaef35d2_c9bf9c88",
+      "range": {
+        "startLine": 5266,
+        "startChar": 19,
+        "endLine": 5266,
+        "endChar": 37
+      },
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4926fcb7_a3317f1a",
