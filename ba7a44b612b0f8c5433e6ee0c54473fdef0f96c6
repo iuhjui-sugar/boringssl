@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74e474a0_b955838c",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T13:41:20Z",
+      "side": 1,
+      "message": "```suggestion\n// always work. So this list serves to mark the boundary of what we guarantee.\n```",
+      "revId": "ba7a44b612b0f8c5433e6ee0c54473fdef0f96c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
