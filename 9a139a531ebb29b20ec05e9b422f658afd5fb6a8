@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bf58856_55f164ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T18:51:00Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62daa52b_c0386ec4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T18:51:00Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 9,
+        "startChar": 17,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f4ea660_76826bc4",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T18:51:00Z",
+      "side": 1,
+      "message": "Per Google\u0027s usual C++ style guide:\n```suggestion\nvoid VerifyHandoff(int alps_codepoint) {\n```",
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0ab0d1f_ac199411",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T18:51:00Z",
+      "side": 1,
+      "message": "This seems to just be a `bool`, no?",
+      "range": {
+        "startLine": 5266,
+        "startChar": 19,
+        "endLine": 5266,
+        "endChar": 37
+      },
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4926fcb7_a3317f1a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5301,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T18:51:00Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 5301,
+        "startChar": 23,
+        "endLine": 5301,
+        "endChar": 27
+      },
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29631d1c_64533e58",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T18:51:00Z",
+      "side": 1,
+      "message": "There is an important detail about what this is actually testing which isn\u0027t captured in the comment. It looks like you\u0027re intentionally configuring this in teh handshaker but not the frontend, in order to exercise this.\n\nThat\u0027s reasonable, but things like that definitely need to be called out so readers understand.\n\n(Though this is also not the place we discussed for putting in this kind of test. runner.go has machinery for an `-on-handshaker-` prefix on flags to configure the handshaker and shim differently. That would fit better with the rest of how we test things. But I think we can live with this... hopefully split handshakes can just be removed in the future.)",
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ece6d418_b82d76f6",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T18:51:00Z",
+      "side": 1,
+      "message": "ALPS",
+      "range": {
+        "startLine": 5347,
+        "startChar": 27,
+        "endLine": 5347,
+        "endChar": 31
+      },
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
