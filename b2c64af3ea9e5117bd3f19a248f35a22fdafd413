@@ -798,6 +798,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7119147c_88e1dc66",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T22:00:12Z",
+      "side": 1,
+      "message": "I bubbled the error up and made spx_sign fallible for allocation failure\n\nwe can change it later if we want to make an infallible HMAC.",
+      "parentUuid": "80025964_661467dd",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b88196f_badc7ce1",
