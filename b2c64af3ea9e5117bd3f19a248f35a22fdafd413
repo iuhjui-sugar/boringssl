@@ -758,6 +758,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5ed423_6a438137",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T22:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c83f39_4b334e7d",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63055e88_424f60d6",
@@ -771,6 +795,30 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "Also slightly confusing formatting. I think this is what this meant?\n\n```suggestion\n  // MGF1-SHA-256\n  uint8_t output_buffer[3 * 32];\n  // Need to call SHA256 3 times for message digest.\n```\n\nFor bonus points, maybe we should include `\u003cassert.h\u003e` and then:\n\n```\nstatic_assert(SPX_DIGEST_SIZE \u003c\u003d sizeof(output_buffer), \"not enough hashes\");\n```",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 80
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ea8bbef_6bfba14d",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T22:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63055e88_424f60d6",
       "range": {
         "startLine": 78,
         "startChar": 0,
