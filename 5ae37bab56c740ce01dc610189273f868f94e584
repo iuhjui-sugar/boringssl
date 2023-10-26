@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12389c8_b66cc19e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:18:14Z",
+      "side": 1,
+      "message": "`bool alps_codepoint` reads like you either enable or disable the ALPS codepoint (this was a problem before, sorry I didn\u0027t notice). It should be named something like `bool new_alps_codepoint` or `bool use_new_alps_codepoint`.",
+      "range": {
+        "startLine": 5266,
+        "startChar": 24,
+        "endLine": 5266,
+        "endChar": 38
+      },
+      "revId": "5ae37bab56c740ce01dc610189273f868f94e584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a32053e_4190dfea",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 5279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:18:14Z",
+      "side": 1,
+      "message": "```suggestion\n  if (!alps_codepoint) {\n```",
+      "revId": "5ae37bab56c740ce01dc610189273f868f94e584",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
