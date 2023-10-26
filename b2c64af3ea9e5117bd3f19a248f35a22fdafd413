@@ -175,6 +175,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fee78cc8_b7f10859",
+        "filename": "crypto/spx/fors.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:20:40Z",
+      "side": 1,
+      "message": "Looks like this index is used as a uint32_t from other places so yes I think this is an oversight and change it to uint32_t.",
+      "parentUuid": "c4f18139_4532609b",
+      "range": {
+        "startLine": 28,
+        "startChar": 39,
+        "endLine": 28,
+        "endChar": 51
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24cff2b7_b8a49861",
@@ -188,6 +212,30 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "Should this just be called target_node_index and target_node_height? Don\u0027t know the context here, but it seems kind of confusing to do that. :-)",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "960b6891_1b6db9cb",
+        "filename": "crypto/spx/fors.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:20:40Z",
+      "side": 1,
+      "message": "Yeah, that would be lovely, bit in this case this is used in the spec above for Algoriothm 14 so we should probably keep the single char names with a comment as they are.",
+      "parentUuid": "24cff2b7_b8a49861",
       "range": {
         "startLine": 34,
         "startChar": 32,
@@ -266,6 +314,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05dcb049_35231ce9",
+        "filename": "crypto/spx/merkle.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:20:40Z",
+      "side": 1,
+      "message": "Again, this is what the spec uses for the same things, everywhere.",
+      "parentUuid": "b741c77b_8e3d8cdc",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5872872_779cd30e",
@@ -313,6 +379,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "Similar comment about variable names.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04e8994b_b7b4c5e0",
+        "filename": "crypto/spx/merkle.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:20:40Z",
+      "side": 1,
+      "message": "Similar answer, NIST published the spec with these names, the comments \nreflect the same named variables in the spec so we should probably keep them.",
+      "parentUuid": "0ce26888_1959ac36",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
