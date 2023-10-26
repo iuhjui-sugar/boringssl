@@ -51,6 +51,24 @@
       "parentUuid": "aa6f02fc_1ccc12da",
       "revId": "f26f1fddfc677c65e4eeef1295dce234efebb642",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9937e7c5_9b903f87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-10-26T01:55:22Z",
+      "side": 1,
+      "message": "Yes, a message in this file is warranted. I\u0027ve added one in https://boringssl-review.googlesource.com/c/boringssl/+/63647",
+      "parentUuid": "89e98b2e_40ab83f8",
+      "revId": "f26f1fddfc677c65e4eeef1295dce234efebb642",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
