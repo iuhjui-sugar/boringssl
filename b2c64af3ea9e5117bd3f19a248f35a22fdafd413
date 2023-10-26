@@ -117,6 +117,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "071c7c63_85de9311",
+        "filename": "crypto/spx/fors.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fc66eef_c2e6a946",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49c3e8dc_76fa9713",
@@ -263,6 +281,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfc7cc7f_9efba568",
+        "filename": "crypto/spx/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662b189b_e9859d4a",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03e49dad_447feece",
@@ -280,6 +316,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6624541_9377c927",
+        "filename": "crypto/spx/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03e49dad_447feece",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7c707a9_a116355f",
@@ -293,6 +347,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "spx_generate_key generates a SPHINCS+-SHA2-128s key pair and writes the result to |out_public_key| and |out_secret_key|.\n\nEtc.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb4ab398_84f5e58c",
+        "filename": "crypto/spx/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7c707a9_a116355f",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -349,6 +421,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56060b24_49f06a69",
+        "filename": "crypto/spx/merkle.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5872872_779cd30e",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75539eaf_692790c9",
@@ -362,6 +452,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "Unused?",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "981c891d_c24a07c2",
+        "filename": "crypto/spx/merkle.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75539eaf_692790c9",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -418,6 +526,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ddfd2e0_2cbf44e2",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a726425_1a6f36a5",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9adea6fa_b6decd6f",
@@ -431,6 +557,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "EXPECT_EQ(Bytes(pk), Bytes(expected_pk));\nEXPECT_EQ(Bytes(sk), Bytes(expected_sk));",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5b7a655_2871cb9f",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9adea6fa_b6decd6f",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -469,6 +613,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4dd82db_d23857f4",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f98e4db7_619c600e",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f004ea_1b5944d0",
@@ -482,6 +644,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "Unused?",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3383b94_73e1d631",
+        "filename": "crypto/spx/spx_util.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99f004ea_1b5944d0",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -516,6 +696,24 @@
       "writtenOn": "2023-10-26T19:47:50Z",
       "side": 1,
       "message": "Since this only works on powers of 2, let\u0027s do:\n\n`assert(x !\u003d 0 \u0026\u0026 (x \u0026 (x - 1)) \u003d\u003d 0);`",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21b24a65_b61940fa",
+        "filename": "crypto/spx/spx_util.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-26T21:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "265da9ee_71b5c5bf",
       "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
