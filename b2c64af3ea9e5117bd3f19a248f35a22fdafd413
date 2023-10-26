@@ -1,0 +1,493 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be843ff_b4e39671",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Just did a pass for style. Didn\u0027t look that carefully at the content, but did notice a few issues.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4a537d0_c621d221",
+        "filename": "crypto/spx/address.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "```suggestion\n// Offsets of various fields in the address structure for SPHINCS+-SHA2-128s.\n```",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 3
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfb5d452_5ac2fa99",
+        "filename": "crypto/spx/address.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Nit: Not that it matters, but let\u0027s keep the `#define`s inside the `extern C` blocks. They\u0027re more associated with the actual declarations than all the setup.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fc66eef_c2e6a946",
+        "filename": "crypto/spx/fors.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Uhh, that sounds bad? BSSL_CHECK?",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49c3e8dc_76fa9713",
+        "filename": "crypto/spx/fors.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "This header seems unused. (Does sys/types.h even exist on Windows?)",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4f18139_4532609b",
+        "filename": "crypto/spx/fors.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "uint32_t or size_t perhaps? I remember you suggested the other time that unsigned was probably the wrong type to use in general. :-)",
+      "range": {
+        "startLine": 28,
+        "startChar": 39,
+        "endLine": 28,
+        "endChar": 51
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24cff2b7_b8a49861",
+        "filename": "crypto/spx/fors.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Should this just be called target_node_index and target_node_height? Don\u0027t know the context here, but it seems kind of confusing to do that. :-)",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 55
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662b189b_e9859d4a",
+        "filename": "crypto/spx/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "I think we decided to stick with `int` rather than use `bool` in C, just so we don\u0027t have to mix them up.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03e49dad_447feece",
+        "filename": "crypto/spx/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Since I assume this\u0027ll eventually morph into a public header, a style nit: we do the Go style of documentation, so it should be:\n\n\n```suggestion\n// SPX_N is the number of bytes in the hash output.\n```\n\nSimilarly throughout.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7c707a9_a116355f",
+        "filename": "crypto/spx/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "spx_generate_key generates a SPHINCS+-SHA2-128s key pair and writes the result to |out_public_key| and |out_secret_key|.\n\nEtc.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b741c77b_8e3d8cdc",
+        "filename": "crypto/spx/merkle.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Ditto about variable names.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5872872_779cd30e",
+        "filename": "crypto/spx/merkle.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Ditto about BSSL_CHECK",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75539eaf_692790c9",
+        "filename": "crypto/spx/merkle.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce26888_1959ac36",
+        "filename": "crypto/spx/merkle.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Similar comment about variable names.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a726425_1a6f36a5",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "EXPECT_EQ(Bytes(pk), Bytes(expected_pk));\nEXPECT_EQ(Bytes(sk), Bytes(expected_sk));",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9adea6fa_b6decd6f",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "EXPECT_EQ(Bytes(pk), Bytes(expected_pk));\nEXPECT_EQ(Bytes(sk), Bytes(expected_sk));",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8990f877_5941d057",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Is SPHINCS+ signing deterministic or non-deterministic? If deterministic, known answer tests for the signature would be nice too.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f98e4db7_619c600e",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Nit: perhaps EXPECT_EQ(..., 0)",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f004ea_1b5944d0",
+        "filename": "crypto/spx/spx_util.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b4702c6_2fffd9f3",
+        "filename": "crypto/spx/spx_util.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "So, I agree that the uint64_t ones are kinda interesting, but the uint32_t ones are truly the same as the helpers we already have in `crypto/internal.h`. We should just use those. They\u0027ll also be more efficient because they\u0027re inlined, and the compiler can just emit a load or store.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "265da9ee_71b5c5bf",
+        "filename": "crypto/spx/spx_util.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Since this only works on powers of 2, let\u0027s do:\n\n`assert(x !\u003d 0 \u0026\u0026 (x \u0026 (x - 1)) \u003d\u003d 0);`",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38b9d9aa_5180ab53",
+        "filename": "crypto/spx/spx_util.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Instead, why not just pass `log2_base` into `spx_base_b` instead of `base`? Then we don\u0027t need this function, and the power-of-2 thing is implicit. Then just replace `log2_p2(base)` with `log2_base` and `(total \u003e\u003e bits) % base` with `(total \u003e\u003e bits) % (1 \u003c\u003c log2_base)`.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51c83f39_4b334e7d",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "The formatting here is pretty confusing. I think this is what you meant?\n\n```suggestion\n  // MGF1-SHA-256(R || PK.seed || SHA-256(R || PK.seed || PK.root || M), m)\n  \n  // input_buffer stores R || PK_SEED || SHA256(..) || 4-byte index\n  uint8_t input_buffer[2 * SPX_N + 32 + 4] \u003d {0};\n  memcpy(input_buffer, r, SPX_N);\n  memcpy(input_buffer + SPX_N, pk_seed, SPX_N);\n\n```",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 0
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63055e88_424f60d6",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "Also slightly confusing formatting. I think this is what this meant?\n\n```suggestion\n  // MGF1-SHA-256\n  uint8_t output_buffer[3 * 32];\n  // Need to call SHA256 3 times for message digest.\n```\n\nFor bonus points, maybe we should include `\u003cassert.h\u003e` and then:\n\n```\nstatic_assert(SPX_DIGEST_SIZE \u003c\u003d sizeof(output_buffer), \"not enough hashes\");\n```",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 80
+      },
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80025964_661467dd",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "This, unfortunately, can fail on malloc error. We\u0027d have to either propagate that fallibility up the stack, or just implement HMAC-SHA256 directly out of the infallible SHA256_CTX. :-(",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b88196f_badc7ce1",
+        "filename": "tool/speed.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "What happened here? clang-format mishap?",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56e022c8_99fdadaf",
+        "filename": "tool/speed.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 1658,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:47:50Z",
+      "side": 1,
+      "message": "We don\u0027t want to binpack these. Before we would manually fix up clang-format\u0027s output. To avoid doing that, add trailing `//` to the lines as needed to keep them one per line.",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
