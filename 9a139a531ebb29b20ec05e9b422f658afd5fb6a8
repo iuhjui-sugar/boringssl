@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eaef35d2_c9bf9c88",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:03:22Z",
+      "side": 1,
+      "message": "That\u0027s an `int` purely because our APIs are C. (Well, C has `bool` now but we\u0027re stuck using `int` for existing APIs due to historical behavior, so we\u0027ve just stuck with `int` for consistency.) From the perspective of `VerifyHandoff`, it\u0027s a `bool`. Also generally for C++ code, we just stick to `bool`, like normal Google C++.",
+      "parentUuid": "d3a41d7a_56a893e8",
+      "range": {
+        "startLine": 5266,
+        "startChar": 19,
+        "endLine": 5266,
+        "endChar": 37
+      },
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4926fcb7_a3317f1a",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 5
@@ -302,6 +326,24 @@
       "side": 1,
       "message": "yea, hope we can get rid of this asap.",
       "parentUuid": "29631d1c_64533e58",
+      "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b253df1c_79b1eb4a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-26T19:03:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7553a415_200ba20f",
       "revId": "9a139a531ebb29b20ec05e9b422f658afd5fb6a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
