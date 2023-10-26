@@ -54,6 +54,18 @@
 #define OPENSSL_32_BIT
 #elif defined(__myriad2__)
 #define OPENSSL_32_BIT
+// The following statement enables compilation on any 32-bit or 64-bit
+// little endian architectures. We do not support any platform not in
+// the list above. Code is provided AS IS for these platforms, use this
+// option at your own risk.
+#elif defined(ENABLE_UNSUPPORTED_PLATFORMS) && __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#if INTPTR_MAX == INT64_MAX
+#define OPENSSL_64_BIT
+#elif INTPTR_MAX == INT32_MAX
+#define OPENSSL_32_BIT
+#else
+#error "Unknown pointer size"
+#endif
 #else
 // The list above enumerates the platforms that BoringSSL supports. For these
 // platforms we keep a reasonable bar of not breaking them: automated test

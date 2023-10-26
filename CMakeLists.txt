@@ -476,6 +476,14 @@ if(USE_CUSTOM_LIBCXX)
   target_link_libraries(libcxx libcxxabi)
 endif()
 
+# Enable compilation on unsupported platforms. More detains in
+# include/openssl/target.h
+option(ENABLE_UNSUPPORTED_PLATFORMS "Enable compilation on unsupported platforms" OFF)
+if (ENABLE_UNSUPPORTED_PLATFORMS)
+  message(WARNING "Unsupported platforms enabled. Proceed at your own risk.")
+  add_definitions(-DENABLE_UNSUPPORTED_PLATFORMS)
+ENDIF()
+
 # Add minimal googletest targets. The provided one has many side-effects, and
 # googletest has a very straightforward build.
 add_library(
