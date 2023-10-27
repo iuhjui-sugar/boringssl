@@ -616,6 +616,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a019422_29bed516",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-10-27T19:38:18Z",
+      "side": 1,
+      "message": "Looks like the test vectors in spx_tests.txt were generated with random though (Or at least they don\u0027t appear to match up when I try to do the obvious thing of \nvalidating with a random \u003d 0 signature those done work, so we either need to cook some up or find some others. \n\nI notice however we do not currently have no tests with randomize \u003d 0.",
+      "parentUuid": "992d7075_b2df159c",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f98e4db7_619c600e",
         "filename": "crypto/spx/spx_test.cc",
         "patchSetId": 26
