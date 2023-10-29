@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90bc4770_d076f5ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17391
+      },
+      "writtenOn": "2023-10-29T13:45:42Z",
+      "side": 1,
+      "message": "My first PR for google OSS. Yayyy",
+      "revId": "362a429ab0be982453b53e2f9eebda9d65053389",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
