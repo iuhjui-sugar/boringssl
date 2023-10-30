@@ -34,6 +34,24 @@
       "parentUuid": "41ee1400_38394492",
       "revId": "43f88915f97d1f7df489b4b706afdfa556ba2050",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66d1f4dd_9f39145f",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-30T20:02:38Z",
+      "side": 1,
+      "message": "Code in `//third_party/fiat`, up til now, lived standalone as part of the fiat-crypto repo. This stuff is a bit far from that goal right now, but hopefully we\u0027ll eventually figure that out. To that end, avoiding a dependency on other BoringSSL bits seems resaonable.\n\nHow we\u0027ll square that with `\u003copenssl/asm_base.h\u003e`, I\u0027m not sure.",
+      "parentUuid": "41ee1400_38394492",
+      "revId": "43f88915f97d1f7df489b4b706afdfa556ba2050",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
