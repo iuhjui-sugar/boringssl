@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10b5c798_5433c30b",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-10-30T20:28:56Z",
+      "side": 0,
+      "message": "There are several other `OPENSSL_mem*` calls in this file so this isn\u0027t a breaking change.\n\nNote however that this file doesn\u0027t include `crypto/internal.h` so it is dependent on being included in a file that has already included `crypto/internal.h`. (It\u0027s also breaking the rule that a header file should include `base.h` as the first include.)",
+      "revId": "3309ca66385ecb0c37f1ac1be9f88712e25aa8ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
