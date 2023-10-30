@@ -34,6 +34,24 @@
       "parentUuid": "10b5c798_5433c30b",
       "revId": "3309ca66385ecb0c37f1ac1be9f88712e25aa8ec",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f69cb30_788d24cf",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-10-30T21:04:42Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c0eb008c_9e15f538",
+      "revId": "3309ca66385ecb0c37f1ac1be9f88712e25aa8ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
