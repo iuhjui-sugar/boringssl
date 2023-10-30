@@ -634,6 +634,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb2055fd_fe11ed0b",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 26
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-10-30T12:55:35Z",
+      "side": 1,
+      "message": "I added now a new set of test vectors for the deterministic signing method, and corresponding test. The way deterministic signing is defined in FIPS 205 is to set optrand \u003d pk_seed (the first N bytes of the public key).",
+      "parentUuid": "0a019422_29bed516",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f98e4db7_619c600e",
         "filename": "crypto/spx/spx_test.cc",
         "patchSetId": 26
