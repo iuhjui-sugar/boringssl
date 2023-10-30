@@ -16,6 +16,24 @@
       "message": "This is the only direct use of `memcpy`, and the only use of \u003cstring.h\u003e in this file. Is this intentional and a material divergence from the style guide\u0027s recommendation to use the OPENSSL_ variant? I highly doubt that it matters, but if it is then it should documented as an intentional divergence. Or otherwise I can submit a CL to change it to use the OPENSSL_ variant.",
       "revId": "43f88915f97d1f7df489b4b706afdfa556ba2050",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4a36fa_a1635457",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-10-30T20:01:57Z",
+      "side": 1,
+      "message": "It\u0027s not intentional. I created https://boringssl-review.googlesource.com/c/boringssl/+/63745",
+      "parentUuid": "41ee1400_38394492",
+      "revId": "43f88915f97d1f7df489b4b706afdfa556ba2050",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
