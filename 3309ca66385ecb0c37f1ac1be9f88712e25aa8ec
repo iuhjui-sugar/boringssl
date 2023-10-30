@@ -16,6 +16,24 @@
       "message": "There are several other `OPENSSL_mem*` calls in this file so this isn\u0027t a breaking change.\n\nNote however that this file doesn\u0027t include `crypto/internal.h` so it is dependent on being included in a file that has already included `crypto/internal.h`. (It\u0027s also breaking the rule that a header file should include `base.h` as the first include.)",
       "revId": "3309ca66385ecb0c37f1ac1be9f88712e25aa8ec",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0eb008c_9e15f538",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-10-30T20:46:59Z",
+      "side": 0,
+      "message": "I pushed a version with these includes. I\u0027m not sure whether that\u0027s great either, but the p256 file also has an include like this.",
+      "parentUuid": "10b5c798_5433c30b",
+      "revId": "3309ca66385ecb0c37f1ac1be9f88712e25aa8ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
