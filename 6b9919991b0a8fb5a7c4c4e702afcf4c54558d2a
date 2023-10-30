@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c7bc3e8_f815002e",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-10-30T20:57:28Z",
+      "side": 1,
+      "message": "Thanks. I do agree that the crypto/internal.h include seems fine since the p256 file includes `crypto/internal.h` already too.\n\nIncluding base.h explicitly only makes sense if it is the first #include as the only reason to include it is to satisfy the rule \"// This file should be the first included by all BoringSSL headers.\" in base.h. But I\u0027m not sure this rule applies to third-party/fiat and also the p256 header doesn\u0027t follow it.",
+      "revId": "6b9919991b0a8fb5a7c4c4e702afcf4c54558d2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
