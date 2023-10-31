@@ -52,6 +52,24 @@
       "parentUuid": "3bb85732_0e23ebde",
       "revId": "6b9919991b0a8fb5a7c4c4e702afcf4c54558d2a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9faf5476_bc409742",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-10-31T18:36:29Z",
+      "side": 1,
+      "message": "I believe the idea is that every header needs to include `base.h` first in order for any/all #ifdef logic in the header to work correctly, since `base.h` ensures that the symbols from target.h (in particular) are defined. This convention may be inherited from OpenSSL itself.",
+      "parentUuid": "7e742680_9f8cdf8a",
+      "revId": "6b9919991b0a8fb5a7c4c4e702afcf4c54558d2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
