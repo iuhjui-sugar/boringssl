@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08b68410_3731d99d",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-31T18:19:13Z",
+      "side": 1,
+      "message": "```suggestion\n#include \u003copenssl/base.h\u003e\n```",
+      "revId": "0c8d8a123bd24da23a9eb1326f8e91ca867f3ec6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4884bb6d_54d488be",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-31T18:19:13Z",
+      "side": 1,
+      "message": "I assume we will eventually need to go the other direction and actually turn all these into `memcpy`, once fiat-crypto knows how to synthesize this function. But in the meantime, yeah may as well make this file more self-consistent.",
+      "revId": "0c8d8a123bd24da23a9eb1326f8e91ca867f3ec6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f43799_7f99673a",
+        "filename": "third_party/fiat/p256_64.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-31T18:19:13Z",
+      "side": 1,
+      "message": "```suggestion\n#include \u003copenssl/base.h\u003e\n```",
+      "revId": "0c8d8a123bd24da23a9eb1326f8e91ca867f3ec6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
