@@ -34,6 +34,24 @@
       "parentUuid": "0c7bc3e8_f815002e",
       "revId": "6b9919991b0a8fb5a7c4c4e702afcf4c54558d2a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e742680_9f8cdf8a",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-10-31T18:22:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure why we say it has to be included first, TBH. I\u0027m not sure that\u0027s actually true. But whatever order works. :-)",
+      "parentUuid": "3bb85732_0e23ebde",
+      "revId": "6b9919991b0a8fb5a7c4c4e702afcf4c54558d2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
