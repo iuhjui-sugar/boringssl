@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b2cd289f_ec88b239",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-10-31T18:23:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08b68410_3731d99d",
+      "revId": "0c8d8a123bd24da23a9eb1326f8e91ca867f3ec6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4884bb6d_54d488be",
         "filename": "third_party/fiat/curve25519_64_adx.h",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "writtenOn": "2023-10-31T18:19:13Z",
       "side": 1,
       "message": "```suggestion\n#include \u003copenssl/base.h\u003e\n```",
+      "revId": "0c8d8a123bd24da23a9eb1326f8e91ca867f3ec6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0c45f2e_07e74980",
+        "filename": "third_party/fiat/p256_64.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-10-31T18:23:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7f43799_7f99673a",
       "revId": "0c8d8a123bd24da23a9eb1326f8e91ca867f3ec6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
