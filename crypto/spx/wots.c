@@ -43,7 +43,7 @@ void spx_wots_pk_from_sig(uint8_t *pk, const uint8_t *sig, const uint8_t *msg,
 
   // Convert message to base w
   uint32_t base_w_msg[SPX_WOTS_LEN];
-  spx_base_b(base_w_msg, SPX_WOTS_LEN1, msg, SPX_WOTS_W);
+  spx_base_b(base_w_msg, SPX_WOTS_LEN1, msg, /*log2_b=*/SPX_WOTS_LOG_W);
 
   // Compute checksum
   uint64_t csum = 0;
@@ -57,7 +57,8 @@ void spx_wots_pk_from_sig(uint8_t *pk, const uint8_t *sig, const uint8_t *msg,
   spx_uint64_to_len_bytes(csum_bytes, sizeof(csum_bytes), csum);
 
   // Write the base w representation of csum to the end of the message.
-  spx_base_b(base_w_msg + SPX_WOTS_LEN1, SPX_WOTS_LEN2, csum_bytes, SPX_WOTS_W);
+  spx_base_b(base_w_msg + SPX_WOTS_LEN1, SPX_WOTS_LEN2, csum_bytes,
+             /*log2_b=*/SPX_WOTS_LOG_W);
 
   // Compute chains
   for (size_t i = 0; i < SPX_WOTS_LEN; ++i) {
@@ -101,7 +102,7 @@ void spx_wots_sign(uint8_t *sig, const uint8_t msg[SPX_N],
                    uint8_t addr[32]) {
   // Convert message to base w
   uint32_t base_w_msg[SPX_WOTS_LEN];
-  spx_base_b(base_w_msg, SPX_WOTS_LEN1, msg, SPX_WOTS_W);
+  spx_base_b(base_w_msg, SPX_WOTS_LEN1, msg, /*log2_b=*/SPX_WOTS_LOG_W);
 
   // Compute checksum
   uint64_t csum = 0;
@@ -115,7 +116,8 @@ void spx_wots_sign(uint8_t *sig, const uint8_t msg[SPX_N],
   spx_uint64_to_len_bytes(csum_bytes, sizeof(csum_bytes), csum);
 
   // Write the base w representation of csum to the end of the message.
-  spx_base_b(base_w_msg + SPX_WOTS_LEN1, SPX_WOTS_LEN2, csum_bytes, SPX_WOTS_W);
+  spx_base_b(base_w_msg + SPX_WOTS_LEN1, SPX_WOTS_LEN2, csum_bytes,
+             /*log2_b=*/SPX_WOTS_LOG_W);
 
   // Compute chains
   uint8_t tmp_sk[SPX_N];

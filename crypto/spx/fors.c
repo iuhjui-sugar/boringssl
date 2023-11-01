@@ -67,7 +67,7 @@ void spx_fors_sign(uint8_t *fors_sig, const uint8_t message[SPX_FORS_MSG_BYTES],
   uint32_t indices[SPX_FORS_TREES];
 
   // Derive FORS indices compatible with the NIST changes.
-  spx_base_b(indices, SPX_FORS_TREES, message, (1 << SPX_FORS_HEIGHT));
+  spx_base_b(indices, SPX_FORS_TREES, message, /*log2_b=*/SPX_FORS_HEIGHT);
 
   for (size_t i = 0; i < SPX_FORS_TREES; ++i) {
     spx_set_tree_height(addr, 0);
@@ -94,7 +94,7 @@ void spx_fors_pk_from_sig(uint8_t *fors_pk,
   uint8_t roots[SPX_FORS_TREES * SPX_N];
 
   // Derive FORS indices compatible with the NIST changes.
-  spx_base_b(indices, SPX_FORS_TREES, message, (1 << SPX_FORS_HEIGHT));
+  spx_base_b(indices, SPX_FORS_TREES, message, /*log2_b=*/SPX_FORS_HEIGHT);
 
   for (size_t i = 0; i < SPX_FORS_TREES; ++i) {
     // Pointer to current sk and authentication path

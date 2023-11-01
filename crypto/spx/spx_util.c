@@ -33,33 +33,21 @@ uint64_t spx_to_uint64(const uint8_t *input, size_t input_len) {
   return tmp;
 }
 
-// Compute the log2 of a power of 2.
-static unsigned int log2_p2(unsigned int x) {
-  assert(x != 0 && (x & (x - 1)) == 0);
-  // TODO: Replace with lookup for the limited values we need
-  for (int b = 0; x != 0; x >>= 1) {
-    if (x & 0x1) {
-      return b;
-    }
-    b++;
-  }
-  return 0;
-}
-
 void spx_base_b(uint32_t *output, size_t out_len, const uint8_t *input,
-                unsigned int base) {
+                unsigned int log2_b) {
   int in = 0;
-  unsigned int out = 0;
-  unsigned int bits = 0;
-  unsigned int total = 0;
+  uint32_t out = 0;
+  uint32_t bits = 0;
+  uint32_t total = 0;
+  uint32_t base = UINT32_C(1) << log2_b;
 
   for (out = 0; out < out_len; ++out) {
-    while (bits < log2_p2(base)) {
+    while (bits < log2_b) {
       total = (total << 8) + input[in];
       in++;
       bits = bits + 8;
     }
-    bits -= log2_p2(base);
+    bits -= log2_b;
     output[out] = (total >> bits) % base;
   }
 }

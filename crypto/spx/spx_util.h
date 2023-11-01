@@ -29,13 +29,12 @@ void spx_uint64_to_len_bytes(uint8_t *output, size_t out_len, uint64_t input);
 
 uint64_t spx_to_uint64(const uint8_t *input, size_t input_len);
 
-// Compute the base b representation of X.
+// Compute the base 2^log2_b representation of X.
 //
-// The base b must be a power of 2.
 // As some of the parameter sets in https://eprint.iacr.org/2022/1725.pdf use
 // a FORS height > 16 we use a uint32_t to store the output.
 void spx_base_b(uint32_t *output, size_t out_len, const uint8_t *input,
-                unsigned int b);
+                unsigned int log2_b);
 
 
 #if defined(__cplusplus)
