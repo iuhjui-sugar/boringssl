@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7dde680_cc97c9f6",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 34
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-01T21:36:15Z",
+      "side": 1,
+      "message": "Huh. This takes like 13 seconds even in an optimized build. I guess the issue is SPHINCS+ signing is incredibly slow?",
+      "revId": "32247153fa21422ec08b5741cdc5be2f5b908158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f54e4bad_74c53cfc",
         "filename": "crypto/spx/thash.c",
         "patchSetId": 34
