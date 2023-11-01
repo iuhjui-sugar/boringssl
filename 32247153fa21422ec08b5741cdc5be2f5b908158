@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "943dcd47_1620c5c2",
+        "filename": "crypto/spx/fors.c",
+        "patchSetId": 34
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-01T21:29:22Z",
+      "side": 1,
+      "message": "No longer \"probably not safe\", I think.",
+      "revId": "32247153fa21422ec08b5741cdc5be2f5b908158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08ffd0fb_6a21a031",
+        "filename": "crypto/spx/merkle.c",
+        "patchSetId": 34
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-01T21:29:22Z",
+      "side": 1,
+      "message": "No longer \"probably not safe\", I think.",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 29,
+        "endChar": 45
+      },
+      "revId": "32247153fa21422ec08b5741cdc5be2f5b908158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f54e4bad_74c53cfc",
+        "filename": "crypto/spx/thash.c",
+        "patchSetId": 34
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-01T21:29:22Z",
+      "side": 1,
+      "message": "The malloc is mostly in `HMAC_Init`. Also we need to `HMAC_CTX_cleanup` on error too.\n\n```suggestion\n  HMAC_CTX ctx;\n  int ok \u003d HMAC_Init(\u0026ctx, sk_prf, SPX_N, EVP_sha256()) \u0026\u0026\n           HMAC_Update(\u0026ctx, opt_rand, SPX_N) \u0026\u0026\n           HMAC_Update(\u0026ctx, msg, msg_len) \u0026\u0026\n           HMAC_Final(\u0026ctx, hmac_out, \u0026hmac_len);\n  HMAC_CTX_cleanup(\u0026ctx);\n  if (!ok) {\n    return 0;\n  }\n```\n\nAlternatively, inlining an HMAC isn\u0027t *that* much more code and avoids a pointless malloc:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/63786",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 25
+      },
+      "revId": "32247153fa21422ec08b5741cdc5be2f5b908158",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

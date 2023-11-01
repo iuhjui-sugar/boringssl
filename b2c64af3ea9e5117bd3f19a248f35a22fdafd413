@@ -809,6 +809,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c084e9c1_219f1665",
+        "filename": "crypto/spx/spx_util.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-01T21:29:22Z",
+      "side": 1,
+      "message": "Here, let\u0027s merge this in. This is simpler anyway. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/63785",
+      "parentUuid": "38b9d9aa_5180ab53",
+      "revId": "b2c64af3ea9e5117bd3f19a248f35a22fdafd413",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51c83f39_4b334e7d",
         "filename": "crypto/spx/thash.c",
         "patchSetId": 26
