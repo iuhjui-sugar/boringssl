@@ -87,7 +87,7 @@ TEST(SpxTest, BasicSignVerify) {
 
   uint8_t message[] = {0x42};
   uint8_t signature[SPX_SIGNATURE_BYTES];
-  EXPECT_EQ(spx_sign(signature, sk, message, sizeof(message), true), 1);
+  spx_sign(signature, sk, message, sizeof(message), true);
   EXPECT_EQ(spx_verify(signature, pk, message, sizeof(message)), 1);
 }
 
@@ -126,9 +126,7 @@ static void SpxFileDeterministicTest(FileTest *t) {
   expected_signature.resize(SPX_SIGNATURE_BYTES);
 
   uint8_t signature[SPX_SIGNATURE_BYTES];
-  EXPECT_EQ(spx_sign(signature, sk.data(), message.data(),
-                     message.size(), false),
-            1);
+  spx_sign(signature, sk.data(), message.data(), message.size(), false);
 
   EXPECT_EQ(Bytes(signature), Bytes(expected_signature));
 }

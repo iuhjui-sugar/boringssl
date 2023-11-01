@@ -47,8 +47,8 @@ void spx_thash_prf(uint8_t *output, const uint8_t pk_seed[SPX_N],
 
 // Implements PRF: a pseudo-random function that is used to generate the
 // randomizer r for the randomized hashing of the message to be signed. values
-// in WOTS+ and FORS private keys. returns 1 on success, 0 on failure.
-int spx_thash_prfmsg(uint8_t *output, const uint8_t sk_prf[SPX_N],
+// in WOTS+ and FORS private keys.
+void spx_thash_prfmsg(uint8_t *output, const uint8_t sk_prf[SPX_N],
                       const uint8_t opt_rand[SPX_N], const uint8_t *msg,
                       size_t msg_len);
 
