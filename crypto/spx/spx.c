@@ -51,7 +51,7 @@ void spx_generate_key_from_seed(uint8_t out_public_key[SPX_PUBLIC_KEY_BYTES],
   memcpy(out_secret_key + 3 * SPX_N, out_public_key + SPX_N, SPX_N);
 }
 
-int spx_sign(uint8_t out_signature[SPX_SIGNATURE_BYTES],
+void spx_sign(uint8_t out_signature[SPX_SIGNATURE_BYTES],
               const uint8_t secret_key[SPX_SECRET_KEY_BYTES],
               const uint8_t *msg, size_t msg_len, int randomized) {
   uint8_t addr[32] = {0};
@@ -70,9 +70,7 @@ int spx_sign(uint8_t out_signature[SPX_SIGNATURE_BYTES],
 
   // Derive randomizer r and copy it to signature.
   uint8_t r[SPX_N];
-  if (!spx_thash_prfmsg(r, sk_prf, opt_rand, msg, msg_len)) {
-    return 0;
-  }
+  spx_thash_prfmsg(r, sk_prf, opt_rand, msg, msg_len);
   memcpy(out_signature, r, SPX_N);
 
   uint8_t digest[SPX_DIGEST_SIZE];
@@ -102,7 +100,6 @@ int spx_sign(uint8_t out_signature[SPX_SIGNATURE_BYTES],
 
   spx_ht_sign(out_signature + SPX_N + SPX_FORS_BYTES, pk_fors, idx_tree,
               idx_leaf, sk_seed, pk_seed);
-  return 1;
 }
 
 int spx_verify(const uint8_t signature[SPX_SIGNATURE_BYTES],
