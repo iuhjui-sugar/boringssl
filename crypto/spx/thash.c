@@ -18,9 +18,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <openssl/digest.h>
-#include <openssl/evp.h>
-#include <openssl/hmac.h>
 #include <openssl/sha.h>
 
 #include "./params.h"
@@ -96,25 +93,36 @@ void spx_thash_prf(uint8_t *output, const uint8_t pk_seed[SPX_N],
   spx_thash(output, sk_seed, 1, pk_seed, addr);
 }
 
-int spx_thash_prfmsg(uint8_t *output, const uint8_t sk_prf[SPX_N],
+void spx_thash_prfmsg(uint8_t *output, const uint8_t sk_prf[SPX_N],
                       const uint8_t opt_rand[SPX_N], const uint8_t *msg,
                       size_t msg_len) {
-  unsigned int hmac_len;
-  uint8_t hmac_out[32];
-
-  HMAC_CTX ctx;
-  // Initialize the HMAC
-  HMAC_Init(&ctx, sk_prf, SPX_N, EVP_sha256());
-  HMAC_Update(&ctx, opt_rand, SPX_N);
-  HMAC_Update(&ctx, msg, msg_len);
-  if (!HMAC_Final(&ctx, hmac_out, &hmac_len)) {
-    return 0;
+  // Compute HMAC-SHA256(sk_prf, opt_rand || msg). We inline HMAC to avoid an
+  // allocation.
+  uint8_t hmac_key[SHA256_CBLOCK] = {0};
+  static_assert(SPX_N <= SHA256_CBLOCK, "HMAC key is larger than block size");
+  memcpy(hmac_key, sk_prf, SPX_N);
+  for (size_t i = 0; i < sizeof(hmac_key); i++) {
+    hmac_key[i] ^= 0x36;
   }
-  HMAC_CTX_cleanup(&ctx);
+
+  uint8_t hash[SHA256_DIGEST_LENGTH];
+  SHA256_CTX ctx;
+  SHA256_Init(&ctx);
+  SHA256_Update(&ctx, hmac_key, sizeof(hmac_key));
+  SHA256_Update(&ctx, opt_rand, SPX_N);
+  SHA256_Update(&ctx, msg, msg_len);
+  SHA256_Final(hash, &ctx);
+
+  for (size_t i = 0; i < sizeof(hmac_key); i++) {
+    hmac_key[i] ^= 0x36 ^ 0x5c;
+  }
+  SHA256_Init(&ctx);
+  SHA256_Update(&ctx, hmac_key, sizeof(hmac_key));
+  SHA256_Update(&ctx, hash, sizeof(hash));
+  SHA256_Final(hash, &ctx);
 
   // Truncate to SPX_N bytes
-  memcpy(output, hmac_out, SPX_N);
-  return 1;
+  memcpy(output, hash, SPX_N);
 }
 
 void spx_thash_tl(uint8_t *output, const uint8_t input[SPX_WOTS_BYTES],

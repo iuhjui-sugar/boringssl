@@ -55,15 +55,14 @@ OPENSSL_EXPORT void spx_generate_key_from_seed(
     const uint8_t seed[3 * SPX_N]);
 
 // spx_sign generates a SPHINCS+-SHA2-128s signature over |msg| or length
-// |msg_len| using |secret_key| it returns 1 and writes the output to
-// |out_signature| on success, and returns 0 on allocation failure.
+// |msg_len| using |secret_key| and writes the output to |out_signature|.
 //
 // if |randomized| is 0, deterministic signing is performed, otherwise,
 // non-deterministic signing is performed.
-OPENSSL_EXPORT int spx_sign(uint8_t out_snignature[SPX_SIGNATURE_BYTES],
-                            const uint8_t secret_key[SPX_SECRET_KEY_BYTES],
-                            const uint8_t *msg, size_t msg_len,
-                            int randomized);
+OPENSSL_EXPORT void spx_sign(uint8_t out_snignature[SPX_SIGNATURE_BYTES],
+                             const uint8_t secret_key[SPX_SECRET_KEY_BYTES],
+                             const uint8_t *msg, size_t msg_len,
+                             int randomized);
 
 // spx_verify verifies a SPHINCS+-SHA2-128s signature in |signature| over |msg|
 // or length |msg_len| using |public_key|. 1 is returned if the signature
