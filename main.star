@@ -243,7 +243,7 @@ LINUX_HOST = {
 
 MAC_ARM64_HOST = {
     "dimensions": {
-        "os": "Mac-11",
+        "os": "Mac",
         "cpu": "arm64",
     },
     "caches": [swarming.cache("osx_sdk")],
