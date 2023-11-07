@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84f765e0_3f8b18a7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-11-07T14:51:23Z",
+      "side": 1,
+      "message": "(Can\u0027t merge to this branch any more.)",
+      "revId": "b1b7409eaf6a97b8cede6662dddd555737cc5031",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
