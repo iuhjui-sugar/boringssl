@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68289ef3_0fb04230",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 15416
+      },
+      "writtenOn": "2023-11-08T22:59:02Z",
+      "side": 1,
+      "message": "Ah valid point! The current invariant is that if `prev` is NULL then it must be the head of the list. I think a simple comparison of the addresses of each should be sufficient in this case to verify that is correct before modifying the list?",
+      "parentUuid": "5b05d928_cc807f04",
+      "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7f46078_f1ce1f2c",
         "filename": "crypto/fipsmodule/rand/rand.c",
         "patchSetId": 2
