@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0eb635f_7a0e3072",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15416
+      },
+      "writtenOn": "2023-11-08T22:51:16Z",
+      "side": 1,
+      "message": "Hello, wanted to contribute a patch that we have applied to AWS-LC. This addresses a segfault scenario that can occur in the event that CRYPTO_get_thread_local fails, and needs to subsequently call rand_thread_state_free. This occurs because rand_thread_state is not yet initalized at this point.",
+      "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
