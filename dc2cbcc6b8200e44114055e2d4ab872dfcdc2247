@@ -16,6 +16,57 @@
       "message": "Hello, wanted to contribute a patch that we have applied to AWS-LC. This addresses a segfault scenario that can occur in the event that CRYPTO_get_thread_local fails, and needs to subsequently call rand_thread_state_free. This occurs because rand_thread_state is not yet initalized at this point.",
       "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "867aa8df_a8de189b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-08T22:52:18Z",
+      "side": 1,
+      "message": "Nice catch! Although I\u0027m not sure if patch *quite* fixes it either.",
+      "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b05d928_cc807f04",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-08T22:52:18Z",
+      "side": 1,
+      "message": "I don\u0027t think this *quite* works. If we call `rand_thread_state_free` on an object which has not yet been installed in the linked list (done down in line 400), this line will run and corrupt the linked list.",
+      "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7f46078_f1ce1f2c",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-08T22:52:18Z",
+      "side": 1,
+      "message": "Although, malloc + memset is simply `OPENSSL_zalloc`, so let\u0027s use that.",
+      "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
