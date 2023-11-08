@@ -70,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ae085e5_3cdc0a96",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 15416
+      },
+      "writtenOn": "2023-11-08T23:17:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "68289ef3_0fb04230",
+      "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e7f46078_f1ce1f2c",
@@ -83,6 +101,24 @@
       "writtenOn": "2023-11-08T22:52:18Z",
       "side": 1,
       "message": "Although, malloc + memset is simply `OPENSSL_zalloc`, so let\u0027s use that.",
+      "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b76c7f7d_dcf907cf",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 15416
+      },
+      "writtenOn": "2023-11-08T23:17:28Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e7f46078_f1ce1f2c",
       "revId": "dc2cbcc6b8200e44114055e2d4ab872dfcdc2247",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
