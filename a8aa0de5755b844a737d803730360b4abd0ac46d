@@ -16,6 +16,24 @@
       "message": "Hi David, I noticed that you implemented this logic but I didn\u0027t quite understand it. I tried to derive it from first principles and I think I either found a simpler way of implementing the same math, or I am overlooking something.\n\nSee https://boringssl-review.googlesource.com/c/boringssl/+/63905 where I at least determined (at least, as far as I can tell) that crypto_test isn\u0027t testing all the stuff that seems relevant for the more complicated logic that exists today.",
       "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb32fc72_b59611f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-13T04:27:03Z",
+      "side": 1,
+      "message": "So, there are no first principles for why `mont-\u003eN.width` makes for a good threshold. I wrote something that generically accepts any threshold and played around to find what worked well. It makes sense that it scales roughly linearly, but beyond that, it\u0027s a question of how doubling vs Montgomery squaring compare, so I don\u0027t think it can be principled.\n\nI just benchmarked various thresholds on various CPUs across bittedness, and it happened that `mont-\u003eN.width` worked pretty well. Then I kept the generic code and plugged in `mont-\u003eN.width`.\n\nIt sounds like you\u0027ve found that the arbitrary threshold I picked, based on some benchmarks, happens to also not need the fully generic logic. Other thresholds would need the full value.\n\nThat\u0027s quite convenient, though I\u0027ll definitely need to stare at it a bit to confirm you\u0027re right. :-) It could also be that most bit widths used in cryptography are multiples of large powers of 2, so it doesn\u0027t take that high of a threshold for the remainder to be a power of 2.\n\nAs for what the generic code is doing, it\u0027s pretty straightforward. See the long-comment. :-P\n\nThis loop is just a bog-standard square and multiply. The lshift1 is simply `BN_mod_mul_montgomery(\u0026mont-\u003eRR, \u0026mont-\u003eRR, 2R)`. Just observe that ModMulMont(x, 2R) \u003d ModMul(x, 2) \u003d ModAdd(x, x).\n\n```\n  for (unsigned i \u003d iters - 1; i \u003c iters; i--) {\n    if (!BN_mod_mul_montgomery(\u0026mont-\u003eRR, \u0026mont-\u003eRR, \u0026mont-\u003eRR, mont, ctx)) {\n      return 0;\n    }\n    if ((lgBigR \u0026 (1u \u003c\u003c i)) !\u003d 0 \u0026\u0026\n        !bn_mod_lshift1_consttime(\u0026mont-\u003eRR, \u0026mont-\u003eRR, \u0026mont-\u003eN, ctx)) {\n      return 0;\n    }\n  }\n```\n\nNormally a square and multiply would start at `iters \u003d num_bits(lgBigR)`, `mont-\u003eRR \u003d ToMont(1)`. But the first few steps of the multiplication would be faster done by doubling a bunch. So `iters` is just picking a lower starting point, and then computing the corresponding `mont-\u003eRR`.",
+      "parentUuid": "3b2ccb81_d3927292",
+      "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
