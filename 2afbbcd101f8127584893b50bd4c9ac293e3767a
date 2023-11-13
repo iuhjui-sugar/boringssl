@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "997cfb1f_ad30e341",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-13T01:42:47Z",
+      "side": 1,
+      "message": "See https://boringssl-review.googlesource.com/c/boringssl/+/63906 which helps demonstrate why I think that either the code could be simplified like this, or I am overlooking something that isn\u0027t exercised by the tests.",
+      "revId": "2afbbcd101f8127584893b50bd4c9ac293e3767a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
