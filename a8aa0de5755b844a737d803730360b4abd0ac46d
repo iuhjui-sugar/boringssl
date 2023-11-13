@@ -52,6 +52,24 @@
       "parentUuid": "bb32fc72_b59611f3",
       "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca69c4b3_7fb6dce6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-13T04:50:44Z",
+      "side": 1,
+      "message": "The bn_mod_lshift1_consttime logic was tested while it was still generic and I was playing with the threshold, so I\u0027m pretty sure it works. After all, the original implementation used a threshold of 0. :-)\n\nIt\u0027s discussed here:\n\n\u003e  // The multiply steps take 2^n R to 2^(n+1) R. It is faster to double\n\u003e  // the value instead.\n\nAnyway, if it\u0027s indeed no longer reachable, agreed removing it makes sense. It\u0027s just late here, and I\u0027m planning to take tomorrow off (recovering from travel), but I\u0027ll stare at your new implementation and probably come up with a new version of the long comment. E.g. that sentence above will no longer be relevant.",
+      "parentUuid": "247812c6_bbb8df57",
+      "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
