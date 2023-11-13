@@ -196,13 +196,15 @@ int bn_mont_ctx_set_RR_consttime(BN_MONT_CTX *mont, BN_CTX *ctx) {
       break;
     }
   }
+  assert(threshold == (lgBigR >> iters));
+  assert((1 << iters) == BN_BITS2); // i.e. iters == lg BN_BITS2.
 
   // Compute 2^(lgBigR >> iters) R, or 2^((lgBigR >> iters) + lgBigR), by
   // doubling. The first n_bits - 1 doubles can be skipped because we don't need
   // to reduce.
   if (!BN_set_bit(&mont->RR, n_bits - 1) ||
       !bn_mod_lshift_consttime(&mont->RR, &mont->RR,
-                               (lgBigR >> iters) + lgBigR - (n_bits - 1),
+                               threshold + lgBigR - (n_bits - 1),
                                &mont->N, ctx)) {
     return 0;
   }
@@ -211,10 +213,7 @@ int bn_mont_ctx_set_RR_consttime(BN_MONT_CTX *mont, BN_CTX *ctx) {
     if (!BN_mod_mul_montgomery(&mont->RR, &mont->RR, &mont->RR, mont, ctx)) {
       return 0;
     }
-    if ((lgBigR & (1u << i)) != 0 &&
-        !bn_mod_lshift1_consttime(&mont->RR, &mont->RR, &mont->N, ctx)) {
-      return 0;
-    }
+    assert((lgBigR & (1u << i)) == 0);
   }
 
   return bn_resize_words(&mont->RR, mont->N.width);
