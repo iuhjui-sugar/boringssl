@@ -70,6 +70,24 @@
       "parentUuid": "247812c6_bbb8df57",
       "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e21ff013_e01c4572",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-13T22:43:22Z",
+      "side": 1,
+      "message": "The base of the squaring-based exponentiation is 2^n R (n \u003d\u003d `t + (lgBigR - (n_bits - 1))`), right?.\n\nSo for an iteration of the square+multiple loop, we start with 2^n. The first squaring results in (2^n R)^2 \u003d 2^2n R, as your comment in the code notes. If the bit is set, then we would then multiply (2^2n R) * (2^n R) \u003d 2^(2n + n) R, which is equivalent to doubling n/2 times, not doubling 1 time, right? Intuitively, the squaring step can\u0027t do more than twice the work of a multiply step.\n\nAt least, that\u0027s my understanding. It makes sense to me because when I change my own similar code to do a doubling instead of a multiply, it doesn\u0027t pass all my tests. The exception is when n is very small (1) or very large (`width`) or where I get lucky with the particular value of `width`.",
+      "parentUuid": "ca69c4b3_7fb6dce6",
+      "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
