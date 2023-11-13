@@ -34,6 +34,24 @@
       "parentUuid": "3b2ccb81_d3927292",
       "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "247812c6_bbb8df57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-13T04:41:54Z",
+      "side": 1,
+      "message": "Hi David, I understand all of that. I actually derived the new implementation I proposed separately and then tried to retrofit it into what you\u0027ve done, after verifying that it happened to be equivalent.\n\nThe main issue with the code as-is is that the bn_mod_lshift1_consttime call in the final exponentiation is never made and is not tested. One thing to understand is that for this final exponentiation, the \"base\" of the exponentiation is actually not 2*R but the result of many doublings. Thus doubling isn\u0027t the same as multiplying by the base any more. If it\u0027s correct to substitute a doubling for a multiplication by the base, then it isn\u0027t obvious why and it deserves some testing and/or other attention.\n\nIf you lower the threshold so that the doubling phase doesn\u0027t do `width` doublings, then the bn_mod_lshift1_consttime of the final exponentiation would get triggered, I think. I didn\u0027t try it to see if it actually works.",
+      "parentUuid": "bb32fc72_b59611f3",
+      "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
