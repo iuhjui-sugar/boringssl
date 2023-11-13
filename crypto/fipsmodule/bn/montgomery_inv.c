@@ -189,30 +189,26 @@ int bn_mont_ctx_set_RR_consttime(BN_MONT_CTX *mont, BN_CTX *ctx) {
   // to work well as a threshold. (Doubling scales linearly and Montgomery
   // reduction scales quadratically, so the threshold should scale roughly
   // linearly.)
-  unsigned threshold = mont->N.width;
-  unsigned iters;
-  for (iters = 0; iters < sizeof(lgBigR) * 8; iters++) {
-    if ((lgBigR >> iters) <= threshold) {
-      break;
-    }
-  }
+  unsigned t = mont->N.width;
 
-  // Compute 2^(lgBigR >> iters) R, or 2^((lgBigR >> iters) + lgBigR), by
-  // doubling. The first n_bits - 1 doubles can be skipped because we don't need
-  // to reduce.
+  // Calculate 2*R = 2*2^(mont->N.width) by doubling, starting from
+  // 2**(n_bits - 1).
   if (!BN_set_bit(&mont->RR, n_bits - 1) ||
       !bn_mod_lshift_consttime(&mont->RR, &mont->RR,
-                               (lgBigR >> iters) + lgBigR - (n_bits - 1),
+                               t + (lgBigR - (n_bits - 1)),
                                &mont->N, ctx)) {
     return 0;
   }
 
-  for (unsigned i = iters - 1; i < iters; i--) {
+  // Calculate R^R from (2*R)^t by squaring,
+  //    ((2*R)^t)^(2^BN_BITS2_LG)
+  // =  ((2*R)^t)^(BN_BITS2)
+  // =   (2*R)^(t*BN_BITS2)
+  // =   (2*R)^lgBigR
+  // =   (2^lgBigR)R
+  // =   RR
+  for (unsigned i = 0; i < BN_BITS2_LG; i++) {
     if (!BN_mod_mul_montgomery(&mont->RR, &mont->RR, &mont->RR, mont, ctx)) {
-      return 0;
-    }
-    if ((lgBigR & (1u << i)) != 0 &&
-        !bn_mod_lshift1_consttime(&mont->RR, &mont->RR, &mont->N, ctx)) {
       return 0;
     }
   }
