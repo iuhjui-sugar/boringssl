@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b2ccb81_d3927292",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-13T01:39:47Z",
+      "side": 1,
+      "message": "Hi David, I noticed that you implemented this logic but I didn\u0027t quite understand it. I tried to derive it from first principles and I think I either found a simpler way of implementing the same math, or I am overlooking something.\n\nSee https://boringssl-review.googlesource.com/c/boringssl/+/63905 where I at least determined (at least, as far as I can tell) that crypto_test isn\u0027t testing all the stuff that seems relevant for the more complicated logic that exists today.",
+      "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
