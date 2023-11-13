@@ -179,40 +179,45 @@ int bn_mont_ctx_set_RR_consttime(BN_MONT_CTX *mont, BN_CTX *ctx) {
   // Montgomery domain, 2R or 2^(lgBigR+1), and then use Montgomery
   // square-and-multiply to exponentiate.
   //
-  // The multiply steps take 2^n R to 2^(n+1) R. It is faster to double
-  // the value instead. The square steps take 2^n R to 2^(2n) R. This is
-  // equivalent to doubling n times. When n is below some threshold, doubling is
-  // faster. When above, squaring is faster.
+  // Assume we start the square-and-multiply exponentiation with base of 2^t.
+  // We will only be squaring or multiply by 2^t so the accumulator will always
+  // be a power of 2, 2^n for some n. The square takes 2^n R to 2^(2n) R. This
+  // is equivalent to doubling n times. The multiply step takes the result of
+  // the squaring from 2^(2n) R to 2^(2n + t) R. This is equivalent to doubling
+  // t times. (Note that n grows each iteration, but t stays the same.)
+  // When t is below some threshold, doubling t times is faster than squaring.
+  // When above, squaring is faster.
   //
   // We double to this threshold, then switch to Montgomery squaring. From
   // benchmarking various 32-bit and 64-bit architectures, the word count seems
   // to work well as a threshold. (Doubling scales linearly and Montgomery
   // reduction scales quadratically, so the threshold should scale roughly
   // linearly.)
-  unsigned threshold = mont->N.width;
-  unsigned iters;
-  for (iters = 0; iters < sizeof(lgBigR) * 8; iters++) {
-    if ((lgBigR >> iters) <= threshold) {
-      break;
-    }
-  }
+  //
+  // It is especially nice to use the word count as the threshold because then
+  // all the remaining bits of the exponent are all zero, so no multiplications
+  // will be needed in the square-and-multiply stage. If we were to use a
+  // lower threshold so that multiplications would be needed, we could do n
+  // n doublings instead.
+  unsigned t = mont->N.width;
 
-  // Compute 2^(lgBigR >> iters) R, or 2^((lgBigR >> iters) + lgBigR), by
-  // doubling. The first n_bits - 1 doubles can be skipped because we don't need
-  // to reduce.
+  // Calculate 2*R = 2*2^t by doubling, starting from 2^(n_bits - 1).
   if (!BN_set_bit(&mont->RR, n_bits - 1) ||
       !bn_mod_lshift_consttime(&mont->RR, &mont->RR,
-                               (lgBigR >> iters) + lgBigR - (n_bits - 1),
+                               t + (lgBigR - (n_bits - 1)),
                                &mont->N, ctx)) {
     return 0;
   }
 
-  for (unsigned i = iters - 1; i < iters; i--) {
+  // Calculate R^R from (2*R)^t by squaring,
+  //    ((2*R)^t)^(2^BN_BITS2_LG)
+  // =  ((2*R)^t)^(BN_BITS2)
+  // =   (2*R)^(t*BN_BITS2)
+  // =   (2*R)^lgBigR
+  // =   (2^lgBigR)R
+  // =   RR
+  for (unsigned i = 0; i < BN_BITS2_LG; i++) {
     if (!BN_mod_mul_montgomery(&mont->RR, &mont->RR, &mont->RR, mont, ctx)) {
-      return 0;
-    }
-    if ((lgBigR & (1u << i)) != 0 &&
-        !bn_mod_lshift1_consttime(&mont->RR, &mont->RR, &mont->N, ctx)) {
       return 0;
     }
   }
