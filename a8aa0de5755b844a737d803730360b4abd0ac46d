@@ -88,6 +88,24 @@
       "parentUuid": "ca69c4b3_7fb6dce6",
       "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d469e55_5c257f84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-14T01:03:27Z",
+      "side": 1,
+      "message": ":sigh: My math isn\u0027t here isn\u0027t right either. The problem is that we are using `n` to mean two different things, when really we need two variables. I believe the math in the comments in the updated https://boringssl-review.googlesource.com/c/boringssl/+/63906 is correct. I also verified experimentally that we actually would need t doublings for a multiplication, not just 1.",
+      "parentUuid": "e21ff013_e01c4572",
+      "revId": "a8aa0de5755b844a737d803730360b4abd0ac46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
