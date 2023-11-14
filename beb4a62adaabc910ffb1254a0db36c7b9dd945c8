@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f686ac1_af1ca0a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-14T20:15:01Z",
+      "side": 1,
+      "message": "I agree your math is right, but I\u0027m having a really hard time following your comments.",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42a3b720_7311274c",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-14T20:15:01Z",
+      "side": 1,
+      "message": "I\u0027m not following. We\u0027re doing a square-and-multiply with a base of 2(R), no? Using 2^t only works when t divides lgBigR. It does, in this case, but not for general thresholds.\n\nIn the general case, starting the square-and-multiply loop at a later point isn\u0027t the same as picking a different base because of the multiply steps. Of course, we don\u0027t have any multiply steps in this case, but that\u0027s only true for certain stopping points.\n\nI think this comment is starting from the supposition that the threshold will be the word count, but there\u0027s no inherent reason to believe that\u0027s the correct threshold. It just conveniently works out that way.",
+      "range": {
+        "startLine": 182,
+        "startChar": 73,
+        "endLine": 182,
+        "endChar": 76
+      },
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95371f67_5f03d686",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-14T20:15:01Z",
+      "side": 1,
+      "message": "This comment looks wrong. `2*R` is not `2*2^t`. We\u0027re trying to calculate `2^t * R \u003d 2^(t + lgBigR)`.",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ae7f9a_f2abd335",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-14T20:15:01Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right. We\u0027re not computing `R^R`. I think this can be much more straightforwardly explained:\n\nWe\u0027re trying to compute `R*R \u003d 2^lgBigR * R`. We\u0027re starting from `2^t * R`. Doing `BN_BITS2_LG` Montgomery squares takes us to `2^(lgBigR / BN_BITS2 * BN_BITS2) * R \u003d 2^lgBigR R`.\n\nI think what may be going on here is that you keep flipping back and forth between whether `^` means to exponentiate in the Montgomery domain or not.",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
