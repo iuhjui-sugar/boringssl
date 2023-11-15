@@ -27,6 +27,8 @@ enum boringssl_keccak_config_t {
   boringssl_sha3_512,
   boringssl_shake128,
   boringssl_shake256,
+  boringssl_turboshake128,
+  boringssl_turboshake256,
 };
 
 enum boringssl_keccak_phase_t {
@@ -35,12 +37,13 @@ enum boringssl_keccak_phase_t {
 };
 
 struct BORINGSSL_keccak_st {
-  enum boringssl_keccak_config_t config;
   enum boringssl_keccak_phase_t phase;
   uint64_t state[25];
   size_t rate_bytes;
   size_t absorb_offset;
   size_t squeeze_offset;
+  int rounds;
+  uint8_t terminator;
 };
 
 // BORINGSSL_keccak hashes |in_len| bytes from |in| and writes |out_len| bytes
@@ -54,6 +57,13 @@ OPENSSL_EXPORT void BORINGSSL_keccak(uint8_t *out, size_t out_len,
 // a SHAKE variant, otherwise callers should use |BORINGSSL_keccak|.
 OPENSSL_EXPORT void BORINGSSL_keccak_init(
     struct BORINGSSL_keccak_st *ctx, enum boringssl_keccak_config_t config);
+
+// BORINGSSL_keccak_init_with_d behaves like |BORINGSSL_keccak_init| but
+// specifies the domain separation byte. |config| must specify a TurboSHAKE
+// variant.
+OPENSSL_EXPORT void BORINGSSL_keccak_init_with_d(
+    struct BORINGSSL_keccak_st *ctx, enum boringssl_keccak_config_t config,
+    uint8_t d);
 
 // BORINGSSL_keccak_absorb absorbs |in_len| bytes from |in|.
 OPENSSL_EXPORT void BORINGSSL_keccak_absorb(struct BORINGSSL_keccak_st *ctx,

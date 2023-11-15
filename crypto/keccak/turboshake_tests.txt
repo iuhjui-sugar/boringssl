@@ -1,0 +1,153 @@
+# See https://www.ietf.org/archive/id/draft-irtf-cfrg-kangarootwelve-11.html#name-test-vectors-2
+#
+# TurboSHAKE's test vectors require some processing to compute. The fields are
+# as follows:
+#
+# Each test has exactly one of an Input key or a PatternExp17 key. If Input is
+# present, that is the input to TurboSHAKE. If PatternExp17 is present, it is
+# an integer n. The input is then ptn(17**n) as defined in the draft.
+#
+# If the SkipOutput key is present, that is the number of bytes of output to
+# skip before comparing the XOF output against the Output key.
+
+XOF = TurboSHAKE128
+D = 07
+Input =
+Output = 5a223ad30b3b8c66a243048cfced430f54e7529287d15150b973133adfac6a2f
+
+XOF = TurboSHAKE128
+D = 07
+Input =
+Output = 5a223ad30b3b8c66a243048cfced430f54e7529287d15150b973133adfac6a2ffe2708e73061e09a4000168ba9c8ca1813198f7bbed4984b4185f2c2580ee623
+
+XOF = TurboSHAKE128
+D = 07
+Input =
+SkipOutput = 10000
+Output = 7593a28020a3c4ae0d605fd61f5eb56eccd27cc3d12ff09f78369772a460c55d
+
+XOF = TurboSHAKE128
+D = 07
+PatternExp17 = 0
+Output = 1ac2d450fc3b4205d19da7bfca1b37513c0803577ac7167f06fe2ce1f0ef39e5
+
+XOF = TurboSHAKE128
+D = 07
+PatternExp17 = 1
+Output = acbd4aa57507043bcee55ad3f48504d815e707fe82ee3dad6d5852c8920b905e
+
+XOF = TurboSHAKE128
+D = 07
+PatternExp17 = 2
+Output = 7a4de8b1d927a682b929610103f0e964559bd74542cfad740ee3d9b036469e0a
+
+XOF = TurboSHAKE128
+D = 07
+PatternExp17 = 3
+Output = 7452ed0ed860aa8fe8e79699ece324f8d93271463610da76801ebcee4fcafe42
+
+XOF = TurboSHAKE128
+D = 07
+PatternExp17 = 4
+Output = ca5f1f3eeac992cdc2abebca0e216765dbf779c3c10946055a94ab3272573522
+
+XOF = TurboSHAKE128
+D = 07
+PatternExp17 = 5
+Output = e988193fb9119f11cd34467914e2a26da9bdf96c8bef076aeead1a897b866383
+
+XOF = TurboSHAKE128
+D = 07
+PatternExp17 = 6
+Output = 9c0ffb987eeeedadfa55948987756d090b67ccb61236e306ac8a24de1d0af774
+
+XOF = TurboSHAKE128
+D = 0B
+Input =
+Output = 8b035ab8f8ea7b410217167458332e46f54be4ff8354baf3687104a6d24b0eab
+
+XOF = TurboSHAKE128
+D = 06
+Input =
+Output = c79029306bfa2f17836a3d6516d5566340fea6eb1a1139ad900b41243c494b37
+
+XOF = TurboSHAKE128
+D = 06
+Input = ff
+Output = 8ec9c66465ed0d4a6c35d13506718d687a25cb05c74cca1e42501abd83874a67
+
+XOF = TurboSHAKE128
+D = 06
+Input = ffffff
+Output = 3d03988bb59e681851a192f429ae03988e8f444bc06036a3f1a7d2ccd758d174
+
+XOF = TurboSHAKE128
+D = 06
+Input = ffffffffffffff
+Output = 05d9ae673d5f0e48bb2b57e88021a1a83d70ba85923aa04c12e8f65ba1f94595
+
+XOF = TurboSHAKE256
+D = 07
+Input =
+Output = 4a555b06ecf8f1538ccf5c9515d0d04970181563a62381c7f0c807a6d1bd9e8197804bfde2428bf72961eb52b4189c391cef6fee663a3c1ce78b88255bc1acc3
+
+XOF = TurboSHAKE256
+D = 07
+Input =
+SkipOutput = 10000
+Output = 40221ad734f3edc1b106bad50a72949315b352ba39ad98b5b3c2301163adaad0
+
+XOF = TurboSHAKE256
+D = 07
+PatternExp17 = 1
+Output = 66d378dfe4e902ac4eb78f7c2e5a14f02bc1c849e621bae665796fb3346e6c7975705bb93c00f3ca8f83bca479f06977ab3a60f39796b136538aaae8bcac8544
+
+XOF = TurboSHAKE256
+D = 07
+PatternExp17 = 2
+Output = c52174abf28295e15dfb37b946ac36bd3a6bcc98c074fc25199e0530425cc5edd4dfd43dc3e7e6491a13179830c3c750c9237e83fd9a3fec4603ff57e4222ef2
+
+XOF = TurboSHAKE256
+D = 07
+PatternExp17 = 3
+Output = 62a5a0bff06426d71a7a3e9e3f2fd6e252ff3fc188a6a536eca45a49a3437cb3bc3a0f8149c850e6e7f4747a70627fd2303041c6c33630f943ad92f8e1ff4390
+
+XOF = TurboSHAKE256
+D = 07
+PatternExp17 = 4
+Output = 523c0647182d8941f0dd5c5c0ab62d4fc29561615396bb5b9a9deb022b80c5bf2d83a3bb36ffc04fac58cf1149c66dec4a59526e51f29596d824421a4b84b44d
+
+XOF = TurboSHAKE256
+D = 07
+PatternExp17 = 5
+Output = d114a1c1a208ff05fd49d09ee035465d86547ebad8e9af4f8e875370573d6b7bb20ab960635ab574e22195ef9d171c9a2801044b6e2edf272e2302554b3a77c9
+
+XOF = TurboSHAKE256
+D = 07
+PatternExp17 = 6
+Output = 1e513495d6169875b59453a594e08ae271ca20e05643c88a987b5b6ab423ede7240f34f2b335fa94bc4b0d70e31fb633b079844331fea42a9c4d79bb8c5f9e73
+
+XOF = TurboSHAKE256
+D = 0B
+Input =
+Output = c749f7fb23644a021d35653d1bfdf747cece5f9739f9a344ad169f10906c6817c8ee12784e42ff57814efc1c898789d5e415db49052ea43a09901d7a82a2145c
+
+XOF = TurboSHAKE256
+D = 06
+Input =
+Output = ff23dccd62168f5a44465249a86dc10e8aab4bd26a22debf2348020a831cdbe12cdd36a7ddd31e71c01f7c97a0d4c3a0cc1b2121e6b7ceab3887a4c9a5af8b03
+
+XOF = TurboSHAKE256
+D = 06
+Input = ff
+Output = 738d7b4e37d18b7f22ad1b5313e357e3dd7d07056a26a303c433fa3533455280f4f5a7d4f700efb437fe6d281405e07be32a0a972e22e63adc1b090daefe004b
+
+XOF = TurboSHAKE256
+D = 06
+Input = ffffff
+Output = e5538cdd28302a2e81e41f65fd2a4052014d0cd463df671d1e510a9d95c37d7135ef2728430a9e317004f836c9a238ef35370280d03dce7f0612f0315b3cbf63
+
+XOF = TurboSHAKE256
+D = 06
+Input = ffffffffffffff
+Output = b38b8c15f4a6e80cd3ec645f999f6498aad7a59a489c1dee29708b4f8a59e12499a96f89372256fe522b1b97472add736915bd4df93b21ffe597217eb3c2c6d9

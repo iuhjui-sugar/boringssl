@@ -12,8 +12,10 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#include <algorithm>
 #include <vector>
 
+#include <stdlib.h>
 #include <string.h>
 
 #include <gtest/gtest.h>
@@ -91,6 +93,91 @@ static void KeccakFileTest(FileTest *t) {
 
 TEST(KeccakTest, KeccakTestVectors) {
   FileTestGTest("crypto/keccak/keccak_tests.txt", KeccakFileTest);
+}
+
+TEST(KeccakTest, TurboSHAKETestVectors) {
+  uint8_t pattern[0xfa + 1];
+  for (size_t i = 0; i < sizeof(pattern); i++) {
+    pattern[i] = i;
+  }
+
+  FileTestGTest("crypto/keccak/turboshake_tests.txt", [&](FileTest *t) {
+    std::string xof;
+    ASSERT_TRUE(t->GetAttribute(&xof, "XOF"));
+    boringssl_keccak_config_t config;
+    if (xof == "TurboSHAKE128") {
+      config = boringssl_turboshake128;
+    } else if (xof == "TurboSHAKE256") {
+      config = boringssl_turboshake256;
+    } else {
+      FAIL() << "Unknown XOF " << xof;
+    }
+
+    std::vector<uint8_t> d_vec, output;
+    ASSERT_TRUE(t->GetBytes(&d_vec, "D"));
+    ASSERT_TRUE(t->GetBytes(&output, "Output"));
+    ASSERT_EQ(d_vec.size(), 1u);
+    uint8_t d = d_vec[0];
+
+    std::vector<uint8_t> input;
+    if (t->HasAttribute("Input")) {
+      ASSERT_TRUE(t->GetBytes(&input, "Input"));
+    } else {
+      std::string exp17_str;
+      ASSERT_TRUE(t->GetAttribute(&exp17_str, "PatternExp17"));
+      int exp17 = atoi(exp17_str.c_str());
+      ASSERT_LE(0, exp17);
+      ASSERT_LE(exp17, 6);
+
+      size_t pattern_len = 1;
+      for (int i = 0; i < exp17; i++) {
+        pattern_len *= 17;
+      }
+      input.resize(pattern_len);
+      size_t done = 0;
+      while (done < input.size()) {
+        size_t todo = std::min(sizeof(pattern), input.size() - done);
+        std::copy_n(std::begin(pattern), todo, input.begin() + done);
+        done += todo;
+      }
+    }
+
+    size_t skip_output = 0;
+    if (t->HasAttribute("SkipOutput")) {
+      skip_output =
+          static_cast<size_t>(atoi(t->GetAttributeOrDie("SkipOutput").c_str()));
+    }
+    auto skip = [&](BORINGSSL_keccak_st *ctx) {
+      std::vector<uint8_t> skipped(skip_output);
+      BORINGSSL_keccak_squeeze(ctx, skipped.data(), skipped.size());
+    };
+
+    {
+      // Single-pass absorb/squeeze.
+      BORINGSSL_keccak_st ctx;
+      BORINGSSL_keccak_init_with_d(&ctx, config, d);
+      BORINGSSL_keccak_absorb(&ctx, input.data(), input.size());
+      skip(&ctx);
+      std::vector<uint8_t> result(output.size());
+      BORINGSSL_keccak_squeeze(&ctx, result.data(), result.size());
+      EXPECT_EQ(Bytes(result), Bytes(output));
+    }
+
+    {
+      // Byte-by-byte absorb/squeeze.
+      BORINGSSL_keccak_st ctx;
+      BORINGSSL_keccak_init_with_d(&ctx, config, d);
+      for (uint8_t b : input) {
+        BORINGSSL_keccak_absorb(&ctx, &b, 1);
+      }
+      skip(&ctx);
+      std::vector<uint8_t> result(output.size());
+      for (uint8_t &b : result) {
+        BORINGSSL_keccak_squeeze(&ctx, &b, 1);
+      }
+      EXPECT_EQ(Bytes(result), Bytes(output));
+    }
+  });
 }
 
 TEST(KeccakTest, MultiPass) {
