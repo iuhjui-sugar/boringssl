@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3cabec7_33cbf94b",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-15T21:52:07Z",
+      "side": 1,
+      "message": "Noticed this while I was playing around... making a note here so we don\u0027t forget: `BORINGSSL_keccak` is outputs before inputs, so this should be:\n\n\n```suggestion\n  BORINGSSL_keccak(fo_failure_secret, KYBER_SHARED_SECRET_BYTES,\n                   fo_failure_hash_input, sizeof(fo_failure_hash_input),\n                   boringssl_shake256);\n```",
+      "range": {
+        "startLine": 758,
+        "startChar": 0,
+        "endLine": 760,
+        "endChar": 38
+      },
+      "revId": "7c84fae275c70a6379e4783d05aa3f1009e11cf3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
