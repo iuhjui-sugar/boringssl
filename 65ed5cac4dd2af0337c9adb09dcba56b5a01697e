@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e14fbe1c_0cf3eb91",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-15T05:17:41Z",
+      "side": 1,
+      "message": "This is pretty subtle and should have a comment, especially considering that the first iteration of this CL missed it. Perhaps something like:\n\n\u003e |state-\u003eprev| may be NULL either if it is the head of the list, or if |state| is freed before it was added to the list at all. Compare against the head of the list to distinguish these cases.\n\nAlternatively, a `state-\u003ein_list` field would be more explicit, though it is redundant with the state that\u0027s already in there. *shrug*",
+      "revId": "65ed5cac4dd2af0337c9adb09dcba56b5a01697e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
