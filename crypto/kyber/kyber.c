@@ -19,41 +19,69 @@
 
 #include <openssl/bytestring.h>
 #include <openssl/rand.h>
+#include <openssl/sha.h>
 
 #include "../internal.h"
-#include "../keccak/internal.h"
 #include "./internal.h"
 
 
 // See
 // https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
 
+static void sha512_mgf1(uint8_t *out, size_t out_len, const uint8_t *in,
+                        size_t len, uint8_t d, uint32_t ctr_start) {
+  BSSL_CHECK(out_len % SHA512_DIGEST_LENGTH == 0);
+
+  uint32_t ctr = ctr_start;
+  while (out_len != 0) {
+    SHA512_CTX ctx;
+    SHA512_Init(&ctx);
+    SHA512_Update(&ctx, in, len);
+    uint8_t ctr_be[4];
+    CRYPTO_store_u32_be(ctr_be, ctr);
+    SHA512_Update(&ctx, ctr_be, sizeof(ctr_be));
+    SHA512_Update(&ctx, &d, 1);
+    SHA512_Final(out, &ctx);
+
+    out += SHA512_DIGEST_LENGTH;
+    out_len -= SHA512_DIGEST_LENGTH;
+    ctr++;
+  }
+}
+
 static void prf(uint8_t *out, size_t out_len, const uint8_t *in, size_t len) {
-  struct BORINGSSL_keccak_st ctx;
-  BORINGSSL_keccak_init_with_d(&ctx, boringssl_turboshake256, 0x01);
-  BORINGSSL_keccak_absorb(&ctx, in, len);
-  BORINGSSL_keccak_squeeze(&ctx, out, out_len);
+  sha512_mgf1(out, out_len, in, len, /*d=*/0x01, /*ctr_start=*/0);
 }
 
 static void hash_h(uint8_t out[32], const uint8_t *in, size_t len) {
-  struct BORINGSSL_keccak_st ctx;
-  BORINGSSL_keccak_init_with_d(&ctx, boringssl_turboshake256, 0x02);
-  BORINGSSL_keccak_absorb(&ctx, in, len);
-  BORINGSSL_keccak_squeeze(&ctx, out, 32);
+  SHA512_CTX ctx;
+  SHA512_Init(&ctx);
+  SHA512_Update(&ctx, in, len);
+  uint8_t d = 0x02;
+  SHA512_Update(&ctx, &d, 1);
+  uint8_t hash[SHA512_DIGEST_LENGTH];
+  SHA512_Final(hash, &ctx);
+  memcpy(out, hash, 32);
 }
 
 static void hash_j(uint8_t out[32], const uint8_t *in, size_t len) {
-  struct BORINGSSL_keccak_st ctx;
-  BORINGSSL_keccak_init_with_d(&ctx, boringssl_turboshake256, 0x03);
-  BORINGSSL_keccak_absorb(&ctx, in, len);
-  BORINGSSL_keccak_squeeze(&ctx, out, 32);
+  SHA512_CTX ctx;
+  SHA512_Init(&ctx);
+  SHA512_Update(&ctx, in, len);
+  uint8_t d = 0x03;
+  SHA512_Update(&ctx, &d, 1);
+  uint8_t hash[SHA512_DIGEST_LENGTH];
+  SHA512_Final(hash, &ctx);
+  memcpy(out, hash, 32);
 }
 
 static void hash_g(uint8_t out[64], const uint8_t *in, size_t len) {
-  struct BORINGSSL_keccak_st ctx;
-  BORINGSSL_keccak_init_with_d(&ctx, boringssl_turboshake256, 0x04);
-  BORINGSSL_keccak_absorb(&ctx, in, len);
-  BORINGSSL_keccak_squeeze(&ctx, out, 64);
+  SHA512_CTX ctx;
+  SHA512_Init(&ctx);
+  SHA512_Update(&ctx, in, len);
+  uint8_t d = 0x04;
+  SHA512_Update(&ctx, &d, 1);
+  SHA512_Final(out, &ctx);
 }
 
 #define DEGREE 256
@@ -310,17 +338,14 @@ static void scalar_inner_product(scalar *out, const vector *lhs,
 // Algorithm 1 of the Kyber spec. Rejection samples a Keccak stream to get
 // uniformly distributed elements. This is used for matrix expansion and only
 // operates on public inputs.
-static void scalar_from_keccak_vartime(scalar *out,
-                                       struct BORINGSSL_keccak_st *keccak_ctx) {
-  assert(keccak_ctx->squeeze_offset == 0);
-  assert(keccak_ctx->rate_bytes == 168);
-  static_assert(168 % 3 == 0, "block and coefficient boundaries do not align");
-
+static void scalar_from_keccak_vartime(scalar *out, uint8_t input[34]) {
+  uint32_t ctr = 0;
   int done = 0;
   while (done < DEGREE) {
-    uint8_t block[168];
-    BORINGSSL_keccak_squeeze(keccak_ctx, block, sizeof(block));
-    for (size_t i = 0; i < sizeof(block) && done < DEGREE; i += 3) {
+    uint8_t block[SHA512_DIGEST_LENGTH];
+    sha512_mgf1(block, sizeof(block), input, 34, /*d=*/0x05, ctr);
+    static_assert((sizeof(block) - 1) % 3 == 0, "discard one byte per block");
+    for (size_t i = 0; i < sizeof(block) - 1 && done < DEGREE; i += 3) {
       uint16_t d1 = block[i] + 256 * (block[i + 1] % 16);
       uint16_t d2 = block[i + 1] / 16 + 16 * block[i + 2];
       if (d1 < kPrime) {
@@ -382,10 +407,7 @@ static void matrix_expand(matrix *out, const uint8_t rho[32]) {
     for (int j = 0; j < RANK; j++) {
       input[32] = i;
       input[33] = j;
-      struct BORINGSSL_keccak_st keccak_ctx;
-      BORINGSSL_keccak_init(&keccak_ctx, boringssl_turboshake128);
-      BORINGSSL_keccak_absorb(&keccak_ctx, input, sizeof(input));
-      scalar_from_keccak_vartime(&out->v[i][j], &keccak_ctx);
+      scalar_from_keccak_vartime(&out->v[i][j], input);
     }
   }
 }
