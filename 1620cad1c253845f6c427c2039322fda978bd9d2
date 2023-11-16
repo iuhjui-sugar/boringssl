@@ -52,6 +52,24 @@
       "parentUuid": "bf0d1d47_de1877d0",
       "revId": "1620cad1c253845f6c427c2039322fda978bd9d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a9f973_3c09cfad",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-16T18:17:32Z",
+      "side": 0,
+      "message": "Yeah, I think proxy certs would die because if you were trying to validate with one and didn\u0027t have it it would fail closed. \n\nI\u0027m trying to reason about if this is triggering the \"I can\u0027t find a CRL\" behaviour, so maybe this is fine....",
+      "parentUuid": "078ffeef_803ff86e",
+      "revId": "1620cad1c253845f6c427c2039322fda978bd9d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
