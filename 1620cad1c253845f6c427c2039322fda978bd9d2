@@ -34,6 +34,24 @@
       "parentUuid": "4654e2c6_fbebe1ad",
       "revId": "1620cad1c253845f6c427c2039322fda978bd9d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "078ffeef_803ff86e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-16T18:06:21Z",
+      "side": 0,
+      "message": "Mostly mimicked what we did with `X509_V_FLAG_ALLOW_PROXY_CERTS`, but maybe we should have done that differently too. I wanted to remove them altogether, but some bindings libraries reference them. :-(\n\nThat said, we fail closed to some degree for free. If you set this flag and ask for CRL checks, either you didn\u0027t need delta or indirect CRLs to perform your CRL check and things work fine, or you did and we\u0027ll complain that we couldn\u0027t find any CRLs that we can process. So maybe it\u0027s fine as-is? (Was that why we did it this way for proxy certs? I forget.)",
+      "parentUuid": "bf0d1d47_de1877d0",
+      "revId": "1620cad1c253845f6c427c2039322fda978bd9d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
