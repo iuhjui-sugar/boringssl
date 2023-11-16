@@ -28,6 +28,26 @@
 // See
 // https://pq-crystals.org/kyber/data/kyber-specification-round3-20210804.pdf
 
+static void sha256_mgf1(uint8_t *out, size_t out_len, const uint8_t *in,
+                        size_t len, uint32_t ctr_start) {
+  BSSL_CHECK(out_len % SHA256_DIGEST_LENGTH == 0);
+
+  uint32_t ctr = ctr_start;
+  while (out_len != 0) {
+    SHA256_CTX ctx;
+    SHA256_Init(&ctx);
+    SHA256_Update(&ctx, in, len);
+    uint8_t ctr_be[4];
+    CRYPTO_store_u32_be(ctr_be, ctr);
+    SHA256_Update(&ctx, ctr_be, sizeof(ctr_be));
+    SHA256_Final(out, &ctx);
+
+    out += SHA256_DIGEST_LENGTH;
+    out_len -= SHA256_DIGEST_LENGTH;
+    ctr++;
+  }
+}
+
 static void sha512_mgf1(uint8_t *out, size_t out_len, const uint8_t *in,
                         size_t len, uint8_t d, uint32_t ctr_start) {
   BSSL_CHECK(out_len % SHA512_DIGEST_LENGTH == 0);
@@ -342,10 +362,9 @@ static void scalar_from_keccak_vartime(scalar *out, uint8_t input[34]) {
   uint32_t ctr = 0;
   int done = 0;
   while (done < DEGREE) {
-    uint8_t block[SHA512_DIGEST_LENGTH];
-    sha512_mgf1(block, sizeof(block), input, 34, /*d=*/0x05, ctr);
-    static_assert((sizeof(block) - 1) % 3 == 0, "discard one byte per block");
-    for (size_t i = 0; i < sizeof(block) - 1 && done < DEGREE; i += 3) {
+    uint8_t block[SHA256_DIGEST_LENGTH * 3];
+    sha256_mgf1(block, sizeof(block), input, 34, ctr);
+    for (size_t i = 0; i < sizeof(block) && done < DEGREE; i += 3) {
       uint16_t d1 = block[i] + 256 * (block[i + 1] % 16);
       uint16_t d2 = block[i + 1] / 16 + 16 * block[i + 2];
       if (d1 < kPrime) {
