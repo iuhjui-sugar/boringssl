@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4654e2c6_fbebe1ad",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-16T17:48:51Z",
+      "side": 0,
+      "message": "Totally fine with getting rid of them, but let\u0027s say someone turns these on and did it for a \"reason\" without knowing this.  Wouldn\u0027t it be better at that point to fail closed instead of doing nothing? We can simply throw an err code that this is not going to be doing what you are expecting. Yes it means effectively any attempt to use a CRL will fail, but that should be caught in their tests and be therefore obvious that this flag is not going to do what they are hoping it to do. (Rather than failing silently)",
+      "revId": "1620cad1c253845f6c427c2039322fda978bd9d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
