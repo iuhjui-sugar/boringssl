@@ -73,6 +73,24 @@
       "message": "This doesn\u0027t look right. We\u0027re not computing `R^R`. I think this can be much more straightforwardly explained:\n\nWe\u0027re trying to compute `R*R \u003d 2^lgBigR * R`. We\u0027re starting from `2^t * R`. Doing `BN_BITS2_LG` Montgomery squares takes us to `2^(lgBigR / BN_BITS2 * BN_BITS2) * R \u003d 2^lgBigR R`.\n\nI think what may be going on here is that you keep flipping back and forth between whether `^` means to exponentiate in the Montgomery domain or not.",
       "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d96544_1d0aa425",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-16T04:34:35Z",
+      "side": 1,
+      "message": "David, would you prefer me to submit the C equivalent of https://github.com/briansmith/ring/pull/1806? Or, do you prefer me to iterate on what\u0027s here? Or something else?",
+      "parentUuid": "b3ae7f9a_f2abd335",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
