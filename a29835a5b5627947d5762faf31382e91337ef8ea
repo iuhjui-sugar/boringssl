@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9265fb65_9f62ed44",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2811,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-16T18:57:40Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure we either want to make this not compile, or fail if we get a crl base that is valid and you hand us deltas. \n\nIf the software was intending to support them and we ignore the deltas, we will still process the base crl without the deltas and possibly validate something they expected not to validate.",
+      "range": {
+        "startLine": 2811,
+        "startChar": 0,
+        "endLine": 2811,
+        "endChar": 64
+      },
+      "revId": "a29835a5b5627947d5762faf31382e91337ef8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

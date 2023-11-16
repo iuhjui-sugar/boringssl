@@ -70,6 +70,24 @@
       "parentUuid": "078ffeef_803ff86e",
       "revId": "1620cad1c253845f6c427c2039322fda978bd9d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b81bea47_07bb076b",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2809,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-16T18:57:40Z",
+      "side": 0,
+      "message": "OK, I think I am now pretty certain that ignoring this only makes things fail that could have been made to work by occult magic before. however see the use deltas thing below.",
+      "parentUuid": "c0a9f973_3c09cfad",
+      "revId": "1620cad1c253845f6c427c2039322fda978bd9d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
