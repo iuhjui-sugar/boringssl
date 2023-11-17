@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca53f7df_58fb8d8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-17T17:43:43Z",
+      "side": 1,
+      "message": "This is all sorts of terrible.",
+      "revId": "e8004181a967d7e2cbbfe6b2cbad722d4852ece1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
