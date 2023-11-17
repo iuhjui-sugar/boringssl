@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f145cb73_d967ab6d",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-17T16:25:02Z",
+      "side": 1,
+      "message": "Make sure it tgp\u0027s this way, since this will be subtly different from how you tgp\u0027ed it before. 😊",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 6
+      },
+      "revId": "97283fdb60813c55d14f22db55f62f57cc77f70a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
