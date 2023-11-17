@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52c2401e_a6e17d0a",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-17T17:56:45Z",
+      "side": 1,
+      "message": "Referring to idp it says (regarding the CRL)\n\n Although the extension is\n   critical, conforming implementations are not required to support this\n   extension.  However, implementations that do not support this\n   extension MUST either treat the status of any certificate not listed\n   on this CRL as unknown or locate another CRL that does not contain\n   any unrecognized critical extensions.\n\nI think so... though we\u0027ve removed the score issuer name thing, so in theory we will just say \"yes this is a matching CRL\" because we are returning 1. right? \n\nSo assuming we do that, we\u0027d go \"sure this is a CRL for this cert. and if we don\u0027t see it\u0027s status here, it\u0027s unknown.. So I *think* to the letter of the law we are conforming.",
+      "revId": "552bcc5df4e334983c38f9579e4e9b1e7f662de4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
