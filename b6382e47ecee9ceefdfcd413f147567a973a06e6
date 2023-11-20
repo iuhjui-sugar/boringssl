@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3cf047e_ad913ee5",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2439,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T20:10:29Z",
+      "side": 1,
+      "message": "```suggestion\n// ASN1_item_digest serializes |data| assuming it is an |ASN1_VALUE| of // the type specified by |it| and then hashes the result with\n// |type|. On success, it returns one, writes the digest to |md|, and sets\n// |*len| to the digest length if non-NULL. On error, it returns zero.\n//\n// |EVP_MD_CTX_size| bytes are written, which is at most |EVP_MAX_MD_SIZE|. The\n// buffer must have sufficient space for this output.\n```",
+      "range": {
+        "startLine": 2434,
+        "startChar": 0,
+        "endLine": 2439,
+        "endChar": 53
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6104ab_11d1ead9",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2447,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T20:10:29Z",
+      "side": 1,
+      "message": "```suggestion\n// ASN1_item_verify serializes |data| assuming it is an |ASN1_VALUE| of\n// the type specified by |it| and then verifies |signature| as\n// a signature over the result with |algor1| and the private key \n// corresponding to the public key |pkey|. It returns one on\n// success and zero on error. The signature and algorithm are interpreted as in\n// X.509.\n```",
+      "range": {
+        "startLine": 2444,
+        "startChar": 0,
+        "endLine": 2447,
+        "endChar": 9
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97266b1a_1319e02f",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2459,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T20:10:29Z",
+      "side": 1,
+      "message": "```suggestion\n// ASN1_item_sign serializes |data| with |it| and then signs the result with\n// private key |pkey|. It returns the length of the signature on success and zero on error.\n// On success, it writes the signature to |signature| and the signature\n// algorithm to each of |algor1| and |algor2|, and returns the length of the signature in bytes. Either of |algor1| or |algor2|\n// may be NULL to ignore them. This function uses digest algorithm |md|, or\n// |pkey|\u0027s default if NULL. Other signing parameters use |pkey|\u0027s defaults. To\n// customize them, use |ASN1_item_sign_ctx|. On failure, 0 is returned. \nfunciton. \n```",
+      "range": {
+        "startLine": 2453,
+        "startChar": 2,
+        "endLine": 2459,
+        "endChar": 44
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8288dade_549175c3",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2468,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T20:10:29Z",
+      "side": 1,
+      "message": "```suggestion\n\n// ASN1_item_sign_ctx behaves like |ASN1_item_sign| except the signature is\n// signed with |ctx|, |ctx|, which must have been initialized with\n// |EVP_DigestSignInit|. The caller should configure the corresponding\n// |EVP_PKEY_CTX| with any additional parameters before calling this\n//\n// |EVP_MD_CTX_cleanup| will always be called on |ctx| before this\n// function returns. \nfunction.\n```",
+      "range": {
+        "startLine": 2464,
+        "startChar": 0,
+        "endLine": 2468,
+        "endChar": 78
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
