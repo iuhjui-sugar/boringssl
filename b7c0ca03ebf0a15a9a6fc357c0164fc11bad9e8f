@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "259cd8b8_a8c03bdf",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T18:42:25Z",
+      "side": 1,
+      "message": "```suggestion\n// key was unsupported or could not be decoded. The caller must\n```",
+      "range": {
+        "startLine": 1998,
+        "startChar": 47,
+        "endLine": 1998,
+        "endChar": 59
+      },
+      "revId": "b7c0ca03ebf0a15a9a6fc357c0164fc11bad9e8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
