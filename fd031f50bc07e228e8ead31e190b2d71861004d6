@@ -117,6 +117,30 @@
       },
       "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a2f009_daa40ff9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T18:13:38Z",
+      "side": 1,
+      "message": "I guess we can leave them the way they are for now, and we\u0027ll just add a little summary to the top for folks.",
+      "parentUuid": "4e810c16_7e1da649",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
