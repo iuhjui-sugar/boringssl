@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b5668cf_190ea8a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T23:13:54Z",
+      "side": 1,
+      "message": "2008 ain\u0027t that recent ;) \n\nPart of me agrees with this, and part of me says we should just go define POSIX_C_SOURCE to something reasonable (for strdup they want 200809L) for linux only just as in cl/583161936 to indicate the libc must be at least this tall to ride.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 12
+      },
+      "revId": "9a7a715c62af79cc5b5f8790700ade3798e97e13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
