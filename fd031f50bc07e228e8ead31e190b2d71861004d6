@@ -69,6 +69,30 @@
       },
       "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb30c260_aa7b3607",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-20T18:00:27Z",
+      "side": 1,
+      "message": "I thought we extracted the whole commit message and not just the Update-Note. Or were you thinking something else?\n\nRe landing part of the stack, https://boringssl-review.googlesource.com/c/boringssl/+/63936/ is only a no-op if this lands first. Otherwise it\u0027s still possible for some CRLs to only cover a subset of reasons, by way of CRLDP instead of IDP.\n\nI can probably extract some of the others. Though I did a TGP with the whole tower at once.",
+      "parentUuid": "cd485836_2462f232",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
