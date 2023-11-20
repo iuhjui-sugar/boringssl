@@ -141,6 +141,30 @@
       },
       "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a68b715_c4761fd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-20T20:18:34Z",
+      "side": 1,
+      "message": "Yeah. Or manually delete and summarize it if we feel like it. TBH I\u0027m not sure I can enumerate all the changes beyond \"eh, it\u0027s probably fine\"",
+      "parentUuid": "24a2f009_daa40ff9",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
