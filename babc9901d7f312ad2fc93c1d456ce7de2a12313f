@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9d3785e_8327faad",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2463,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T18:45:47Z",
+      "side": 1,
+      "message": "```suggestion\n// WARNING: This function is misnamed. It does not compare other parts of // the CRL, only the issuer fields using |X509_NAME_cmp|.\n```",
+      "range": {
+        "startLine": 2462,
+        "startChar": 0,
+        "endLine": 2463,
+        "endChar": 16
+      },
+      "revId": "babc9901d7f312ad2fc93c1d456ce7de2a12313f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
