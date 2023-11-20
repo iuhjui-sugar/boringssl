@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "641c3e7a_63ab9520",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T18:35:21Z",
+      "side": 1,
+      "message": "nothing nice can be said about these funcitons.",
+      "revId": "82788ebcd670008e42e6ef8f795d56d814ffcc23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a04c5031_becba56d",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T18:35:21Z",
+      "side": 1,
+      "message": "```suggestion\n// structure. On success, if |*x| is non NULL, it frees |*x|, then sets |*x| to the new object, and\n```",
+      "range": {
+        "startLine": 1404,
+        "startChar": 26,
+        "endLine": 1404,
+        "endChar": 39
+      },
+      "revId": "82788ebcd670008e42e6ef8f795d56d814ffcc23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6da2bf9_95d0ee31",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T18:35:21Z",
+      "side": 1,
+      "message": "```suggestion\n// public key of |key|. On success, |pub| is given ownership of all the\n// other parameters and it returns one. Otherwise, it returns zero. \n// Parameters must not be freed after a successful call, and must have\n// been allocated in a manner compatible with |OPENSSL_free|\n```",
+      "range": {
+        "startLine": 1416,
+        "startChar": 24,
+        "endLine": 1418,
+        "endChar": 20
+      },
+      "revId": "82788ebcd670008e42e6ef8f795d56d814ffcc23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04248302_dcf2c9b9",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T18:35:21Z",
+      "side": 1,
+      "message": "```suggestion\n// If |out_alg| is not NULL, it sets |*out_alg| to the AlgorithmIdentifier\n// All of the retrieved pointers are internal and must not be freed by the // caller.\n```",
+      "range": {
+        "startLine": 1429,
+        "startChar": 0,
+        "endLine": 1430,
+        "endChar": 2
+      },
+      "revId": "82788ebcd670008e42e6ef8f795d56d814ffcc23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
