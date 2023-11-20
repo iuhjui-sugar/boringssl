@@ -22,6 +22,30 @@
       },
       "revId": "9a7a715c62af79cc5b5f8790700ade3798e97e13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c5aba2_ca3a45d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T23:14:29Z",
+      "side": 1,
+      "message": "effectively since, well, we\u0027re gonna run into it again for other functions.",
+      "parentUuid": "6b5668cf_190ea8a7",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 12
+      },
+      "revId": "9a7a715c62af79cc5b5f8790700ade3798e97e13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
