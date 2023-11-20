@@ -46,6 +46,29 @@
       },
       "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd485836_2462f232",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-20T17:58:18Z",
+      "side": 1,
+      "message": "This isn\u0027t gonna work very well with the \"tell google3\" bits.\n\nI think we should probably land the rest of this stack, and make a single update-note describing the entire effect. Otherwise if we\u0027re update-noting on each of these others are really going to have no hope of following. \n\nAlso means we sort of need to ponder when to land the g3 roll in relation to landing these.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 23
+      },
+      "revId": "fd031f50bc07e228e8ead31e190b2d71861004d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
