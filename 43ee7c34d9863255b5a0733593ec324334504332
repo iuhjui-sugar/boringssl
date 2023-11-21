@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c8f5db3_aea417fd",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-21T23:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "971133e9_bb072e6d",
+      "revId": "43ee7c34d9863255b5a0733593ec324334504332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e848708_475458f5",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-11-21T22:55:22Z",
       "side": 1,
       "message": "Super nitpicky nitpick: Perhaps just `msg` or `message`. Gives about the same information as `string_to_log` and is shorter. :-)",
+      "range": {
+        "startLine": 110,
+        "startChar": 56,
+        "endLine": 110,
+        "endChar": 69
+      },
+      "revId": "43ee7c34d9863255b5a0733593ec324334504332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d826e58_6b31a932",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-21T23:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e848708_475458f5",
       "range": {
         "startLine": 110,
         "startChar": 56,
