@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "782ff624_61ca71d4",
+        "filename": ".clang_format",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T02:26:22Z",
+      "side": 1,
+      "message": "Hmm, LLVM style rather than Google style? Any reason not to just use the existing top-level `.clang-format`?\n\nAlthough I suspect this didn\u0027t actually do anything because it\u0027s `.clang-format` rather than `.clang_format` and you seem to have applied Google style?\n\nSo I think we can just delete this file. But also since the `IncludeBraces` didn\u0027t take, probably we should do a second pass over the directory with `IncludeBraces` on. (When I did crypto/x509, I did them in two CLs on grounds that `IncludeBraces` maybe warranted some more review. Though TBH I\u0027m not sure what the cases are that might break stuff.)",
+      "revId": "aa7bfb8102f2398157b36ca5b7ff89aa178fcd1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e51e0cc5_2bde97f9",
+        "filename": "pki/asn1_util.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T02:26:22Z",
+      "side": 1,
+      "message": "Probably should delete this file, but separately. :-)",
+      "revId": "aa7bfb8102f2398157b36ca5b7ff89aa178fcd1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
