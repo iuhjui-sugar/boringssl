@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d63d9024_9e7adbbc",
+        "filename": ".clang_format",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-21T16:46:51Z",
+      "side": 1,
+      "message": "Yeah, ok nuked the file change, and there\u0027s now a followon to this one to turn on InsertBraces and reformat pki with just that.",
+      "parentUuid": "782ff624_61ca71d4",
+      "revId": "aa7bfb8102f2398157b36ca5b7ff89aa178fcd1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e51e0cc5_2bde97f9",
         "filename": "pki/asn1_util.h",
         "patchSetId": 2
