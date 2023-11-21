@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd671c53_f0367219",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1404,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T02:37:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a04c5031_becba56d",
+      "range": {
+        "startLine": 1404,
+        "startChar": 26,
+        "endLine": 1404,
+        "endChar": 39
+      },
+      "revId": "82788ebcd670008e42e6ef8f795d56d814ffcc23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6da2bf9_95d0ee31",
@@ -64,6 +88,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5d2b92c_a9a16065",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T02:37:51Z",
+      "side": 1,
+      "message": "Done. Although the OPENSSL_free bit is a little odd because it\u0027s actually ASN1_STRING_free or ASN1_OBJECT_free.",
+      "parentUuid": "f6da2bf9_95d0ee31",
+      "range": {
+        "startLine": 1416,
+        "startChar": 24,
+        "endLine": 1418,
+        "endChar": 20
+      },
+      "revId": "82788ebcd670008e42e6ef8f795d56d814ffcc23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04248302_dcf2c9b9",
@@ -77,6 +125,30 @@
       "writtenOn": "2023-11-20T18:35:21Z",
       "side": 1,
       "message": "```suggestion\n// If |out_alg| is not NULL, it sets |*out_alg| to the AlgorithmIdentifier\n// All of the retrieved pointers are internal and must not be freed by the // caller.\n```",
+      "range": {
+        "startLine": 1429,
+        "startChar": 0,
+        "endLine": 1430,
+        "endChar": 2
+      },
+      "revId": "82788ebcd670008e42e6ef8f795d56d814ffcc23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dd86a36_ac4bb122",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T02:37:51Z",
+      "side": 1,
+      "message": "Covered by https://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md#ownership-and-lifetime, but may as well restate it. :-)",
+      "parentUuid": "04248302_dcf2c9b9",
       "range": {
         "startLine": 1429,
         "startChar": 0,
