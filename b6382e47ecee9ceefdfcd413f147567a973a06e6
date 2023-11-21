@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a5fde3_39b80980",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2439,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T15:24:59Z",
+      "side": 1,
+      "message": "Done, though pulled it out into a warning to match `ASN1_item_i2d`.",
+      "parentUuid": "f3cf047e_ad913ee5",
+      "range": {
+        "startLine": 2434,
+        "startChar": 0,
+        "endLine": 2439,
+        "endChar": 53
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b6104ab_11d1ead9",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-11-20T20:10:29Z",
       "side": 1,
       "message": "```suggestion\n// ASN1_item_verify serializes |data| assuming it is an |ASN1_VALUE| of\n// the type specified by |it| and then verifies |signature| as\n// a signature over the result with |algor1| and the private key \n// corresponding to the public key |pkey|. It returns one on\n// success and zero on error. The signature and algorithm are interpreted as in\n// X.509.\n```",
+      "range": {
+        "startLine": 2444,
+        "startChar": 0,
+        "endLine": 2447,
+        "endChar": 9
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ee7e73e_8a53c678",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2447,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T15:24:59Z",
+      "side": 1,
+      "message": "Added the same warning. I think it\u0027s pretty standard to say you verify a signature with the public key, rather than with the private key corresponding to the public key. Though I guess the wording slightly hints towards how the signature was generated.\n\nTweaked the phrasing slightly (pulling from evp.h) to talk about verification instead. That\u0027s better anyway since a lot of ECC signature schemes admit more inputs as signatures than it is possible for a private key to produce.",
+      "parentUuid": "3b6104ab_11d1ead9",
       "range": {
         "startLine": 2444,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5e4bd99_dffc7457",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T15:24:59Z",
+      "side": 1,
+      "message": "Done. Though the return value was already mentioned in the sentence prior.",
+      "parentUuid": "97266b1a_1319e02f",
+      "range": {
+        "startLine": 2453,
+        "startChar": 2,
+        "endLine": 2459,
+        "endChar": 44
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8288dade_549175c3",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-11-20T20:10:29Z",
       "side": 1,
       "message": "```suggestion\n\n// ASN1_item_sign_ctx behaves like |ASN1_item_sign| except the signature is\n// signed with |ctx|, |ctx|, which must have been initialized with\n// |EVP_DigestSignInit|. The caller should configure the corresponding\n// |EVP_PKEY_CTX| with any additional parameters before calling this\n//\n// |EVP_MD_CTX_cleanup| will always be called on |ctx| before this\n// function returns. \nfunction.\n```",
+      "range": {
+        "startLine": 2464,
+        "startChar": 0,
+        "endLine": 2468,
+        "endChar": 78
+      },
+      "revId": "b6382e47ecee9ceefdfcd413f147567a973a06e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5549ccfa_732b5bb7",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2468,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T15:24:59Z",
+      "side": 1,
+      "message": "Hmm, I worry if we promise `EVP_MD_CTX_cleanup`, people might be confused and think they don\u0027t need to `EVP_MD_CTX_free` for a heap-allocated `EVP_MD_CTX`. But the fact that it mutates the `EVP_MD_CTX` is definitely important since it loses all state in there. I\u0027ll phrase it that way.",
+      "parentUuid": "8288dade_549175c3",
       "range": {
         "startLine": 2464,
         "startChar": 0,
