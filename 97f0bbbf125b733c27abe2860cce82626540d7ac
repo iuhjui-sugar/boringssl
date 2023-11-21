@@ -16,6 +16,24 @@
       "message": "Do we want this persistently in our clang-format? When we discussed this for crypto/x509, I think we opted not to due to this warning:\nhttps://clang.llvm.org/docs/ClangFormatStyleOptions.html#insertbraces\n\nThen again, Chrome seems to have enabled it just fine, and I actually can\u0027t think of cases where the code formatting would be wrong, unless you do something stupid like `#define if something_else`.\n\nWDYT? I\u0027m perfectly happy including it if you are.",
       "revId": "97f0bbbf125b733c27abe2860cce82626540d7ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a1cc9ed_af96118e",
+        "filename": ".clang-format",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-21T18:16:16Z",
+      "side": 1,
+      "message": "I think I kind of am ok with it, I\u0027ve gotten used to it being on in chrome (I get them automatically by git cl formats there, and just check them as they appear)\n\nWe could also do a pass over the other directories for format then this just to review them up all at once, and then the incremental changes if anything gets picked up are easy to spot. \n\nOr at least put it this way, I don\u0027t think it\u0027s any more likely to be missed on\na review than an incorrect if() without braces and an extra statement..",
+      "parentUuid": "406e52ad_55845255",
+      "revId": "97f0bbbf125b733c27abe2860cce82626540d7ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
