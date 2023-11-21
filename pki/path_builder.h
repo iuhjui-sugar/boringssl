@@ -99,6 +99,15 @@ class OPENSSL_EXPORT CertPathBuilderDelegate
   // paths. Delegates can cause path building to stop and return indicating
   // the deadline was exceeded by returning true from this function.
   virtual bool IsDeadlineExpired() = 0;
+
+  // This is called during path building to decide if debug logs will be passed
+  // sent from the path building process. No calls to DebugLog (below) will
+  // be made unless this returns true.
+  virtual bool IsDebugLogEnabled() = 0;
+
+  // This is called to send a debug log string to the delegate. These are only
+  // called if IsDebugLogEnabled returns true.
+  virtual void DebugLog(int log_level, std::string_view string_to_log) = 0;
 };
 
 // Checks whether a certificate is trusted by building candidate paths to trust
