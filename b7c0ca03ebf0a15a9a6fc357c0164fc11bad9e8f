@@ -22,6 +22,30 @@
       },
       "revId": "b7c0ca03ebf0a15a9a6fc357c0164fc11bad9e8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13eae6d0_3c811b92",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1998,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-21T02:54:31Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "259cd8b8_a8c03bdf",
+      "range": {
+        "startLine": 1998,
+        "startChar": 47,
+        "endLine": 1998,
+        "endChar": 59
+      },
+      "revId": "b7c0ca03ebf0a15a9a6fc357c0164fc11bad9e8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
