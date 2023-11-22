@@ -5,7 +5,6 @@
 // ----------------------------
 // Overview of error design
 // ----------------------------
-#include "fillins/openssl_util.h"
 //
 // Certificate path building/validation/parsing may emit a sequence of errors
 // and warnings.

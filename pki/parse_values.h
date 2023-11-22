@@ -6,8 +6,8 @@
 #define BSSL_DER_PARSE_VALUES_H_
 
 #include <stdint.h>
-#include "fillins/openssl_util.h"
 
+#include <openssl/base.h>
 
 #include <optional>
 #include "input.h"
