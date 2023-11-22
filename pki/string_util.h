@@ -57,6 +57,16 @@ OPENSSL_EXPORT std::string NumberToDecimalString(int i);
 OPENSSL_EXPORT std::vector<std::string_view> SplitString(std::string_view str,
                                                          char split_char);
 
+// Base64 encoudes |input| into |output| returning true on success,
+// false othewise.
+OPENSSL_EXPORT bool Base64Encode(const std::string_view &input,
+                                 std::string *output);
+
+// Base64 decodes |input| into |output| returning true on success,
+// false othewise.
+OPENSSL_EXPORT bool Base64Decode(const std::string_view &input,
+                                 std::string *output);
+
 }  // namespace bssl::string_util
 
 #endif  // BSSL_PKI_STRING_UTIL_H_
