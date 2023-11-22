@@ -5,10 +5,9 @@
 #ifndef BSSL_PKI_STRING_UTIL_H_
 #define BSSL_PKI_STRING_UTIL_H_
 
-#include "fillins/openssl_util.h"
-
-
 #include <stdint.h>
+
+#include <openssl/base.h>
 
 #include <cstdint>
 #include <string_view>

@@ -6,10 +6,10 @@
 #define BSSL_PKI_SIGNATURE_ALGORITHM_H_
 
 #include <stdint.h>
-#include "fillins/openssl_util.h"
 
-
+#include <openssl/base.h>
 #include <openssl/evp.h>
+
 #include <optional>
 
 namespace bssl {

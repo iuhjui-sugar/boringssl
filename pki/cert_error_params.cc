@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 #include "cert_error_params.h"
-#include "fillins/openssl_util.h"
 
 #include <memory>
 

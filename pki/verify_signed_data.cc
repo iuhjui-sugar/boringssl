@@ -6,11 +6,11 @@
 
 #include <openssl/bytestring.h>
 #include <openssl/digest.h>
+#include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/rsa.h>
 #include <openssl/sha.h>
 #include "cert_errors.h"
-#include "fillins/openssl_util.h"
 #include "input.h"
 #include "parse_values.h"
 #include "parser.h"
@@ -60,6 +60,14 @@ std::string SignatureVerifyCacheKey(std::string_view algorithm_name,
   }
   return std::string();
 }
+
+// Place an instance of this class on the call stack to automatically clear
+// the OpenSSL error stack on function exit.`
+class OpenSSLErrStackTracer {
+ public:
+  OpenSSLErrStackTracer(){};
+  ~OpenSSLErrStackTracer() { ERR_clear_error(); };
+};
 
 }  // namespace
 
@@ -131,7 +139,7 @@ std::string SignatureVerifyCacheKey(std::string_view algorithm_name,
 bool ParsePublicKey(const der::Input &public_key_spki,
                     bssl::UniquePtr<EVP_PKEY> *public_key) {
   // Parse the SPKI to an EVP_PKEY.
-  fillins::OpenSSLErrStackTracer err_tracer;
+  OpenSSLErrStackTracer err_tracer;
 
   CBS cbs;
   CBS_init(&cbs, public_key_spki.UnsafeData(), public_key_spki.Length());
@@ -241,7 +249,7 @@ bool VerifySignedData(SignatureAlgorithm algorithm,
     }
   }
 
-  fillins::OpenSSLErrStackTracer err_tracer;
+  OpenSSLErrStackTracer err_tracer;
 
   bssl::ScopedEVP_MD_CTX ctx;
   EVP_PKEY_CTX *pctx = nullptr;  // Owned by |ctx|.
