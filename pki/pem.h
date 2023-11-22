@@ -5,8 +5,8 @@
 #ifndef BSSL_PKI_PEM_H_
 #define BSSL_PKI_PEM_H_
 
+#include <openssl/base.h>
 #include <stddef.h>
-#include "fillins/openssl_util.h"
 
 #include <string>
 #include <vector>

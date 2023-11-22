@@ -5,9 +5,9 @@
 #ifndef BSSL_PKI_PATH_BUILDER_H_
 #define BSSL_PKI_PATH_BUILDER_H_
 
+#include <openssl/base.h>
 #include <memory>
 #include <vector>
-#include "fillins/openssl_util.h"
 
 
 #include "cert_errors.h"
