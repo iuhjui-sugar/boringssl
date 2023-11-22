@@ -5,9 +5,8 @@
 #ifndef BSSL_PKI_SIMPLE_PATH_BUILDER_DELEGATE_H_
 #define BSSL_PKI_SIMPLE_PATH_BUILDER_DELEGATE_H_
 
+#include <openssl/base.h>
 #include <stddef.h>
-#include "fillins/openssl_util.h"
-
 
 #include "path_builder.h"
 #include "signature_algorithm.h"

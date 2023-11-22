@@ -5,7 +5,7 @@
 #ifndef BSSL_PKI_CRL_H_
 #define BSSL_PKI_CRL_H_
 
-#include "fillins/openssl_util.h"
+#include <openssl/base.h>
 
 #include <optional>
 #include "general_names.h"
