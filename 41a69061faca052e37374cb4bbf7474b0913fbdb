@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e608bc63_33f0be4d",
+        "filename": "pki/test_helpers.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-11-22T23:42:30Z",
+      "side": 1,
+      "message": "This will fail for empty files. I think the error return is just -1?",
+      "revId": "41a69061faca052e37374cb4bbf7474b0913fbdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e746cd43_1b4b781e",
+        "filename": "pki/test_helpers.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-11-22T23:42:30Z",
+      "side": 1,
+      "message": "Nothing else is added so perhaps this header is only needed in the .cc? (Ignore at will.)",
+      "revId": "41a69061faca052e37374cb4bbf7474b0913fbdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
