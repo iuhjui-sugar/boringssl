@@ -5,7 +5,7 @@
 #ifndef BSSL_PKI_REVOCATION_UTIL_H_
 #define BSSL_PKI_REVOCATION_UTIL_H_
 
-#include "fillins/openssl_util.h"
+#include <openssl/base.h>
 
 #include <optional>
 

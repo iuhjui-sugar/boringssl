@@ -8,8 +8,8 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "fillins/openssl_util.h"
 
+#include <openssl/base.h>
 
 #include <optional>
 #include "input.h"

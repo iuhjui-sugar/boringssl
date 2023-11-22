@@ -5,9 +5,9 @@
 #ifndef BSSL_PKI_NAME_CONSTRAINTS_H_
 #define BSSL_PKI_NAME_CONSTRAINTS_H_
 
-#include <memory>
-#include "fillins/openssl_util.h"
+#include <openssl/base.h>
 
+#include <memory>
 
 #include "general_names.h"
 

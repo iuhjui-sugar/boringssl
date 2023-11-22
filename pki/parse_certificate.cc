@@ -3,7 +3,8 @@
 // found in the LICENSE file.
 
 #include "parse_certificate.h"
-#include "fillins/openssl_util.h"
+
+#include <openssl/base.h>
 
 #include <utility>
 
