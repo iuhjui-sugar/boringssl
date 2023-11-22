@@ -5,8 +5,8 @@
 #ifndef BSSL_PKI_VERIFY_CERTIFICATE_CHAIN_H_
 #define BSSL_PKI_VERIFY_CERTIFICATE_CHAIN_H_
 
+#include <openssl/base.h>
 #include <set>
-#include "fillins/openssl_util.h"
 
 
 #include <openssl/evp.h>

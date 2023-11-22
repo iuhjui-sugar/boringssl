@@ -1,12 +1,10 @@
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+#include <openssl/base.h>
 
 #ifndef BSSL_PKI_CERT_ERROR_ID_H_
 #define BSSL_PKI_CERT_ERROR_ID_H_
-
-#include "fillins/openssl_util.h"
-
 
 namespace bssl {
 

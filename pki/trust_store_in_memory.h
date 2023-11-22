@@ -5,9 +5,8 @@
 #ifndef BSSL_PKI_TRUST_STORE_IN_MEMORY_H_
 #define BSSL_PKI_TRUST_STORE_IN_MEMORY_H_
 
+#include <openssl/base.h>
 #include <unordered_map>
-#include "fillins/openssl_util.h"
-
 
 #include "trust_store.h"
 
