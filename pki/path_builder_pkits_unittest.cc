@@ -5,8 +5,7 @@
 #include "path_builder.h"
 
 #include <cstdint>
-
-#include "fillins/log.h"
+#include <iostream>
 
 #include <openssl/pool.h>
 #include "cert_issuer_source_static.h"
@@ -238,7 +237,7 @@ class PathBuilderPkitsTestDelegate {
       for (size_t i = 0; i < result.paths.size(); ++i) {
         const bssl::CertPathBuilderResultPath *result_path =
             result.paths[i].get();
-        LOG(ERROR) << "path " << i << " errors:\n"
+        std::cerr << "path " << i << " errors:\n"
                    << result_path->errors.ToDebugString(result_path->certs);
       }
     }
