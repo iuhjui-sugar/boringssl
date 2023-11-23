@@ -1029,6 +1029,7 @@ bool CreateOCSPRequest(const ParsedCertificate *cert,
   }
 
   //   Request         ::=     SEQUENCE {
+
   //       reqCert                     CertID,
   //       singleRequestExtensions     [0] EXPLICIT Extensions OPTIONAL }
   CBB req_cert;
