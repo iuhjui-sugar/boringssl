@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91562789_ecf12b0e",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-23T19:08:06Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to support this sort of footgun for people who probably need to be maintaining other patches to support such an\nunsupported platform *correctly*. Any sort of changes like this should\nbe easy enough for such an integrator to maintain in a define specific\nto their own platform rather than something generic and only partwayt there like this, and probably preferable for the patch maintainer in this case",
+      "range": {
+        "startLine": 60,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "cabf4e60f5f3ebc2d12db19e6d17151c74ed5db3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
