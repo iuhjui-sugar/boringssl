@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49628f88_0c8fc6b2",
+        "filename": "pki/cert_issuer_source_static.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-23T17:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fc79453_64be3d60",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e9fbe6a_8f43ac7f",
@@ -71,6 +89,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b0bbc9_f45a42ee",
+        "filename": "pki/crl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-23T17:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87292e57_28511979",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "326b6f9b_78814003",
@@ -88,6 +124,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b8c50b1_158c7dbb",
+        "filename": "pki/name_constraints.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-23T17:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "326b6f9b_78814003",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7ed77d1_fb2b3fbb",
@@ -101,6 +155,24 @@
       "writtenOn": "2023-11-23T00:56:43Z",
       "side": 1,
       "message": "system includes both before and after here 😊",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ddb1387_103f35ae",
+        "filename": "pki/ocsp.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-23T17:24:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7ed77d1_fb2b3fbb",
       "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
