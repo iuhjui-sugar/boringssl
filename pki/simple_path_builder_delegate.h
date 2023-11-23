@@ -68,7 +68,7 @@ class OPENSSL_EXPORT SimplePathBuilderDelegate
   bool IsDebugLogEnabled() override;
 
   // No-op implementation.
-  void DebugLog(int log_level, std::string_view msg) override;
+  void DebugLog(std::string_view msg) override;
 
  private:
   const size_t min_rsa_modulus_length_bits_;
