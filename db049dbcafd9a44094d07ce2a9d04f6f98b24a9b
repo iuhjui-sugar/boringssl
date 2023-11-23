@@ -22,6 +22,30 @@
       },
       "revId": "db049dbcafd9a44094d07ce2a9d04f6f98b24a9b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47dd4938_9d53bafc",
+        "filename": "pki/test_helpers.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-23T00:19:11Z",
+      "side": 1,
+      "message": "Heh, yeah, never did it that way before because everything was three layers of abstraction overtop of a std::string.\n\ndone.",
+      "parentUuid": "c75fe727_38fd8acc",
+      "range": {
+        "startLine": 126,
+        "startChar": 17,
+        "endLine": 126,
+        "endChar": 18
+      },
+      "revId": "db049dbcafd9a44094d07ce2a9d04f6f98b24a9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
