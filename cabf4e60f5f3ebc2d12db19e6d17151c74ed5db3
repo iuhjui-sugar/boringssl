@@ -22,6 +22,30 @@
       },
       "revId": "cabf4e60f5f3ebc2d12db19e6d17151c74ed5db3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fde8878_b8aab76e",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 17327
+      },
+      "writtenOn": "2023-11-23T23:59:12Z",
+      "side": 1,
+      "message": "This patch only affects those \"unsupported\" platforms, it would still avoid at least some duplicated work. Some \"support\" is still better than no support. It wouldn\u0027t complicate any downstream patching process as well, others could always place their own elseif clauses before mine, or just simply don\u0027t pass -DENABLE_UNSUPPORTED_PLATFORMS to CMake while compiling BoringSSL. It won\u0027t affect how BoringSSL works on the supported platforms as well.\n\nI am a downstream \"integrator\" in some sense as I build packages for a Linux distro. I would say it\u0027s actually not that easy for us to keep patching different verions of BoringSSL bundled in different downstream projects. Not to mention your decisions of moving definitions around (e.g. moving these platform-specific definitions from base.h to target.h) and removing existing support for ppc64el complicates this more. If this patch got merged, it will eventually make its way to downstream projects, and that will make our lives much easier.\n\nFurthermore, \"incomplete\", \"incorrect\" or \"as-is\" support is still better than nothing for platforms other than x86, ARM and RISC-V in my opinion. It\u0027s true that this patch is only somewhat dirty solution that may or may not work, but right now BoringSSL does not have a tiered architecture support policy, \"proper\" support from the upstream would never happen in the foreseeable future. This patch makes BoringSSL compile ppc64el, loongarch64 and mips64el, and all tests are passing on them. That is good enough for me and the users of our distro. This patch here would eliminates the need of downstream patching BoringSSL for us.\n\nIf you still think this is not an acceptable solution, I would make one last proposal: add a new \"target\" definition of something like generic-32 and generic-64. That\u0027s the approach taken by OpenSSL.",
+      "parentUuid": "91562789_ecf12b0e",
+      "range": {
+        "startLine": 60,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "cabf4e60f5f3ebc2d12db19e6d17151c74ed5db3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
