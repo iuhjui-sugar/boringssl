@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "109bf6c8_14daf480",
+        "filename": "pki/crl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-23T16:56:57Z",
+      "side": 1,
+      "message": "For some reason, this is where clang-format wants to put it? \n\n(I clang-formatted everything in this cl)",
+      "parentUuid": "0e9fbe6a_8f43ac7f",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "326b6f9b_78814003",
         "filename": "pki/name_constraints.h",
         "patchSetId": 5
