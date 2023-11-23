@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fc79453_64be3d60",
+        "filename": "pki/cert_issuer_source_static.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-11-23T00:56:43Z",
+      "side": 1,
+      "message": "It\u0027s perhaps a little fragile that this header gets `base.h` via another header (`cert_issuer_source.h`). Should the rule be that all headers bring in `base.h` just to be sure that it\u0027s always included?\n\n(Ditto for other headers in this CL.)",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e9fbe6a_8f43ac7f",
+        "filename": "pki/crl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-11-23T00:56:43Z",
+      "side": 1,
+      "message": "In other headers, system includes have come first.",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "326b6f9b_78814003",
+        "filename": "pki/name_constraints.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-11-23T00:56:43Z",
+      "side": 1,
+      "message": "(ditto about differences in whether system includes come first.)",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ed77d1_fb2b3fbb",
+        "filename": "pki/ocsp.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-11-23T00:56:43Z",
+      "side": 1,
+      "message": "system includes both before and after here 😊",
+      "revId": "0143baf68ca34484a76eb84f86f7cdb106248722",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
