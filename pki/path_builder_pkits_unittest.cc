@@ -5,8 +5,7 @@
 #include "path_builder.h"
 
 #include <cstdint>
-
-#include "fillins/log.h"
+#include <iostream>
 
 #include <openssl/pool.h>
 #include "cert_issuer_source_static.h"
@@ -235,15 +234,16 @@ class PathBuilderPkitsTestDelegate {
     CertPathBuilder::Result result = path_builder.Run();
 
     if (info.should_validate != result.HasValidPath()) {
+      testing::Message msg;
       for (size_t i = 0; i < result.paths.size(); ++i) {
         const bssl::CertPathBuilderResultPath *result_path =
             result.paths[i].get();
-        LOG(ERROR) << "path " << i << " errors:\n"
-                   << result_path->errors.ToDebugString(result_path->certs);
+        msg << "path " << i << " errors:\n"
+            << result_path->errors.ToDebugString(result_path->certs)
+            << "\n";
       }
+      ASSERT_EQ(info.should_validate, result.HasValidPath()) << msg;
     }
-
-    ASSERT_EQ(info.should_validate, result.HasValidPath());
 
     if (result.HasValidPath()) {
       EXPECT_EQ(info.user_constrained_policy_set,
