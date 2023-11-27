@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b90d7abb_4571ff85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-27T17:00:11Z",
+      "side": 1,
+      "message": "LGTM assuming Matt\u0027s happy with losing these debugs.",
+      "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cb481d8_381032e1",
+        "filename": "pki/path_builder_pkits_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-27T17:00:11Z",
+      "side": 1,
+      "message": "This is stuff to be attached to the `ASSERT_EQ` anyway, right? I think we can just build a big `testing::Message()`, which would output more inline with GTest anyway. Haven\u0027t tried this but something like this, perhaps?\n\n\n```suggestion\n    if (info.should_validate !\u003d result.HasValidPath()) {\n      testing::Message msg;\n      for (size_t i \u003d 0; i \u003c result.paths.size(); ++i) {\n        const bssl::CertPathBuilderResultPath *result_path \u003d\n            result.paths[i].get();\n        msg \u003c\u003c \"path \" \u003c\u003c i \u003c\u003c \" errors:\\n\"\n            \u003c\u003c result_path-\u003eerrors.ToDebugString(result_path-\u003ecerts)\n            \u003c\u003c \"\\n\";\n      }\n      ASSERT_EQ(info.should_validate, result.HasValidPath()) \u003c\u003c msg;\n    }\n```",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 59
+      },
+      "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
