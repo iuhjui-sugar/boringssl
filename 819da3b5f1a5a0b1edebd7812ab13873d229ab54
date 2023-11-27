@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9368491_12e3a968",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-27T16:53:13Z",
+      "side": 1,
+      "message": "How does the caller know what numbers to apply to which? Looks like we use 1 most of the time and 2 for \"CertPathIter got anchor\", but you\u0027d need to look at the implementation to know that.\n\nTBH, we\u0027re barely using the log levels. Can we just remove \"CertPathIter got anchor\"? It seems to be completely redundant with \"CertPathIter returning path:\", which is log level 1.\n\nIf we do that, then the only log level is 1 and maybe we don\u0027t need this.",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 111,
+        "endChar": 42
+      },
+      "revId": "819da3b5f1a5a0b1edebd7812ab13873d229ab54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
