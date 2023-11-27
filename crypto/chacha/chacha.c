@@ -62,6 +62,11 @@ void CRYPTO_hchacha20(uint8_t out[32], const uint8_t key[32],
 
 #if defined(CHACHA20_ASM)
 
+#if defined(OPENSSL_AARCH64)
+static void ChaCha20_ctr32(uint8_t *out, const uint8_t *in, size_t in_len,
+                           const uint32_t key[8], const uint32_t counter[4]);
+#endif
+
 void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
                       const uint8_t key[32], const uint8_t nonce[12],
                       uint32_t counter) {
@@ -111,6 +116,17 @@ void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
     counter_nonce[0] = 0;
   }
 }
+
+#if defined(OPENSSL_AARCH64)
+static void ChaCha20_ctr32(uint8_t *out, const uint8_t *in, size_t in_len,
+                           const uint32_t key[8], const uint32_t counter[4]) {
+  if (in_len >= CHACHA20_CTR32_NEON_LEN_MIN && CRYPTO_is_NEON_capable()) {
+    ChaCha20_ctr32_neon(out, in, in_len, key, counter);
+  } else if (in_len > 0) {
+    ChaCha20_ctr32_nohw(out, in, in_len, key, counter);
+  }
+}
+#endif
 
 #else
 

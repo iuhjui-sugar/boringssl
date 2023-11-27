@@ -348,23 +348,53 @@ TEST(ChaChaTest, CounterOverflow) {
 }
 
 #if defined(CHACHA20_ASM) && defined(SUPPORTS_ABI_TEST)
-TEST(ChaChaTest, ABI) {
+
+struct ChaCha20_ctr32_f {
+  void (*func)(uint8_t *out, const uint8_t *in, size_t in_len,
+               const uint32_t key[8], const uint32_t counter[4]);
+  size_t len_min;
+};
+
+class ChaChaCtr32Test : public testing::TestWithParam<ChaCha20_ctr32_f> {};
+
+const ChaCha20_ctr32_f kChaCha20_ctr32_functions[] = {
+#if defined(OPENSSL_AARCH64)
+    ChaCha20_ctr32_f{ChaCha20_ctr32_nohw, 1},
+    ChaCha20_ctr32_f{ChaCha20_ctr32_neon, CHACHA20_CTR32_NEON_LEN_MIN},
+#else
+    ChaCha20_ctr32_f{ChaCha20_ctr32, 0},
+#endif
+};
+
+TEST_P(ChaChaCtr32Test, ABI) {
   uint32_t key[8];
   OPENSSL_memcpy(key, kKey, sizeof(key));
+
+  auto p = GetParam();
 
   static const uint32_t kCounterNonce[4] = {0};
 
   auto buf = std::make_unique<uint8_t[]>(sizeof(kInput));
   for (size_t len = 0; len <= 32; len++) {
+    if (len < p.len_min) {
+      continue;
+    }
     SCOPED_TRACE(len);
-    CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len, key, kCounterNonce);
+    CHECK_ABI(p.func, buf.get(), kInput, len, key, kCounterNonce);
   }
 
   for (size_t len : {32 * 2, 32 * 4, 32 * 8, 32 * 16, 32 * 24}) {
+    if (len < p.len_min) {
+      continue;
+    }
     SCOPED_TRACE(len);
-    CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len, key, kCounterNonce);
+    CHECK_ABI(p.func, buf.get(), kInput, len, key, kCounterNonce);
     // Cover the partial block paths.
-    CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len + 15, key, kCounterNonce);
+    CHECK_ABI(p.func, buf.get(), kInput, len + 15, key, kCounterNonce);
   }
 }
+
+INSTANTIATE_TEST_SUITE_P(All, ChaChaCtr32Test,
+                         testing::ValuesIn(kChaCha20_ctr32_functions));
+
 #endif  // CHACHA20_ASM && SUPPORTS_ABI_TEST

@@ -32,6 +32,13 @@ void CRYPTO_hchacha20(uint8_t out[32], const uint8_t key[32],
      defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
 #define CHACHA20_ASM
 
+#if defined(OPENSSL_AARCH64)
+void ChaCha20_ctr32_nohw(uint8_t *out, const uint8_t *in, size_t in_len,
+                         const uint32_t key[8], const uint32_t counter[4]);
+void ChaCha20_ctr32_neon(uint8_t *out, const uint8_t *in, size_t in_len,
+                         const uint32_t key[8], const uint32_t counter[4]);
+#define CHACHA20_CTR32_NEON_LEN_MIN 192
+#else
 // ChaCha20_ctr32 encrypts |in_len| bytes from |in| and writes the result to
 // |out|. If |in| and |out| alias, they must be equal.
 //
@@ -42,6 +49,8 @@ void CRYPTO_hchacha20(uint8_t out[32], const uint8_t key[32],
 // 64-bit and 32-bit counters.)
 void ChaCha20_ctr32(uint8_t *out, const uint8_t *in, size_t in_len,
                     const uint32_t key[8], const uint32_t counter[4]);
+#endif
+
 #endif
 
 
