@@ -155,7 +155,7 @@ uint8_t *SHA512_256(const uint8_t *data, size_t len,
   return out;
 }
 
-#if !defined(SHA512_ASM)
+#if !defined(SHA512_ASM) || defined(SHA_ASM_SPLIT)
 static void sha512_block_data_order(uint64_t *state, const uint8_t *in,
                                     size_t num_blocks);
 #endif
@@ -279,7 +279,16 @@ static int sha512_final_impl(uint8_t *out, size_t md_len, SHA512_CTX *sha) {
   return 1;
 }
 
-#ifndef SHA512_ASM
+#if defined(SHA_ASM_SPLIT)
+static void sha512_block_data_order(uint64_t *state, const uint8_t *in,
+                                    size_t num) {
+  if (OPENSSL_armcap_P & ARMV8_SHA512) {
+    sha512_block_data_order_hw(state, in, num);
+  } else {
+    sha512_block_data_order_nohw(state, in, num);
+  }
+}
+#elif !defined(SHA512_ASM)
 static const uint64_t K512[80] = {
     UINT64_C(0x428a2f98d728ae22), UINT64_C(0x7137449123ef65cd),
     UINT64_C(0xb5c0fbcfec4d3b2f), UINT64_C(0xe9b5dba58189dbbc),
