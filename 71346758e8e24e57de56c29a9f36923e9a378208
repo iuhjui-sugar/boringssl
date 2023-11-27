@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4984a9d9_ca05362c",
+        "filename": "pki/verify_signed_data.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-27T16:39:37Z",
+      "side": 1,
+      "message": "We really should just solve https://crbug.com/boringssl/38.\n\nPerhaps add a TODO like:\n\n// TODO(crbug.com/boringssl/38): Remove this when the library is more robust to leaving things in the error queue.\n\n(To that end, I kinda wonder if we *want* to leave things in the error queue. The rest of the library uses the error queue to report additional errors. Though I guess this API is very different...)",
+      "revId": "71346758e8e24e57de56c29a9f36923e9a378208",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03bb260f_ef597a37",
+        "filename": "pki/verify_signed_data.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-27T16:39:37Z",
+      "side": 1,
+      "message": "Don\u0027t think we need the explicit default constructor, actually. Suspect it doesn\u0027t do anything.",
+      "revId": "71346758e8e24e57de56c29a9f36923e9a378208",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
