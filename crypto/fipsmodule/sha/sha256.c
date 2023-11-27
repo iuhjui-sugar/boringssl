@@ -114,7 +114,7 @@ uint8_t *SHA256(const uint8_t *data, size_t len,
   return out;
 }
 
-#ifndef SHA256_ASM
+#if !defined(SHA256_ASM) || defined(SHA_ASM_SPLIT)
 static void sha256_block_data_order(uint32_t *state, const uint8_t *in,
                                     size_t num);
 #endif
@@ -172,7 +172,16 @@ int SHA224_Final(uint8_t out[SHA224_DIGEST_LENGTH], SHA256_CTX *ctx) {
   return sha256_final_impl(out, SHA224_DIGEST_LENGTH, ctx);
 }
 
-#ifndef SHA256_ASM
+#if defined(SHA_ASM_SPLIT)
+static void sha256_block_data_order(uint32_t *state, const uint8_t *in,
+                                    size_t num) {
+  if ((OPENSSL_get_armcap() & ARMV8_SHA256) != 0) {
+    sha256_block_data_order_hw(state, in, num);
+  } else {
+    sha256_block_data_order_nohw(state, in, num);
+  }
+}
+#elif !defined(SHA256_ASM)
 static const uint32_t K256[64] = {
     0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL, 0x3956c25bUL,
     0x59f111f1UL, 0x923f82a4UL, 0xab1c5ed5UL, 0xd807aa98UL, 0x12835b01UL,

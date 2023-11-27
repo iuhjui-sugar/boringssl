@@ -28,12 +28,31 @@ extern "C" {
 #define SHA1_ASM
 #define SHA256_ASM
 #define SHA512_ASM
+#if defined(OPENSSL_AARCH64)
+#define SHA_ASM_SPLIT
+#endif
+
+#if defined(SHA_ASM_SPLIT)
+void sha1_block_data_order_hw(uint32_t *state, const uint8_t *data,
+                              size_t num);
+void sha1_block_data_order_nohw(uint32_t *state, const uint8_t *data,
+                                size_t num);
+void sha256_block_data_order_hw(uint32_t *state, const uint8_t *data,
+                                size_t num);
+void sha256_block_data_order_nohw(uint32_t *state, const uint8_t *data,
+                                  size_t num);
+void sha512_block_data_order_hw(uint64_t *state, const uint8_t *data,
+                                size_t num);
+void sha512_block_data_order_nohw(uint64_t *state, const uint8_t *data,
+                                  size_t num);
+#else
 void sha1_block_data_order(uint32_t *state, const uint8_t *in,
                            size_t num_blocks);
 void sha256_block_data_order(uint32_t *state, const uint8_t *in,
                              size_t num_blocks);
 void sha512_block_data_order(uint64_t *state, const uint8_t *in,
                              size_t num_blocks);
+#endif
 #endif
 
 
