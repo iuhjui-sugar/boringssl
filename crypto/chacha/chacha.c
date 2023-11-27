@@ -112,6 +112,18 @@ void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
   }
 }
 
+#if defined(OPENSSL_AARCH64)
+void ChaCha20_ctr32(uint8_t *out, const uint8_t *in, size_t in_len,
+                    const uint32_t key[8], const uint32_t counter[4])
+{
+  if (in_len >= CHACHA20_CTR32_NEON_LEN_MIN && CRYPTO_is_NEON_capable()) {
+    ChaCha20_ctr32_neon(out, in, in_len, key, counter);
+    return;
+  }
+  ChaCha20_ctr32_fallback(out, in, in_len, key, counter);
+}
+#endif
+
 #else
 
 // chacha_core performs 20 rounds of ChaCha on the input words in

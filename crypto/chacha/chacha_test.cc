@@ -348,23 +348,53 @@ TEST(ChaChaTest, CounterOverflow) {
 }
 
 #if defined(CHACHA20_ASM) && defined(SUPPORTS_ABI_TEST)
-TEST(ChaChaTest, ABI) {
+typedef void (*ChaCha20_ctr32_f)(
+    uint8_t *out, const uint8_t *in, size_t in_len,
+    const uint32_t key[8], const uint32_t counter[4]);
+
+class ChaChaCtr32Test : public testing::TestWithParam<ChaCha20_ctr32_f> {};
+
+TEST_P(ChaChaCtr32Test, ABI) {
   uint32_t key[8];
   OPENSSL_memcpy(key, kKey, sizeof(key));
+
+  ChaCha20_ctr32_f chacha20_ctr32 = GetParam();
 
   static const uint32_t kCounterNonce[4] = {0};
 
   auto buf = std::make_unique<uint8_t[]>(sizeof(kInput));
-  for (size_t len = 0; len <= 32; len++) {
-    SCOPED_TRACE(len);
-    CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len, key, kCounterNonce);
+    for (size_t len = 0; len <= 32; len++) {
+      SCOPED_TRACE(len);
+      if (chacha20_ctr32 != ChaCha20_ctr32_neon ||
+          len >= ChaCha20_CTR32_NEON_LEN_MIN) {
+        CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len, key, kCounterNonce);
+      }
+    }
   }
 
   for (size_t len : {32 * 2, 32 * 4, 32 * 8, 32 * 16, 32 * 24}) {
-    SCOPED_TRACE(len);
-    CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len, key, kCounterNonce);
-    // Cover the partial block paths.
-    CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len + 15, key, kCounterNonce);
+    if (chacha20_ctr32 != ChaCha20_ctr32_neon ||
+        len >= ChaCha20_CTR32_NEON_LEN_MIN) {
+      SCOPED_TRACE(len);
+      CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len, key, kCounterNonce);
+      // Cover the partial block paths.
+      CHECK_ABI(ChaCha20_ctr32, buf.get(), kInput, len + 15, key,
+                kCounterNonce);
+    }
   }
 }
+
+const ChaCha20_ctr32_f kChaCha20_ctr32_functions[] = {
+#if defined(OPENSSL_AARCH64)
+    ChaCha20_ctr32_fallback,
+    ChaCha20_ctr32_neon,
+#else
+    ChaCha20_ctr32,
+#endif
+};
+
+INSTANTIATE_TEST_SUITE_P(All, ChaChaCtr32Test,
+                         testing::ValuesIn(kChaCha20_ctr32_functions));
+
+
 #endif  // CHACHA20_ASM && SUPPORTS_ABI_TEST
