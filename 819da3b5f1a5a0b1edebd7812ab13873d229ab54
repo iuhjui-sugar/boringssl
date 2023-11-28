@@ -46,6 +46,30 @@
       },
       "revId": "819da3b5f1a5a0b1edebd7812ab13873d229ab54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2eab8d4_00c33e0d",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T16:44:36Z",
+      "side": 1,
+      "message": "TBH I also think DVLOG\u0027s ad-hoc numbers are a bit questionable, but at least that\u0027s all within the bounds of one project, rather than an API boundary across projects. :-)",
+      "parentUuid": "a2a96ffe_3c53418c",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 111,
+        "endChar": 42
+      },
+      "revId": "819da3b5f1a5a0b1edebd7812ab13873d229ab54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
