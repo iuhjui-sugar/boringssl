@@ -16,6 +16,81 @@
       "message": "Yeah, ok, I know naming is the worst darn thing to bikeshed on but \"SPLIT\" doesn\u0027t really do it for me, maybe \"_HW\" - but probably a tiny little comment in here explaining what the define sets up.",
       "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af1b445_d1583bfd",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T22:52:47Z",
+      "side": 1,
+      "message": "We usually name these after the functions they provide, so `SHA_ASM_HW` makes some sense.\n\nIf we kept the `_nohw` ones unsuffixed, that would further match the convention, but I guess that makes the C side kinda annoying because we\u0027d squat the unsuffixed name.\n\nBut this abstraction seems also a little odd...\n\n* For aarch64, it happens that all three go split together, but that wasn\u0027t true until somewhat recently, when we added SHA-512 assembly.\n* For armv7, the split is not universal\n* For non-Arm platforms, we will, I assume need a split, but the capability check is different.",
+      "parentUuid": "a45f67b5_ec1bb1e2",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff98d3fd_868361b7",
+        "filename": "crypto/fipsmodule/sha/sha1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T22:52:47Z",
+      "side": 1,
+      "message": "C code should never access these capabilities directly. That won\u0027t interact correctly with `CRYPTO_library_init` and static capabilities. Instead, add companion functions to `CRYPTO_is_ARMv8_AES_capable` in `crypto/internal.h` and call that.",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6fefc5_6b55e074",
+        "filename": "crypto/fipsmodule/sha/sha_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T22:52:47Z",
+      "side": 1,
+      "message": "s/Sha/SHA/\n\nDitto for the others.",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 23
+      },
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13f98053_703edc9f",
+        "filename": "crypto/fipsmodule/sha/sha_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T22:52:47Z",
+      "side": 1,
+      "message": "This will fail if the host device doesn\u0027t support the CPU feature. Instead, this should work like the other ABI tests, where the tests correctly condition themselves on what the function needs.",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
