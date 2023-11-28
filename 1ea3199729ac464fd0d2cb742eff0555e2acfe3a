@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "146a6b43_f7dcde8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-11-28T23:57:27Z",
+      "side": 1,
+      "message": "Did a first pass, but haven\u0027t yet checked it against the spec",
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525969eb_1333a45a",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-11-28T23:57:27Z",
+      "side": 1,
+      "message": "Should we use BoringSSL\u0027s internal.h constant_time_compare function for this instead?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 35
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0860ba4_2a6a1a1e",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-11-28T23:57:27Z",
+      "side": 1,
+      "message": "Do we need inplace versions of these or is the additional copy always okay?",
+      "range": {
+        "startLine": 169,
+        "startChar": 12,
+        "endLine": 169,
+        "endChar": 22
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2ba012e_b2a59764",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-11-28T23:57:27Z",
+      "side": 1,
+      "message": "internal.h constant_time functions",
+      "range": {
+        "startLine": 330,
+        "startChar": 2,
+        "endLine": 333,
+        "endChar": 45
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ebe27c4_6d1a4da7",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-11-28T23:57:27Z",
+      "side": 1,
+      "message": "Maybe we should write the human readable formula in the comment as well",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 53
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
