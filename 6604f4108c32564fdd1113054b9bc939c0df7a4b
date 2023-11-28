@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac06976_9461eb03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-28T00:42:15Z",
+      "side": 1,
+      "message": "I think this is uncontroversial given previous discussions. I will submit the analogous changes for the rest of the AAarch64 assembly right after this is done. I also intend to do the same for x86-64, at least.",
+      "revId": "6604f4108c32564fdd1113054b9bc939c0df7a4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
