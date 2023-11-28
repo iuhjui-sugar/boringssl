@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2215dfb_22f59b5c",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-28T23:25:26Z",
+      "side": 1,
+      "message": "\u003e If we kept the _nohw ones unsuffixed, that would further match the convention, but I guess that makes the C side kinda annoying because we\u0027d squat the unsuffixed name.\n\nWe need the unsuffixed name to be used for the function that does the dispatching, as there are many callers of `shaXXX_block_data_order`. \n\nExactly because each architectures\u0027 implementation will get split differently, I chose the suffix `_SPLIT` instead of `_HW`. My intention is to do all of sha{1,256,512}_block_data_order per architecture (now Aarch64, next x86-64).\n\nSince we need to change the coverage test in a way that\u0027s going to require more conditional-on-target-arch logic anyway, I\u0027ll work on that and the x86-64 a bit and see if a better solution comes to me in the process.",
+      "parentUuid": "5af1b445_d1583bfd",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff98d3fd_868361b7",
         "filename": "crypto/fipsmodule/sha/sha1.c",
         "patchSetId": 1
