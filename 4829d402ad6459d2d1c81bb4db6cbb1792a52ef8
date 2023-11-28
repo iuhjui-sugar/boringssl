@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a45f67b5_ec1bb1e2",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-28T22:09:24Z",
+      "side": 1,
+      "message": "Yeah, ok, I know naming is the worst darn thing to bikeshed on but \"SPLIT\" doesn\u0027t really do it for me, maybe \"_HW\" - but probably a tiny little comment in here explaining what the define sets up.",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
