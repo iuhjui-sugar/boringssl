@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af93750a_cf974420",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T23:53:56Z",
+      "side": 1,
+      "message": "\u003e WDYT about these comments? I found this a bit easier to follow.\n\u003e https://boringssl-review.googlesource.com/c/boringssl/+/64267\n\nIn particular, I stopped talking about thresholds and instead about starting iteration. I think the original language around a threshold contributed a bit to the confusion... the threshold idea was that this was where the perf switched over, so my original generic code tried to find the first iteration that crossed that threshold. But I think once we\u0027ve picked a threshold, it\u0027s easier to think about the iteration.\n\n(I dropped the bit about Hamming weight because I don\u0027t think it\u0027s *quite* 1:1. The deferred double is just the one doubling, but the undeferred one influences the cost of squaring, because we\u0027re still at the stage where squaring is faster done by N doubles.)",
+      "parentUuid": "467c75d8_f18fe99b",
+      "range": {
+        "startLine": 182,
+        "startChar": 73,
+        "endLine": 182,
+        "endChar": 76
+      },
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95371f67_5f03d686",
         "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
         "patchSetId": 6
