@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f425fce_03c49179",
+        "filename": "crypto/chacha/chacha_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-28T23:07:07Z",
+      "side": 1,
+      "message": "If we were implementing an OS kernel then we might not be able to use NEON even if it is available in the CPU; see `kernel_neon_begin()`/`kernel_neon_end()` in the Linux Kernel.\n\nHowever, do we need to consider that case here? Do we actually have test coverage of any only-if-NEON-isn\u0027t-available AArch64 assembly code paths?\n\nNow I\u0027m thinking I should just delete the non-NEON assembly implementation and implement the fallback logic so that it falls back to the C implementation if NEON isn\u0027t available. At least the C implementation is tested through the NO_ASM configuration. WDYT?",
+      "parentUuid": "bf214d7f_782d1a90",
+      "revId": "56f9af40d9d0653de4597ac2a518e201ffeefceb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31864daa_ccc17fe3",
         "filename": "crypto/chacha/internal.h",
         "patchSetId": 5
