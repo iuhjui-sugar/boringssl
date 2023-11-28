@@ -179,46 +179,36 @@ int bn_mont_ctx_set_RR_consttime(BN_MONT_CTX *mont, BN_CTX *ctx) {
   // Montgomery domain, 2R or 2^(lgBigR+1), and then use Montgomery
   // square-and-multiply to exponentiate.
   //
-  // Assume we start the square-and-multiply exponentiation with base of 2^t.
-  // We will only be squaring or multiply by 2^t so the accumulator will always
-  // be a power of 2, 2^n for some n. The square step takes 2^n R to 2^(2n) R.
-  // This is equivalent to doubling n times. The multiply step takes the result
-  // of the squaring from 2^(2n) R to 2^(2n + t) R. This is equivalent to
-  // doubling t times. (Note that n grows each iteration, but t stays the same.)
-  // When t is below some threshold, doubling t times is faster than squaring.
-  // When above, squaring is faster.
+  // This would consist of Montgomery square steps (2^n R to 2^2n R), and
+  // Montgomery multiply steps (2^n R to 2^(n+1) R). The Montgomery multiply
+  // steps are equivalent to doubling, which is always more efficient. The
+  // Montgomery square steps are equivalent to doubling n times. In early
+  // iterations of the loop, when n is smaller, doubling is better. At some
+  // iteration, n is large enough that Montgomery squaring is better.
   //
-  // We double to this threshold, then switch to Montgomery squaring. From
-  // benchmarking various 32-bit and 64-bit architectures, the word count seems
-  // to work well as a threshold. (Doubling scales linearly and Montgomery
-  // reduction scales quadratically, so the threshold should scale roughly
-  // linearly.)
+  // We thus double to until around that iteration, then switch to Montgomery
+  // squaring. From benchmarking various 32-bit and 64-bit architectures, it
+  // works well to switch when the result hits 2^width R. (Doubling scales
+  // linearly and Montgomery squaring scales quadratically, so it makes sense
+  // for the ideal starting value to scale linearly.)
   //
-  // It is especially nice to use the word count as the threshold because then
-  // all the remaining bits of the exponent are all zero, so no multiplications
-  // will be needed in the square-and-multiply stage. If we were to use a
-  // lower threshold so that multiplications would be needed, we could do t
-  // doublings instead of each multiplication. But that would mean that reducing
-  // the threshold by x would save x doublings initially but then cost hx
-  // doublings later, where h is the Hamming weight of the x lowest bits of
-  // mont->N.width.
+  // lgBigR = width * BN_BITS2, so at this point we have only BN_BITS2_LG
+  // Montgomery square steps remaining. This is especially nice because we have
+  // no Montgomery multiply steps.
   unsigned t = mont->N.width;
 
-  // Calculate 2*R = 2*2^t by doubling, starting from 2^(n_bits - 1).
+  // Calculate 2^t R = 2^(t + lgBigR) by doubling, starting from 2^(n_bits - 1).
   if (!BN_set_bit(&mont->RR, n_bits - 1) ||
-      !bn_mod_lshift_consttime(&mont->RR, &mont->RR,
-                               t + (lgBigR - (n_bits - 1)),
+      !bn_mod_lshift_consttime(&mont->RR, &mont->RR, t + lgBigR - (n_bits - 1),
                                &mont->N, ctx)) {
     return 0;
   }
 
-  // Calculate R^R from (2*R)^t by squaring,
-  //    ((2*R)^t)^(2^BN_BITS2_LG)
-  // =  ((2*R)^t)^(BN_BITS2)
-  // =   (2*R)^(t*BN_BITS2)
-  // =   (2*R)^lgBigR
-  // =   (2^lgBigR)R
-  // =   RR
+  // Perform the remaining Montgomery square steps. This computes:
+  //   2^(t * 2^BN_BITS2_LG) R
+  // = 2^(t * BN_BITS2) R
+  // = 2^(lgBigR) R
+  // = RR
   for (unsigned i = 0; i < BN_BITS2_LG; i++) {
     if (!BN_mod_mul_montgomery(&mont->RR, &mont->RR, &mont->RR, mont, ctx)) {
       return 0;
