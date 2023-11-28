@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31864daa_ccc17fe3",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-28T22:10:37Z",
+      "side": 1,
+      "message": "maybe just \"hw\" just like the followon cl?",
+      "range": {
+        "startLine": 38,
+        "startChar": 20,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "56f9af40d9d0653de4597ac2a518e201ffeefceb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
