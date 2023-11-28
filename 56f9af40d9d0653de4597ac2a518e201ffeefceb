@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf214d7f_782d1a90",
+        "filename": "crypto/chacha/chacha_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T22:54:54Z",
+      "side": 1,
+      "message": "This is somewhat moot because aarch64 (or, rather, Armv8-A) always has NEON, but ideally we\u0027d do a capability check here too.",
+      "revId": "56f9af40d9d0653de4597ac2a518e201ffeefceb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31864daa_ccc17fe3",
         "filename": "crypto/chacha/internal.h",
         "patchSetId": 5
