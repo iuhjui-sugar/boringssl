@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47964997_fd993611",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-28T23:36:44Z",
+      "side": 1,
+      "message": "And we still haven\u0027t decided that if your armv7 doesn\u0027t have neon it can just do it in C... right?",
+      "parentUuid": "d2215dfb_22f59b5c",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff98d3fd_868361b7",
         "filename": "crypto/fipsmodule/sha/sha1.c",
         "patchSetId": 1
