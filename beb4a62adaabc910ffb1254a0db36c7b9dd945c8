@@ -18,6 +18,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c945498a_3c9a5281",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T23:48:23Z",
+      "side": 1,
+      "message": "Sorry about the slow response. Between IETF and Thanksgiving, I\u0027ve been all over the place.",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42a3b720_7311274c",
@@ -55,6 +72,30 @@
       "side": 1,
       "message": "You are right that it doesn\u0027t work for general thresholds. There is no one right way to write this code that works for every threshold AND where we don\u0027t end up with dead code that we can\u0027t test for certain thresholds. I\u0027ve chosen here to get rid of the dead untestable logic over having a general solution.\n\nThere is somewhat of an inherent reason that the threshold is related to the word count. n iterations of the squaring loop are equivalent to 2**n * t doublings. lgBigR \u003d 2**BN_BITS2_LG * width. And like you noted, as the number of limbs grow, the big-O complexity analysis favors doing more doublings.\n\nRegarding the base of the exponentiation: We are trying to compute 2^(width * BN_BITS2). That is equivalent of (2^width)^BN_BITS2. I.e. first we do one exponentiation by doubling, to determine a new base for a second exponentiation by squaring.",
       "parentUuid": "42a3b720_7311274c",
+      "range": {
+        "startLine": 182,
+        "startChar": 73,
+        "endLine": 182,
+        "endChar": 76
+      },
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "467c75d8_f18fe99b",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T23:48:23Z",
+      "side": 1,
+      "message": "\u003e You are right that it doesn\u0027t work for general thresholds. There is no one right way to write this code that works for every threshold AND where we don\u0027t end up with dead code that we can\u0027t test for certain thresholds. I\u0027ve chosen here to get rid of the dead untestable logic over having a general solution.\n\nOh, none of this was a comment about the changes to the C code. That all makes sense to me. But I think the comments should explain how we got here, and without reasoning through the general case, you cannot understand the specialization.\n\nThe CL\u0027s comment isn\u0027t even self-consistent. The first paragraph says \"We can compute 2 in the Montgomery domain, 2R or 2^(lgBigR+1), and then use Montgomery square-and-multiply to exponentiate\". Then it immediately switches to a different base, but we\u0027ve already established 2 as the base.\n\n\u003e Regarding the base of the exponentiation: We are trying to compute 2^(width * BN_BITS2). That is equivalent of (2^width)^BN_BITS2. I.e. first we do one exponentiation by doubling, to determine a new base for a second exponentiation by squaring.\n\nAhhhh, *that\u0027s* how you were thinking about it! Okay, that\u0027s the disconnect.\n\nI see this as `mod_exp_mont(to_mont(2), width * BN_BITS2)` but starting the loop later.\n\nIt sounds like you see this as `mod_exp_mont(to_mont(2^width), BN_BITS2)`.\n\nI think I prefer my formulation because *if* it happened that the correct threshold were lower, or the exponent were different, it may not be the case that we could find a tidy divisor of `width * BN_BITS2` to do this transformation. E.g. if we happened to be trying to compute `2^(width * BN_BITS2 + 1)`, my formulation would generalize fine, whereas yours would not.\n\n(Of course, for some exponents, I suspect we can come up with an even better addition chain, but all these exponentiation methods are just to approximate the optimal addition chain anyway.)\n\nMore importantly, I think this other formulation requires some circular reasoning. To know this transform is at the right spot, you first have to think about the general case and go backwards.\n\nWDYT about these comments? I found this a bit easier to follow.\nhttps://boringssl-review.googlesource.com/c/boringssl/+/64267",
+      "parentUuid": "fba44f3d_33ba3cac",
       "range": {
         "startLine": 182,
         "startChar": 73,
@@ -113,6 +154,24 @@
       "side": 1,
       "message": "David, would you prefer me to submit the C equivalent of https://github.com/briansmith/ring/pull/1806? Or, do you prefer me to iterate on what\u0027s here? Or something else?",
       "parentUuid": "b3ae7f9a_f2abd335",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdee721e_84caa82a",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-28T23:48:23Z",
+      "side": 1,
+      "message": "(Per above, this was just referring to the comments, not the code.)",
+      "parentUuid": "39d96544_1d0aa425",
       "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
