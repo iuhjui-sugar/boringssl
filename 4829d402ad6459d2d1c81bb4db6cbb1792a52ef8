@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be7a78a7_246a813d",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-28T23:41:56Z",
+      "side": 1,
+      "message": "\u003eIf we kept the _nohw ones unsuffixed, that would further match the convention, but I guess that makes the C side kinda annoying because we\u0027d squat the unsuffixed name.\n\nor we do\n\nfoo_bar_baz_asm\n\nfor generic assembly implementations and\n\nfoo_bar_baz_asm_[hw|accel]\n\nfor hw accellerated.",
+      "parentUuid": "47964997_fd993611",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff98d3fd_868361b7",
         "filename": "crypto/fipsmodule/sha/sha1.c",
         "patchSetId": 1
