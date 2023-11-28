@@ -22,6 +22,30 @@
       },
       "revId": "819da3b5f1a5a0b1edebd7812ab13873d229ab54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2a96ffe_3c53418c",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-28T16:38:54Z",
+      "side": 1,
+      "message": "The same way the caller would know what levels apply to what with DVLOG (and I\u0027m using the same \"numbers\" in this case)\nI am mirroring DVLOG\u0027s log level functionality here, which seems like it might be \ngenerally useful, but if we don\u0027t think it could be, sure we could prune it back\nmore and just remove the level. \n\nI\u0027m on the fence, so I\u0027ll wait for Matt\u0027s opinion :)",
+      "parentUuid": "c9368491_12e3a968",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 111,
+        "endChar": 42
+      },
+      "revId": "819da3b5f1a5a0b1edebd7812ab13873d229ab54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
