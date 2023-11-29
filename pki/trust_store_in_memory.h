@@ -55,6 +55,8 @@ class OPENSSL_EXPORT TrustStoreInMemory : public TrustStore {
   void AddDistrustedCertificateForTest(
       std::shared_ptr<const ParsedCertificate> cert);
 
+  // Distrust the SPKI on the certificate. Only the SPKI will be used during
+  // verification.
   void AddDistrustedCertificateBySPKI(
       std::shared_ptr<const ParsedCertificate> cert);
 
@@ -84,7 +86,7 @@ class OPENSSL_EXPORT TrustStoreInMemory : public TrustStore {
   // Multimap from normalized subject -> Entry.
   std::unordered_multimap<std::string_view, Entry> entries_;
 
-  // Multimap from spki -> Entry
+  // Multimap from spki -> cert for distrusted SPKIs
   std::unordered_multimap<std::string_view,
     std::shared_ptr<const ParsedCertificate>> distrusted_spkis_;
 
