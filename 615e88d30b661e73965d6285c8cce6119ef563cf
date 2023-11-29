@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af8fa1ed_91026156",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2615,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T17:45:39Z",
+      "side": 1,
+      "message": "Mark this OPENSSL_DEPRECATED?  (and corresponding upadate-note?)",
+      "range": {
+        "startLine": 2615,
+        "startChar": 0,
+        "endLine": 2615,
+        "endChar": 64
+      },
+      "revId": "615e88d30b661e73965d6285c8cce6119ef563cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
