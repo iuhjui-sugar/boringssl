@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98da96ee_c49ebff1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-11-29T20:17:11Z",
+      "side": 1,
+      "message": "This seems like a generally useful enough thing so I\u0027m not opposed to putting it in the library.",
+      "parentUuid": "e5f8ad78_1fa498e1",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed3a6dca_6594c552",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8d1a966_2a8dd32c",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-11-29T20:17:11Z",
+      "side": 1,
+      "message": "That seems reasonable to me too (though it intersects a bit with the other comment)",
+      "parentUuid": "ed3a6dca_6594c552",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55ff4c9e_4b67ac66",
         "filename": "pki/trust_store_in_memory.h",
         "patchSetId": 2
@@ -65,6 +101,30 @@
       "writtenOn": "2023-11-29T19:25:51Z",
       "side": 1,
       "message": "Do we actually need to retain the certs? It seems a `std::unordered_set\u003cstd::string_view\u003e` would be enough.",
+      "range": {
+        "startLine": 91,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "023f7743_a5b49b16",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-11-29T20:17:11Z",
+      "side": 1,
+      "message": "If you make it a set of string_view than you\u0027re depending on the caller ensuring that the memory has the same lifetime, which is a bit of an iffy API.\n\nI guess you could have an API that takes a string_view for the SPKI and a CRYPTO_BUFFER handle for the backing memory, which the caller could then point at either a full cert or just a lone SPKI? (Perhaps with a helper function that takes a ParsedCertificate and extracts both.)\n\nOr could store a SPKI hash and compare based on that?",
+      "parentUuid": "55ff4c9e_4b67ac66",
       "range": {
         "startLine": 91,
         "startChar": 5,
