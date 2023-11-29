@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c1812e9_77d55840",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T19:25:51Z",
+      "side": 1,
+      "message": "Mind tweaking the CL description? 😊\n\nIf you want to attach to a bug, the same `Bug: 12345` from Chromium works except that the default is the BoringSSL project, so just write `Bug: chromium:12345` for Chromium.",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5f8ad78_1fa498e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T19:25:51Z",
+      "side": 1,
+      "message": "Matt and Bob are probably better reviewers for this directory than me. I\u0027ve not spent a whole lot of time here.\n\n(In particular, we don\u0027t *strictly* need to do this in the library. We could just have Chromium implement whatever TrustStore it wants. No strong feelings as to which side of the divide would be most convenient here.)",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed3a6dca_6594c552",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T19:25:51Z",
+      "side": 1,
+      "message": "Would it be better to take just the SPKI and leave it to the caller to extract it from the certificate? Then we can specify SPKIs not just by certificate.",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55ff4c9e_4b67ac66",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T19:25:51Z",
+      "side": 1,
+      "message": "Do we actually need to retain the certs? It seems a `std::unordered_set\u003cstd::string_view\u003e` would be enough.",
+      "range": {
+        "startLine": 91,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
