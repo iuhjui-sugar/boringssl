@@ -16,6 +16,24 @@
       "message": "Nit: Maybe move this a few lines down. We\u0027re well past C89 now and prefer to declare variables whether they\u0027re defined. :-)",
       "revId": "8784b840d1ba40c7b818c7f8ed46479076f12ac2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57923440_7567cac1",
+        "filename": "crypto/x509/by_file.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T22:05:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1758a9e0_f3ef0ba8",
+      "revId": "8784b840d1ba40c7b818c7f8ed46479076f12ac2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
