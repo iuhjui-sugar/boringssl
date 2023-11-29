@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76bb9634_5e1b4ed9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T20:03:10Z",
+      "side": 1,
+      "message": "The joy of realizing free functions should be NULL safe...",
+      "revId": "98c730733ff4f3f8d947771f5eeee6bb0ee53b2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
