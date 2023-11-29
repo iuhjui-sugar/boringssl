@@ -22,6 +22,30 @@
       },
       "revId": "615e88d30b661e73965d6285c8cce6119ef563cf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3169cd6c_bea2b352",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2615,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T19:35:30Z",
+      "side": 1,
+      "message": "Eh. In terms of functions to knock out, this one\u0027s pretty tame. I\u0027m much more interested in knocking out all of rust-openssl\u0027s design flaws, but Rust is bad at consuming C functions, so it doesn\u0027t even pick that up.",
+      "parentUuid": "af8fa1ed_91026156",
+      "range": {
+        "startLine": 2615,
+        "startChar": 0,
+        "endLine": 2615,
+        "endChar": 64
+      },
+      "revId": "615e88d30b661e73965d6285c8cce6119ef563cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
