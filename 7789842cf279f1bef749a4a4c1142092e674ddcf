@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993bda12_55ab3fa9",
+        "filename": "include/openssl/x509v3_errors.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T17:53:55Z",
+      "side": 1,
+      "message": "As this is just constants, and this is a new file, why do we have an old\ncopyright header on this.. This should have the current google copyright with this year on it.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 69
+      },
+      "revId": "7789842cf279f1bef749a4a4c1142092e674ddcf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
