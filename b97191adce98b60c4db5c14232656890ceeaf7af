@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af12c4fd_62af8f75",
+        "filename": "crypto/fipsmodule/bn/add.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T21:04:31Z",
+      "side": 0,
+      "message": "Aliasing no longer matters because passing `a-\u003ed[i]` by value implicitly uses a temporary.",
+      "revId": "b97191adce98b60c4db5c14232656890ceeaf7af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
