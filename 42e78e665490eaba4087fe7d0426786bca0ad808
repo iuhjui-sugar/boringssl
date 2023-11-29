@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1a821046_6a7f2f76",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-11-29T20:36:33Z",
+      "side": 1,
+      "message": "all the other Add* functions take in a ParsedCertificate, so I decided to just copy the same thing. This includes AddTrustAnchor() where we\u0027re also only using the SPKI and subject.\n\nI think? Now that i look at AddTrustAnchor i\u0027m not sure how only the SPKI and subject are used during verification.\n\nalso there are the lifetime issues with string_views. I could just make copies but figured there was a reason not to do that.",
+      "parentUuid": "ed3a6dca_6594c552",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55ff4c9e_4b67ac66",
         "filename": "pki/trust_store_in_memory.h",
         "patchSetId": 2
@@ -125,6 +143,30 @@
       "side": 1,
       "message": "If you make it a set of string_view than you\u0027re depending on the caller ensuring that the memory has the same lifetime, which is a bit of an iffy API.\n\nI guess you could have an API that takes a string_view for the SPKI and a CRYPTO_BUFFER handle for the backing memory, which the caller could then point at either a full cert or just a lone SPKI? (Perhaps with a helper function that takes a ParsedCertificate and extracts both.)\n\nOr could store a SPKI hash and compare based on that?",
       "parentUuid": "55ff4c9e_4b67ac66",
+      "range": {
+        "startLine": 91,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8378b648_1044d58f",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-11-29T20:36:33Z",
+      "side": 1,
+      "message": "yeah I went with storing the certs because of the string_view ownership issues, plus i figured it was good for debugging (and it fit the pattern of everything else).\n\nHappy to entertain options, but I didn\u0027t see any reason to change this based on what the rest of the file\u0027s API looked like.",
+      "parentUuid": "023f7743_a5b49b16",
       "range": {
         "startLine": 91,
         "startChar": 5,
