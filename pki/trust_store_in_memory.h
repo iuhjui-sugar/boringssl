@@ -55,6 +55,9 @@ class OPENSSL_EXPORT TrustStoreInMemory : public TrustStore {
   void AddDistrustedCertificateForTest(
       std::shared_ptr<const ParsedCertificate> cert);
 
+  void AddDistrustedCertificateBySPKI(
+      std::shared_ptr<const ParsedCertificate> cert);
+
   // Adds a certificate to the store, that is neither trusted nor untrusted.
   void AddCertificateWithUnspecifiedTrust(
       std::shared_ptr<const ParsedCertificate> cert);
@@ -80,6 +83,10 @@ class OPENSSL_EXPORT TrustStoreInMemory : public TrustStore {
 
   // Multimap from normalized subject -> Entry.
   std::unordered_multimap<std::string_view, Entry> entries_;
+
+  // Multimap from spki -> Entry
+  std::unordered_multimap<std::string_view,
+    std::shared_ptr<const ParsedCertificate>> distrusted_spkis_;
 
   // Returns the `Entry` matching `cert`, or `nullptr` if not in the trust
   // store.
