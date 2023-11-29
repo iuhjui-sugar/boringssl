@@ -22,6 +22,30 @@
       },
       "revId": "f21704612e18b812def8e7abfaa5239c7e6c8c52",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd9e3640_a34343bf",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T21:57:22Z",
+      "side": 1,
+      "message": "The really silly thing is that, except for \"default\", which is weird (see https://boringssl-review.googlesource.com/c/boringssl/+/64253), these only exist to configure purpose and trust values. Moreover the corresponding trust value is already included in the purpose... except that whether the trust implied by a purpose is picked up is also very complicated. I haven\u0027t written all that down yet.",
+      "parentUuid": "9d9ec663_169d48ee",
+      "range": {
+        "startLine": 505,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 69
+      },
+      "revId": "f21704612e18b812def8e7abfaa5239c7e6c8c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
