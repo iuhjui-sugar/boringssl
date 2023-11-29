@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30adc92c_40fd3be4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T17:44:43Z",
+      "side": 1,
+      "message": "\"a bunch of unused X509_STORE callback functions\" - make it easier for someone who hits this.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 72
+      },
+      "revId": "84bb403072de46cb38f93c575d169496b1c643e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
