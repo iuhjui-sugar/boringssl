@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c191d3c_5e1b6ab3",
+        "filename": "crypto/x509/by_file.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T20:30:44Z",
+      "side": 1,
+      "message": "Since you made me read this reviewing this and my eyes got stuck rolling to the back of my head. \nhttps://boringssl-review.googlesource.com/c/boringssl/+/64327",
+      "revId": "18c9c1434c7a64ee8f7b93f048bbfc540109e2d7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
