@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "870e975b_41172c8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T22:16:32Z",
+      "side": 1,
+      "message": "This one survive a TGP? or you are just pretty sure from codesearch?",
+      "revId": "eb3ee72ee68855ed40ee4b6ee586c591c4a5538e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
