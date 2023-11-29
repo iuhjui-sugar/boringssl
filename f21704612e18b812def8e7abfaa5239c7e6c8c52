@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d9ec663_169d48ee",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-29T17:47:46Z",
+      "side": 1,
+      "message": "this is such a silly api... sigh.",
+      "range": {
+        "startLine": 505,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 69
+      },
+      "revId": "f21704612e18b812def8e7abfaa5239c7e6c8c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
