@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "758ccd9b_31d6b457",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-29T21:22:38Z",
+      "side": 1,
+      "message": "Amusingly, it seems to be a bit unclear what this does when it\u0027s not zero or one! But I think we\u0027re fine since we\u0027ve got the `assert`s.\nhttps://github.com/llvm/llvm-project/issues/63495",
+      "range": {
+        "startLine": 1146,
+        "startChar": 9,
+        "endLine": 1146,
+        "endChar": 36
+      },
+      "revId": "9791491c1a262a0e0ee90a3726c8a907187f9445",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
