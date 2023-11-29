@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77751e49_fb7a7d3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-11-29T23:07:45Z",
+      "side": 1,
+      "message": "TrustStoreInMemory",
+      "range": {
+        "startLine": 7,
+        "startChar": 24,
+        "endLine": 7,
+        "endChar": 44
+      },
+      "revId": "eb95f34b936a662523fe1ebddbec9abdc34e6be4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

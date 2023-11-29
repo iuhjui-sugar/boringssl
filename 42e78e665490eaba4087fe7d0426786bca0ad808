@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b2c0100_3f4e94b4",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-11-29T23:07:45Z",
+      "side": 1,
+      "message": "\u003e all the other Add* functions take in a ParsedCertificate, so I decided to just copy the same thing. This includes AddTrustAnchor() where we\u0027re also only using the SPKI and subject.\n\u003e \n\u003e I think? Now that i look at AddTrustAnchor i\u0027m not sure how only the SPKI and subject are used during verification.\n\nCould be worded better, but that is saying that during verification, the other parts of the certificate (like expiry and anchor constraints) won\u0027t be enforced. But the whole certificate is still used in path building and is returned as part of the cert chain, etc.\n\n\u003e also there are the lifetime issues with string_views. I could just make copies but figured there was a reason not to do that.",
+      "parentUuid": "1a821046_6a7f2f76",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55ff4c9e_4b67ac66",
         "filename": "pki/trust_store_in_memory.h",
         "patchSetId": 2
@@ -185,6 +203,30 @@
       "side": 1,
       "message": "yeah I went with storing the certs because of the string_view ownership issues, plus i figured it was good for debugging (and it fit the pattern of everything else).\n\nHappy to entertain options, but I didn\u0027t see any reason to change this based on what the rest of the file\u0027s API looked like.",
       "parentUuid": "023f7743_a5b49b16",
+      "range": {
+        "startLine": 91,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 44
+      },
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e17b9ed_98d14498",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-11-29T23:07:45Z",
+      "side": 1,
+      "message": "The other APIs actually need the whole certificate though, so matching it here isn\u0027t necessarily the right thing to do. There might be a case where the SPKIs to distrust are distributed only as the SPKI without the cert which would not be able to use this API.\n\nSince we\u0027re doing this in the library I think it makes more sense to think about the APIs more like a library would. If we were doing this in a separate TrustStore implementation in Chrome then just doing whatever minimum was needed at the moment and refactoring later could make more sense.\n\nAnd an option as I said you could still create a convenience wrapper that takes a ParsedCertificate...",
+      "parentUuid": "8378b648_1044d58f",
       "range": {
         "startLine": 91,
         "startChar": 5,
