@@ -57,6 +57,30 @@
       },
       "revId": "56f9af40d9d0653de4597ac2a518e201ffeefceb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "240c1d19_796cabd4",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T04:28:08Z",
+      "side": 1,
+      "message": "I think it\u0027s best to use \"_hw\" to refer to something more specific than some kind of SIMD instructions, to be analogous to with SHA- CL and with existing AES implementations.\n\nNote that also on X86-64 there are many different SIMD implementations, and in the future there probably will be many SIMD implementations for Aarch64 too. So, I do not intend to come up with a generic \"_SIMD\" or whatever name since no two SIMD instruction sets have the same feature set.",
+      "parentUuid": "31864daa_ccc17fe3",
+      "range": {
+        "startLine": 38,
+        "startChar": 20,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "56f9af40d9d0653de4597ac2a518e201ffeefceb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
