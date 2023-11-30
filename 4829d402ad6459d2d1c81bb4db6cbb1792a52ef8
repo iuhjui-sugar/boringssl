@@ -90,6 +90,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa1e80e_555921fb",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T18:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be7a78a7_246a813d",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff98d3fd_868361b7",
@@ -103,6 +121,24 @@
       "writtenOn": "2023-11-28T22:52:47Z",
       "side": 1,
       "message": "C code should never access these capabilities directly. That won\u0027t interact correctly with `CRYPTO_library_init` and static capabilities. Instead, add companion functions to `CRYPTO_is_ARMv8_AES_capable` in `crypto/internal.h` and call that.",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "090a46d8_b153f295",
+        "filename": "crypto/fipsmodule/sha/sha1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T18:28:27Z",
+      "side": 1,
+      "message": "PTAL at how I did it and see if that works well for you. Note that I intentionally avoided adding any static feature detection logic because static feature detection wasn\u0027t being done already and that should be handled separately in case there are issues. (I have had issues on the Rust side with static feature detection that warrant caution.)",
+      "parentUuid": "ff98d3fd_868361b7",
       "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -130,6 +166,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ecd7094_81ed6deb",
+        "filename": "crypto/fipsmodule/sha/sha_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T18:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a6fefc5_6b55e074",
+      "range": {
+        "startLine": 43,
+        "startChar": 19,
+        "endLine": 43,
+        "endChar": 23
+      },
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13f98053_703edc9f",
@@ -143,6 +203,24 @@
       "writtenOn": "2023-11-28T22:52:47Z",
       "side": 1,
       "message": "This will fail if the host device doesn\u0027t support the CPU feature. Instead, this should work like the other ABI tests, where the tests correctly condition themselves on what the function needs.",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eba8087d_c9365859",
+        "filename": "crypto/fipsmodule/sha/sha_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T18:28:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13f98053_703edc9f",
       "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
