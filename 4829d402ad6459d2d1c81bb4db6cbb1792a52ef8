@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "163e2692_30524f76",
+        "filename": "crypto/fipsmodule/sha/sha1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-30T18:38:05Z",
+      "side": 1,
+      "message": "I mean, right now this is about half static feature detection and half not, depending on which features we happened to already have, which just leaves things inconsistent. I\u0027d rather we not introduce an inconsistency and at least stick to having wrappers in crypto/internal.h. One place to look over the bits being correct, etc.\n\nAlthough adding the static feature detection half tends to be pretty straightforward. ACLE is well-defined and the GCC #defines for x86 tend to be self-explanatory.\n\n\u003e I have had issues on the Rust side with static feature detection that warrant caution.\n\nCould you elaborate on this? It\u0027s been pretty smooth sailing for us, at least with the patterns we\u0027ve established. Not sure what Rust is doing.",
+      "parentUuid": "090a46d8_b153f295",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a6fefc5_6b55e074",
         "filename": "crypto/fipsmodule/sha/sha_test.cc",
         "patchSetId": 1
