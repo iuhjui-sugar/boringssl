@@ -6,6 +6,7 @@
 #define BSSL_PKI_TRUST_STORE_IN_MEMORY_H_
 
 #include <unordered_map>
+#include <unordered_set>
 
 #include <openssl/base.h>
 
@@ -55,10 +56,8 @@ class OPENSSL_EXPORT TrustStoreInMemory : public TrustStore {
   void AddDistrustedCertificateForTest(
       std::shared_ptr<const ParsedCertificate> cert);
 
-  // Distrust the SPKI on the certificate. Only the SPKI will be used during
-  // verification.
-  void AddDistrustedCertificateBySPKI(
-      std::shared_ptr<const ParsedCertificate> cert);
+  // Distrust the SPKI.
+  void AddDistrustedCertificateBySPKI(const std::string spki);
 
   // Adds a certificate to the store, that is neither trusted nor untrusted.
   void AddCertificateWithUnspecifiedTrust(
@@ -86,9 +85,8 @@ class OPENSSL_EXPORT TrustStoreInMemory : public TrustStore {
   // Multimap from normalized subject -> Entry.
   std::unordered_multimap<std::string_view, Entry> entries_;
 
-  // Multimap from spki -> cert for distrusted SPKIs
-  std::unordered_multimap<std::string_view,
-    std::shared_ptr<const ParsedCertificate>> distrusted_spkis_;
+  // Set of distrusted SPKIs
+  std::unordered_set<std::string> distrusted_spkis_;
 
   // Returns the `Entry` matching `cert`, or `nullptr` if not in the trust
   // store.
