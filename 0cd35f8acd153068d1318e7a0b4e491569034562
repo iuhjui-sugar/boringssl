@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2618da_32817eaa",
+        "filename": "crypto/x509/by_file.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-30T18:42:41Z",
+      "side": 1,
+      "message": "Oh nice. I guess `X509_load_cert_crl_file` silently did the right thing anyway for non-PEM types. Okay then!",
+      "revId": "0cd35f8acd153068d1318e7a0b4e491569034562",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
