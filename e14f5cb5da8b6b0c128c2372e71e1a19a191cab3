@@ -34,6 +34,24 @@
       "parentUuid": "3fb5af94_cdd9199a",
       "revId": "e14f5cb5da8b6b0c128c2372e71e1a19a191cab3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "590eb049_47c3ac60",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-11-30T19:23:59Z",
+      "side": 1,
+      "message": "yeah much better that way.",
+      "parentUuid": "a997eefb_d3747058",
+      "revId": "e14f5cb5da8b6b0c128c2372e71e1a19a191cab3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
