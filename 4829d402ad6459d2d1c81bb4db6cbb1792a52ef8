@@ -181,6 +181,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "595f71b5_ad3651c8",
+        "filename": "crypto/fipsmodule/sha/sha1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T18:52:31Z",
+      "side": 1,
+      "message": "\u003e Although adding the static feature detection half tends to be pretty straightforward. ACLE is well-defined and the GCC #defines for x86 tend to be self-explanatory.\n\nYes. However, I did have false negatives in Rust-land where I had to implement workarounds for aarch64-apple-* because older versions of rustc (LLVM) didn\u0027t define the target to statically support some of these features. I don\u0027t have a great way of testing BoringSSL on the various targets to verify that everything we expect that all the ACLE defines are actually defined and also I don\u0027t know what your clang/LLVM requirements are. So I was thinking that keeping things \"the same as they already are\" would be good incremental progress while minimizing trouble. Regardless, I can make the change.",
+      "parentUuid": "81d04e99_03279d3d",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a6fefc5_6b55e074",
         "filename": "crypto/fipsmodule/sha/sha_test.cc",
         "patchSetId": 1
