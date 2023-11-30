@@ -197,6 +197,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "137b81f4_9c6ecb4b",
+        "filename": "crypto/fipsmodule/sha/sha1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T19:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "595f71b5_ad3651c8",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a6fefc5_6b55e074",
