@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81d04e99_03279d3d",
+        "filename": "crypto/fipsmodule/sha/sha1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-30T18:40:07Z",
+      "side": 1,
+      "message": "(On the Arm side, if a `OPENSSL_STATIC_ARMCAP_*` define exists, we should use that in addition with ACLE. But where it doesn\u0027t exist, I don\u0027t think we want to introduce new ones. Ideally we\u0027d get the folks setting `OPENSSL_STATIC_ARMCAP_*` to just tell the compiler what they are, and the ACLE works fine.)",
+      "parentUuid": "163e2692_30524f76",
+      "revId": "4829d402ad6459d2d1c81bb4db6cbb1792a52ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a6fefc5_6b55e074",
         "filename": "crypto/fipsmodule/sha/sha_test.cc",
         "patchSetId": 1
