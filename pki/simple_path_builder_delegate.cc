@@ -12,6 +12,7 @@
 #include <openssl/evp.h>
 #include <openssl/nid.h>
 #include <openssl/rsa.h>
+#include "bound_verification_time.h"
 #include "cert_error_params.h"
 #include "cert_errors.h"
 #include "signature_algorithm.h"
@@ -54,6 +55,10 @@ void SimplePathBuilderDelegate::CheckPathAfterVerification(
 bool SimplePathBuilderDelegate::IsDeadlineExpired() { return false; }
 
 SignatureVerifyCache *SimplePathBuilderDelegate::GetVerifyCache() {
+  return nullptr;
+}
+
+BoundVerificationTime *SimplePathBuilderDelegate::GetBoundVerificationTime() {
   return nullptr;
 }
 
