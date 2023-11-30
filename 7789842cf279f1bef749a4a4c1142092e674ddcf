@@ -22,6 +22,30 @@
       },
       "revId": "7789842cf279f1bef749a4a4c1142092e674ddcf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6e7841f_9dc1fbb6",
+        "filename": "include/openssl/x509v3_errors.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-30T16:08:19Z",
+      "side": 1,
+      "message": "Eh, we did this for `evp_errors.h` too, and is derived from the old x509v3.h. I just copy-pasted the block of errors.",
+      "parentUuid": "993bda12_55ab3fa9",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 69
+      },
+      "revId": "7789842cf279f1bef749a4a4c1142092e674ddcf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
