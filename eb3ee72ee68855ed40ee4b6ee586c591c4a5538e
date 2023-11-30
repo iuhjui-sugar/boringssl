@@ -16,6 +16,24 @@
       "message": "This one survive a TGP? or you are just pretty sure from codesearch?",
       "revId": "eb3ee72ee68855ed40ee4b6ee586c591c4a5538e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de2d025f_52136c3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-30T18:54:11Z",
+      "side": 1,
+      "message": "Code search. People basically never declare variables of X509_LOOKUP_METHOD. They (pretty reasonably) just pass the values straight into the other function.\n\nAlso I figure this is the sort of thing where, if we\u0027re wrong, it\u0027ll take us 5 minutes to undo the const-correctness. :-)",
+      "parentUuid": "870e975b_41172c8d",
+      "revId": "eb3ee72ee68855ed40ee4b6ee586c591c4a5538e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
