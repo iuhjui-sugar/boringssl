@@ -373,6 +373,7 @@ set(
   pki/pem.cc
   pki/revocation_util.cc
   pki/signature_algorithm.cc
+  pki/simple_bound_verification_time.cc
   pki/simple_path_builder_delegate.cc
   pki/string_util.cc
   pki/tag.cc

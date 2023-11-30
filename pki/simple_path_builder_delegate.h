@@ -9,6 +9,7 @@
 
 #include <openssl/base.h>
 
+#include "bound_verification_time.h"
 #include "path_builder.h"
 #include "signature_algorithm.h"
 #include "signature_verify_cache.h"
@@ -63,6 +64,9 @@ class OPENSSL_EXPORT SimplePathBuilderDelegate
 
   // No-op implementation.
   SignatureVerifyCache *GetVerifyCache() override;
+
+  // No-op implementation.
+  BoundVerificationTime *GetBoundVerificationTime() override;
 
  private:
   const size_t min_rsa_modulus_length_bits_;

@@ -11,6 +11,7 @@
 #include "cert_error_params.h"
 #include "cert_errors.h"
 #include "common_cert_errors.h"
+#include "encode_values.h"
 #include "extended_key_usage.h"
 #include "input.h"
 #include "name_constraints.h"
@@ -118,12 +119,34 @@ void VerifyNoUnconsumedCriticalExtensions(const ParsedCertificate &cert,
 //    The validity period for a certificate is the period of time from
 //    notBefore through notAfter, inclusive.
 void VerifyTimeValidity(const ParsedCertificate &cert,
-                        const der::GeneralizedTime &time, CertErrors *errors) {
-  if (time < cert.tbs().validity_not_before) {
+                        const der::GeneralizedTime &time, CertErrors *errors,
+                        BoundVerificationTime *bound_verification_time) {
+  der::GeneralizedTime verification_time = time;
+  if (bound_verification_time) {
+    int64_t posix_verification_time = INT64_MIN;
+    int64_t converted_time;
+    if (GeneralizedTimeToPosixTime(time, &converted_time)) {
+      int64_t bounded_posix_time =
+          bound_verification_time->BoundTime(converted_time);
+      if (bounded_posix_time != converted_time) {
+        // time to use is different than |time|.
+        posix_verification_time = bounded_posix_time;
+      }
+    }
+    // If we have a replacement time value, encode it for use.
+    if (posix_verification_time > INT64_MIN &&
+        !EncodePosixTimeAsGeneralizedTime(posix_verification_time,
+                                          &verification_time)) {
+      // This should be impossible since GeneralizedTime can't be out of
+      // range.
+      verification_time = time;
+    }
+  }
+  if (verification_time < cert.tbs().validity_not_before) {
     errors->AddError(cert_errors::kValidityFailedNotBefore);
   }
 
-  if (cert.tbs().validity_not_after < time) {
+  if (cert.tbs().validity_not_after < verification_time) {
     errors->AddError(cert_errors::kValidityFailedNotAfter);
   }
 }
@@ -1051,7 +1074,7 @@ void PathVerifier::BasicCertificateProcessing(
   // Check the time range for the certificate's validity, ensuring it is valid
   // at |time|.
   // (RFC 5280 section 6.1.3 step a.2)
-  VerifyTimeValidity(cert, time, errors);
+  VerifyTimeValidity(cert, time, errors, delegate_->GetBoundVerificationTime());
 
   // RFC 5280 section 6.1.3 step a.3 calls for checking the certificate's
   // revocation status here. In this implementation revocation checking is
@@ -1380,7 +1403,8 @@ void PathVerifier::ProcessRootCertificate(const ParsedCertificate &cert,
   }
 
   if (trust.enforce_anchor_expiry) {
-    VerifyTimeValidity(cert, time, errors);
+    VerifyTimeValidity(cert, time, errors,
+                       delegate_->GetBoundVerificationTime());
   }
   if (trust.enforce_anchor_constraints) {
     if (trust.require_anchor_basic_constraints &&
@@ -1444,7 +1468,7 @@ void PathVerifier::ProcessSingleCertChain(const ParsedCertificate &cert,
   // certificate, so this is basically just checking common sense things that
   // also mirror what we observed to be enforced with the Operating System
   // native verifiers.
-  VerifyTimeValidity(cert, time, errors);
+  VerifyTimeValidity(cert, time, errors, delegate_->GetBoundVerificationTime());
   VerifyExtendedKeyUsage(cert, required_key_purpose, errors,
                          /*is_target_cert=*/true,
                          /*is_target_cert_issuer=*/false);
