@@ -16,6 +16,24 @@
       "message": "Can\u0027t we just shove all these in one file that is included in the relevant places, (to make it easier not to screw this up?)",
       "revId": "e14f5cb5da8b6b0c128c2372e71e1a19a191cab3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a997eefb_d3747058",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-11-30T19:20:14Z",
+      "side": 1,
+      "message": "I mean, they are already in the same file. :-) I don\u0027t think there\u0027s anything we can do to avoid needing a comment because it\u0027s just confusing that enums with different names have to collide with each other.\n\nMoved them to be one after the other though, so it\u0027s a bit easier to see.",
+      "parentUuid": "3fb5af94_cdd9199a",
+      "revId": "e14f5cb5da8b6b0c128c2372e71e1a19a191cab3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
