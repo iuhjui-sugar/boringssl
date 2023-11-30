@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f446875_9870f1b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-11-30T18:57:39Z",
+      "side": 1,
+      "message": "FYI only: A note regarding ACLE: The various `__ARM_FEATURE_*` defines are defined \"if the {feature} instructions are supported *and intrinsics targeting them are available*.  The condition we really want is that we know we can use the instructions, regardless of whether \"intrinsics targeting them are available.\"",
+      "revId": "62adb7974f245afb99487eb82603c5a401eefdbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
