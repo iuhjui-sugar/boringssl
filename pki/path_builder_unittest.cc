@@ -9,9 +9,11 @@
 #include "cert_error_params.h"
 #include "cert_issuer_source_static.h"
 #include "common_cert_errors.h"
+#include "encode_values.h"
 #include "input.h"
 #include "mock_signature_verify_cache.h"
 #include "parsed_certificate.h"
+#include "simple_bound_verification_time.h"
 #include "simple_path_builder_delegate.h"
 #include "test_helpers.h"
 #include "trust_store_collection.h"
@@ -61,10 +63,20 @@ class TestPathBuilderDelegate : public SimplePathBuilderDelegate {
 
   MockSignatureVerifyCache *GetMockVerifyCache() { return &cache_; }
 
+  SimpleBoundVerificationTime *GetBoundVerificationTime() override {
+    return use_validation_time_ ? &validation_time_ : nullptr;
+  }
+
+  void ActivateBoundVerificationTime() { use_validation_time_ = true; }
+
+  void DeActivateBoundVerificationTime() { use_validation_time_ = false; }
+
  private:
   bool deadline_is_expired_ = false;
   bool use_signature_cache_ = false;
+  bool use_validation_time_ = false;
   MockSignatureVerifyCache cache_;
+  SimpleBoundVerificationTime validation_time_;
 };
 
 // AsyncCertIssuerSourceStatic always returns its certs asynchronously.
@@ -753,6 +765,158 @@ TEST_F(PathBuilderMultiRootTest, TestVerifyCache) {
     EXPECT_EQ(delegate_.GetMockVerifyCache()->CacheMisses(), 2U);
     EXPECT_EQ(delegate_.GetMockVerifyCache()->CacheStores(), 2U);
   }
+}
+
+TEST_F(PathBuilderMultiRootTest, TestBoundVerificationTime) {
+  // C(D) is the trust root.
+  TrustStoreInMemory trust_store;
+  trust_store.AddTrustAnchor(c_by_d_);
+
+  // Cert B(C) is supplied.
+  CertIssuerSourceStatic sync_certs;
+  sync_certs.AddCert(b_by_c_);
+
+  // Test Activation / DeActivation of Validation Time
+  EXPECT_FALSE(delegate_.GetBoundVerificationTime());
+  delegate_.ActivateBoundVerificationTime();
+  EXPECT_TRUE(delegate_.GetBoundVerificationTime());
+  delegate_.DeActivateBoundVerificationTime();
+  EXPECT_FALSE(delegate_.GetBoundVerificationTime());
+  delegate_.ActivateBoundVerificationTime();
+  EXPECT_TRUE(delegate_.GetBoundVerificationTime());
+
+  // Verify a chain with the validation time active.
+  der::GeneralizedTime test_time = {2017, 3, 1, 0, 0, 0};
+  int64_t test_posix_time;
+  GeneralizedTimeToPosixTime(test_time, &test_posix_time);
+  delegate_.GetBoundVerificationTime()->TimeIsAtLeast(test_posix_time);
+
+  CertPathBuilder path_builder1(
+      a_by_b_, &trust_store, &delegate_, test_time, KeyPurpose::ANY_EKU,
+      initial_explicit_policy_, user_initial_policy_set_,
+      initial_policy_mapping_inhibit_, initial_any_policy_inhibit_);
+  path_builder1.AddCertIssuerSource(&sync_certs);
+
+  auto result = path_builder1.Run();
+
+  ASSERT_EQ(1U, result.paths.size());
+  EXPECT_TRUE(result.paths[0]->IsValid());
+  ASSERT_EQ(3U, result.paths[0]->certs.size());
+  EXPECT_EQ(a_by_b_, result.paths[0]->certs[0]);
+  EXPECT_EQ(b_by_c_, result.paths[0]->certs[1]);
+  EXPECT_EQ(c_by_d_, result.paths[0]->certs[2]);
+
+  // Attempt to verify the chain at a time at which it should not yet be valid,
+  // When the VerificationTime is active, this should succeed as we observed
+  // the valid time above already in the previous verification and will not
+  // validate in the past. when we de-activate it it should fail.
+  der::GeneralizedTime time_in_past = {1969, 01, 15, 0, 0, 0};
+  for (size_t i = 0; i < 3; i++) {
+    SCOPED_TRACE(i);
+
+    CertPathBuilder path_builder2(
+        a_by_b_, &trust_store, &delegate_, time_in_past, KeyPurpose::ANY_EKU,
+        initial_explicit_policy_, user_initial_policy_set_,
+        initial_policy_mapping_inhibit_, initial_any_policy_inhibit_);
+    path_builder2.AddCertIssuerSource(&sync_certs);
+
+    result = path_builder2.Run();
+
+    if (delegate_.GetBoundVerificationTime()) {
+      ASSERT_EQ(1U, result.paths.size());
+      EXPECT_TRUE(result.paths[0]->IsValid());
+      ASSERT_EQ(3U, result.paths[0]->certs.size());
+      EXPECT_EQ(a_by_b_, result.paths[0]->certs[0]);
+      EXPECT_EQ(b_by_c_, result.paths[0]->certs[1]);
+      EXPECT_EQ(c_by_d_, result.paths[0]->certs[2]);
+      delegate_.DeActivateBoundVerificationTime();
+    } else {
+      EXPECT_FALSE(result.HasValidPath());
+      delegate_.ActivateBoundVerificationTime();
+    }
+  }
+  delegate_.ActivateBoundVerificationTime();
+
+  // Attempt to verify the chain at a time at which it is expired. This should
+  // always fail
+  der::GeneralizedTime time_in_future = {2038, 01, 15, 0, 0, 0};
+  for (size_t i = 0; i < 3; i++) {
+    SCOPED_TRACE(i);
+
+    CertPathBuilder path_builder3(
+        a_by_b_, &trust_store, &delegate_, time_in_future, KeyPurpose::ANY_EKU,
+        initial_explicit_policy_, user_initial_policy_set_,
+        initial_policy_mapping_inhibit_, initial_any_policy_inhibit_);
+    path_builder3.AddCertIssuerSource(&sync_certs);
+
+    result = path_builder3.Run();
+
+    if (delegate_.GetBoundVerificationTime()) {
+      EXPECT_FALSE(result.HasValidPath());
+    } else {
+      EXPECT_FALSE(result.HasValidPath());
+      delegate_.ActivateBoundVerificationTime();
+    }
+  }
+  delegate_.ActivateBoundVerificationTime();
+
+  // Validating at the original test time should work, because we never
+  // called a TimeIsAtLeast for the future time.
+  CertPathBuilder path_builder4(
+      a_by_b_, &trust_store, &delegate_, test_time, KeyPurpose::ANY_EKU,
+      initial_explicit_policy_, user_initial_policy_set_,
+      initial_policy_mapping_inhibit_, initial_any_policy_inhibit_);
+  path_builder4.AddCertIssuerSource(&sync_certs);
+
+  result = path_builder4.Run();
+
+  ASSERT_EQ(1U, result.paths.size());
+  EXPECT_TRUE(result.paths[0]->IsValid());
+  ASSERT_EQ(3U, result.paths[0]->certs.size());
+  EXPECT_EQ(a_by_b_, result.paths[0]->certs[0]);
+  EXPECT_EQ(b_by_c_, result.paths[0]->certs[1]);
+  EXPECT_EQ(c_by_d_, result.paths[0]->certs[2]);
+
+  // Pretend we talked to a trusted time souce, and we believe it is
+  // really 2038
+  int64_t future_posix_time;
+  GeneralizedTimeToPosixTime(time_in_future, &future_posix_time);
+  delegate_.GetBoundVerificationTime()->TimeIsAtLeast(future_posix_time);
+  // Bound time should come back with the future value.
+  int64_t test_binding =
+      delegate_.GetBoundVerificationTime()->BoundTime(1701389524);
+  EXPECT_EQ(test_binding, future_posix_time);
+
+  // Validating at the original test time should now fail, as we now believe it
+  // is far in the future, so our test_time would be an attack to roll us back.
+  CertPathBuilder path_builder5(
+      a_by_b_, &trust_store, &delegate_, test_time, KeyPurpose::ANY_EKU,
+      initial_explicit_policy_, user_initial_policy_set_,
+      initial_policy_mapping_inhibit_, initial_any_policy_inhibit_);
+  path_builder5.AddCertIssuerSource(&sync_certs);
+
+  result = path_builder5.Run();
+  EXPECT_FALSE(result.HasValidPath());
+
+  // Now clear the time bound.
+  delegate_.GetBoundVerificationTime()->ClearTimeBound();
+
+  // Validating at the original test time should work, as we no longer have a
+  // time bound.
+  CertPathBuilder path_builder6(
+      a_by_b_, &trust_store, &delegate_, test_time, KeyPurpose::ANY_EKU,
+      initial_explicit_policy_, user_initial_policy_set_,
+      initial_policy_mapping_inhibit_, initial_any_policy_inhibit_);
+  path_builder6.AddCertIssuerSource(&sync_certs);
+
+  result = path_builder6.Run();
+
+  ASSERT_EQ(1U, result.paths.size());
+  EXPECT_TRUE(result.paths[0]->IsValid());
+  ASSERT_EQ(3U, result.paths[0]->certs.size());
+  EXPECT_EQ(a_by_b_, result.paths[0]->certs[0]);
+  EXPECT_EQ(b_by_c_, result.paths[0]->certs[1]);
+  EXPECT_EQ(c_by_d_, result.paths[0]->certs[2]);
 }
 
 TEST_F(PathBuilderMultiRootTest, TestDeadline) {

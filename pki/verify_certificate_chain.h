@@ -10,6 +10,7 @@
 #include <openssl/base.h>
 #include <openssl/evp.h>
 
+#include "bound_verification_time.h"
 #include "cert_errors.h"
 #include "input.h"
 #include "parsed_certificate.h"
@@ -73,6 +74,11 @@ class OPENSSL_EXPORT VerifyCertificateChainDelegate {
   // verification cache if one exists. nullptr may be returned indicating there
   // is no verification cache.
   virtual SignatureVerifyCache *GetVerifyCache() = 0;
+
+  // This is called during verification to obtain a pointer to a bound cert
+  // validation time implementation if one exists. nullptr may be returned
+  // indicating there is no implementation.
+  virtual BoundVerificationTime *GetBoundVerificationTime() = 0;
 
   virtual ~VerifyCertificateChainDelegate();
 };
