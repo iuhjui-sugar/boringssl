@@ -87,6 +87,30 @@
       },
       "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91b46dbf_2bb46c8b",
+        "filename": "pki/path_builder_pkits_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-01T18:05:19Z",
+      "side": 1,
+      "message": "is it just some bot that noticed I applied the fix and didn\u0027t close this out yet?",
+      "parentUuid": "3e6c5aac_643ce6a6",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 59
+      },
+      "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
