@@ -1398,6 +1398,14 @@ OPENSSL_INLINE int CRYPTO_is_AESNI_capable(void) {
 #endif
 }
 
+OPENSSL_INLINE int CRYPTO_is_XSAVE_capable(void) {
+// TODO: #if defined(__XSAVE__???)
+// TODO:  return 1;
+// TODO: #else
+  return (OPENSSL_get_ia32cap(1) & (1u << 26)) != 0;
+// TODO: #endif
+}
+
 OPENSSL_INLINE int CRYPTO_is_AVX_capable(void) {
 #if defined(__AVX__)
   return 1;
@@ -1457,6 +1465,10 @@ OPENSSL_INLINE int CRYPTO_is_x86_SHA_capable(void) {
 #else
   return (OPENSSL_get_ia32cap(2) & (1u << 29)) != 0;
 #endif
+}
+
+OPENSSL_INLINE int CRYPTO_is_probably_silvermont(void) {
+  return CRYPTO_is_MOVBE_capable() && !CRYPTO_is_XSAVE_capable();
 }
 
 #endif  // OPENSSL_X86 || OPENSSL_X86_64
