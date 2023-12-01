@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2412d133_540cd0aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-01T21:41:43Z",
+      "side": 1,
+      "message": "I rewrote this after doing the X86-64 analog (https://boringssl-review.googlesource.com/c/boringssl/+/64467) and based on review comments for the analogous SHA CL.",
+      "revId": "a5fb564946f2b962022cce93677a83c2c0dc5ff4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

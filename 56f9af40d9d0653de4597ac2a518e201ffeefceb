@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6a7ba33_e49bb3f9",
+        "filename": "crypto/chacha/chacha_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-01T21:41:43Z",
+      "side": 1,
+      "message": "For this CL I will try to keep things semantically the same as before. I added the capability check to the test.",
+      "parentUuid": "1f425fce_03c49179",
+      "revId": "56f9af40d9d0653de4597ac2a518e201ffeefceb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "31864daa_ccc17fe3",
         "filename": "crypto/chacha/internal.h",
         "patchSetId": 5
