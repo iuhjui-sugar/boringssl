@@ -1331,7 +1331,8 @@ OPENSSL_INLINE int boringssl_fips_break_test(const char *test) {
 //     ECX for CPUID where EAX = 7
 //
 // Note: the CPUID bits are pre-adjusted for the OSXSAVE bit and the YMM and XMM
-// bits in XCR0, so it is not necessary to check those.
+// bits in XCR0, so it is not necessary to check those. (WARNING: See caveats
+// in cpu_intel.c.)
 //
 // From C, this symbol should only be accessed with |OPENSSL_get_ia32cap|.
 extern uint32_t OPENSSL_ia32cap_P[4];
@@ -1398,6 +1399,24 @@ OPENSSL_INLINE int CRYPTO_is_AESNI_capable(void) {
 #endif
 }
 
+// WARNING: This MUST NOT be used to guard the execution of the XSAVE
+// instruction. This is the "hardware supports XSAVE" bit, not the OSXSAVE bit
+// that indicates whether we can safely execute XSAVE. This bit may be set even
+// when XSAVE is disabled (by the operating system). See the comment in
+// cpu_intel.c and check how the users of this bit use it.
+//
+// WARNING: According to
+// https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html, GCC may not consider
+// any AMD CPUs to support XSAVE, but AMD's documentation indicates that some
+// AMD CPUs do support it (starting with Jaguar and/or Zen?).
+OPENSSL_INLINE int CRYPTO_is_XSAVE_capable(void) {
+// TODO: #if defined(__XSAVE__???)
+// TODO:  return 1;
+// TODO: #else
+  return (OPENSSL_get_ia32cap(1) & (1u << 26)) != 0;
+// TODO: #endif
+}
+
 OPENSSL_INLINE int CRYPTO_is_AVX_capable(void) {
 #if defined(__AVX__)
   return 1;
@@ -1457,6 +1476,21 @@ OPENSSL_INLINE int CRYPTO_is_x86_SHA_capable(void) {
 #else
   return (OPENSSL_get_ia32cap(2) & (1u << 29)) != 0;
 #endif
+}
+
+/// A heuristic to test when deciding whether to choose a code path optimized
+// for Silvermont(-derived) CPUs. See chacha-x86_64.pl and in other assembly
+// modules that mention XSAVE and/or Atom/Silvermont-specific code paths.
+//
+// Bonnet (Silvermont's predecessor in the Atom lineup) seems to also be
+// selected by this. cpu_intel.c also forces Knights Landing to be selected by
+// this. Goldmont (Silvermont's successor in the Atom lineup) added
+// XSAVE so it isn't selected by this. Various sources indicate AMD first
+// implemented MOVBE and XSAVE at the same time in Jaguar, so it seems like AMD
+// chips either have neither or both. That seems to be the case for other
+// x86(-64) CPUs.
+OPENSSL_INLINE int CRYPTO_choose_silvermont_optimized_code_path(void) {
+  return CRYPTO_is_MOVBE_capable() && !CRYPTO_is_XSAVE_capable();
 }
 
 #endif  // OPENSSL_X86 || OPENSSL_X86_64

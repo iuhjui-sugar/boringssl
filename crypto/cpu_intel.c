@@ -238,7 +238,7 @@ void OPENSSL_cpuid_setup(void) {
     // Clear AVX2 and AVX512* bits.
     //
     // TODO(davidben): Should bits 17 and 26-28 also be cleared? Upstream
-    // doesn't clear those.
+    // doesn't clear those. See the comments in |CRYPTO_is_XSAVE_capable|.
     extended_features[0] &=
         ~((1u << 5) | (1u << 16) | (1u << 21) | (1u << 30) | (1u << 31));
   }
