@@ -29,8 +29,7 @@ extern "C" {
 void CRYPTO_hchacha20(uint8_t out[32], const uint8_t key[32],
                       const uint8_t nonce[16]);
 
-#if !defined(OPENSSL_NO_ASM) && \
-    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || defined(OPENSSL_ARM))
+#if !defined(OPENSSL_NO_ASM) && (defined(OPENSSL_X86) || defined(OPENSSL_ARM))
 
 #define CHACHA20_ASM
 
@@ -44,6 +43,36 @@ OPENSSL_INLINE int ChaCha20_ctr32_neon_capable(size_t len) {
 }
 void ChaCha20_ctr32_neon(uint8_t *out, const uint8_t *in, size_t in_len,
                          const uint32_t key[8], const uint32_t counter[4]);
+#elif !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64)
+#define CHACHA20_ASM_NOHW
+
+#define CHACHA20_ASM_AVX2
+OPENSSL_INLINE int ChaCha20_ctr32_avx2_capable(size_t len) {
+  return (len >= 128) && CRYPTO_is_AVX2_capable();
+}
+void ChaCha20_ctr32_avx2(uint8_t *out, const uint8_t *in, size_t in_len,
+                         const uint32_t key[8], const uint32_t counter[4]);
+
+#define CHACHA20_ASM_SSSE3_4X
+OPENSSL_INLINE int ChaCha20_ctr32_ssse3_4x_capable(size_t len) {
+  int capable = (len >= 128) && CRYPTO_is_SSSE3_capable();
+  // 4x measured to be faster than 1x for larger messages on all CPUs. On Atom
+  // 1x was measured to be faster for for short messages; the 1x path was
+  // optimized for in-order Atom performance. Assume the CPU is Atom if it
+  // supports MOVBE but not XSAVE.
+  int faster =
+      (len >= 192) || (CRYPTO_is_MOVBE_capable() && !CRYPTO_is_XSAVE_capable());
+  return capable && faster;
+}
+void ChaCha20_ctr32_ssse3_4x(uint8_t *out, const uint8_t *in, size_t in_len,
+                             const uint32_t key[8], const uint32_t counter[4]);
+
+#define CHACHA20_ASM_SSSE3
+OPENSSL_INLINE int ChaCha20_ctr32_ssse3_capable(size_t len) {
+  return (len >= 128) && CRYPTO_is_SSSE3_capable();
+}
+void ChaCha20_ctr32_ssse3(uint8_t *out, const uint8_t *in, size_t in_len,
+                          const uint32_t key[8], const uint32_t counter[4]);
 #endif
 
 #if defined(CHACHA20_ASM)
