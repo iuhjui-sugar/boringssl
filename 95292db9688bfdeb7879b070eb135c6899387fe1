@@ -39,6 +39,30 @@
       },
       "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "809b2004_4a71fab6",
+        "filename": "pki/path_builder_pkits_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 17636
+      },
+      "writtenOn": "2023-12-01T17:21:44Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "0cb481d8_381032e1",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 59
+      },
+      "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
