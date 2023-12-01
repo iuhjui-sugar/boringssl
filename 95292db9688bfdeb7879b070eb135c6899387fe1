@@ -111,6 +111,30 @@
       },
       "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f614a77_91cbdcc8",
+        "filename": "pki/path_builder_pkits_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-01T19:34:58Z",
+      "side": 1,
+      "message": "I think this may be a spammer. We get those on this Gerrit occasionally. Can probably just ignore it.",
+      "parentUuid": "91b46dbf_2bb46c8b",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 59
+      },
+      "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
