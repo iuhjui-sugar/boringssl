@@ -16,6 +16,24 @@
       "message": "Since this is redundant with the one underneath it, should we just remove it? (I assume this was 2 instead of 1 because it\u0027s more verbose. But if the extra verbosity doesn\u0027t do anything anyway...)",
       "revId": "33c37bd0579ed1325c531b1043736c6fc5972797",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b31b4c32_d4c0d38d",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T23:09:33Z",
+      "side": 1,
+      "message": "Yeah, the anchor\u0027s on the end of the path printed below.",
+      "parentUuid": "6db4357f_6da9f9ea",
+      "revId": "33c37bd0579ed1325c531b1043736c6fc5972797",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
