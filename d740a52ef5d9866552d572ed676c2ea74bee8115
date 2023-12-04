@@ -16,6 +16,24 @@
       "message": "I went ahead and moved all ia32cap/armcap usage out of sha/internal.h and into crypto/internal.h. I also added the static feature detection. Feedback on the shape is appreciated before I start going through all the testing. It would be great to see the CI results",
       "revId": "d740a52ef5d9866552d572ed676c2ea74bee8115",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9c1b81_c4445899",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-04T23:52:04Z",
+      "side": 1,
+      "message": "Sounds good. Running through the CI, though I suspect it won\u0027t be that enlightening because Android tests don\u0027t currently run pre-commit, only post-commit. (Really should fix that... I think the blockers have since been resolved.)",
+      "parentUuid": "c990fc18_a5691404",
+      "revId": "d740a52ef5d9866552d572ed676c2ea74bee8115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

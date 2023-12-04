@@ -16,6 +16,24 @@
       "message": "FYI only: A note regarding ACLE: The various `__ARM_FEATURE_*` defines are defined \"if the {feature} instructions are supported *and intrinsics targeting them are available*.  The condition we really want is that we know we can use the instructions, regardless of whether \"intrinsics targeting them are available.\"",
       "revId": "62adb7974f245afb99487eb82603c5a401eefdbe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e968c2d_7ce39647",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-04T23:52:04Z",
+      "side": 1,
+      "message": "I\u0027m not sure that distinction is important.\n\nFirst, it fails open, so (on platforms where we can also runtime query) at worst we\u0027re just not as optimized as we could be.\n\nSecond, suppose there were such a gap. What would we do about it? In general, we can either query this from the toolchain or from BoringSSL-specific settings.\n\nIf from the toolchain, there\u0027s no point asking GCC and Clang for a way to say \"feature available but not intrinsic\". They\u0027d just add the intrinsics instead.\n\nIf from the BoringSSL-specific settings, that means we have to invent our own spellings for everything. We did this a bit with `OPENSSL_STATIC_ARMCAP_*`, but then we don\u0027t take advantage of the machinery that *already* exists, so we don\u0027t apply the size optimization on folks who don\u0027t have BoringSSL-specific configuration. Conversely, if you\u0027re going to define `OPENSSL_STATIC_ARMCAP_*`, why not use the compiler flag, which also lets the compiler apply the optimization?\n\nNot only that, sometimes the platform *expects* you to use the compiler defines. For example, on Apple platforms, the Armv8 cryptography extensions are part of the baseline. I think they have always-on sysctls now, but for the longest time, you were just expected to know that... by way of compilers targeting Apple platforms defining the macros for you.\n\nFrom the Rust bug you alluded to, it sounds like rustc messed that up, but that sounds like a rustc bug. I\u0027m not aware of it having been an issue in C/C++ compilers, so perhaps some maintenance practices on the rustc should be reexamined? I suspect worrying about intrinsics vs. feature availability is similarly a Rust phenomenon; Arm and Intel seem to just define their C intrinsics at the same time as everything else.",
+      "parentUuid": "9f446875_9870f1b8",
+      "revId": "62adb7974f245afb99487eb82603c5a401eefdbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

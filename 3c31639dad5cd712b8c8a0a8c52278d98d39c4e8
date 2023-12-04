@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ba8c1d_4d50990a",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-04T23:52:04Z",
+      "side": 1,
+      "message": "```suggestion\n// Define SHA{n}[_{variant}]_ASM if sha{n}_block_data_order[_{variant}] is\n```",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9d5333_640648b4",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-04T23:52:04Z",
+      "side": 1,
+      "message": "(Confirmed this matches the `#define` in LLVM source.)",
+      "range": {
+        "startLine": 1455,
+        "startChar": 12,
+        "endLine": 1455,
+        "endChar": 19
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec05710_5edc5e40",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-04T23:52:04Z",
+      "side": 1,
+      "message": "It\u0027s very confusing, but the macro is actually `__ARM_FEATURE_SHA2`.\nhttps://arm-software.github.io/acle/main/acle.html#sha2-extension\n\nI made this handy table some time ago, which will hopefully be enlightening/dismaying. Copied somewhere public here:\nhttps://docs.google.com/spreadsheets/d/16HtINUZSWAnwzAaTsPvninwRpBUWK6sU2H7nTym04eo/edit?usp\u003dsharing\n\n(Note also logic a few lines above to handle `__ARM_FEATURE_CRYPTO`-only toolchains already handles `__ARM_FEATURE_SHA2`.)",
+      "range": {
+        "startLine": 1532,
+        "startChar": 51,
+        "endLine": 1532,
+        "endChar": 69
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a08c6a_51d5a9cb",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-04T23:52:04Z",
+      "side": 1,
+      "message": "It\u0027s very confusing, but the macro is actually `__ARM_FEATURE_SHA2`.\nhttps://arm-software.github.io/acle/main/acle.html#sha2-extension",
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a37adec1_f6749479",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-04T23:52:04Z",
+      "side": 1,
+      "message": "ARMV8_SHA512",
+      "range": {
+        "startLine": 1558,
+        "startChar": 33,
+        "endLine": 1558,
+        "endChar": 45
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
