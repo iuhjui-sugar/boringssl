@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc75aa34_b970d573",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T20:35:15Z",
+      "side": 1,
+      "message": "I can\u0027t say anything nice about this entire API.",
+      "revId": "bb6293a16e3aa0fd7a9a726e7dddbadad6e89936",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a7664b5_5f2da3c3",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3203,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T20:35:15Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure OpenSSL has now moved to where you can\u0027t even turn this off anymore, but it\u0027s fun because the TRUSTED certs are set separately from the rest of the trust store for the path building workaround. \n\nthat\u0027s all pretty terrible, but I guess we can consider removing it later.",
+      "range": {
+        "startLine": 3203,
+        "startChar": 0,
+        "endLine": 3203,
+        "endChar": 78
+      },
+      "revId": "bb6293a16e3aa0fd7a9a726e7dddbadad6e89936",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
