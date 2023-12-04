@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "906ed4e9_3e2b1d4a",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T19:46:24Z",
+      "side": 1,
+      "message": "yeah ok that was awkward. fixed.",
+      "parentUuid": "578c8fd8_047e0d3c",
+      "range": {
+        "startLine": 103,
+        "startChar": 73,
+        "endLine": 104,
+        "endChar": 9
+      },
+      "revId": "819da3b5f1a5a0b1edebd7812ab13873d229ab54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9368491_12e3a968",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "I think I\u0027m okay with removing the log level too\n(and if we were going to keep it, I guess it would be better to have the IsDebugLogEnabled return the desired log level to avoid calculating the log strings for levels that aren\u0027t going to get used)",
       "parentUuid": "f2eab8d4_00c33e0d",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 111,
+        "endChar": 42
+      },
+      "revId": "819da3b5f1a5a0b1edebd7812ab13873d229ab54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8059d589_5b6d1589",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T19:46:24Z",
+      "side": 1,
+      "message": "Ok, I\u0027ve just pulled the log level out, we just send the delegate the message and it gets to decide without magic ;)",
+      "parentUuid": "6f1d13c0_c1531062",
       "range": {
         "startLine": 110,
         "startChar": 36,
