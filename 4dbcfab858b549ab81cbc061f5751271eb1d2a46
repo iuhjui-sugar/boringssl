@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe8d76e9_24d24f56",
+        "filename": "include/openssl/ex_data.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T20:59:55Z",
+      "side": 1,
+      "message": "because this is something callers are soooo good at. sigh.",
+      "range": {
+        "startLine": 167,
+        "startChar": 13,
+        "endLine": 169,
+        "endChar": 48
+      },
+      "revId": "4dbcfab858b549ab81cbc061f5751271eb1d2a46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
