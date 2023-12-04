@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09fa611f_d4ee3674",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T22:46:22Z",
+      "side": 1,
+      "message": "never let good design get in the way of expediency.",
+      "range": {
+        "startLine": 10,
+        "startChar": 29,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "93575140903df1e502f24f65fe8ce3bb896a8f79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2b08230_934b61ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T22:46:22Z",
+      "side": 1,
+      "message": "In my travels elsewhere, I believe I broke this and it took two years to find a use case, that I guarantee boringssl will not care about ;)",
+      "range": {
+        "startLine": 13,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 56
+      },
+      "revId": "93575140903df1e502f24f65fe8ce3bb896a8f79",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
