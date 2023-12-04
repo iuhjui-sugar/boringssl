@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a581f1_e9db7ba7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T20:28:46Z",
+      "side": 1,
+      "message": "We had decided we were C99 initializers everywhere once we figured out the supported MSVC versions do it now.",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "c832e38573bc3cec162213d602b24a6ecd616ff8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
