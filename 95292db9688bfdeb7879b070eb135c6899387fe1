@@ -153,6 +153,30 @@
       },
       "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88a08871_73f64f39",
+        "filename": "pki/path_builder_pkits_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-04T19:53:31Z",
+      "side": 1,
+      "message": "Looks like gerrit or git then got confused about the applied fix with me manipulating the patch stack and I had to re-apply it anyway.. shrug.",
+      "parentUuid": "1f614a77_91cbdcc8",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 59
+      },
+      "revId": "95292db9688bfdeb7879b070eb135c6899387fe1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
