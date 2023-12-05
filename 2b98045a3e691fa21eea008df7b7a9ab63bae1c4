@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30b873a7_9a7d148f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T22:10:57Z",
+      "side": 1,
+      "message": "OK, we ended up using https://boringssl-review.googlesource.com/c/boringssl/+/64208 as the model for how to do this. I will update this CL based on the feedback in that CL and after testing it.",
+      "revId": "2b98045a3e691fa21eea008df7b7a9ab63bae1c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
