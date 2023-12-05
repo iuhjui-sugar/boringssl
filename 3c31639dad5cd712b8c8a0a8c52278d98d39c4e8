@@ -65,6 +65,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d38892ff_331b31ee",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-05T18:13:54Z",
+      "side": 1,
+      "message": "just expend the bytes to type \u0027if and only if\u0027, or one of us will unconsiously \"un-typo\" it later.",
+      "parentUuid": "74fd6716_8b3d8328",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8f9d5333_640648b4",
