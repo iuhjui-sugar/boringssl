@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ba38906_ddc30c31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T00:37:57Z",
+      "side": 1,
+      "message": "Thanks. I take it then that the general structure is agreed upon. It would be wonderful if you could share the commands you use to run the test suite in the Android emulator. I will also test this on aarch64-apple-darwin.",
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38ba8c1d_4d50990a",
@@ -14,6 +31,30 @@
       "writtenOn": "2023-12-04T23:52:04Z",
       "side": 1,
       "message": "```suggestion\n// Define SHA{n}[_{variant}]_ASM if sha{n}_block_data_order[_{variant}] is\n```",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74fd6716_8b3d8328",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T00:37:57Z",
+      "side": 1,
+      "message": "It really is supposed to be \"if and only if\" (iif).",
+      "parentUuid": "38ba8c1d_4d50990a",
       "range": {
         "startLine": 26,
         "startChar": 33,
@@ -94,6 +135,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1797f70d_ba3425c1",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T00:37:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30d8230d_81a7c754",
+      "range": {
+        "startLine": 1532,
+        "startChar": 51,
+        "endLine": 1532,
+        "endChar": 69
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29a08c6a_51d5a9cb",
@@ -111,6 +176,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "418fb289_2299c97c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T00:37:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29a08c6a_51d5a9cb",
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a37adec1_f6749479",
@@ -124,6 +207,30 @@
       "writtenOn": "2023-12-04T23:52:04Z",
       "side": 1,
       "message": "ARMV8_SHA512",
+      "range": {
+        "startLine": 1558,
+        "startChar": 33,
+        "endLine": 1558,
+        "endChar": 45
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543fed80_89cee0c4",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T00:37:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a37adec1_f6749479",
       "range": {
         "startLine": 1558,
         "startChar": 33,
