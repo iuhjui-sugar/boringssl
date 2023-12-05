@@ -162,6 +162,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b1813e0_ec876777",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "I dunno, I guess this is okay for now? Unless David or Bob have other opinions.",
+      "parentUuid": "1f3897d6_42c94063",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55ff4c9e_4b67ac66",
         "filename": "pki/trust_store_in_memory.h",
         "patchSetId": 2

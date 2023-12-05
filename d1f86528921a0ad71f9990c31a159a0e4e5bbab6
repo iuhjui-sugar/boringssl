@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d648eea8_00c84f8d",
+        "filename": "pki/trust_store_in_memory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "Can you use AsStringView()? or I guess that heterogeneous lookup doesn\u0027t work with unordered_set by default, sigh c++. Maybe we should just use std::set instead of unordered_set anyway since it\u0027s likely to only contain a small/zero number of elements (per https://chromium.googlesource.com/chromium/src/+/HEAD/base/containers/README.md#Map-and-set-selection) \n\n(I guess flat_set would be best but I dunno if that\u0027s available in boring and would require some changes to TrustStoreInMemory\u0027s api design.)",
+      "range": {
+        "startLine": 58,
+        "startChar": 50,
+        "endLine": 58,
+        "endChar": 58
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48b7da52_3f15f9b2",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "nit: Distrusts",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 13
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0910fc5a_606e63ab",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "don\u0027t use const when passing by value (https://google.github.io/styleguide/cppguide.html#Use_of_const)",
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ad0edfe_a982e32f",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "unused (and below too)",
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdc0a2cf_91cf8d4f",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "distrusted (\"not trusted\" is ambiguous, can be interpreted as \"unspecified\" too.)",
+      "range": {
+        "startLine": 76,
+        "startChar": 17,
+        "endLine": 76,
+        "endChar": 28
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "623ad70d_38488fb7",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "distrusted",
+      "range": {
+        "startLine": 86,
+        "startChar": 30,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbabe844_e6dd1847",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "distrusted",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 28
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b797a8b_cca59da2",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-05T23:47:11Z",
+      "side": 1,
+      "message": "nit: extra blank line",
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
