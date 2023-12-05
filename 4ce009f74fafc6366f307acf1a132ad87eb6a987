@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "078bc768_efb6d506",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T21:45:33Z",
+      "side": 1,
+      "message": "No worries about the \"dribbling\" reviews. I would like to get this right 100% so I know how to do the future ones. I wasn\u0027t even intending you to fully review this; I just was waiting for the guidance on the #ifdefs.\n\nI suggest that here we try to match the assembly\u0027s CPU checking 100%. If we want to improve the CPU checking then we should do so in a follow-up CL.",
+      "parentUuid": "346b362f_a7e4df5e",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b95e4b5_b480a9b0",
         "filename": "crypto/fipsmodule/sha/internal.h",
         "patchSetId": 11
@@ -31,6 +49,30 @@
       "writtenOn": "2023-12-05T21:29:35Z",
       "side": 1,
       "message": "Don\u0027t think it matters, but for consistency with everything else:\n\n```suggestion\n#if !defined(OPENSSL_NO_ASM) \u0026\u0026 (defined(OPENSSL_X86) || defined(OPENSSL_ARM))\n```\n\n(I guess we should follow up and do this with the other platforms later. Knocking armcap references out of Armv7 will be particularly exciting. The way the assembly references armcap is a little messy. Particularly with Apple Armv7, which we probably should drop support for at this point, at least on the asm side.)",
+      "range": {
+        "startLine": 29,
+        "startChar": 53,
+        "endLine": 29,
+        "endChar": 55
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f59af41_9303f044",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T21:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b95e4b5_b480a9b0",
       "range": {
         "startLine": 29,
         "startChar": 53,
@@ -77,6 +119,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3b8280d_11d05895",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T21:45:33Z",
+      "side": 1,
+      "message": "I am happy to have fewer checks but I would like to avoid changing the CPU feature detection logic at all within this CL. I am really trying to make this a non-functional change.\n\nThere is potential for surprises. For example, there have been some virtual machine systems that tried to disable all AVX* by not clearing the AVX bit, but then they forgot to clear the AVX2 bit (seen on LKML or similar; I can dig up the discussion if you\u0027d like).\n\nIn particular, if our simplification of the checks needs to get reverted in the future, I don\u0027t want the whole refactoring to get reverted.",
+      "parentUuid": "bba7834f_8a96680f",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe190cf3_2c453a00",
         "filename": "crypto/fipsmodule/sha/internal.h",
         "patchSetId": 11
@@ -111,6 +171,24 @@
       "writtenOn": "2023-12-05T21:19:44Z",
       "side": 1,
       "message": "The check for an Intel CPU is probably a bit confusing. Andy usually puts these in the changelogs at the top of the file. sha1-x86_64.pl just says \"See sha1-586.pl for further information\", but that does actually talk about it.\n\nLet\u0027s add a comment like:\n\n// Additionally check for Intel CPUs. This function makes some assumptions on the performance of SHLD and SHRD. See discussion in sha1-586.pl.",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ddd0bf_baaa24a3",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T21:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ae917c1_0a68429d",
       "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -161,6 +239,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cc11770_d5195d26",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T21:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31620873_464300ad",
+      "range": {
+        "startLine": 105,
+        "startChar": 9,
+        "endLine": 105,
+        "endChar": 28
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbfb660b_82158297",
@@ -197,6 +299,30 @@
       "writtenOn": "2023-12-05T21:19:44Z",
       "side": 1,
       "message": "// Additionally check for Intel CPUs. This function makes some assumptions on the performance of SHLD and SHRD. See discussion in sha1-586.pl.",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "488088ba_0c53de2e",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T21:45:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "352545b7_d3dbaee4",
       "range": {
         "startLine": 120,
         "startChar": 9,
