@@ -153,6 +153,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf0a94d2_b32383cc",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T23:59:10Z",
+      "side": 1,
+      "message": "I added the TODO. I also sorted the checks with the newest features first (AVX2 and BMI2 and BMI1).\n\nFWIW, I couldn\u0027t find a definitive reference stating that SSSE3 instructions are guaranteed to be supported if AVX(2) instructions are advertised as supported. In the Intel docs I see more definitive indications that AVX2 is a superset of AVX2 and AVX2 is a superset of AVX1, but nothing as clearly worded like that for SSSE3.\n\nI think your note that no SSSE3 instructions are being used is a better basis for simplifying the check.",
+      "parentUuid": "3a4184b9_7db9254f",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe190cf3_2c453a00",
@@ -166,6 +184,30 @@
       "writtenOn": "2023-12-05T21:19:44Z",
       "side": 1,
       "message": "Likewise, I think we can omit this one:\n\n* AVX implies SSSE3\n* sha1_block_data_order_avx does not actually use an SSSE3 instructions",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa81cca_a8024bf1",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T23:59:10Z",
+      "side": 1,
+      "message": "I added the TODO. I also sorted the checks with the newest feature (AVX) first.",
+      "parentUuid": "fe190cf3_2c453a00",
       "range": {
         "startLine": 84,
         "startChar": 9,
@@ -224,6 +266,30 @@
       "writtenOn": "2023-12-05T21:19:44Z",
       "side": 1,
       "message": "Similar to before, I don\u0027t actually see any use of SSSE3 instructions, and AVX implies SSSE3. This one is structured differently from SHA-1, but I think it\u0027s just the result of some optimization/cleverness around extracting only certain bits.",
+      "range": {
+        "startLine": 104,
+        "startChar": 36,
+        "endLine": 104,
+        "endChar": 59
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e08f7f_dce8eef3",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T23:59:10Z",
+      "side": 1,
+      "message": "Added the TODO.",
+      "parentUuid": "60b7440c_f4e7561d",
       "range": {
         "startLine": 104,
         "startChar": 36,
@@ -294,6 +360,30 @@
       "writtenOn": "2023-12-05T21:19:44Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 119,
+        "startChar": 36,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03011dd8_07e5823b",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T23:59:10Z",
+      "side": 1,
+      "message": "Added the TODO.",
+      "parentUuid": "bbfb660b_82158297",
       "range": {
         "startLine": 119,
         "startChar": 36,

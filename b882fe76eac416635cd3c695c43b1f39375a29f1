@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c511ac5a_078f817a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-05T23:59:10Z",
+      "side": 1,
+      "message": "I also had to tweak the Windows SEH bits.",
+      "revId": "b882fe76eac416635cd3c695c43b1f39375a29f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
