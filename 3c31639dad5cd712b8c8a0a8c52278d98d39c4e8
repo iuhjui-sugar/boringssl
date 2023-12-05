@@ -89,6 +89,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a378583_0f8c97f3",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T18:19:10Z",
+      "side": 1,
+      "message": "We have a few abbreviated if-and-only-ifs in the code. It\u0027s just that the conventional abbreviation is \"iff\", not \"iif\". :-P\n\n(Although it\u0027s also kinda implicit that \"if\" in a sentence describing a definition is actually \"iff\".)",
+      "parentUuid": "d38892ff_331b31ee",
+      "range": {
+        "startLine": 26,
+        "startChar": 33,
+        "endLine": 26,
+        "endChar": 36
+      },
+      "revId": "3c31639dad5cd712b8c8a0a8c52278d98d39c4e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "8f9d5333_640648b4",
