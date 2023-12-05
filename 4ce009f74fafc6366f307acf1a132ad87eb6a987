@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "346b362f_a7e4df5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "Thanks! I took a pass to double-check the capability checks against the assembly. Looks good modulo these last few comments. (Sorry about the review being dribbled in multiple rounds. I\u0027m in the middle of a training thing this week, so I have very limited continuous attention.)\n\n(Once this lands, SDE will run and confirm everything\u0027s OK on Intel. On Arm, unfortunately we don\u0027t have the best of tools to check all this. Fortunately there are fewer features on Arm to juggle.)",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5983100b_0356549c",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "Unclear to me whether SHA and SSSE3 have a relationship, but the implementation uses PSHUFB so 👍 on checking it.",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bba7834f_8a96680f",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "I think it\u0027s okay to omit the SSSE3 check here. I\u0027m guessing you picked this up from what the assembly used to be doing, but that\u0027s also an artifact of the execution order.\n\n* AVX2 implies SSSE3\n* sha1_block_data_order_avx2 does not seem to actually use any SSSE3 instructions\n\nThat matches what we do in the rest of the library (and even in this CL), where we don\u0027t, e.g. check for SSE3 or AVX in an AVX2 function.",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe190cf3_2c453a00",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "Likewise, I think we can omit this one:\n\n* AVX implies SSSE3\n* sha1_block_data_order_avx does not actually use an SSSE3 instructions",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae917c1_0a68429d",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "The check for an Intel CPU is probably a bit confusing. Andy usually puts these in the changelogs at the top of the file. sha1-x86_64.pl just says \"See sha1-586.pl for further information\", but that does actually talk about it.\n\nLet\u0027s add a comment like:\n\n// Additionally check for Intel CPUs. This function makes some assumptions on the performance of SHLD and SHRD. See discussion in sha1-586.pl.",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60b7440c_f4e7561d",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "Similar to before, I don\u0027t actually see any use of SSSE3 instructions, and AVX implies SSSE3. This one is structured differently from SHA-1, but I think it\u0027s just the result of some optimization/cleverness around extracting only certain bits.",
+      "range": {
+        "startLine": 104,
+        "startChar": 36,
+        "endLine": 104,
+        "endChar": 59
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31620873_464300ad",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "// Additionally check for Intel CPUs. This function makes some assumptions on the performance of SHLD and SHRD. See discussion in sha1-586.pl.",
+      "range": {
+        "startLine": 105,
+        "startChar": 9,
+        "endLine": 105,
+        "endChar": 28
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbfb660b_82158297",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 119,
+        "startChar": 36,
+        "endLine": 119,
+        "endChar": 59
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "352545b7_d3dbaee4",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:19:44Z",
+      "side": 1,
+      "message": "// Additionally check for Intel CPUs. This function makes some assumptions on the performance of SHLD and SHRD. See discussion in sha1-586.pl.",
+      "range": {
+        "startLine": 120,
+        "startChar": 9,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
