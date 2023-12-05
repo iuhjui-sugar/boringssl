@@ -18,6 +18,29 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b95e4b5_b480a9b0",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T21:29:35Z",
+      "side": 1,
+      "message": "Don\u0027t think it matters, but for consistency with everything else:\n\n```suggestion\n#if !defined(OPENSSL_NO_ASM) \u0026\u0026 (defined(OPENSSL_X86) || defined(OPENSSL_ARM))\n```\n\n(I guess we should follow up and do this with the other platforms later. Knocking armcap references out of Armv7 will be particularly exciting. The way the assembly references armcap is a little messy. Particularly with Apple Armv7, which we probably should drop support for at this point, at least on the asm side.)",
+      "range": {
+        "startLine": 29,
+        "startChar": 53,
+        "endLine": 29,
+        "endChar": 55
+      },
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5983100b_0356549c",
