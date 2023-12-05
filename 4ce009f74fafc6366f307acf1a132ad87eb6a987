@@ -137,6 +137,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a4184b9_7db9254f",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-05T22:35:00Z",
+      "side": 1,
+      "message": "In that case, can you add TODO comments to remove these? Otherwise it is very difficult from reading the code (particularly after the original lines in the asm are removed!) what is the intended end state and what was a temporary measure to split things into two CLs.\n\nI\u0027m OK landing them in separate CLs, but realistically we will simply immediately anyway. As with the compile-time checking, there\u0027s no way for us to learn of issues short of just trying it. We\u0027re also very unlikely to learn of issues until well after all the changes have landed.\n\nBut also given the whole library doesn\u0027t bother checking predecessor bits like this, we\u0027ve already definitely broken these kinds of buggy virtual machine systems.",
+      "parentUuid": "b3b8280d_11d05895",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe190cf3_2c453a00",
         "filename": "crypto/fipsmodule/sha/internal.h",
         "patchSetId": 11
