@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "426f4108_7fbb3094",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-06T18:50:11Z",
+      "side": 1,
+      "message": "Use the boringssl C-style license template for a new file here, not the chromium one. (just look at other files in ../ssl)\n\n(and yes we need to change the existing ones.)",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "8469e4fb115c08b38bf4d883e73c6fe9b06d7a6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
