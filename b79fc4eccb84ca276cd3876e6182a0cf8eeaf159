@@ -16,6 +16,23 @@
       "message": "https://boringssl-review.googlesource.com/c/boringssl/+/64547 removes the unnecssary SSSE3 checks.",
       "revId": "b79fc4eccb84ca276cd3876e6182a0cf8eeaf159",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef628c1d_b1b4dc3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-06T03:20:55Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/64567 Adds a check for SSSE3 for the SHA256 SHAEXT implementation.",
+      "revId": "b79fc4eccb84ca276cd3876e6182a0cf8eeaf159",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
