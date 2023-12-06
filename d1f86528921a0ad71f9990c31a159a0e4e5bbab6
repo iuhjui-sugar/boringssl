@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0328ca8_a0465e9b",
+        "filename": "pki/trust_store_in_memory.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "changed to using std::set, AsStringView doesn\u0027t compile though. Not sure what we could do that would make sense to make it compile.",
+      "parentUuid": "d648eea8_00c84f8d",
+      "range": {
+        "startLine": 58,
+        "startChar": 50,
+        "endLine": 58,
+        "endChar": 58
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48b7da52_3f15f9b2",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-12-05T23:47:11Z",
       "side": 1,
       "message": "nit: Distrusts",
+      "range": {
+        "startLine": 59,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 13
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9550cb45_7cdd6627",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48b7da52_3f15f9b2",
       "range": {
         "startLine": 59,
         "startChar": 5,
@@ -64,6 +112,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3742cc2a_224c4c99",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0910fc5a_606e63ab",
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ad0edfe_a982e32f",
@@ -81,6 +147,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67db85ca_c5f529cc",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad0edfe_a982e32f",
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdc0a2cf_91cf8d4f",
@@ -94,6 +178,30 @@
       "writtenOn": "2023-12-05T23:47:11Z",
       "side": 1,
       "message": "distrusted (\"not trusted\" is ambiguous, can be interpreted as \"unspecified\" too.)",
+      "range": {
+        "startLine": 76,
+        "startChar": 17,
+        "endLine": 76,
+        "endChar": 28
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6daf22de_4720a54f",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdc0a2cf_91cf8d4f",
       "range": {
         "startLine": 76,
         "startChar": 17,
@@ -127,6 +235,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e3f6636_72c902fe",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "623ad70d_38488fb7",
+      "range": {
+        "startLine": 86,
+        "startChar": 30,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbabe844_e6dd1847",
@@ -150,6 +282,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6881942c_722d9ad7",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbabe844_e6dd1847",
+      "range": {
+        "startLine": 99,
+        "startChar": 17,
+        "endLine": 99,
+        "endChar": 28
+      },
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b797a8b_cca59da2",
@@ -163,6 +319,24 @@
       "writtenOn": "2023-12-05T23:47:11Z",
       "side": 1,
       "message": "nit: extra blank line",
+      "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fde1ab0_0d755a0e",
+        "filename": "pki/trust_store_in_memory_unittest.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b797a8b_cca59da2",
       "revId": "d1f86528921a0ad71f9990c31a159a0e4e5bbab6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

@@ -178,6 +178,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85dcc698_a6945872",
+        "filename": "pki/trust_store_in_memory.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2023-12-06T18:47:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b1813e0_ec876777",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55ff4c9e_4b67ac66",
