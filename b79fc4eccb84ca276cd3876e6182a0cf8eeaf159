@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "657eda6a_998a322a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-06T03:06:13Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/64547 removes the unnecssary SSSE3 checks.",
+      "revId": "b79fc4eccb84ca276cd3876e6182a0cf8eeaf159",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
