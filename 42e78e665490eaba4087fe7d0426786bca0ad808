@@ -71,6 +71,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26b0b5f1_c08c5162",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-06T19:04:04Z",
+      "side": 1,
+      "message": "And for the record, I agree with matt here, Explicit distrust is just useful.",
+      "parentUuid": "98da96ee_c49ebff1",
+      "revId": "42e78e665490eaba4087fe7d0426786bca0ad808",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed3a6dca_6594c552",
