@@ -73,11 +73,8 @@ OPENSSL_INLINE int sha1_hw_capable(void) {
 
 #define SHA1_ASM_AVX2
 OPENSSL_INLINE int sha1_avx2_capable(void) {
-  // TODO: Simplify this logic, which was extracted from the assembly:
-  //  * Does AVX2 imply SSSE3?
-  //  * sha1_block_data_order_avx2 does not seem to use SSSE3 instructions.
   return CRYPTO_is_AVX2_capable() && CRYPTO_is_BMI2_capable() &&
-         CRYPTO_is_BMI1_capable() && CRYPTO_is_SSSE3_capable();
+         CRYPTO_is_BMI1_capable();
 }
 void sha1_block_data_order_avx2(uint32_t *state, const uint8_t *data,
                                 size_t num);
@@ -85,13 +82,10 @@ void sha1_block_data_order_avx2(uint32_t *state, const uint8_t *data,
 #define SHA1_ASM_AVX
 OPENSSL_INLINE int sha1_avx_capable(void) {
   // TODO: Simplify this logic, which was extracted from the assembly:
-  //  * Does AVX imply SSSE3?
-  //  * sha1_block_data_order_avx does not seem to use SSSE3 instructions.
   //  * Lift the restriction to Intel CPUs. The restriction seems to be based on
   //    possibly-outdated assumptions of the performance of SHLD and SHRD
   //    described in sha1-586.pl.
-  return CRYPTO_is_AVX_capable() && CRYPTO_is_SSSE3_capable() &&
-         CRYPTO_is_intel_cpu();
+  return CRYPTO_is_AVX_capable() && CRYPTO_is_intel_cpu();
 }
 void sha1_block_data_order_avx(uint32_t *state, const uint8_t *data,
                                size_t num);
@@ -111,13 +105,10 @@ OPENSSL_INLINE int sha256_hw_capable(void) {
 #define SHA256_ASM_AVX
 OPENSSL_INLINE int sha256_avx_capable(void) {
   // TODO: Simplify this logic, which was extracted from the assembly:
-  //  * Does AVX imply SSSE3?
-  //  * sha256_block_data_order_avx does not seem to use SSSE3 instructions.
   //  * Lift the restriction to Intel CPUs. The restriction seems to be based on
   //    possibly-outdated assumptions of the performance of SHLD and SHRD
   //    described in sha1-586.pl.
-  return CRYPTO_is_AVX_capable() && CRYPTO_is_SSSE3_capable() &&
-         CRYPTO_is_intel_cpu();
+  return CRYPTO_is_AVX_capable() && CRYPTO_is_intel_cpu();
 }
 void sha256_block_data_order_avx(uint32_t *state, const uint8_t *data,
                                  size_t num);
@@ -132,13 +123,10 @@ void sha256_block_data_order_ssse3(uint32_t *state, const uint8_t *data,
 #define SHA512_ASM_AVX
 OPENSSL_INLINE int sha512_avx_capable(void) {
   // TODO: Simplify this logic, which was extracted from the assembly:
-  //  * Does AVX imply SSSE3?
-  //  * sha512_block_data_order_avx does not seem to use SSSE3 instructions.
   //  * Lift the restriction to Intel CPUs. The restriction seems to be based on
   //    possibly-outdated assumptions of the performance of SHLD and SHRD
   //    described in sha1-586.pl.
-  return CRYPTO_is_AVX_capable() && CRYPTO_is_SSSE3_capable() &&
-         CRYPTO_is_intel_cpu();
+  return CRYPTO_is_AVX_capable() && CRYPTO_is_intel_cpu();
 }
 void sha512_block_data_order_avx(uint64_t *state, const uint8_t *data,
                                  size_t num);
