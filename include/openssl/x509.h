@@ -2919,6 +2919,40 @@ OPENSSL_EXPORT int ASN1_item_sign_ctx(const ASN1_ITEM *it, X509_ALGOR *algor1,
                                       EVP_MD_CTX *ctx);
 
 
+// Verification internals.
+//
+// The following functions expose portions of certificate validation. They are
+// exported for compatibility with existing callers, or to support some obscure
+// use cases. Most callers, however, will not need these functions and should
+// instead use |X509_STORE_CTX| APIs.
+
+// X509_supported_extension returns one if |ex| is a critical X.509 certificate
+// extension, supported by |X509_verify_cert|, and zero otherwise.
+//
+// Note this function only reports certificate extensions (as opposed to CRL or
+// CRL extensions), and only extensions that are expected to be marked critical.
+// Additionally, |X509_verify_cert| checks for unsupported critical extensions
+// internally, so most callers will not need to call this function separately.
+OPENSSL_EXPORT int X509_supported_extension(const X509_EXTENSION *ex);
+
+// X509_check_ca returns one if |x509| may be considered a CA certificate,
+// according to basic constraints and key usage extensions. Otherwise, it
+// returns zero. If |x509| is an X509v1 certificate, and thus has no extensions,
+// it is considered eligible.
+//
+// This function returning one does not indicate that |x509| is trusted, only
+// that it is eligible to be a CA.
+//
+// TODO(crbug.com/boringssl/407): |x509| should be const.
+OPENSSL_EXPORT int X509_check_ca(X509 *x509);
+
+// NAME_CONSTRAINTS_check checks if |x509| satisfies name constraints in |nc|.
+// It returns |X509_V_OK| on success and some |X509_V_ERR_*| constant on error.
+//
+// TODO(crbug.com/boringssl/407): Both parameters should be const.
+OPENSSL_EXPORT int NAME_CONSTRAINTS_check(X509 *x509, NAME_CONSTRAINTS *nc);
+
+
 // X.509 information.
 //
 // |X509_INFO| is the return type for |PEM_X509_INFO_read_bio|, defined in
@@ -4136,8 +4170,6 @@ DECLARE_ASN1_FUNCTIONS(ISSUING_DIST_POINT)
 OPENSSL_EXPORT int DIST_POINT_set_dpname(DIST_POINT_NAME *dpn,
                                          X509_NAME *iname);
 
-OPENSSL_EXPORT int NAME_CONSTRAINTS_check(X509 *x, NAME_CONSTRAINTS *nc);
-
 // TODO(https://crbug.com/boringssl/407): This is not const because it contains
 // an |X509_NAME|.
 DECLARE_ASN1_FUNCTIONS(ACCESS_DESCRIPTION)
@@ -4307,17 +4339,7 @@ OPENSSL_EXPORT X509_EXTENSION *X509V3_EXT_i2d(int ext_nid, int crit,
 OPENSSL_EXPORT int X509V3_add1_i2d(STACK_OF(X509_EXTENSION) **x, int nid,
                                    void *value, int crit, unsigned long flags);
 
-OPENSSL_EXPORT int X509_check_ca(X509 *x);
 OPENSSL_EXPORT int X509_check_purpose(X509 *x, int id, int ca);
-
-// X509_supported_extension returns one if |ex| is a critical X.509 certificate
-// extension, supported by |X509_verify_cert|, and zero otherwise.
-//
-// Note this function only reports certificate extensions (as opposed to CRL or
-// CRL extensions), and only extensions that are expected to be marked critical.
-// Additionally, |X509_verify_cert| checks for unsupported critical extensions
-// internally, so most callers will not need to call this function separately.
-OPENSSL_EXPORT int X509_supported_extension(const X509_EXTENSION *ex);
 
 OPENSSL_EXPORT int X509_PURPOSE_set(int *p, int purpose);
 OPENSSL_EXPORT int X509_check_issued(X509 *issuer, X509 *subject);
