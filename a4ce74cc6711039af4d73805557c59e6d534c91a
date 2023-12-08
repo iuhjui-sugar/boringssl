@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb3dc897_ea969f48",
+        "filename": "pki/ocsp.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-08T18:46:16Z",
+      "side": 1,
+      "message": "I think what reset the vote was this line. (Which... if you remove may reset the vote again.)",
+      "revId": "a4ce74cc6711039af4d73805557c59e6d534c91a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
