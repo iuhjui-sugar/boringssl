@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8557ca92_a475d5c2",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-08T21:37:27Z",
+      "side": 1,
+      "message": "Do we have existing tests for `CheckPathAfterVerification` that we could easily add something for here?",
+      "revId": "a61489ddc30c9a99d665e3ed4a911205adfa98b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
