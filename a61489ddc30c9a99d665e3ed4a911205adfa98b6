@@ -16,6 +16,24 @@
       "message": "Do we have existing tests for `CheckPathAfterVerification` that we could easily add something for here?",
       "revId": "a61489ddc30c9a99d665e3ed4a911205adfa98b6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7148a1f9_f906cd2a",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-12-09T02:39:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8557ca92_a475d5c2",
+      "revId": "a61489ddc30c9a99d665e3ed4a911205adfa98b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
