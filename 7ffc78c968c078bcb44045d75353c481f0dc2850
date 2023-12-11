@@ -34,6 +34,24 @@
       "parentUuid": "4fd474c5_26b690eb",
       "revId": "7ffc78c968c078bcb44045d75353c481f0dc2850",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "396136b5_e1439529",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T20:21:00Z",
+      "side": 1,
+      "message": "Yeah, I hadn\u0027t really thought about it much more than that either, which is why I paused. I think I\u0027m gonna be abstracting it all away though and picking it up in g3, so I think it makes sense to remove it.",
+      "parentUuid": "472584c2_5b4a8591",
+      "revId": "7ffc78c968c078bcb44045d75353c481f0dc2850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
