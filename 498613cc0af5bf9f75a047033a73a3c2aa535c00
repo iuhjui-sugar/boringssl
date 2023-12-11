@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20d2f192_1b6dd378",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T21:14:25Z",
+      "side": 1,
+      "message": "Hence why I think we say right now that it does check CN, and just change it to explicitly say it does not check it when we change that default.",
+      "parentUuid": "c2ee6b57_2d2fd866",
+      "range": {
+        "startLine": 2966,
+        "startChar": 0,
+        "endLine": 2973,
+        "endChar": 2
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ee619a4_10b5ee82",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
