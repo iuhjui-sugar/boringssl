@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6ef957_40485289",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T16:46:21Z",
+      "side": 1,
+      "message": "Super nitty nit: \"Call CheckPathAfterVerification in deadline/iteration limit case\" might be the better title,\n\noh and while we\u0027re here clean up the logging. but meh.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "30cebf9b0a0112dd58fb4832204e65c137653526",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
