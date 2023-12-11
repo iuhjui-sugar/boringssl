@@ -118,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "724f686c_73b365e2",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T20:44:16Z",
+      "side": 1,
+      "message": "Same, changing my mind on this.",
+      "parentUuid": "e69ac829_aca6cef1",
+      "range": {
+        "startLine": 2992,
+        "startChar": 12,
+        "endLine": 2995,
+        "endChar": 56
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "524acc7a_c32f89c1",
@@ -154,6 +178,30 @@
       "writtenOn": "2023-12-11T20:33:12Z",
       "side": 1,
       "message": "```suggestion\n// WARNING: This function returns 1 for a successful match, 0 for a failed match, and -1 for an error.",
+      "range": {
+        "startLine": 3018,
+        "startChar": 12,
+        "endLine": 3021,
+        "endChar": 56
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6098234_1586c7bb",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3021,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T20:44:16Z",
+      "side": 1,
+      "message": "Nah, changing my mind, thought I had remembered stuff that actually cared to differentiate between an error and a match failure (as a \u0027success\u0027) but I think it\u0027s either gone or not easily findable.",
+      "parentUuid": "3cca2149_2aec61bf",
       "range": {
         "startLine": 3018,
         "startChar": 12,
