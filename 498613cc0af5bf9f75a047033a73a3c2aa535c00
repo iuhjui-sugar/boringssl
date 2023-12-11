@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9873df4d_ebde82ed",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T20:28:56Z",
+      "side": 1,
+      "message": "The problem I have with \"making it the library\u0027s problem\" and you shouldn\u0027t care, is historically this has been done in a silly way (i.e. the CN being checked) and so people will *inevitably* want to know what\u0027s happening under the covers and will a CN be accepted if they call this or not. \n\nAnd the problem then becomes once you start talking about the CHECK flags\nwhich they have added as knobs to get around all the strange behaviour, you sort of need to know the default behaviour or it\u0027s all hard to follow. \n\ndoes it make sense to just talk about all the CHECK flags in here? \n\nA-la https://man.openbsd.org/X509_check_host\n\n(especially since all the wildcard options are just goofy)",
+      "parentUuid": "088ad481_9d017c14",
+      "range": {
+        "startLine": 2966,
+        "startChar": 0,
+        "endLine": 2973,
+        "endChar": 2
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ee619a4_10b5ee82",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
