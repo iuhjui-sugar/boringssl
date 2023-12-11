@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e38e706_667e410e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1861,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T18:21:09Z",
+      "side": 1,
+      "message": "I think having to call it out everywhere is too tedious. We already mention it here.\nhttps://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md#heap_allocated-types",
+      "parentUuid": "2f3a437e_396884e5",
+      "range": {
+        "startLine": 1860,
+        "startChar": 0,
+        "endLine": 1861,
+        "endChar": 61
+      },
+      "revId": "d5c09ac89d2bf1b64ddc24092245fa561da83c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2c295c3_eab7e01e",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3a1f7b_e7ccd5fb",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1889,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T18:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2c295c3_eab7e01e",
+      "range": {
+        "startLine": 1889,
+        "startChar": 3,
+        "endLine": 1889,
+        "endChar": 17
+      },
+      "revId": "d5c09ac89d2bf1b64ddc24092245fa561da83c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2efeb979_e8868077",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-12-11T16:56:02Z",
       "side": 1,
       "message": "```suggestion\n// before calling this function. If |gen| already contained a value, the\n// previous contents will be leaked.\n```",
+      "range": {
+        "startLine": 1898,
+        "startChar": 69,
+        "endLine": 1899,
+        "endChar": 37
+      },
+      "revId": "d5c09ac89d2bf1b64ddc24092245fa561da83c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fb2891a_ff89ff76",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1899,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T18:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2efeb979_e8868077",
       "range": {
         "startLine": 1898,
         "startChar": 69,
