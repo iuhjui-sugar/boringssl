@@ -97,6 +97,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e69ac829_aca6cef1",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2995,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T20:33:12Z",
+      "side": 1,
+      "message": "```suggestion\n// WARNING: This function returns 1 for a successful match 0 for a failed match, and -1 if an error occured. \n```",
+      "range": {
+        "startLine": 2992,
+        "startChar": 12,
+        "endLine": 2995,
+        "endChar": 56
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "524acc7a_c32f89c1",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
@@ -113,6 +136,29 @@
         "startChar": 5,
         "endLine": 2999,
         "endChar": 34
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3cca2149_2aec61bf",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3021,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T20:33:12Z",
+      "side": 1,
+      "message": "```suggestion\n// WARNING: This function returns 1 for a successful match, 0 for a failed match, and -1 for an error.",
+      "range": {
+        "startLine": 3018,
+        "startChar": 12,
+        "endLine": 3021,
+        "endChar": 56
       },
       "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
