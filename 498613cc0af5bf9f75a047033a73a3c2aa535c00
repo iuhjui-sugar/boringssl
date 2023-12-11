@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b519e36c_bcf1762a",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T20:45:25Z",
+      "side": 1,
+      "message": "\u003e The problem I have with \"making it the library\u0027s problem\" and you shouldn\u0027t care, is historically this has been done in a silly way (i.e. the CN being checked) and so people will inevitably want to know what\u0027s happening under the covers and will a CN be accepted if they call this or not.\n\nI mean, it\u0027s not just historically silly but currently silly. That\u0027s why I put the TODO marker everywhere. Do you think that\u0027s insufficient? (Pretend we\u0027re in a future where `X509_CHECK_FLAG_NEVER_CHECK_SUBJECT` is up in a documented section already.)\n\nI think once the default is correct, we can just leave it be and people who want the silly thing can find it themselves. (And if they don\u0027t find it and are unable to do the silly thing, all the better!)\n\n\u003e does it make sense to just talk about all the CHECK flags in here?\n\nI mentioned this in the CL description a bit. These APIs are not really functions we expect people to use. I think `X509_VERIFY_PARAM_set1_host` and friends are more likely. So I would rather we put the flags next to there. I just haven\u0027t done that yet, because I haven\u0027t pulled the actual cert verification APIs in their own section. (That\u0027s the next batch.)\n\nWhen we do that, I\u0027m thinking we\u0027ll just put these flags next to `X509_VERIFY_PARAM_set_hostflags` and have pointers.",
+      "parentUuid": "9873df4d_ebde82ed",
+      "range": {
+        "startLine": 2966,
+        "startChar": 0,
+        "endLine": 2973,
+        "endChar": 2
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ee619a4_10b5ee82",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
