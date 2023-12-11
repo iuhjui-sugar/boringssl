@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be0d8dff_476c0102",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T22:47:50Z",
+      "side": 1,
+      "message": "That was my thinking with the TODO. :-P Rephrased it a bit. How\u0027s this?",
+      "parentUuid": "20d2f192_1b6dd378",
+      "range": {
+        "startLine": 2966,
+        "startChar": 0,
+        "endLine": 2973,
+        "endChar": 2
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ee619a4_10b5ee82",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
@@ -227,6 +251,30 @@
       "writtenOn": "2023-12-11T17:12:35Z",
       "side": 1,
       "message": "```suggestion\n// X509_check_ip checks if a Subject Alternative Name IP address in |x509| matches the IP address |chk|. The IP address\n```",
+      "range": {
+        "startLine": 2999,
+        "startChar": 5,
+        "endLine": 2999,
+        "endChar": 34
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7b949e2_21310bfd",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2999,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T22:47:50Z",
+      "side": 1,
+      "message": "(I think we don\u0027t need to say anything here because there\u0027s nowhere else to put an IP address anyway.)",
+      "parentUuid": "524acc7a_c32f89c1",
       "range": {
         "startLine": 2999,
         "startChar": 5,
