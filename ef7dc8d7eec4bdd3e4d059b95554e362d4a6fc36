@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baff23fd_b3ade533",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T18:16:13Z",
+      "side": 1,
+      "message": "I should mention I\u0027ve run this through TGP. If this looks good, I\u0027ll send Envoy the change to normalize the behavior.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 11
+      },
+      "revId": "ef7dc8d7eec4bdd3e4d059b95554e362d4a6fc36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
