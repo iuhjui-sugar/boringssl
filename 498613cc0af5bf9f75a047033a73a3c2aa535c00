@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b35b834d_fbb541b5",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T17:12:35Z",
+      "side": 1,
+      "message": "```suggestion\n// X509_check_host checks if a Subject Alternative Name, or the Subject CN of |x509| matches the DNS name |chk|. By default wildcards are supported and match only the left-most label, and may match with an explicit prefix or suffix within that label. By default when |chk| starts with a dot, it will be matched by a certificate valid for any subdomain of |chk|. It returns one on match, zero on mismatch, or a negative number on error. |flags| should be\n// some combination of |X509_CHECK_FLAG_*| which can modify the\nabove matching behaviour. \n// On match,\n// if |out_peername| is non-NULL, it additionally sets |*out_peername| to a\n// newly-allocated, NUL-terminated string containing the DNS name or wildcard in\n// the certificate which matched. The caller must then free |*out_peername| with\n// |OPENSSL_free| when done.\n//\n```",
+      "range": {
+        "startLine": 2966,
+        "startChar": 0,
+        "endLine": 2973,
+        "endChar": 2
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ee619a4_10b5ee82",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2985,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T17:12:35Z",
+      "side": 1,
+      "message": "```suggestion\n// X509_check_email checks if A Subject Alternative Name Email Address, or the Subject Email address of |x509| matches the email address |chk|. It returns\n```",
+      "range": {
+        "startLine": 2985,
+        "startChar": 20,
+        "endLine": 2985,
+        "endChar": 48
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "524acc7a_c32f89c1",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2999,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-11T17:12:35Z",
+      "side": 1,
+      "message": "```suggestion\n// X509_check_ip checks if a Subject Alternative Name IP address in |x509| matches the IP address |chk|. The IP address\n```",
+      "range": {
+        "startLine": 2999,
+        "startChar": 5,
+        "endLine": 2999,
+        "endChar": 34
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
