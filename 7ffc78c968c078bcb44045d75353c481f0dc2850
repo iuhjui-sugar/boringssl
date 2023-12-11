@@ -16,6 +16,24 @@
       "message": "we *might* end up using this in verify.cc, which I am porting over, but I guess we could always put it back, or wait a bit?",
       "revId": "7ffc78c968c078bcb44045d75353c481f0dc2850",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472584c2_5b4a8591",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T16:55:05Z",
+      "side": 1,
+      "message": "Hmm. So the history of this file is that Chrome used to not own the root store, which meant that revocations had to be applied after the fact. In the long term, I hope we can do this by simply removing the roots and maybe having some path from CRLsets straight to here.\n\nGiven that CCV doesn\u0027t have a root store either, I\u0027d be inclined to say that this sort of policy decisions should live with whether you got your root store from. But I haven\u0027t thought about this much. Something to discuss perhaps.",
+      "parentUuid": "4fd474c5_26b690eb",
+      "revId": "7ffc78c968c078bcb44045d75353c481f0dc2850",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
