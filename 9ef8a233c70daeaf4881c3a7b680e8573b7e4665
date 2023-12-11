@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b489baa6_4f2756cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T20:13:33Z",
+      "side": 1,
+      "message": "LGTM!",
+      "revId": "9ef8a233c70daeaf4881c3a7b680e8573b7e4665",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baa89e84_0da0e2ed",
+        "filename": "crypto/fipsmodule/sha/asm/sha1-x86_64.pl",
+        "patchSetId": 20
+      },
+      "lineNbr": 2024,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T20:13:33Z",
+      "side": 1,
+      "message": "I really gotta finish that work to do the SEH codes right and remove this mess. (Though at this rate, I think I want to pregenerate asm, then add masm and/or clang-assembler, drop nasm, and then we can use the masm and clang\u0027s built-in SEH directives.)",
+      "revId": "9ef8a233c70daeaf4881c3a7b680e8573b7e4665",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad450be_7322553f",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T20:13:33Z",
+      "side": 1,
+      "message": "```suggestion\n// Define SHA{n}[_{variant}]_ASM if sha{n}_block_data_order[_{variant}] is\n```\n\n(Mentioned this earlier too, but I think it got lost in the \"iif\" vs \"iff\" kerfuffle. 😄)",
+      "range": {
+        "startLine": 26,
+        "startChar": 36,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "9ef8a233c70daeaf4881c3a7b680e8573b7e4665",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aebe5960_1b4188fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T20:13:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "078bc768_efb6d506",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b95e4b5_b480a9b0",
@@ -167,6 +185,24 @@
       "side": 1,
       "message": "I added the TODO. I also sorted the checks with the newest features first (AVX2 and BMI2 and BMI1).\n\nFWIW, I couldn\u0027t find a definitive reference stating that SSSE3 instructions are guaranteed to be supported if AVX(2) instructions are advertised as supported. In the Intel docs I see more definitive indications that AVX2 is a superset of AVX2 and AVX2 is a superset of AVX1, but nothing as clearly worded like that for SSSE3.\n\nI think your note that no SSSE3 instructions are being used is a better basis for simplifying the check.",
       "parentUuid": "3a4184b9_7db9254f",
+      "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "164c4a61_f61c6dff",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T20:13:33Z",
+      "side": 1,
+      "message": "I do wish these things were more clearly documented, but GCC and LLVM both believe they\u0027re consecutive:\nhttps://github.com/llvm/llvm-project/blob/10f15e2ec419328aa35292b64721e1e1e9e37d70/clang/lib/Basic/Targets/X86.cpp#L955\nGCC is a little harder to read, but if you look at this diff and then follow the `OPTION_MASK_ISA_*_SET` macros, you\u0027ll see they all imply the previous ones:\nhttps://gcc.gnu.org/git/?p\u003dgcc.git;a\u003dcommitdiff;h\u003d7afac11005625275db3bbdb22a1bdd778871efae;hp\u003d6277a71071d0af461e0016cee626fa37c01f8e02\n\nSo that at least implies that the static checks are redundant. The runtime checks are a bit more fun because the Intel manual actually encourages you to check *all* the previous ones all the time. E.g. \"12.12.1 Guidelines for Using Intel® SSE4 Extensions\" says that to check for SSE4, you should check for all the previous ones too.\n \n(This is very tedious and error-prone. If we\u0027re going to do that, I think we should just make cpu_intel.c force the issue and mask off the later bits when the older ones are missing.)\n\nBut the AVX section does indeed break the chain, so that\u0027s interesting. But AVX also promotes a bunch of prior S?SSE[2-4]? instructions to 256-bit versions, so it would be a bit silly to not have both.\n\nI also found this which is similarly inconclusive.\nhttps://stackoverflow.com/questions/53443249/do-all-cpus-which-support-avx2-also-support-sse4-2-and-avx",
+      "parentUuid": "bf0a94d2_b32383cc",
       "revId": "4ce009f74fafc6366f307acf1a132ad87eb6a987",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
