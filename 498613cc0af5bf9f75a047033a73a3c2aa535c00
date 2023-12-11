@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "088ad481_9d017c14",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-11T18:15:21Z",
+      "side": 1,
+      "message": "I didn\u0027t want to explicitly say CN because ideally we\u0027d make `X509_CHECK_FLAG_NEVER_CHECK_SUBJECT` the default someday. I think also, from the perspective of most callers, they only need to know that this checks if |x509| claims to be valid for the DNS name, and how exactly it\u0027s encoded is the library\u0027s problem.\n\nThe one footnote is the library does not do a good job of it right now (and may be stuck doing so for a while). I\u0027ve added a note to a handful of functions directing callers to set the flag for now. Thoughts?",
+      "parentUuid": "b35b834d_fbb541b5",
+      "range": {
+        "startLine": 2966,
+        "startChar": 0,
+        "endLine": 2973,
+        "endChar": 2
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ee619a4_10b5ee82",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
