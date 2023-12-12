@@ -49,6 +49,9 @@ pub mod hkdf;
 /// HMAC, a hash-based message authentication code.
 pub mod hmac;
 
+/// Hybrid Public Key Encryption.
+pub mod hpke;
+
 /// Random number generation.
 pub mod rand;
 
