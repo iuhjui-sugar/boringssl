@@ -215,6 +215,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4cc94c4_4ed8766f",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2985,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-12T02:39:24Z",
+      "side": 1,
+      "message": "Marking resolved.",
+      "parentUuid": "0ee619a4_10b5ee82",
+      "range": {
+        "startLine": 2985,
+        "startChar": 20,
+        "endLine": 2985,
+        "endChar": 48
+      },
+      "revId": "498613cc0af5bf9f75a047033a73a3c2aa535c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e69ac829_aca6cef1",
