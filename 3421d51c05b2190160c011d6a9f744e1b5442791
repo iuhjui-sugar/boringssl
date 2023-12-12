@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc498876_5e2c3a7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-12T17:02:20Z",
+      "side": 1,
+      "message": "Going to try this and see if the bots work...",
+      "revId": "3421d51c05b2190160c011d6a9f744e1b5442791",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
