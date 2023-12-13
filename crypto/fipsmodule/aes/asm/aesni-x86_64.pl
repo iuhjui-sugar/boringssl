@@ -3320,8 +3320,8 @@ $code.=<<___;
 .size	${PREFIX}_cbc_encrypt,.-${PREFIX}_cbc_encrypt
 ___
 }
-# int ${PREFIX}_set_decrypt_key(const unsigned char *inp,
-#				int bits, AES_KEY *key)
+# int ${PREFIX}_set_decrypt_key_asm(const unsigned char *inp,
+#				int bits, AES_KEY *key, int avx_capable)
 #
 # input:	$inp	user-supplied key
 #		$bits	$inp length in bits
@@ -3329,14 +3329,14 @@ ___
 # output:	%eax	0 denoting success, -1 or -2 - failure (see C)
 #		*$key	key schedule
 #
-{ my ($inp,$bits,$key) = @_4args;
+{ my ($inp,$bits,$key,$avx_capable) = @_4args;
   $bits =~ s/%r/%e/;
 
 $code.=<<___;
-.globl	${PREFIX}_set_decrypt_key
-.type	${PREFIX}_set_decrypt_key,\@abi-omnipotent
+.globl	${PREFIX}_set_decrypt_key_asm
+.type	${PREFIX}_set_decrypt_key_asm,\@abi-omnipotent
 .align	16
-${PREFIX}_set_decrypt_key:
+${PREFIX}_set_decrypt_key_asm:
 .cfi_startproc
 	_CET_ENDBR
 	.byte	0x48,0x83,0xEC,0x08	# sub rsp,8
@@ -3376,8 +3376,8 @@ ${PREFIX}_set_decrypt_key:
 .cfi_adjust_cfa_offset	-8
 	ret
 .cfi_endproc
-.LSEH_end_set_decrypt_key:
-.size	${PREFIX}_set_decrypt_key,.-${PREFIX}_set_decrypt_key
+.LSEH_end_set_decrypt_key_asm:
+.size	${PREFIX}_set_decrypt_key_asm,.-${PREFIX}_set_decrypt_key_asm
 ___
 
 # This is based on submission from Intel by
@@ -3388,27 +3388,27 @@ ___
 # Aggressively optimized in respect to aeskeygenassist's critical path
 # and is contained in %xmm0-5 to meet Win64 ABI requirement.
 #
-# int ${PREFIX}_set_encrypt_key(const unsigned char *inp,
-#				int bits, AES_KEY * const key);
+# int ${PREFIX}_set_encrypt_key_asm(const unsigned char *inp,
+#				int bits, AES_KEY * const key, int avx_capable);
 #
 # input:	$inp	user-supplied key
 #		$bits	$inp length in bits
 #		$key	pointer to key schedule
 # output:	%eax	0 denoting success, -1 or -2 - failure (see C)
-#		$bits	rounds-1 (used in aesni_set_decrypt_key)
+#		$bits	rounds-1 (used in aesni_set_decrypt_key_asm)
 #		*$key	key schedule
 #		$key	pointer to key schedule (used in
-#			aesni_set_decrypt_key)
+#			aesni_set_decrypt_key_asm)
 #
 # Subroutine is frame-less, which means that only volatile registers
 # are used. Note that it's declared "abi-omnipotent", which means that
 # amount of volatile registers is smaller on Windows.
 #
 $code.=<<___;
-.globl	${PREFIX}_set_encrypt_key
-.type	${PREFIX}_set_encrypt_key,\@abi-omnipotent
+.globl	${PREFIX}_set_encrypt_key_asm
+.type	${PREFIX}_set_encrypt_key_asm,\@abi-omnipotent
 .align	16
-${PREFIX}_set_encrypt_key:
+${PREFIX}_set_encrypt_key_asm:
 __aesni_set_encrypt_key:
 .cfi_startproc
 	_CET_ENDBR
@@ -3425,9 +3425,6 @@ __aesni_set_encrypt_key:
 
 	movups	($inp),%xmm0		# pull first 128 bits of *userKey
 	xorps	%xmm4,%xmm4		# low dword of xmm4 is assumed 0
-	leaq	OPENSSL_ia32cap_P(%rip),%r10
-	movl	4(%r10),%r10d
-	and	\$`1<<28|1<<11`,%r10d	# AVX and XOP bits
 	lea	16($key),%rax		# %rax is used as modifiable copy of $key
 	cmp	\$256,$bits
 	je	.L14rounds
@@ -3438,8 +3435,8 @@ __aesni_set_encrypt_key:
 
 .L10rounds:
 	mov	\$9,$bits			# 10 rounds for 128-bit key
-	cmp	\$`1<<28`,%r10d			# AVX, bit no XOP
-	je	.L10rounds_alt
+	test	$avx_capable,$avx_capable
+	jnz	.L10rounds_alt
 
 	$movkey	%xmm0,($key)			# round 0
 	aeskeygenassist	\$0x1,%xmm0,%xmm1	# round 1
@@ -3538,8 +3535,8 @@ __aesni_set_encrypt_key:
 .L12rounds:
 	movq	16($inp),%xmm2			# remaining 1/3 of *userKey
 	mov	\$11,$bits			# 12 rounds for 192
-	cmp	\$`1<<28`,%r10d			# AVX, but no XOP
-	je	.L12rounds_alt
+	test	$avx_capable,$avx_capable
+	jnz	.L12rounds_alt
 
 	$movkey	%xmm0,($key)			# round 0
 	aeskeygenassist	\$0x1,%xmm2,%xmm1	# round 1,2
@@ -3609,8 +3606,8 @@ __aesni_set_encrypt_key:
 	movups	16($inp),%xmm2			# remaining half of *userKey
 	mov	\$13,$bits			# 14 rounds for 256
 	lea	16(%rax),%rax
-	cmp	\$`1<<28`,%r10d			# AVX, but no XOP
-	je	.L14rounds_alt
+	test	$avx_capable,$avx_capable
+	jnz	.L14rounds_alt
 
 	$movkey	%xmm0,($key)			# round 0
 	$movkey	%xmm2,16($key)			# round 1
@@ -3713,7 +3710,7 @@ __aesni_set_encrypt_key:
 .cfi_adjust_cfa_offset	-8
 	ret
 .cfi_endproc
-.LSEH_end_set_encrypt_key:
+.LSEH_end_set_encrypt_key_asm:
 
 .align	16
 .Lkey_expansion_128:
@@ -3783,7 +3780,7 @@ __aesni_set_encrypt_key:
 	shufps	\$0b10101010,%xmm1,%xmm1	# critical path
 	xorps	%xmm1,%xmm2
 	ret
-.size	${PREFIX}_set_encrypt_key,.-${PREFIX}_set_encrypt_key
+.size	${PREFIX}_set_encrypt_key_asm,.-${PREFIX}_set_encrypt_key_asm
 .size	__aesni_set_encrypt_key,.-__aesni_set_encrypt_key
 ___
 }
@@ -4075,12 +4072,12 @@ $code.=<<___;
 	.rva	.LSEH_end_${PREFIX}_cbc_encrypt
 	.rva	.LSEH_info_cbc
 
-	.rva	${PREFIX}_set_decrypt_key
-	.rva	.LSEH_end_set_decrypt_key
+	.rva	${PREFIX}_set_decrypt_key_asm
+	.rva	.LSEH_end_set_decrypt_key_asm
 	.rva	.LSEH_info_key
 
-	.rva	${PREFIX}_set_encrypt_key
-	.rva	.LSEH_end_set_encrypt_key
+	.rva	${PREFIX}_set_encrypt_key_asm
+	.rva	.LSEH_end_set_encrypt_key_asm
 	.rva	.LSEH_info_key
 .section	.xdata
 .align	8

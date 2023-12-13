@@ -66,10 +66,27 @@ OPENSSL_INLINE int vpaes_capable(void) { return CRYPTO_is_NEON_capable(); }
 
 #if defined(HWAES)
 
+#if defined(OPENSSL_X86_64)
+int aes_hw_set_encrypt_key_asm(const uint8_t *user_key, const int bits,
+                               AES_KEY *key, int is_avx_capable);
+int aes_hw_set_decrypt_key_asm(const uint8_t *user_key, const int bits,
+                               AES_KEY *key, int is_avx_capable);
+OPENSSL_INLINE int aes_hw_set_encrypt_key(const uint8_t *user_key,
+                                          const int bits, AES_KEY *key) {
+  return aes_hw_set_encrypt_key_asm(user_key, bits, key,
+                                    CRYPTO_is_AVX_capable());
+}
+OPENSSL_INLINE int aes_hw_set_decrypt_key(const uint8_t *user_key, const int bits,
+                                          AES_KEY *key) {
+  return aes_hw_set_decrypt_key_asm(user_key, bits, key,
+                                    CRYPTO_is_AVX_capable());
+}
+#else
 int aes_hw_set_encrypt_key(const uint8_t *user_key, const int bits,
                            AES_KEY *key);
 int aes_hw_set_decrypt_key(const uint8_t *user_key, const int bits,
                            AES_KEY *key);
+#endif
 void aes_hw_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
 void aes_hw_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
 void aes_hw_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t length,
