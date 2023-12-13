@@ -70,6 +70,24 @@
       "parentUuid": "bac079fb_76889123",
       "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9652ae9a_48530d0c",
+        "filename": "include/openssl/pki/pki_version.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-13T19:43:14Z",
+      "side": 1,
+      "message": "Should be fine? I don\u0027t think there\u0027s any real harm to cranking BORINGSSL_API_VERSION. We expect callers to use it like:\n\n```\n#if BORINGSSL_API_VERSION \u003e\u003d SOME_CUTOFF\n  DoNewThing();\n#else\n  DoOldThing();\n#endif\n```\n\nWe don\u0027t really care if the number is 1 past `SOME_CUTOFF` or 1000 past it.\n\nMinimizing cranking it makes sense in a semver model where it\u0027s something like:\n\n```\n#if BORINGSSL_MAJOR_VERSION \u003d\u003d 1\n  DoV1Thing();\n#elif BORINGSSL_MAJOR_VERSION \u003d\u003d 2\n  DoV2Thing();\n#elif BORINGSSL_MAJOR_VERSION \u003d\u003d 3\n  DoV3ThingActuallyTheSameAsV2BecauseV3DidNotImpactUs();\n#else\n#error \"Unsupported version, please update the caller or parallel install or whatever\"\n#endif\n```\n\nBut our model is to default assume that later versions are compatible unless build or tests fail.",
+      "parentUuid": "a409dbba_e4ee272a",
+      "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
