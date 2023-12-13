@@ -28,20 +28,20 @@ TEST(CertificateTest, FromPEM) {
   EXPECT_FALSE(cert.has_value());
 
   cert = bssl::Certificate::FromPEM(
-      bssl::ReadTestFileToString("testdata/verify_test/self-issued.pem"));
+      bssl::ReadTestFileToString("testdata/verify_unittest/self-issued.pem"));
   EXPECT_TRUE(cert);
 }
 
 TEST(CertificateTest, IsSelfIssued) {
   const std::string leaf =
-      bssl::ReadTestFileToString("testdata/verify_test/google-leaf.der");
+      bssl::ReadTestFileToString("testdata/verify_unittest/google-leaf.der");
   std::optional<std::unique_ptr<bssl::Certificate>> leaf_cert(
       bssl::Certificate::FromDER(leaf));
   EXPECT_TRUE(leaf_cert);
   EXPECT_FALSE(leaf_cert.value()->IsSelfIssued());
 
   const std::string self_issued =
-      bssl::ReadTestFileToString("testdata/verify_test/self-issued.pem");
+      bssl::ReadTestFileToString("testdata/verify_unittest/self-issued.pem");
   std::optional<std::unique_ptr<bssl::Certificate>> self_issued_cert(
       bssl::Certificate::FromPEM(self_issued));
   EXPECT_TRUE(self_issued_cert);
@@ -50,7 +50,7 @@ TEST(CertificateTest, IsSelfIssued) {
 
 TEST(CertificateTest, Validity) {
   const std::string leaf =
-      bssl::ReadTestFileToString("testdata/verify_test/google-leaf.der");
+      bssl::ReadTestFileToString("testdata/verify_unittest/google-leaf.der");
   std::optional<std::unique_ptr<bssl::Certificate>> cert(
       bssl::Certificate::FromDER(leaf));
   EXPECT_TRUE(cert);
@@ -62,7 +62,7 @@ TEST(CertificateTest, Validity) {
 
 TEST(CertificateTest, SerialNumber) {
   const std::string leaf =
-      bssl::ReadTestFileToString("testdata/verify_test/google-leaf.der");
+      bssl::ReadTestFileToString("testdata/verify_unittest/google-leaf.der");
   std::optional<std::unique_ptr<bssl::Certificate>> cert(
       bssl::Certificate::FromDER(leaf));
   EXPECT_TRUE(cert);
