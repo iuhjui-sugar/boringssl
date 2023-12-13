@@ -333,7 +333,8 @@ TEST(AESTest, ABI) {
     }
 
     if (hwaes_capable()) {
-      ASSERT_EQ(CHECK_ABI(aes_hw_set_encrypt_key, kKey, bits, &key), 0);
+      int caps = aes_hw_caps();
+      ASSERT_EQ(CHECK_ABI(aes_hw_set_encrypt_key, kKey, bits, &key, caps), 0);
       CHECK_ABI(aes_hw_encrypt, block, block, &key);
       for (size_t blocks : block_counts) {
         SCOPED_TRACE(blocks);
@@ -346,7 +347,7 @@ TEST(AESTest, ABI) {
 #endif
       }
 
-      ASSERT_EQ(CHECK_ABI(aes_hw_set_decrypt_key, kKey, bits, &key), 0);
+      ASSERT_EQ(CHECK_ABI(aes_hw_set_decrypt_key, kKey, bits, &key, caps), 0);
       CHECK_ABI(aes_hw_decrypt, block, block, &key);
       for (size_t blocks : block_counts) {
         SCOPED_TRACE(blocks);
