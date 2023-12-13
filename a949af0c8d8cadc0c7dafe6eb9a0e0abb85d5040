@@ -22,6 +22,30 @@
       },
       "revId": "a949af0c8d8cadc0c7dafe6eb9a0e0abb85d5040",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9968671_3ad26b69",
+        "filename": "crypto/x509/x509_att.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-13T22:45:55Z",
+      "side": 1,
+      "message": "\u003e I was passing NULL and -1 length to this function which would fail on the earlier ASN1_STRING_set call, Now however that code succeeds returning 1.\n\nYes, this is a behavior change but one that makes a case that previously didn\u0027t work now work. I think that\u0027s fine / correct? The intention of `attrtype \u003d 0` seems to be to ignore `data` and `len`, and it makes sense to ignore them if the function is a no-op. Given that, making a copy of `data[..len]`, possibly failing or crashing in the process, only to throw it away doesn\u0027t make much sense. 😊\n\n\u003e Assuming I then call this again with some type, and the same parameters I now end up here, passing in NULL data..\n\nNot sure I follow. If `attrtype` is non-zero (and not `MBSTRING_*` and `len` is -1), I think before and after we\u0027d hit the `ASN1_TYPE_set1` codepath, right? Or am I misunderstanding?",
+      "parentUuid": "df365471_4cf87676",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 47
+      },
+      "revId": "a949af0c8d8cadc0c7dafe6eb9a0e0abb85d5040",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
