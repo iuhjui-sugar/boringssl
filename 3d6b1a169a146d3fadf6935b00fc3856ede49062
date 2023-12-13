@@ -16,6 +16,24 @@
       "message": "Dunno how you feel about having two for semantic style versioning.",
       "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75cda3d1_efe71c1a",
+        "filename": "include/openssl/pki/pki_version.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-13T19:05:00Z",
+      "side": 1,
+      "message": "could also just be a float.",
+      "parentUuid": "bde222ca_7a52b51f",
+      "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
