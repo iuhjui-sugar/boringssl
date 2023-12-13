@@ -162,14 +162,14 @@ TEST(GCMTest, ABI) {
         static const uint8_t kKey[16] = {0};
         uint8_t iv[16] = {0};
 
-        aes_hw_set_encrypt_key(kKey, 128, &aes_key);
+        aes_hw_set_encrypt_key(kKey, 128, &aes_key, aes_hw_caps());
         for (size_t blocks : kBlockCounts) {
           CHECK_ABI_SEH(aesni_gcm_encrypt, buf, buf, blocks * 16, &aes_key, iv,
                         Htable, X);
           CHECK_ABI_SEH(aesni_gcm_encrypt, buf, buf, blocks * 16 + 7, &aes_key,
                         iv, Htable, X);
         }
-        aes_hw_set_decrypt_key(kKey, 128, &aes_key);
+        aes_hw_set_decrypt_key(kKey, 128, &aes_key, CRYPTO_is_AVX_capable());
         for (size_t blocks : kBlockCounts) {
           CHECK_ABI_SEH(aesni_gcm_decrypt, buf, buf, blocks * 16, &aes_key, iv,
                         Htable, X);
@@ -207,7 +207,7 @@ TEST(GCMTest, ABI) {
 
     for (size_t key_bits = 128; key_bits <= 256; key_bits += 64) {
       AES_KEY aes_key;
-      aes_hw_set_encrypt_key(kKey, key_bits, &aes_key);
+      aes_hw_set_encrypt_key(kKey, key_bits, &aes_key, aes_hw_caps());
       CHECK_ABI(aes_gcm_enc_kernel, buf, sizeof(buf) * 8, buf, X, iv, &aes_key,
                 Htable);
       CHECK_ABI(aes_gcm_dec_kernel, buf, sizeof(buf) * 8, buf, X, iv, &aes_key,

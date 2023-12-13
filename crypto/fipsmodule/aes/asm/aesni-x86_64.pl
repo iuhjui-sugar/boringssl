@@ -3181,7 +3181,7 @@ ___
 # output:	%eax	0 denoting success, -1 or -2 - failure (see C)
 #		*$key	key schedule
 #
-{ my ($inp,$bits,$key) = @_4args;
+{ my ($inp,$bits,$key,$avx_capable) = @_4args;
   $bits =~ s/%r/%e/;
 
 $code.=<<___;
@@ -3277,9 +3277,6 @@ __aesni_set_encrypt_key:
 
 	movups	($inp),%xmm0		# pull first 128 bits of *userKey
 	xorps	%xmm4,%xmm4		# low dword of xmm4 is assumed 0
-	leaq	OPENSSL_ia32cap_P(%rip),%r10
-	movl	4(%r10),%r10d
-	and	\$`1<<28|1<<11`,%r10d	# AVX and XOP bits
 	lea	16($key),%rax		# %rax is used as modifiable copy of $key
 	cmp	\$256,$bits
 	je	.L14rounds
@@ -3290,8 +3287,8 @@ __aesni_set_encrypt_key:
 
 .L10rounds:
 	mov	\$9,$bits			# 10 rounds for 128-bit key
-	cmp	\$`1<<28`,%r10d			# AVX, bit no XOP
-	je	.L10rounds_alt
+	test	$avx_capable,$avx_capable
+	jnz	.L10rounds_alt
 
 	$movkey	%xmm0,($key)			# round 0
 	aeskeygenassist	\$0x1,%xmm0,%xmm1	# round 1

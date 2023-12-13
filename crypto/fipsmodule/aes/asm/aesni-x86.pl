@@ -2488,7 +2488,7 @@ if ($PREFIX eq $AESNI_PREFIX) {
 &function_end_B("_aesni_set_encrypt_key");
 
 # int $PREFIX_set_encrypt_key (const unsigned char *userKey, int bits,
-#                              AES_KEY *key)
+#                              AES_KEY *key, int unused_avx_capable)
 &function_begin_B("${PREFIX}_set_encrypt_key");
 	&record_function_hit(3);
 
@@ -2500,7 +2500,7 @@ if ($PREFIX eq $AESNI_PREFIX) {
 &function_end_B("${PREFIX}_set_encrypt_key");
 
 # int $PREFIX_set_decrypt_key (const unsigned char *userKey, int bits,
-#                              AES_KEY *key)
+#                              AES_KEY *key, int unused_avx_capable)
 &function_begin_B("${PREFIX}_set_decrypt_key");
 	&mov	("eax",&wparam(0));
 	&mov	($rounds,&wparam(1));
