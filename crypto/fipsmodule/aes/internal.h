@@ -67,7 +67,7 @@ OPENSSL_INLINE int vpaes_capable(void) { return CRYPTO_is_NEON_capable(); }
 #if defined(HWAES)
 
 int aes_hw_set_encrypt_key(const uint8_t *user_key, const int bits,
-                           AES_KEY *key);
+                           AES_KEY *key, int avx_capable);
 int aes_hw_set_decrypt_key(const uint8_t *user_key, const int bits,
                            AES_KEY *key);
 void aes_hw_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
@@ -84,7 +84,7 @@ void aes_hw_ctr32_encrypt_blocks(const uint8_t *in, uint8_t *out, size_t len,
 OPENSSL_INLINE int hwaes_capable(void) { return 0; }
 
 OPENSSL_INLINE int aes_hw_set_encrypt_key(const uint8_t *user_key, int bits,
-                                          AES_KEY *key) {
+                                          AES_KEY *key, int avx_capable) {
   abort();
 }
 

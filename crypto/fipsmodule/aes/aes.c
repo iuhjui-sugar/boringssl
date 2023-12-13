@@ -84,7 +84,7 @@ int AES_set_encrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey) {
     return -2;
   }
   if (hwaes_capable()) {
-    return aes_hw_set_encrypt_key(key, bits, aeskey);
+    return aes_hw_set_encrypt_key(key, bits, aeskey, CRYPTO_is_AVX_capable());
   } else if (vpaes_capable()) {
     return vpaes_set_encrypt_key(key, bits, aeskey);
   } else {
