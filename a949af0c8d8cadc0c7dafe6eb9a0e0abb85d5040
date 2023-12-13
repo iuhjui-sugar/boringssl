@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df365471_4cf87676",
+        "filename": "crypto/x509/x509_att.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-13T22:36:14Z",
+      "side": 1,
+      "message": "Ok this is a completely synthetic nit, but before I could have had code with attrtype 0 that I was passing NULL and -1 length to this function which would fail on the earlier ASN1_STRING_set call, Now however that code succeeds returning 1.  Assuming I then call this again with some type, and the same parameters I now end up here, passing in NULL data..\n\nI\u0027m relatively certain this doesn\u0027t matter.. but this thing is a mess.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 47
+      },
+      "revId": "a949af0c8d8cadc0c7dafe6eb9a0e0abb85d5040",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
