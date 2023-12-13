@@ -56,7 +56,8 @@
 
 #include <openssl/asn1.h>
 
-#include <openssl/asn1t.h>
+#include <assert.h>
+
 #include <openssl/err.h>
 #include <openssl/mem.h>
 #include <openssl/obj.h>
@@ -87,6 +88,26 @@ const void *asn1_type_value_as_pointer(const ASN1_TYPE *a) {
     default:
       return a->value.asn1_string;
   }
+}
+
+void asn1_type_set0_string(ASN1_TYPE *a, ASN1_STRING *str) {
+  asn1_type_cleanup(a);
+
+  // |ASN1_STRING| types are almost the same as |ASN1_TYPE| types, except that
+  // the negative flag is not reflected into |ASN1_TYPE|.
+  if (str->type == V_ASN1_NEG_INTEGER) {
+    a->type = V_ASN1_INTEGER;
+  } else if (str->type == V_ASN1_NEG_ENUMERATED) {
+    a->type = V_ASN1_ENUMERATED;
+  } else {
+    // These types are not |ASN1_STRING| types and use a different
+    // representation when stored in |ASN1_TYPE|.
+    assert(str->type != V_ASN1_NULL);
+    assert(str->type != V_ASN1_OBJECT);
+    assert(str->type != V_ASN1_BOOLEAN);
+    a->type = str->type;
+  }
+  a->value.asn1_string = str;
 }
 
 void asn1_type_cleanup(ASN1_TYPE *a) {
