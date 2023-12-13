@@ -52,6 +52,24 @@
       "parentUuid": "75cda3d1_efe71c1a",
       "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a409dbba_e4ee272a",
+        "filename": "include/openssl/pki/pki_version.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-13T19:37:54Z",
+      "side": 1,
+      "message": "Yeah, if it\u0027s just a single number we can just increment for everything and not care. - in which case, yes, it could be BORINGSSL_API_VERSION. As long as we don\u0027t really care much about an increased frequency of cranking that..",
+      "parentUuid": "bac079fb_76889123",
+      "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
