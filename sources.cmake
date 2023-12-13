@@ -487,7 +487,9 @@ set(
   pki/string_util_unittest.cc
   pki/test_helpers.cc
   pki/trust_store_collection_unittest.cc
+  pki/verify.cc
   pki/trust_store_in_memory_unittest.cc
+  pki/verify_unittest.cc
   pki/verify_certificate_chain_pkits_unittest.cc
   pki/verify_certificate_chain_unittest.cc
   pki/verify_name_match_unittest.cc
