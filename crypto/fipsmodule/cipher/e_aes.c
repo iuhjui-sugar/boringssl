@@ -157,7 +157,8 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
 
   if ((mode == EVP_CIPH_ECB_MODE || mode == EVP_CIPH_CBC_MODE) && !enc) {
     if (hwaes_capable()) {
-      ret = aes_hw_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
+      ret = aes_hw_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks,
+                                   CRYPTO_is_AVX_capable());
       dat->block = aes_hw_decrypt;
       dat->stream.cbc = NULL;
       if (mode == EVP_CIPH_CBC_MODE) {
@@ -190,7 +191,8 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
       }
     }
   } else if (hwaes_capable()) {
-    ret = aes_hw_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
+    ret = aes_hw_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks,
+                                 CRYPTO_is_AVX_capable());
     dat->block = aes_hw_encrypt;
     dat->stream.cbc = NULL;
     if (mode == EVP_CIPH_CBC_MODE) {
@@ -293,7 +295,8 @@ ctr128_f aes_ctr_set_key(AES_KEY *aes_key, GCM128_KEY *gcm_key,
   // This function assumes the key length was previously validated.
   assert(key_bytes == 128 / 8 || key_bytes == 192 / 8 || key_bytes == 256 / 8);
   if (hwaes_capable()) {
-    aes_hw_set_encrypt_key(key, (int)key_bytes * 8, aes_key);
+    aes_hw_set_encrypt_key(key, (int)key_bytes * 8, aes_key,
+                           CRYPTO_is_AVX_capable());
     if (gcm_key != NULL) {
       CRYPTO_gcm128_init_key(gcm_key, aes_key, aes_hw_encrypt, 1);
     }
