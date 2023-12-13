@@ -46,6 +46,30 @@
       },
       "revId": "a949af0c8d8cadc0c7dafe6eb9a0e0abb85d5040",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f10a353_b3ae6d9a",
+        "filename": "crypto/x509/x509_att.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-13T23:01:30Z",
+      "side": 1,
+      "message": "I missed the -1 check in the original code, the thing I was thinking of can\u0027t actually happen. \n\nSo I\u0027m now convinced the attrtype\u003d0 check early is fine.",
+      "parentUuid": "e9968671_3ad26b69",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 179,
+        "endChar": 47
+      },
+      "revId": "a949af0c8d8cadc0c7dafe6eb9a0e0abb85d5040",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
