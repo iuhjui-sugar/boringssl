@@ -16,6 +16,24 @@
       "message": "OK, we ended up using https://boringssl-review.googlesource.com/c/boringssl/+/64208 as the model for how to do this. I will update this CL based on the feedback in that CL and after testing it.",
       "revId": "2b98045a3e691fa21eea008df7b7a9ab63bae1c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5007ef6_cd138b2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-13T21:34:59Z",
+      "side": 1,
+      "message": "Ah yeah, lost track of you intending to use the other as the model. Whoops. Ah well, I think the other probably worked better as a model anyway since it exercised a few more interesting scenarios.",
+      "parentUuid": "30b873a7_9a7d148f",
+      "revId": "2b98045a3e691fa21eea008df7b7a9ab63bae1c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

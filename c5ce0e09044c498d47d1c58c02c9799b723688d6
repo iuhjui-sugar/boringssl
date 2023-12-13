@@ -16,6 +16,29 @@
       "message": "I think this is ready to be reviewed and submitted to the tryserver.",
       "revId": "c5ce0e09044c498d47d1c58c02c9799b723688d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b911b0cb_e0169145",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-13T21:34:59Z",
+      "side": 1,
+      "message": "Since we\u0027re making it so that nohw no longer works with the empty string, I think it\u0027s worth a comment about this in the header. (Or we could put the CBZ back. Whichever.)",
+      "range": {
+        "startLine": 63,
+        "startChar": 5,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "c5ce0e09044c498d47d1c58c02c9799b723688d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
