@@ -34,6 +34,24 @@
       "parentUuid": "bde222ca_7a52b51f",
       "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bac079fb_76889123",
+        "filename": "include/openssl/pki/pki_version.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-13T19:18:52Z",
+      "side": 1,
+      "message": "What would a caller do with this information that a single number wouldn\u0027t solve? We\u0027re not really used in contexts where the semver split makes much sense.\n\nSemver lets a project say \"I\u0027m only compatible with 1.x and not 2.x\", but we never actually want to do anything with that signal. Most folks use that information to parallel install a dependency or forcibly break the build, but we don\u0027t actually want either.\n\nSupposing we just do a single number, is there a reason we can\u0027t just use the existing `BORINGSSL_API_VERSION` macro?",
+      "parentUuid": "75cda3d1_efe71c1a",
+      "revId": "3d6b1a169a146d3fadf6935b00fc3856ede49062",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
