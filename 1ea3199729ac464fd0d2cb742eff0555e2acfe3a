@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc7ffcd_0bdecc07",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-12-14T15:50:23Z",
+      "side": 1,
+      "message": "There was a bit of slowdown, but done for now.",
+      "parentUuid": "525969eb_1333a45a",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 35
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0860ba4_2a6a1a1e",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-11-28T23:57:27Z",
       "side": 1,
       "message": "Do we need inplace versions of these or is the additional copy always okay?",
+      "range": {
+        "startLine": 169,
+        "startChar": 12,
+        "endLine": 169,
+        "endChar": 22
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4d33430_6a36eb7a",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-12-14T15:50:23Z",
+      "side": 1,
+      "message": "Given that the parameter pointers are not marked as `restrict`, in C(++) it\u0027s allowed to have the output point to the same scalar as one of the inputs. So there isn\u0027t necessarily a copy: in fact such aliasing among parameters is what happens below in `matrix_mult()` for example.\n\nHaving in-place versions as well might help with optimizations (e.g. auto-vectorization might be prevented by the aliasing possibility?), but that\u0027s to be confirmed, and it would in any case mean some code duplication.",
+      "parentUuid": "f0860ba4_2a6a1a1e",
       "range": {
         "startLine": 169,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a429c17_5280c677",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-12-14T15:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2ba012e_b2a59764",
+      "range": {
+        "startLine": 330,
+        "startChar": 2,
+        "endLine": 333,
+        "endChar": 45
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ebe27c4_6d1a4da7",
@@ -100,6 +172,30 @@
       "writtenOn": "2023-11-28T23:57:27Z",
       "side": 1,
       "message": "Maybe we should write the human readable formula in the comment as well",
+      "range": {
+        "startLine": 347,
+        "startChar": 2,
+        "endLine": 347,
+        "endChar": 53
+      },
+      "revId": "1ea3199729ac464fd0d2cb742eff0555e2acfe3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8e5398_273a4db7",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-12-14T15:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ebe27c4_6d1a4da7",
       "range": {
         "startLine": 347,
         "startChar": 2,
