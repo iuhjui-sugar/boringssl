@@ -13,6 +13,8 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+use crate::{CSlice, CSliceMut};
+use alloc::vec;
 use alloc::vec::Vec;
 
 /// KEM algorithms.
@@ -93,7 +95,58 @@ impl RecipientContext {
         encapsulated_key: &[u8],
         info: &[u8],
     ) -> Result<Self, HpkeError> {
-        unimplemented!();
+        // Safety: EVP_HPKE_KEY_new returns null on error.
+        let hpke_key = unsafe { bssl_sys::EVP_HPKE_KEY_new() };
+        if hpke_key.is_null() {
+            return Err(HpkeError);
+        }
+
+        let recipient_priv_key_cslice = CSlice::from(recipient_priv_key);
+
+        // Safety: EVP_HPKE_KEY_init returns 0 on error.
+        let result = unsafe {
+            bssl_sys::EVP_HPKE_KEY_init(
+                hpke_key,
+                params.kem,
+                recipient_priv_key_cslice.as_ptr(),
+                recipient_priv_key_cslice.len(),
+            )
+        };
+        if result != 1 {
+            return Err(HpkeError);
+        }
+
+        // Safety: EVP_HPKE_CTX_new returns null on error.
+        let ctx = unsafe { bssl_sys::EVP_HPKE_CTX_new() };
+        if ctx.is_null() {
+            return Err(HpkeError);
+        }
+
+        let encapsulated_key_cslice = CSlice::from(encapsulated_key);
+        let info_cslice = CSlice::from(info);
+
+        // Safety: EVP_HPKE_CTX_setup_recipient
+        // - is called with context created from EVP_HPKE_CTX_new,
+        // - is called with HPKE key created from EVP_HPKE_KEY_init,
+        // - is called with valid buffers with corresponding pointer and length, and
+        // - returns 0 on error.
+        let result = unsafe {
+            bssl_sys::EVP_HPKE_CTX_setup_recipient(
+                ctx,
+                hpke_key,
+                params.kdf,
+                params.aead,
+                encapsulated_key_cslice.as_ptr(),
+                encapsulated_key_cslice.len(),
+                info_cslice.as_ptr(),
+                info_cslice.len(),
+            )
+        };
+        if result == 1 {
+            Ok(Self { ctx })
+        } else {
+            Err(HpkeError)
+        }
     }
 
     /// Seal.
@@ -103,18 +156,54 @@ impl RecipientContext {
 
     /// Open.
     pub fn open(&self, ct: &[u8], aad: &[u8]) -> Result<Vec<u8>, HpkeError> {
-        unimplemented!();
+        let mut out = vec![0; ct.len()];
+        let mut out_cslice = CSliceMut::from(out.as_mut_slice());
+        let aad_cslice = CSlice::from(aad);
+        let ct_cslice = CSlice::from(ct);
+        let mut out_len = 0usize;
+
+        // Safety: EVP_HPKE_CTX_open
+        // - is called with context created from EVP_HPKE_CTX_new and
+        // - is called with valid buffers with corresponding pointer and length.
+        let result = unsafe {
+            bssl_sys::EVP_HPKE_CTX_open(
+                self.ctx,
+                out_cslice.as_mut_ptr(),
+                &mut out_len,
+                out_cslice.len(),
+                ct_cslice.as_ptr(),
+                ct_cslice.len(),
+                aad_cslice.as_ptr(),
+                aad_cslice.len(),
+            )
+        };
+
+        if result == 1 {
+            if out_len < out.len() {
+                out.truncate(out_len)
+            }
+            Ok(out)
+        } else {
+            Err(HpkeError)
+        }
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::test_helpers::decode_hex;
 
     struct TestVector {
         kem_id: u16,
         kdf_id: u16,
         aead_id: u16,
+        info: [u8; 20],
+        recipient_priv_key: [u8; 32], // skRm
+        encapsulated_key: [u8; 32],   // enc
+        plaintext: [u8; 29],          // pt
+        associated_data: [u8; 7],     // aad
+        ciphertext: [u8; 45],         // ct
     }
 
     // https://www.rfc-editor.org/rfc/rfc9180.html#appendix-A.1
@@ -123,7 +212,32 @@ mod test {
             kem_id: 32,
             kdf_id: 1,
             aead_id: 1,
+            info: decode_hex("4f6465206f6e2061204772656369616e2055726e"),
+            recipient_priv_key: decode_hex("4612c550263fc8ad58375df3f557aac531d26850903e55a9f23f21d8534e8ac8"),
+            encapsulated_key: decode_hex("37fda3567bdbd628e88668c3c8d7e97d1d1253b6d4ea6d44c150f741f1bf4431"),
+            plaintext: decode_hex("4265617574792069732074727574682c20747275746820626561757479"),
+            associated_data: decode_hex("436f756e742d30"),
+            ciphertext: decode_hex("f938558b5d72f1a23810b4be2ab4f84331acc02fc97babc53a52ae8218a355a96d8770ac83d07bea87e13c512a"),
         }
+    }
+
+    #[test]
+    fn open_with_vector() {
+        let vec: TestVector = x25519_hkdf_sha256_hkdf_sha256_aes_128_gcm();
+        let params = Params::new(vec.kem_id, vec.kdf_id, vec.aead_id);
+        assert!(params.is_ok());
+
+        let ctx = RecipientContext::new(
+            &params.unwrap(),
+            &vec.recipient_priv_key,
+            &vec.encapsulated_key,
+            &vec.info,
+        );
+        assert!(ctx.is_ok());
+
+        let plaintext = ctx.unwrap().open(&vec.ciphertext, &vec.associated_data);
+        assert!(plaintext.is_ok());
+        assert_eq!(plaintext.unwrap(), vec.plaintext.to_vec());
     }
 
     #[test]
