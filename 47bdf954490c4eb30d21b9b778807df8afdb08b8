@@ -16,6 +16,23 @@
       "message": "Just for some tiny little bit of additional foot kevlar, I might make this function sign_internal and not publicly exposed.  Then make the public sign_with_randomizer a wrapper with an assert the randomizer is not 0 - i.e. the caller should not call this function for the deterministic case. they should call DILITHIUM_sign_deterministic.",
       "revId": "47bdf954490c4eb30d21b9b778807df8afdb08b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1b8dd5a_a560d673",
+        "filename": "include/openssl/dilithium.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-12-15T19:56:05Z",
+      "side": 1,
+      "message": "3293? According to Stefan and the spec 😊",
+      "revId": "47bdf954490c4eb30d21b9b778807df8afdb08b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
