@@ -23,6 +23,7 @@
 #include <openssl/base.h>
 #include <openssl/bytestring.h>
 #include <openssl/pool.h>
+#include <openssl/rand.h>
 
 #include <openssl/pki/signature_verify_cache.h>
 
@@ -436,48 +437,92 @@ std::optional<std::vector<std::vector<std::string>>> VerifyInternal(
     return {};
   }
 
-  // If there are paths, report the first error on the best path.
+  // If there are paths, report an error on the best path.
   CertPathBuilderResultPath *path =
       result.paths[result.best_result_index].get();
   assert(path->certs[0] == leaf_cert);
   for (size_t i = 0; i < path->certs.size(); ++i) {
     const CertErrors *errors = path->errors.GetErrorsForCert(i);
     if (errors->ContainsAnyErrorWithSeverity(CertError::SEVERITY_HIGH)) {
-      if (errors->ContainsError(kValidityFailedNotAfter)) {
-        *out_error = {Error::Code::CERTIFICATE_EXPIRED, i, ""};
-        return {};
-      } else if (errors->ContainsError(kValidityFailedNotBefore)) {
-        *out_error = {Error::Code::CERTIFICATE_NOT_YET_VALID, i, ""};
-        return {};
-      } else if (errors->ContainsError(kEkuLacksServerAuth)) {
-        *out_error = {Error::Code::CERTIFICATE_LACKS_SERVER_AUTH, i, ""};
-        return {};
-      } else if (errors->ContainsError(kEkuLacksClientAuth)) {
-        *out_error = {Error::Code::CERTIFICATE_LACKS_CLIENT_AUTH, i, ""};
-        return {};
-      } else if (errors->ContainsError(kVerifySignedDataFailed)) {
-        *out_error = {Error::Code::CERTIFICATE_SIGNATURE_VERIFY_FAILED, i, ""};
-        return {};
-      } else if (errors->ContainsError(kUnacceptableSignatureAlgorithm)) {
-        *out_error = {Error::Code::CERTIFICATE_UNACCEPTABLE_SIGALG, i, ""};
-        return {};
-      } else if (errors->ContainsError(kCertificateRevoked)) {
-        *out_error = {Error::Code::CERTIFICATE_REVOKED, i, ""};
-        return {};
-      } else if (errors->ContainsError(kNoIssuersFound)) {
-        if (path->certs.size() == 1 &&
-            leaf_cert->normalized_issuer() == leaf_cert->normalized_subject()) {
-          *out_error = {Error::Code::CERTIFICATE_SELF_SIGNED, i, ""};
-        } else {
-          *out_error = {Error::Code::NO_PATH, i, ""};
-        }
-        return {};
+      // Map a single high severity error to a recognizable error for
+      // the caller. We can return only one error, even though there
+      // may be many fatal errors.
+      bssl::CertErrorId mapped_errors[] = {
+          kValidityFailedNotAfter, kValidityFailedNotBefore,
+          kEkuLacksServerAuth,     kEkuLacksClientAuth,
+          kVerifySignedDataFailed, kUnacceptableSignatureAlgorithm,
+          kCertificateRevoked,     kNoIssuersFound};
+      size_t mapped_errors_size = sizeof(mapped_errors) / sizeof(mapped_errors[0]);
+      // Shuffle the order, to ensure that error predictability from path
+      // building in the presence of multiple errors is not relied upon in
+      // callers. Any fatal error is as good as any other, although we
+      // still favour "recognized as important" ones over a generic failure.
+      for (size_t j = mapped_errors_size - 1; j > 0; j--) {
+        uint8_t r;
+        (void) RAND_bytes(&r, 1);
+        size_t k = r % (j + 1);
+        bssl::CertErrorId tmp = mapped_errors[k];
+        mapped_errors[k] = mapped_errors[j];
+        mapped_errors[j] = tmp;
       }
+      for (size_t j = 0; j < mapped_errors_size; j++) {
+        const bssl::CertErrorId id = mapped_errors[j];
+        if (id == kValidityFailedNotAfter &&
+            errors->ContainsError(kValidityFailedNotAfter)) {
+          *out_error = {Error::Code::CERTIFICATE_EXPIRED, i, ""};
+          return {};
+        }
+        if (id == kValidityFailedNotBefore &&
+            errors->ContainsError(kValidityFailedNotBefore)) {
+          *out_error = {Error::Code::CERTIFICATE_NOT_YET_VALID, i, ""};
+          return {};
+        }
+        if (id == kEkuLacksServerAuth &&
+            errors->ContainsError(kEkuLacksServerAuth)) {
+          *out_error = {Error::Code::CERTIFICATE_LACKS_SERVER_AUTH, i, ""};
+          return {};
+        }
+        if (id == kEkuLacksClientAuth &&
+            errors->ContainsError(kEkuLacksClientAuth)) {
+          *out_error = {Error::Code::CERTIFICATE_LACKS_CLIENT_AUTH, i, ""};
+          return {};
+        }
+        if (id == kVerifySignedDataFailed &&
+            errors->ContainsError(kVerifySignedDataFailed)) {
+          *out_error = {Error::Code::CERTIFICATE_SIGNATURE_VERIFY_FAILED, i,
+                        ""};
+          return {};
+        }
+        if (id == kUnacceptableSignatureAlgorithm &&
+            errors->ContainsError(kUnacceptableSignatureAlgorithm)) {
+          *out_error = {Error::Code::CERTIFICATE_UNACCEPTABLE_SIGALG, i,
+                        ""};
+          return {};
+        }
+        if (id == kCertificateRevoked &&
+            errors->ContainsError(kCertificateRevoked)) {
+          *out_error = {Error::Code::CERTIFICATE_REVOKED, i, ""};
+          return {};
+        }
+        if (id == kNoIssuersFound && errors->ContainsError(kNoIssuersFound)) {
+          if (path->certs.size() == 1 && leaf_cert->normalized_issuer() ==
+                                             leaf_cert->normalized_subject()) {
+            *out_error = {Error::Code::CERTIFICATE_SELF_SIGNED, i, ""};
+          } else {
+            *out_error = {Error::Code::NO_PATH, i, ""};
+          }
+          return {};
+        }
+      }
+      // There is a high severity error, but not one we map to something
+      // recognizable.
       std::string diagnostic = errors->ToDebugString();
       *out_error = {Error::Code::CERTIFICATE_OTHER_ERROR, i, diagnostic};
       return {};
     }
   }
+  // We did not identify this path above as being good, but we did not
+  // find a high severity error on any of the certificates in it.
   *out_error = {Error::Code::UNKNOWN_ERROR, 0,
                 "Difficulties are just things to overcome, after all."};
   return {};
