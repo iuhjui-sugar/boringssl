@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a5263d2_283540d4",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-15T01:44:53Z",
+      "side": 1,
+      "message": "I\u0027m really bad at naming things so haven\u0027t change this yet. keep it as verify? move it to bssl? make it bssl:pki? something else?",
+      "revId": "d320ef4c121ee5da38cd619203e6baf2688f997d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
