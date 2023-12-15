@@ -23,36 +23,39 @@
 #include "test_helpers.h"
 
 TEST(CertificateTest, FromPEM) {
+  std::string diagnostic;
   std::optional<std::unique_ptr<bssl::Certificate>> cert(
-      bssl::Certificate::FromPEM("nonsense"));
+      bssl::Certificate::FromPEM("nonsense", &diagnostic));
   EXPECT_FALSE(cert.has_value());
 
-  cert = bssl::Certificate::FromPEM(
-      bssl::ReadTestFileToString("testdata/verify_test/self-issued.pem"));
+  cert = bssl::Certificate::FromPEM(bssl::ReadTestFileToString(
+      "testdata/verify_test/self-issued.pem", &diagnostic));
   EXPECT_TRUE(cert);
 }
 
 TEST(CertificateTest, IsSelfIssued) {
+  std::string diagnostic;
   const std::string leaf =
       bssl::ReadTestFileToString("testdata/verify_test/google-leaf.der");
   std::optional<std::unique_ptr<bssl::Certificate>> leaf_cert(
-      bssl::Certificate::FromDER(leaf));
+      bssl::Certificate::FromDER(leaf, &diagnostic));
   EXPECT_TRUE(leaf_cert);
   EXPECT_FALSE(leaf_cert.value()->IsSelfIssued());
 
   const std::string self_issued =
       bssl::ReadTestFileToString("testdata/verify_test/self-issued.pem");
   std::optional<std::unique_ptr<bssl::Certificate>> self_issued_cert(
-      bssl::Certificate::FromPEM(self_issued));
+      bssl::Certificate::FromPEM(self_issued, &diagnostic));
   EXPECT_TRUE(self_issued_cert);
   EXPECT_TRUE(self_issued_cert.value()->IsSelfIssued());
 }
 
 TEST(CertificateTest, Validity) {
+  std::string diagnostic;
   const std::string leaf =
       bssl::ReadTestFileToString("testdata/verify_test/google-leaf.der");
   std::optional<std::unique_ptr<bssl::Certificate>> cert(
-      bssl::Certificate::FromDER(leaf));
+      bssl::Certificate::FromDER(leaf, &diagnostic));
   EXPECT_TRUE(cert);
 
   bssl::Certificate::Validity validity = cert.value()->GetValidity();
@@ -61,10 +64,11 @@ TEST(CertificateTest, Validity) {
 }
 
 TEST(CertificateTest, SerialNumber) {
+  std::string diagnostic;
   const std::string leaf =
       bssl::ReadTestFileToString("testdata/verify_test/google-leaf.der");
   std::optional<std::unique_ptr<bssl::Certificate>> cert(
-      bssl::Certificate::FromDER(leaf));
+      bssl::Certificate::FromDER(leaf, &diagnostic));
   EXPECT_TRUE(cert);
   EXPECT_STREQ(
       (bssl::string_util::HexEncode(cert.value()->GetSerialNumber().data(),

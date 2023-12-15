@@ -29,7 +29,7 @@ namespace bssl {
 namespace {
 
 std::optional<std::shared_ptr<const bssl::ParsedCertificate>>
-ParseCertificateFromDer(std::string_view cert) {
+ParseCertificateFromDer(std::string_view cert, std::string *out_diagnostic) {
   bssl::ParseCertificateOptions default_options{};
   // We follow Chromium in setting |allow_invalid_serial_numbers| in order to
   // not choke on 21-byte serial numbers, which are common.  davidben explains
@@ -53,6 +53,7 @@ ParseCertificateFromDer(std::string_view cert) {
   std::shared_ptr<const bssl::ParsedCertificate> parsed_cert(
       bssl::ParsedCertificate::Create(std::move(buffer), default_options, &errors));
   if (!parsed_cert) {
+    *out_diagnostic = errors.ToDebugString();
     return {};
   }
   return parsed_cert;
@@ -70,10 +71,10 @@ Certificate::~Certificate() = default;
 Certificate::Certificate(Certificate&& other) = default;
 
 std::optional<std::unique_ptr<Certificate>> Certificate::FromDER(
-    std::string_view der) {
+    std::string_view der, std::string* out_diagnostic) {
   std::optional<
       std::shared_ptr<const bssl::ParsedCertificate>>
-      result = ParseCertificateFromDer(der);
+      result = ParseCertificateFromDer(der, out_diagnostic);
   if (!result.has_value()) {
     return {};
   }
@@ -85,13 +86,13 @@ std::optional<std::unique_ptr<Certificate>> Certificate::FromDER(
 }
 
 std::optional<std::unique_ptr<Certificate>> Certificate::FromPEM(
-    std::string_view pem) {
+    std::string_view pem, std::string *out_diagnostic) {
   bssl::PEMTokenizer tokenizer(pem, {"CERTIFICATE"});
   if (!tokenizer.GetNext()) {
     return {};
   }
 
-  return FromDER(tokenizer.data());
+  return FromDER(tokenizer.data(), out_diagnostic);
 }
 
 bool Certificate::IsSelfIssued() const {

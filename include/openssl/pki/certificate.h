@@ -29,7 +29,6 @@ struct CertificateInternals;
 
 // Certificate represents a parsed X.509 certificate. It includes accessors for
 // the various things that one might want to extract from a certificate,
-// although it's still growing as needs arise.
 class OPENSSL_EXPORT Certificate {
  public:
   Certificate(Certificate&& other);
@@ -37,14 +36,19 @@ class OPENSSL_EXPORT Certificate {
   ~Certificate();
   Certificate& operator=(const Certificate& other) = delete;
 
-  // FromDER returns a certificate from an DER-encoded X.509 object.
+  // FromDER returns a certificate from an DER-encoded X.509 object in |der|.
+  // In the event of a failure, it will return no value, and |out_diagnostic|
+  // may be set to a string of human readable debugging information if
+  // information abou the failure is available.
   static std::optional<std::unique_ptr<Certificate>> FromDER(
-      std::string_view der);
+      std::string_view der, std::string* out_diagnostic);
 
   // FromPEM returns a certificate from the first CERTIFICATE PEM block in
-  // `pem`.
+  // |pem|. In the event of a failure, it will return no value, and
+  // |out_diagnostic| may be set to a string of human readable debugging
+  // informtion if informaiton about the failuew is available.
   static std::optional<std::unique_ptr<Certificate>> FromPEM(
-      std::string_view pem);
+      std::string_view pem, std::string* out_diagnostic);
 
   // IsSelfIssued returns true if the certificate is "self-issued" per RFC 5280
   // section 6.1. I.e. that the subject and issuer names are equal after
