@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f4f6062_46404e9c",
+        "filename": "pki/verify.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-15T02:38:25Z",
+      "side": 1,
+      "message": "I can delete this now, I am no longer going to hell.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "81db10540992d029c7fe2cb18e20768633ca2876",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
