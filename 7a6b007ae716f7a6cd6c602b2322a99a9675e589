@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97969a36_7cb51d42",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-15T00:16:23Z",
+      "side": 1,
+      "message": "In case someone else is curious and tries to dig into this:\n\nFound https://maskray.me/blog/2023-05-14-relocation-overflow-and-code-models which explains the difference between this and https://boringssl-review.googlesource.com/c/boringssl/+/42324\n\nIn mcmodel\u003dlarge, the GOT may be too far away for LEA. In mcmodel\u003dmedium, the GOT is still close to code, but offset to data from code may be large and needs MOVABS.\n\nI\u0027m not sure why it\u0027s relative to the GOT at all. Once we have to pay a full MOVABS to get some module-relative offset, it seems any local label could work. I\u0027m guessing it was just convenient to use the GOT so the relocation doesn\u0027t need to specify two reference points, just one.\n\n(Not that it matters. Evidently Clang feels like emitting it, so we should make it work.)",
+      "revId": "7a6b007ae716f7a6cd6c602b2322a99a9675e589",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
