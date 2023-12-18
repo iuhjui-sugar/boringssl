@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6701016d_594fb092",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-18T16:12:11Z",
+      "side": 1,
+      "message": "These don\u0027t appear to be used anywhere?",
+      "range": {
+        "startLine": 1470,
+        "startChar": 0,
+        "endLine": 1470,
+        "endChar": 56
+      },
+      "revId": "3faf963c7e9a575c8c17af7d3d2120b32c66f88c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
