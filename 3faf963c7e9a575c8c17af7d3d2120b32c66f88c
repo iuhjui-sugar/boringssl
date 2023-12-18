@@ -70,6 +70,30 @@
       },
       "revId": "3faf963c7e9a575c8c17af7d3d2120b32c66f88c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f4bd2ef_35b779fb",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-18T22:28:45Z",
+      "side": 1,
+      "message": "The logic we\u0027re trying to implement is \"If it seems like it is Silvermont CPU then don\u0027t use the 4x SSSE3 implementation if the input is small. For this purpose, instead of doing an exact check of the CPUID CPU family result for Silvermont, just assume any CPU that implements MOVBE without XSAVE is a Silvermont CPU. The 4x implementation would work fine (we don\u0027t actually use XSAVE in it) but it would be slower on these small inputs.\"\n\nNote that some of the comments in the code refer to \"Atom,\" but it seems they really mean the first generation of Atom processors, i.e. Silvermont. The next generation, Goldmont, did implement XSAVE, so this \"Atom\" code path will only be taken for Silvermont. There may be, in theory, other CPUs that implement MOVBE without XSAVE, in which case this hueristic would be wrong. Thus the emphasis  \"probably\" in the function name. In other words, I factored out a questionable heuristic into a similarly-questionably-named function.\n\nNote that there are other areas in the code base where we use the same heuristic, unless/until we accept the change at https://boringssl-review.googlesource.com/c/boringssl/+/64788. In none of these cases do we actually use the XSAVE instruction.\n\nRegardless, if you would like, I can remove this function and inline its logic into the caller. Either way is fine with me. However, I think the way I have it now is the best.",
+      "parentUuid": "78645b13_52db382c",
+      "range": {
+        "startLine": 1470,
+        "startChar": 0,
+        "endLine": 1470,
+        "endChar": 56
+      },
+      "revId": "3faf963c7e9a575c8c17af7d3d2120b32c66f88c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
