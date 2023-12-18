@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a582f33_8ffb3df3",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-12-18T13:23:44Z",
+      "side": 1,
+      "message": "Hum yeah, this function shouldn\u0027t be public in the first place. I thought I needed to expose it for tests, but in fact not, so now removed from the header file.",
+      "parentUuid": "655114ac_e34c1dd4",
+      "revId": "47bdf954490c4eb30d21b9b778807df8afdb08b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1b8dd5a_a560d673",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-12-15T19:56:05Z",
       "side": 1,
       "message": "3293? According to Stefan and the spec 😊",
+      "revId": "47bdf954490c4eb30d21b9b778807df8afdb08b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "324a8039_c3627a66",
+        "filename": "include/openssl/dilithium.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2023-12-18T13:23:44Z",
+      "side": 1,
+      "message": "That\u0027s a mistake in the spec, they forgot to update the sizes. See the public comments #3, #7, #16, #27, #29: https://csrc.nist.gov/files/pubs/fips/204/ipd/docs/fips-204-initial-public-comments-2023.pdf",
+      "parentUuid": "b1b8dd5a_a560d673",
       "revId": "47bdf954490c4eb30d21b9b778807df8afdb08b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
