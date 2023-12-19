@@ -132,6 +132,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57a5e60a_ae88a51f",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-19T19:02:08Z",
+      "side": 1,
+      "message": "WDYT about the changes in https://boringssl-review.googlesource.com/c/boringssl/+/64267?\n\n(If you don\u0027t have time to finish driving this CL, let me know. I can take care of the rest.)",
+      "parentUuid": "af93750a_cf974420",
+      "range": {
+        "startLine": 182,
+        "startChar": 73,
+        "endLine": 182,
+        "endChar": 76
+      },
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95371f67_5f03d686",
         "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
         "patchSetId": 6
