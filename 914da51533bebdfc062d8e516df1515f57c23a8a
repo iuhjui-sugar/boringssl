@@ -70,6 +70,30 @@
       },
       "revId": "914da51533bebdfc062d8e516df1515f57c23a8a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad18682_61052e25",
+        "filename": "crypto/chacha/asm/chacha-armv4.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-19T22:10:08Z",
+      "side": 1,
+      "message": "I mean, we previously were testing it, via ABI tests, before you removed it. :-P\n\nIn fact, I think the assembly functions handle it *because* we tested it and reported the issue to Andy. That\u0027s because prior to https://boringssl-review.googlesource.com/c/boringssl/+/60387, we actually did call the assembly with a zero length.\n\nAnyway, I\u0027m fine with removing it.",
+      "parentUuid": "3a0c6450_6dbebf11",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 212,
+        "endChar": 14
+      },
+      "revId": "914da51533bebdfc062d8e516df1515f57c23a8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
