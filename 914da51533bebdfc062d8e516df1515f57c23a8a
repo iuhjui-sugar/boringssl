@@ -46,6 +46,30 @@
       },
       "revId": "914da51533bebdfc062d8e516df1515f57c23a8a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a0c6450_6dbebf11",
+        "filename": "crypto/chacha/asm/chacha-armv4.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-19T22:04:30Z",
+      "side": 1,
+      "message": "Note that we\u0027re not testing *ANY* of the other assembly implementations with the empty input because they are all guarded on a minimum length check. So it would be weird to feel good about this one implementation having the check when it would be missing from all the others.\n\nRE: Optimization of course it probably won\u0027t matter. But I guess 32-bit ARM without NEON is where it has the potential to matter the most. 😊",
+      "parentUuid": "0c3cace7_e6bf92e9",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 212,
+        "endChar": 14
+      },
+      "revId": "914da51533bebdfc062d8e516df1515f57c23a8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
