@@ -94,6 +94,30 @@
       },
       "revId": "3faf963c7e9a575c8c17af7d3d2120b32c66f88c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b1413fc_f7a4c094",
+        "filename": "crypto/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-12-19T00:32:43Z",
+      "side": 1,
+      "message": "Nah, with your explanation keep it and just maybe chuck a little comment about it explaining.",
+      "parentUuid": "2f4bd2ef_35b779fb",
+      "range": {
+        "startLine": 1470,
+        "startChar": 0,
+        "endLine": 1470,
+        "endChar": 56
+      },
+      "revId": "3faf963c7e9a575c8c17af7d3d2120b32c66f88c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
