@@ -94,6 +94,30 @@
       },
       "revId": "914da51533bebdfc062d8e516df1515f57c23a8a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5524aaa_1b9927a2",
+        "filename": "crypto/chacha/asm/chacha-armv4.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-19T22:47:59Z",
+      "side": 1,
+      "message": "First, to clarify what I meant: We were never testing that ChaCha20_ctr32_neon, ChaCha20_ctr32_ssse3, etc. can handle the empty input or inputs shorter than what their paired `_capable()` function allows. There\u0027s nothing special about the _nohw variant in this regard. All of ChaCha20_ctr32* are very much \"Don\u0027t touch this\" by anything outside of chacha.c/chacha_test.cc. If we want to test ChaCha20_ctr32_nohw with a zero-length input then why not also test ChaCha20_ctr32_ssse3 with a zero-length input?\n\n\u003e I mean, we previously were testing it, via ABI tests, before you removed it. :-P\n\nThis is a good point. Let\u0027s make it precise, though: We were never testing ChaCha20_ctr32_nohw. We were testing ChaCha20_ctr32. We rewrote ChaCha20_ctr32 in C (win!) and we promoted ChaCha20_ctr32_nohw to a \"real\" function.\n\nNow we are not testing ChaCha20_ctr32 directly now (for the architectures for which we\u0027ve done this conversion), and we can\u0027t because it\u0027s now static. If you\u0027d like, I am happy to submit a change that makes ChaCha20_ctr32 non-static and then we can test it like we were before--actually even better, because we can test it more thoroughly for correctness. (Making it non-static might hurt the compiler\u0027s decision to inline ChaCha20_ctr32 and pull the capability checks out of the loop, but that probably doesn\u0027t matter now. Maybe it would matter if/when we replace ChaCha20_ctr32_nohw (and others, I hope) with a call to the C implementation, once the C compiler can auto-vectorize and optimize a little better than it could several years ago (which may be now).",
+      "parentUuid": "6ad18682_61052e25",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 212,
+        "endChar": 14
+      },
+      "revId": "914da51533bebdfc062d8e516df1515f57c23a8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
