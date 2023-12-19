@@ -63,6 +63,30 @@
       },
       "revId": "c5ce0e09044c498d47d1c58c02c9799b723688d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e254a6_e3d1a72d",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-12-19T18:54:18Z",
+      "side": 1,
+      "message": "Fair enough. TBH, I think we probably do have sufficient tools to handle the empty input (pass in null, 0 and look for SEGV, run through ABI test to make sure things are okay). At the least, if we cannot handle that, we cannot hope to handle the branches that we *can\u0027t* get rid of.\n\nA long time ago, I prototyped an asm-to-C converter, with the idea being that we could then instrument the C code through the usual C tools like ASan. It was a bit slow (5x slowdown) but would be pretty fun to finish up. And with `OPENSSL_armcap_P` references gone, one of the challenging parts will be moot.",
+      "parentUuid": "2efe6ea2_95a7c1d1",
+      "range": {
+        "startLine": 63,
+        "startChar": 5,
+        "endLine": 63,
+        "endChar": 24
+      },
+      "revId": "c5ce0e09044c498d47d1c58c02c9799b723688d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
