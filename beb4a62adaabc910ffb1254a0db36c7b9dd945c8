@@ -35,6 +35,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db5c17c9_6306ded5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2023-12-19T22:55:34Z",
+      "side": 1,
+      "message": "Hi David, sorry for the delay in getting back to you on the review request. I went back and discovered I had made a mistake in my attempt to replicate your logic in the system I had available for me to test it in. I did do some more experimentation with your code and found my mistake, and I think your logic is correct. Sorry to claim that your code was incorrect.",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42a3b720_7311274c",
