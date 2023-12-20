@@ -72,29 +72,15 @@ $m1="%rbp";
 $code=<<___;
 .text
 
-.extern	OPENSSL_ia32cap_P
-
-.globl	bn_mul_mont_gather5
-.type	bn_mul_mont_gather5,\@function,6
+.globl	bn_mul_mont_gather5_nohw
+.type	bn_mul_mont_gather5_nohw,\@function,6
 .align	64
-bn_mul_mont_gather5:
+bn_mul_mont_gather5_nohw:
 .cfi_startproc
 	_CET_ENDBR
 	mov	${num}d,${num}d
 	mov	%rsp,%rax
 .cfi_def_cfa_register	%rax
-	test	\$7,${num}d
-	jnz	.Lmul_enter
-___
-$code.=<<___ if ($addx);
-	leaq	OPENSSL_ia32cap_P(%rip),%r11
-	mov	8(%r11),%r11d
-___
-$code.=<<___;
-	jmp	.Lmul4x_enter
-
-.align	16
-.Lmul_enter:
 	movd	`($win64?56:8)`(%rsp),%xmm5	# load 7th argument
 	push	%rbx
 .cfi_push	%rbx
@@ -454,27 +440,21 @@ $code.=<<___;
 .Lmul_epilogue:
 	ret
 .cfi_endproc
-.size	bn_mul_mont_gather5,.-bn_mul_mont_gather5
+.size	bn_mul_mont_gather5_nohw,.-bn_mul_mont_gather5_nohw
 ___
 {{{
 my @A=("%r10","%r11");
 my @N=("%r13","%rdi");
 $code.=<<___;
+.globl	bn_mul4x_mont_gather5
 .type	bn_mul4x_mont_gather5,\@function,6
 .align	32
 bn_mul4x_mont_gather5:
 .cfi_startproc
+	_CET_ENDBR
 	.byte	0x67
 	mov	%rsp,%rax
 .cfi_def_cfa_register	%rax
-.Lmul4x_enter:
-___
-$code.=<<___ if ($addx);
-	and	\$0x80108,%r11d
-	cmp	\$0x80108,%r11d		# check for AD*X+BMI2+BMI1
-	je	.Lmulx4x_enter
-___
-$code.=<<___;
 	push	%rbx
 .cfi_push	%rbx
 	push	%rbp
@@ -1094,23 +1074,14 @@ my @A1=("%r12","%r13");
 my ($a0,$a1,$ai)=("%r14","%r15","%rbx");
 
 $code.=<<___;
-.globl	bn_power5
-.type	bn_power5,\@function,6
+.globl	bn_power5_nohw
+.type	bn_power5_nohw,\@function,6
 .align	32
-bn_power5:
+bn_power5_nohw:
 .cfi_startproc
 	_CET_ENDBR
 	mov	%rsp,%rax
 .cfi_def_cfa_register	%rax
-___
-$code.=<<___ if ($addx);
-	leaq	OPENSSL_ia32cap_P(%rip),%r11
-	mov	8(%r11),%r11d
-	and	\$0x80108,%r11d
-	cmp	\$0x80108,%r11d		# check for AD*X+BMI2+BMI1
-	je	.Lpowerx5_enter
-___
-$code.=<<___;
 	push	%rbx
 .cfi_push	%rbx
 	push	%rbp
@@ -1233,7 +1204,7 @@ $code.=<<___;
 .Lpower5_epilogue:
 	ret
 .cfi_endproc
-.size	bn_power5,.-bn_power5
+.size	bn_power5_nohw,.-bn_power5_nohw
 
 .globl	bn_sqr8x_internal
 .hidden	bn_sqr8x_internal
@@ -2108,13 +2079,14 @@ if ($addx) {{{
 my $bp="%rdx";	# restore original value
 
 $code.=<<___;
+.globl	bn_mulx4x_mont_gather5
 .type	bn_mulx4x_mont_gather5,\@function,6
 .align	32
 bn_mulx4x_mont_gather5:
 .cfi_startproc
+	_CET_ENDBR
 	mov	%rsp,%rax
 .cfi_def_cfa_register	%rax
-.Lmulx4x_enter:
 	push	%rbx
 .cfi_push	%rbx
 	push	%rbp
@@ -2598,13 +2570,14 @@ my @A1=("%r12","%r13");
 my ($a0,$a1,$ai)=("%r14","%r15","%rbx");
 
 $code.=<<___;
+.globl	bn_powerx5
 .type	bn_powerx5,\@function,6
 .align	32
 bn_powerx5:
 .cfi_startproc
+	_CET_ENDBR
 	mov	%rsp,%rax
 .cfi_def_cfa_register	%rax
-.Lpowerx5_enter:
 	push	%rbx
 .cfi_push	%rbx
 	push	%rbp
@@ -3705,17 +3678,17 @@ mul_handler:
 
 .section	.pdata
 .align	4
-	.rva	.LSEH_begin_bn_mul_mont_gather5
-	.rva	.LSEH_end_bn_mul_mont_gather5
-	.rva	.LSEH_info_bn_mul_mont_gather5
+	.rva	.LSEH_begin_bn_mul_mont_gather5_nohw
+	.rva	.LSEH_end_bn_mul_mont_gather5_nohw
+	.rva	.LSEH_info_bn_mul_mont_gather5_nohw
 
 	.rva	.LSEH_begin_bn_mul4x_mont_gather5
 	.rva	.LSEH_end_bn_mul4x_mont_gather5
 	.rva	.LSEH_info_bn_mul4x_mont_gather5
 
-	.rva	.LSEH_begin_bn_power5
-	.rva	.LSEH_end_bn_power5
-	.rva	.LSEH_info_bn_power5
+	.rva	.LSEH_begin_bn_power5_nohw
+	.rva	.LSEH_end_bn_power5_nohw
+	.rva	.LSEH_info_bn_power5_nohw
 ___
 $code.=<<___ if ($addx);
 	.rva	.LSEH_begin_bn_mulx4x_mont_gather5
@@ -3727,9 +3700,9 @@ $code.=<<___ if ($addx);
 	.rva	.LSEH_info_bn_powerx5
 ___
 $code.=<<___;
-	.rva	.LSEH_begin_bn_gather5
-	.rva	.LSEH_end_bn_gather5
-	.rva	.LSEH_info_bn_gather5
+	.rva	.LSEH_begin_bn_gather5_nohw
+	.rva	.LSEH_end_bn_gather5_nohw
+	.rva	.LSEH_info_bn_gather5_nohw
 
 .section	.xdata
 .align	8
