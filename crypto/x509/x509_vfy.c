@@ -476,7 +476,6 @@ int x509_check_issued_with_callback(X509_STORE_CTX *ctx, X509 *x,
 
   ctx->error = ret;
   ctx->current_cert = x;
-  ctx->current_issuer = issuer;
   return ctx->verify_cb(0, ctx);
 }
 
@@ -762,10 +761,15 @@ static int check_cert(X509_STORE_CTX *ctx) {
   int ok = 0, cnum = ctx->error_depth;
   X509 *x = sk_X509_value(ctx->chain, cnum);
   ctx->current_cert = x;
-  ctx->current_issuer = NULL;
+  ctx->current_crl_issuer = NULL;
   ctx->current_crl_score = 0;
 
-  // Try to retrieve relevant CRL
+  // Try to retrieve the relevant CRL. Note that |get_crl| sets
+  // |current_crl_issuer| and |current_crl_score|, which |check_crl| then reads.
+  //
+  // TODO(davidben): Remove these callbacks. gRPC currently sets them, but
+  // implements them incorrectly. It is not actually possible to implement
+  // |get_crl| from outside the library.
   if (!ctx->get_crl(ctx, &crl, x)) {
     ctx->error = X509_V_ERR_UNABLE_TO_GET_CRL;
     ok = ctx->verify_cb(0, ctx);
@@ -1112,7 +1116,7 @@ done:
 
   // If we got any kind of CRL use it and return success
   if (crl) {
-    ctx->current_issuer = issuer;
+    ctx->current_crl_issuer = issuer;
     ctx->current_crl_score = crl_score;
     *pcrl = crl;
     return 1;
@@ -1126,14 +1130,11 @@ static int check_crl(X509_STORE_CTX *ctx, X509_CRL *crl) {
   X509 *issuer = NULL;
   int cnum = ctx->error_depth;
   int chnum = (int)sk_X509_num(ctx->chain) - 1;
-  // if we have an alternative CRL issuer cert use that
-  if (ctx->current_issuer) {
-    issuer = ctx->current_issuer;
-  }
-
-  // Else find CRL issuer: if not last certificate then issuer is next
-  // certificate in chain.
-  else if (cnum < chnum) {
+  // If we have an alternative CRL issuer cert use that. Otherwise, it is the
+  // issuer of the current certificate.
+  if (ctx->current_crl_issuer) {
+    issuer = ctx->current_crl_issuer;
+  } else if (cnum < chnum) {
     issuer = sk_X509_value(ctx->chain, cnum + 1);
   } else {
     issuer = sk_X509_value(ctx->chain, chnum);
@@ -1359,7 +1360,6 @@ static int internal_verify(X509_STORE_CTX *ctx) {
     }
 
     // The last error (if any) is still in the error value
-    ctx->current_issuer = xi;
     ctx->current_cert = xs;
     if (!ctx->verify_cb(1, ctx)) {
       return 0;
@@ -1463,10 +1463,6 @@ STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx) {
     return NULL;
   }
   return X509_chain_up_ref(ctx->chain);
-}
-
-X509 *X509_STORE_CTX_get0_current_issuer(X509_STORE_CTX *ctx) {
-  return ctx->current_issuer;
 }
 
 X509_CRL *X509_STORE_CTX_get0_current_crl(X509_STORE_CTX *ctx) {
