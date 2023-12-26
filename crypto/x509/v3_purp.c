@@ -122,20 +122,18 @@ static const X509_PURPOSE xstandard[] = {
 // really can't because it does recalculate hashes and do other non-const
 // things.
 int X509_check_purpose(X509 *x, int id, int ca) {
-  int idx;
-  const X509_PURPOSE *pt;
   if (!x509v3_cache_extensions(x)) {
-    return -1;
+    return 0;
   }
 
   if (id == -1) {
     return 1;
   }
-  idx = X509_PURPOSE_get_by_id(id);
+  int idx = X509_PURPOSE_get_by_id(id);
   if (idx == -1) {
-    return -1;
+    return 0;
   }
-  pt = X509_PURPOSE_get0(idx);
+  const X509_PURPOSE *pt = X509_PURPOSE_get0(idx);
   return pt->check_purpose(pt, x, ca);
 }
 
