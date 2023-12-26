@@ -106,7 +106,7 @@ static const X509_PURPOSE xstandard[] = {
      (char *)"smimeencrypt", NULL},
     {X509_PURPOSE_CRL_SIGN, X509_TRUST_COMPAT, 0, check_purpose_crl_sign,
      (char *)"CRL signing", (char *)"crlsign", NULL},
-    {X509_PURPOSE_ANY, X509_TRUST_DEFAULT, 0, no_check, (char *)"Any Purpose",
+    {X509_PURPOSE_ANY, /*trust=*/-1, 0, no_check, (char *)"Any Purpose",
      (char *)"any", NULL},
     // |X509_PURPOSE_OCSP_HELPER| performs no actual checks. OpenSSL's OCSP
     // implementation relied on the caller performing EKU and KU checks.
