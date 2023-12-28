@@ -151,8 +151,8 @@ err:
 }
 
 int PEM_write_bio_PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,
-                             unsigned char *kstr, int klen, pem_password_cb *cb,
-                             void *u) {
+                             const unsigned char *kstr, int klen,
+                             pem_password_cb *cb, void *u) {
   return PEM_write_bio_PKCS8PrivateKey(bp, x, enc, (char *)kstr, klen, cb, u);
 }
 
@@ -169,8 +169,8 @@ EVP_PKEY *PEM_read_PrivateKey(FILE *fp, EVP_PKEY **x, pem_password_cb *cb,
 }
 
 int PEM_write_PrivateKey(FILE *fp, EVP_PKEY *x, const EVP_CIPHER *enc,
-                         unsigned char *kstr, int klen, pem_password_cb *cb,
-                         void *u) {
+                         const unsigned char *kstr, int klen,
+                         pem_password_cb *cb, void *u) {
   BIO *b = BIO_new_fp(fp, BIO_NOCLOSE);
   if (b == NULL) {
     OPENSSL_PUT_ERROR(PEM, ERR_R_BUF_LIB);

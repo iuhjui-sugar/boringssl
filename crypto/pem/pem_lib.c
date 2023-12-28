@@ -261,7 +261,7 @@ err:
 }
 
 int PEM_ASN1_write(i2d_of_void *i2d, const char *name, FILE *fp, void *x,
-                   const EVP_CIPHER *enc, unsigned char *kstr, int klen,
+                   const EVP_CIPHER *enc, const unsigned char *kstr, int klen,
                    pem_password_cb *callback, void *u) {
   BIO *b = BIO_new_fp(fp, BIO_NOCLOSE);
   if (b == NULL) {
@@ -274,8 +274,8 @@ int PEM_ASN1_write(i2d_of_void *i2d, const char *name, FILE *fp, void *x,
 }
 
 int PEM_ASN1_write_bio(i2d_of_void *i2d, const char *name, BIO *bp, void *x,
-                       const EVP_CIPHER *enc, unsigned char *kstr, int klen,
-                       pem_password_cb *callback, void *u) {
+                       const EVP_CIPHER *enc, const unsigned char *kstr,
+                       int klen, pem_password_cb *callback, void *u) {
   EVP_CIPHER_CTX ctx;
   int dsize = 0, i, j, ret = 0;
   unsigned char *p, *data = NULL;
@@ -320,7 +320,7 @@ int PEM_ASN1_write_bio(i2d_of_void *i2d, const char *name, BIO *bp, void *x,
         OPENSSL_PUT_ERROR(PEM, PEM_R_READ_KEY);
         goto err;
       }
-      kstr = (unsigned char *)buf;
+      kstr = (const unsigned char *)buf;
     }
     assert(iv_len <= sizeof(iv));
     if (!RAND_bytes(iv, iv_len)) {  // Generate a salt
@@ -332,7 +332,7 @@ int PEM_ASN1_write_bio(i2d_of_void *i2d, const char *name, BIO *bp, void *x,
       goto err;
     }
 
-    if (kstr == (unsigned char *)buf) {
+    if (kstr == (const unsigned char *)buf) {
       OPENSSL_cleanse(buf, PEM_BUFSIZE);
     }
 
