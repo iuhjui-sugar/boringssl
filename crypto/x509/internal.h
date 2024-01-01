@@ -592,6 +592,8 @@ int X509_is_valid_trust_id(int trust);
 
 int X509_PURPOSE_get_trust(const X509_PURPOSE *xp);
 
+int DIST_POINT_set_dpname(DIST_POINT_NAME *dpn, X509_NAME *iname);
+
 
 #if defined(__cplusplus)
 }  // extern C
