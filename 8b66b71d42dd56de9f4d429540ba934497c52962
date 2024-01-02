@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1071fde5_c70715a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T21:47:54Z",
+      "side": 1,
+      "message": "Self-review: mention that the `X509_V_ERR_STORE_LOOKUP` cases are actually impossible and that we\u0027ll remove it in a later CL.",
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "888a660c_b06adbda",
         "filename": "crypto/x509/x509_vfy.c",
         "patchSetId": 2
@@ -31,6 +48,30 @@
       "writtenOn": "2024-01-02T21:35:00Z",
       "side": 1,
       "message": "If this is user-supplied, it could indeed still return a negative number if they chose to do so. I think you need to wrap this.\n\nstill looking if there are others.",
+      "range": {
+        "startLine": 1325,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 36
+      },
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12567461_d474f903",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T21:47:54Z",
+      "side": 1,
+      "message": "I think this actually preserves existing behavior. In the old code, suppose the caller returned -1. Then `internal_verify` would return -1. But the old code for `internal_verify` was:\n\n```\n  // At this point, we have a chain and need to verify it\n  ok \u003d internal_verify(ctx);\n  if (!ok) {\n    goto end;\n  }\n\n  // Check name constraints\n  ok \u003d check_name_constraints(ctx);\n  if (!ok) {\n    goto end;\n  }\n```\n\nLikewise all the verify calls used to look like this:\n\n```\n        ok \u003d ctx-\u003everify_cb(0, ctx);\n        if (!ok) {\n          goto end;\n        }\n```\n\nSo it\u0027s always been the case that -1 from `verify_cb` would be interpreted as success instead of error. We could do `ok \u003d ctx-\u003everify_cb(0, ctx) !\u003d 0` just to ensure -1 never leaks out, but I think we can reasonably say that returning -1 out of here is a caller bug.",
+      "parentUuid": "d2b16101_cfde7e79",
       "range": {
         "startLine": 1325,
         "startChar": 0,
