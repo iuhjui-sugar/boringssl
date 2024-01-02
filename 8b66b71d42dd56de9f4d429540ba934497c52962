@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2b16101_cfde7e79",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-02T21:35:00Z",
+      "side": 1,
+      "message": "If this is user-supplied, it could indeed still return a negative number if they chose to do so. I think you need to wrap this.\n\nstill looking if there are others.",
+      "range": {
+        "startLine": 1325,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 36
+      },
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
