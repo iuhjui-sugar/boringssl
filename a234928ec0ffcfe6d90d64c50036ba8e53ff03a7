@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4631b938_d243b0d5",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-02T23:00:49Z",
+      "side": 1,
+      "message": "```suggestion\n  switch(ok) {\n     case 0:\n        ctx-\u003eerror \u003d (ctx-\u003eerror !\u003d X509_V_OK) ? ctx-\u003eerror : X509_V_ERR_UNSPECIFIED;\n        break;\n     case 1:\n        break;\n     default:\n        abort(); // NOTREACHED\n   }\n```",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 3
+      },
+      "revId": "a234928ec0ffcfe6d90d64c50036ba8e53ff03a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
