@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89625331_1272d8bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T22:08:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1071fde5_c70715a8",
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "888a660c_b06adbda",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-02T21:36:37Z",
       "side": 1,
       "message": "see comment below, I don\u0027t think this is the same if the user supplied callback returns a negative number.  Gotta look through the others here too.",
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d2daa29_027e1710",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T22:08:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "888a660c_b06adbda",
       "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -96,6 +132,30 @@
       "side": 1,
       "message": "The old behaviour was that this function was a failure if returning a value \u003c\u003d 0, so in the old code, the -1 would be assigned to ok, would not goto, ent, but would leak out, and be interpreted as a failure. \n\nIn the new code the -1 will be interpreted as a success.",
       "parentUuid": "12567461_d474f903",
+      "range": {
+        "startLine": 1325,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 36
+      },
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d4499a_65983c97",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T22:08:30Z",
+      "side": 1,
+      "message": "-1 would leak out of `internal_verify`, which would *not* hit `if (!ok) { goto end; }`, and then it would get overwritten by `ok \u003d check_name_constraints`.\n\nWrapped the ones that needed wrapping with `!\u003d 0`.",
+      "parentUuid": "8f62a02d_c30a84ad",
       "range": {
         "startLine": 1325,
         "startChar": 0,
