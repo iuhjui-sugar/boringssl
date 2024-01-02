@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2157d292_4f28ae94",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 861,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T18:35:36Z",
+      "side": 1,
+      "message": "Note to self: this can\u0027t overflow because AddResultPath adds the paths to a vector, vector::push_back\u0027s allocation will fail before this overflows.",
+      "range": {
+        "startLine": 861,
+        "startChar": 6,
+        "endLine": 861,
+        "endChar": 23
+      },
+      "revId": "1278b0bf7f436443854bffeb1f6bb0f534368c6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "557a59b8_3f7561ab",
+        "filename": "pki/path_builder.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T18:35:36Z",
+      "side": 1,
+      "message": "Magic zeros make me a little sad, but matches all the others. :-)",
+      "range": {
+        "startLine": 218,
+        "startChar": 37,
+        "endLine": 218,
+        "endChar": 38
+      },
+      "revId": "1278b0bf7f436443854bffeb1f6bb0f534368c6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
