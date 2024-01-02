@@ -16,6 +16,24 @@
       "message": "Add a test here for expired root (not cross) with PARTIAL_CHAIN as well? so that all behaviours are captured?",
       "revId": "c5f22728f1cd9d805763a9dc0eab2287c64151a5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00c19971_6aaecc94",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-02T20:59:40Z",
+      "side": 1,
+      "message": "Done. Made the test just run everything through the cartesian product.",
+      "parentUuid": "222a8300_b3e69df6",
+      "revId": "c5f22728f1cd9d805763a9dc0eab2287c64151a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
