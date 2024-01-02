@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "888a660c_b06adbda",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-02T21:36:37Z",
+      "side": 1,
+      "message": "see comment below, I don\u0027t think this is the same if the user supplied callback returns a negative number.  Gotta look through the others here too.",
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d2b16101_cfde7e79",
         "filename": "crypto/x509/x509_vfy.c",
         "patchSetId": 2
