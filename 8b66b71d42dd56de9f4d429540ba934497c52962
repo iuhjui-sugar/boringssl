@@ -80,6 +80,30 @@
       },
       "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f62a02d_c30a84ad",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-02T21:52:16Z",
+      "side": 1,
+      "message": "The old behaviour was that this function was a failure if returning a value \u003c\u003d 0, so in the old code, the -1 would be assigned to ok, would not goto, ent, but would leak out, and be interpreted as a failure. \n\nIn the new code the -1 will be interpreted as a success.",
+      "parentUuid": "12567461_d474f903",
+      "range": {
+        "startLine": 1325,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 36
+      },
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
