@@ -22,6 +22,30 @@
       },
       "revId": "d7b40c5778b285103b7875919a025c1217fcff01",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe560c77_a0954957",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-03T23:33:24Z",
+      "side": 1,
+      "message": "NGINX seems to suppress this error, along the way to suppressing other errors. I suspect that\u0027s pretty common.",
+      "parentUuid": "b7b03780_08446089",
+      "range": {
+        "startLine": 4377,
+        "startChar": 0,
+        "endLine": 4377,
+        "endChar": 79
+      },
+      "revId": "d7b40c5778b285103b7875919a025c1217fcff01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
