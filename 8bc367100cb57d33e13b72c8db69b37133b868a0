@@ -34,6 +34,24 @@
       "parentUuid": "d20769aa_46c6471c",
       "revId": "8bc367100cb57d33e13b72c8db69b37133b868a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fdf616a_ddaef350",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-03T01:30:11Z",
+      "side": 1,
+      "message": "Do they accept SHA-1? The code in question only does anything for SHA-1 certs, because it was originally meant as an error mapping thing. We probably should have had it checked digest policy alongside it.",
+      "parentUuid": "0579b69a_f296174c",
+      "revId": "8bc367100cb57d33e13b72c8db69b37133b868a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
