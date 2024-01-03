@@ -16,6 +16,24 @@
       "message": "Sadly I think we might need to parameterize this and not delete it yet until we are certain cloud does not have a bunch of these in their baliwack, since anyone with this old goo in their user provided pki might actually have this in there.\n\nWhile cloud is defaulting to STRICT which kills this, they have customers they switch back down off of STRICT to handle nasty old things.\n\nI think the right approach here might be to default this to off, add a knob to turn it back on, and see if it sticks. then remove it",
       "revId": "8bc367100cb57d33e13b72c8db69b37133b868a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0579b69a_f296174c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-03T00:29:03Z",
+      "side": 1,
+      "message": "didn\u0027t mean for that to be resolved.",
+      "parentUuid": "d20769aa_46c6471c",
+      "revId": "8bc367100cb57d33e13b72c8db69b37133b868a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
