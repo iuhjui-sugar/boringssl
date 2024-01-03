@@ -46,6 +46,30 @@
       },
       "revId": "a234928ec0ffcfe6d90d64c50036ba8e53ff03a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "329bc924_86cc719e",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-03T17:43:05Z",
+      "side": 1,
+      "message": "The problem here is before, ok could potentially be assigned to as the value of the callback, Fall through to here, and hit the safety net. \n\nwe would not have added the unconditional ok\u003d1 at line 440 as we do now, \n\nat that point a negative return value from the callback is caught by this safety net to ensure that an X509_V_OK is *never* returned from here, which\nis what the callers actually check for. \n\nwhat we have potentially done now is map -1 to a 1 return (still yes, a non-zero return) but we will now potentially return X509_V_0K from -1 which we did not before. as we have turned this into a boolean mapping -1 to 1, and lost the \u003c\u003d 0 check on this fallback. \n\nSo yes, my suggestion is wrong, and you\u0027re correct, within this function it is now simply a boolean. my concern here is the loss of the -1 check with the change above this. before a -1 return value would return non-zero, but not have X509_V_OK set.. Now it can have X509_V_OK set.",
+      "parentUuid": "6efd941d_d86e2c1c",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 3
+      },
+      "revId": "a234928ec0ffcfe6d90d64c50036ba8e53ff03a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
