@@ -70,6 +70,30 @@
       },
       "revId": "a234928ec0ffcfe6d90d64c50036ba8e53ff03a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80708c4e_a6ad3d8c",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-03T18:38:59Z",
+      "side": 1,
+      "message": "Chatted out-of-band. Summarizing for posterity:\n\nThe disconnect was I wasn\u0027t thinking about a verify_cb that just always returned -1. In that case, even though we internally read as success, we would leak that -1 into ok and then this \"safety net\" would cause it to return (-1, ERR_UNSPECIFIED) and read as a failure to the caller.\n\nPlan is to, before this CL, do:\n1. Get rid of the ok\u003d2 case from NOTIFY_POLICY because no one uses it\n2. Surround all verify_cb calls with a wrapper that does aborts if the caller returns anything other than 0 or 1, because -1 was ambiguous\n3. Run that through tests to make sure nothing notices\n4. Land this guy",
+      "parentUuid": "329bc924_86cc719e",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 3
+      },
+      "revId": "a234928ec0ffcfe6d90d64c50036ba8e53ff03a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
