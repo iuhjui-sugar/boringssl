@@ -22,6 +22,30 @@
       },
       "revId": "a234928ec0ffcfe6d90d64c50036ba8e53ff03a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6efd941d_d86e2c1c",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-03T01:33:02Z",
+      "side": 1,
+      "message": "`ok` is never set to the output of `verify_cb` after this change. It cannot be -1. That was the point of this CL. :-P The only assignments are the ones that initialize it to 0, and then line 440.\n\nIt\u0027s really just `bool` now. :-)",
+      "parentUuid": "4631b938_d243b0d5",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 3
+      },
+      "revId": "a234928ec0ffcfe6d90d64c50036ba8e53ff03a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
