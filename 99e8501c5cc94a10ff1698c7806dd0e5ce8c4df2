@@ -16,6 +16,24 @@
       "message": "Historically, values other than 0 or 1 have been passed into the callback and it was effectively the case that returning the input \"ok\" unmodified was the correct behaviour if you did not want to mess with the verifier logic but only wanted to look at things, log things, whatever. \n\n I know you\u0027ve flensed out the last call with 2 as the input, but should we maybe belt and suspenders our future selves importing things by adding the same BSSL_CHECK before the callback call to ensure we never have anything pass in a bogus ok value, as I would contend if we did that and the callback returned it to us then this is for sure our bug, not the callback\u0027s bug.",
       "revId": "99e8501c5cc94a10ff1698c7806dd0e5ce8c4df2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4688231_10dfd692",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-04T19:50:12Z",
+      "side": 1,
+      "message": "We actually have that check anyway. The default `verify_cb` is `null_callback`, which does `return ok`, so this check covers it. :-)\n\n(Also it\u0027s pretty easy to just `git grep call_verify_cb` and observe that it\u0027s always a constant 0 or constant 1.)",
+      "parentUuid": "b1c7ff0c_e3677fca",
+      "revId": "99e8501c5cc94a10ff1698c7806dd0e5ce8c4df2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
