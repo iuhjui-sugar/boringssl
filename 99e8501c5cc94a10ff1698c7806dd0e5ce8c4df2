@@ -34,6 +34,24 @@
       "parentUuid": "b1c7ff0c_e3677fca",
       "revId": "99e8501c5cc94a10ff1698c7806dd0e5ce8c4df2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66fdcca1_457c8ade",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-05T21:29:26Z",
+      "side": 1,
+      "message": "fine with that if you are.",
+      "parentUuid": "e4688231_10dfd692",
+      "revId": "99e8501c5cc94a10ff1698c7806dd0e5ce8c4df2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
