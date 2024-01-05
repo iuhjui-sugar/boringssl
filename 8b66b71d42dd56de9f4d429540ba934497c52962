@@ -164,6 +164,30 @@
       },
       "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f049a15_67fbacde",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-05T22:39:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83d4499a_65983c97",
+      "range": {
+        "startLine": 1325,
+        "startChar": 0,
+        "endLine": 1325,
+        "endChar": 36
+      },
+      "revId": "8b66b71d42dd56de9f4d429540ba934497c52962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
