@@ -36,7 +36,6 @@ mod macros;
 
 pub mod aead;
 
-/// AES block operations.
 pub mod aes;
 
 /// Ciphers.
