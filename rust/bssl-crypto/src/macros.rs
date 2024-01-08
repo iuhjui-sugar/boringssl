@@ -26,6 +26,10 @@ macro_rules! iuf_algo {
                 // - this always returns a valid pointer to an EVP_MD.
                 unsafe { MdRef::from_ptr(bssl_sys::$evp_md() as *mut _) }
             }
+
+            fn hash_to_vec(input: &[u8]) -> Vec<u8> {
+                Self::hash(input).as_slice().to_vec()
+            }
         }
 
         impl $name {
