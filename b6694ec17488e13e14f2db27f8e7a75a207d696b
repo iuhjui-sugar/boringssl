@@ -22,6 +22,30 @@
       },
       "revId": "b6694ec17488e13e14f2db27f8e7a75a207d696b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea652127_d9d10e8a",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-09T17:26:57Z",
+      "side": 0,
+      "message": "I\u0027m moving the documentation into the modules themselves and expanding it. Otherwise it\u0027s odd that the documentation in the module gets the documentation from lib.rs prepended.",
+      "parentUuid": "0fb9a018_4490ceee",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 37
+      },
+      "revId": "b6694ec17488e13e14f2db27f8e7a75a207d696b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
