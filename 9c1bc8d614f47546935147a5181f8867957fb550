@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c08e4aed_5e09de27",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2024-01-09T19:29:26Z",
+      "side": 1,
+      "message": "nit: you may need to add a `let _ \u003d unsafe { ...` otherwise I would expect a warning about unused return value.\n\nor it might still make sense to at least have a `debug_assert!` on the return type just for clarity",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 13
+      },
+      "revId": "9c1bc8d614f47546935147a5181f8867957fb550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
