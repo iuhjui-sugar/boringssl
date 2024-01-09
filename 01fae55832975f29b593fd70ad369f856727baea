@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "717af626_2f92d797",
+        "filename": "crypto/x509/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-09T18:44:57Z",
+      "side": 1,
+      "message": "Add a comment in here that unlike upstream we do not support the -1 return value to indicate some sort of fatal system failure, and the use of that to differentiate from a failure from check_purpose()",
+      "range": {
+        "startLine": 123,
+        "startChar": 1,
+        "endLine": 123,
+        "endChar": 2
+      },
+      "revId": "01fae55832975f29b593fd70ad369f856727baea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
