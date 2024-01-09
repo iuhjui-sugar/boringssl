@@ -16,6 +16,24 @@
       "message": "This workaround is specifically for something that we expect the platforms in question to hopefully eventually \"clean up\" the fact that they are defining __linux__ and hope for them not to do so eventually because they shouldn\u0027t be. \n\nYou seem to want this for when running as an \"emulation\" target. and you specifically want to compile under _linux_ but have not behave as such, in other words, you\u0027re never going to \"fix\" this, it\u0027s by design. Is that correct?  \n\nI\u0027m only asking because we might restructure this slightly do ensure the fact that you are doing this always remains here.",
       "revId": "89d6e303fdba1330f55086e0d5a6fd746b92802f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feacd377_d7e3ffdf",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2024-01-09T21:34:28Z",
+      "side": 1,
+      "message": "\u003e You seem to want this for when running as an \"emulation\" target. and you specifically want to compile under linux but have not behave as such, in other words, you\u0027re never going to \"fix\" this, it\u0027s by design. Is that correct?\n\nCorrect. I interpreted the current comment about `nanolibc` meaning the same thing:\n\n\u003e nanolibc\n// sometimes build for a non-Linux target (which should not define __linux__),\n// but also sometimes build for Linux. Although technically running in Linux\n// userspace, this lacks all the libc APIs we\u0027d normally expect on Linux, so we\n// treat it as a non-Linux target.\n\nversus the `__TRUSTY__` and `ANDROID_BAREMETAL` which are doing the wrong thing and should be fixed:\n\n\u003e // Trusty and Android baremetal aren\u0027t Linux but currently define __linux__.\n// As a workaround, we exclude them here.",
+      "parentUuid": "4a46b798_c24762ea",
+      "revId": "89d6e303fdba1330f55086e0d5a6fd746b92802f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
