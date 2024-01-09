@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "654c4e1c_b2159c5e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3497,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-09T18:33:04Z",
+      "side": 1,
+      "message": "We could OPENSSL_DEPRECATED, but I think they\u0027re going to move fast enough that we\u0027ll just delete it and forcing them to eat the warning is just churn.",
+      "range": {
+        "startLine": 3497,
+        "startChar": 0,
+        "endLine": 3497,
+        "endChar": 14
+      },
+      "revId": "7ca7307c8c19784e588ebe2f706ac283313071b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
