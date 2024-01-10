@@ -34,6 +34,24 @@
       "parentUuid": "18efadfe_40f72fb9",
       "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "497b1cb4_36002943",
+        "filename": "crypto/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T22:20:24Z",
+      "side": 1,
+      "message": "\u003e IDK if that warrants any change in strategy.\n\nHehe, figured you might ask that. 😊 Meh? I don\u0027t think we could have discovered this one without trying it. We could do it in separate commits that land immediately after each other, but...\n\n- It\u0027s not any different to review separate or together\n- Reverting just the static optimization is trivial\n- For better or worse, most of our downstream users end up picking up large chunks of changes at a time, so we wouldn\u0027t actually gain anything in bisecting\n\nSo... I\u0027m fine with the current scheme. *shrug*",
+      "parentUuid": "5daaee64_91e7f251",
+      "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
