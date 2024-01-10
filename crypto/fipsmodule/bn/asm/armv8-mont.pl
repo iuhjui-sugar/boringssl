@@ -77,6 +77,10 @@ bn_mul_mont:
 	b.eq	__bn_sqr8x_mont
 	tst	$num,#3
 	b.eq	__bn_mul4x_mont
+	cmp $num,#6
+	b.eq    __bn_mul384_mont
+	cmp $num,#9
+	b.eq    __bn_mul521_mont
 .Lmul_mont:
 	stp	x29,x30,[sp,#-64]!
 	add	x29,sp,#0
@@ -1513,6 +1517,330 @@ __bn_mul4x_mont:
 .size	__bn_mul4x_mont,.-__bn_mul4x_mont
 ___
 }
+
+{
+my ($a0,$a1,$a2,$a3,$a4,$a5)=map("x$_",(6..11));
+my ($p0,$p1,$p2,$p3,$p4,$p5)=map("x$_",(12..17));
+my ($acc0,$acc1,$acc2,$acc3,$acc4,$acc5,$acc6)=map("x$_",(19..25));
+my ($bi,$t0,$acc7,$yi)=($ap,$np,"x26","x27");
+
+$code.=<<___;
+.type	__bn_mul384_mont, %function
+.align	5
+__bn_mul384_mont:
+	// Not adding AARCH64_SIGN_LINK_REGISTER here because __bn_mul384_mont is jumped to
+	// only from bn_mul_mont which have already signed the return address.
+	stp x29, x30, [sp, #-96]!
+	add x29, sp, #0
+	stp x19, x20, [sp, #16]
+	stp x21, x22, [sp, #32]
+	stp x23, x24, [sp, #48]
+	stp x25, x26, [sp, #64]
+	stp x27, x28, [sp, #80]
+
+	ldr $n0, [$n0]
+
+	ldp $a0, $a1, [$ap, #8*0]
+	ldp $a2, $a3, [$ap, #8*2]
+	ldp $a4, $a5, [$ap, #8*4]
+
+	ldp $p0, $p1, [$np, #8*0]
+	ldp $p2, $p3, [$np, #8*2]
+	ldp $p4, $p5, [$np, #8*4]
+
+	mov $acc0, #0
+	mov $acc1, #0
+	mov $acc2, #0
+	mov $acc3, #0
+	mov $acc4, #0
+	mov $acc5, #0
+	mov $acc6, #0
+	mov $acc7, #0
+
+.Loop_bn_mul384:
+		ldr $bi, [$bp], #8*1
+
+		mul $t0, $a0, $bi
+		adds $acc0, $acc0, $t0
+		mul $t0, $a1, $bi
+		adcs $acc1, $acc1, $t0
+		mul $t0, $a2, $bi
+		adcs $acc2, $acc2, $t0
+		mul $t0, $a3, $bi
+		adcs $acc3, $acc3, $t0
+		mul $t0, $a4, $bi
+		adcs $acc4, $acc4, $t0
+		mul $t0, $a5, $bi
+		adcs $acc5, $acc5, $t0
+		adcs $acc6, $acc6, xzr
+		adc $acc7, xzr, xzr
+
+		mul $yi, $acc0, $n0
+
+		umulh $t0, $a0, $bi
+		adds $acc1, $acc1, $t0
+		umulh $t0, $a1, $bi
+		adcs $acc2, $acc2, $t0
+		umulh $t0, $a2, $bi
+		adcs $acc3, $acc3, $t0
+		umulh $t0, $a3, $bi
+		adcs $acc4, $acc4, $t0
+		umulh $t0, $a4, $bi
+		adcs $acc5, $acc5, $t0
+		umulh $t0, $a5, $bi
+		adcs $acc6, $acc6, $t0
+		adc $acc7, $acc7, xzr
+
+		mul $t0, $p0, $yi
+		adds $acc0, $acc0, $t0
+		mul $t0, $p1, $yi
+		adcs $acc0, $acc1, $t0
+		mul $t0, $p2, $yi
+		adcs $acc1, $acc2, $t0
+		mul $t0, $p3, $yi
+		adcs $acc2, $acc3, $t0
+		mul $t0, $p4, $yi
+		adcs $acc3, $acc4, $t0
+		mul $t0, $p5, $yi
+		adcs $acc4, $acc5, $t0
+		adcs $acc5, $acc6, xzr
+		adcs $acc6, $acc7, xzr
+
+		umulh $t0, $p0, $yi
+		adds $acc0, $acc0, $t0
+		umulh $t0, $p1, $yi
+		adcs $acc1, $acc1, $t0
+		umulh $t0, $p2, $yi
+		adcs $acc2, $acc2, $t0
+		umulh $t0, $p3, $yi
+		adcs $acc3, $acc3, $t0
+		umulh $t0, $p4, $yi
+		adcs $acc4, $acc4, $t0
+		umulh $t0, $p5, $yi
+		adcs $acc5, $acc5, $t0
+		adcs $acc6, $acc6, xzr
+
+		subs $num, $num, #1
+		b.hi .Loop_bn_mul384
+
+	subs $a0, $acc0, $p0
+	sbcs $a1, $acc1, $p1
+	sbcs $a2, $acc2, $p2
+	sbcs $a3, $acc3, $p3
+	sbcs $a4, $acc4, $p4
+	sbcs $a5, $acc5, $p5
+	sbcs xzr, $acc6, xzr
+
+	csel $acc0, $acc0, $a0, lo
+	csel $acc1, $acc1, $a1, lo
+	csel $acc2, $acc2, $a2, lo
+	csel $acc3, $acc3, $a3, lo
+	csel $acc4, $acc4, $a4, lo
+	csel $acc5, $acc5, $a5, lo
+
+	stp $acc0, $acc1, [$rp, #8*0]
+	stp $acc2, $acc3, [$rp, #8*2]
+	stp $acc4, $acc5, [$rp, #8*4]
+
+	ldp x19, x20, [sp, #16]
+	ldp x21, x22, [sp, #32]
+	ldp x23, x24, [sp, #48]
+	ldp x25, x26, [sp, #64]
+	ldp x27, x28, [sp, #80]
+	ldp x29, x30, [sp], #96
+	mov x0, #1
+	AARCH64_VALIDATE_LINK_REGISTER
+	ret
+.size	__bn_mul384_mont,.-__bn_mul384_mont
+___
+}
+
+{
+my ($a0,$a1,$a2,$a3,$a4,$a5,$a6,$a7,$a8)=map("x$_",(6..14));
+my ($acc0,$acc1,$acc2,$acc3,$acc4,$acc5,$acc6,$acc7,$acc8,$acc9,$acc10)=map("x$_",(15..17,19..26));
+my ($p0,$p1)=map("x$_",(27..28));
+my ($bi,$t0)=($ap,"x30");
+
+$code.=<<___;
+.type	__bn_mul521_mont, %function
+.align	5
+__bn_mul521_mont:
+	// Not adding AARCH64_SIGN_LINK_REGISTER here because __bn_mul521_mont is jumped to
+	// only from bn_mul_mont which have already signed the return address.
+	stp x29, x30, [sp, #-96]!
+	add x29, sp, #0
+	stp x19, x20, [sp, #16]
+	stp x21, x22, [sp, #32]
+	stp x23, x24, [sp, #48]
+	stp x25, x26, [sp, #64]
+	stp x27, x28, [sp, #80]
+
+	ldr $n0, [$n0]
+
+	ldp $a0, $a1, [$ap, #8*0]
+	ldp $a2, $a3, [$ap, #8*2]
+	ldp $a4, $a5, [$ap, #8*4]
+	ldp $a6, $a7, [$ap, #8*6]
+	ldr $a8, [$ap, #8*8]
+
+	mov $acc0, #0
+	mov $acc1, #0
+	mov $acc2, #0
+	mov $acc3, #0
+	mov $acc4, #0
+	mov $acc5, #0
+	mov $acc6, #0
+	mov $acc7, #0
+	mov $acc8, #0
+	mov $acc9, #0
+	mov $acc10, #0
+
+.Loop_bn_mul521:
+		ldr $bi, [$bp], #8*1
+
+		mul $t0, $a0, $bi
+		adds $acc0, $acc0, $t0
+		mul $t0, $a1, $bi
+		adcs $acc1, $acc1, $t0
+		mul $t0, $a2, $bi
+		adcs $acc2, $acc2, $t0
+		mul $t0, $a3, $bi
+		adcs $acc3, $acc3, $t0
+		mul $t0, $a4, $bi
+		adcs $acc4, $acc4, $t0
+		mul $t0, $a5, $bi
+		adcs $acc5, $acc5, $t0
+		mul $t0, $a6, $bi
+		adcs $acc6, $acc6, $t0
+		mul $t0, $a7, $bi
+		adcs $acc7, $acc7, $t0
+		mul $t0, $a8, $bi
+		adcs $acc8, $acc8, $t0
+		adcs $acc9, $acc9, xzr
+		adc $acc10, xzr, xzr
+
+		umulh $t0, $a0, $bi
+		adds $acc1, $acc1, $t0
+		umulh $t0, $a1, $bi
+		adcs $acc2, $acc2, $t0
+		umulh $t0, $a2, $bi
+		adcs $acc3, $acc3, $t0
+		umulh $t0, $a3, $bi
+		adcs $acc4, $acc4, $t0
+		umulh $t0, $a4, $bi
+		adcs $acc5, $acc5, $t0
+		umulh $t0, $a5, $bi
+		adcs $acc6, $acc6, $t0
+		umulh $t0, $a6, $bi
+		adcs $acc7, $acc7, $t0
+		umulh $t0, $a7, $bi
+		adcs $acc8, $acc8, $t0
+		umulh $t0, $a8, $bi
+		adcs $acc9, $acc9, $t0
+		adc $acc10, $acc10, xzr
+
+		mul $bi, $acc0, $n0
+
+			ldp $p0, $p1, [$np, #8*0]
+		mul $t0, $p0, $bi
+		adds $acc0, $acc0, $t0
+		mul $t0, $p1, $bi
+		adcs $acc0, $acc1, $t0
+			ldp $p0, $p1, [$np, #8*2]
+		mul $t0, $p0, $bi
+		adcs $acc1, $acc2, $t0
+		mul $t0, $p1, $bi
+		adcs $acc2, $acc3, $t0
+			ldp $p0, $p1, [$np, #8*4]
+		mul $t0, $p0, $bi
+		adcs $acc3, $acc4, $t0
+		mul $t0, $p1, $bi
+		adcs $acc4, $acc5, $t0
+			ldp $p0, $p1, [$np, #8*6]
+		mul $t0, $p0, $bi
+		adcs $acc5, $acc6, $t0
+		mul $t0, $p1, $bi
+		adcs $acc6, $acc7, $t0
+			ldr $p0, [$np, #8*8]
+		mul $t0, $p0, $bi
+		adcs $acc7, $acc8, $t0
+		adcs $acc8, $acc9, xzr
+		adcs $acc9, $acc10, xzr
+
+			ldp $p0, $p1, [$np, #8*0]
+		umulh $t0, $p0, $bi
+		adds $acc0, $acc0, $t0
+		umulh $t0, $p1, $bi
+		adcs $acc1, $acc1, $t0
+			ldp $p0, $p1, [$np, #8*2]
+		umulh $t0, $p0, $bi
+		adcs $acc2, $acc2, $t0
+		umulh $t0, $p1, $bi
+		adcs $acc3, $acc3, $t0
+			ldp $p0, $p1, [$np, #8*4]
+		umulh $t0, $p0, $bi
+		adcs $acc4, $acc4, $t0
+		umulh $t0, $p1, $bi
+		adcs $acc5, $acc5, $t0
+			ldp $p0, $p1, [$np, #8*6]
+		umulh $t0, $p0, $bi
+		adcs $acc6, $acc6, $t0
+		umulh $t0, $p1, $bi
+		adcs $acc7, $acc7, $t0
+			ldr $p0, [$np, #8*8]
+		umulh $t0, $p0, $bi
+		adcs $acc8, $acc8, $t0
+		adcs $acc9, $acc9, xzr
+
+		subs $num, $num, #1
+		b.hi .Loop_bn_mul521
+
+	ldp $a0, $a1, [$np, #8*0]
+	ldp $a2, $a3, [$np, #8*2]
+	ldp $a4, $a5, [$np, #8*4]
+	ldp $a6, $a7, [$np, #8*6]
+	ldr $a8, [$np, #8*8]
+
+	subs $a0, $acc0, $a0
+	sbcs $a1, $acc1, $a1
+	sbcs $a2, $acc2, $a2
+	sbcs $a3, $acc3, $a3
+	sbcs $a4, $acc4, $a4
+	sbcs $a5, $acc5, $a5
+	sbcs $a6, $acc6, $a6
+	sbcs $a7, $acc7, $a7
+	sbcs $a8, $acc8, $a8
+	sbcs xzr, $acc9, xzr
+
+	csel $acc0, $acc0, $a0, lo
+	csel $acc1, $acc1, $a1, lo
+	csel $acc2, $acc2, $a2, lo
+	csel $acc3, $acc3, $a3, lo
+	csel $acc4, $acc4, $a4, lo
+	csel $acc5, $acc5, $a5, lo
+	csel $acc6, $acc6, $a6, lo
+	csel $acc7, $acc7, $a7, lo
+	csel $acc8, $acc8, $a8, lo
+
+	stp $acc0, $acc1, [$rp, #8*0]
+	stp $acc2, $acc3, [$rp, #8*2]
+	stp $acc4, $acc5, [$rp, #8*4]
+	stp $acc6, $acc7, [$rp, #8*6]
+	str $acc8, [$rp, #8*8]
+
+	ldp x19, x20, [sp, #16]
+	ldp x21, x22, [sp, #32]
+	ldp x23, x24, [sp, #48]
+	ldp x25, x26, [sp, #64]
+	ldp x27, x28, [sp, #80]
+	ldp x29, x30, [sp], #96
+	mov x0, #1
+	AARCH64_VALIDATE_LINK_REGISTER
+	ret
+.size	__bn_mul521_mont,.-__bn_mul521_mont
+___
+}
+
 $code.=<<___;
 .asciz	"Montgomery Multiplication for ARMv8, CRYPTOGAMS by <appro\@openssl.org>"
 .align	4
