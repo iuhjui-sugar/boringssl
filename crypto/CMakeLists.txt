@@ -342,7 +342,7 @@ if(WIN32)
   target_link_libraries(crypto ws2_32)
 endif()
 
-if(NOT ANDROID)
+if(NOT (ANDROID OR CROS_EC OR CROS_ZEPHYR))
   find_package(Threads REQUIRED)
   target_link_libraries(crypto Threads::Threads)
 endif()

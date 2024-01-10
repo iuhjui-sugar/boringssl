@@ -230,6 +230,14 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_XOPEN_SOURCE=700")
 endif()
 
+if(CROS_EC)
+  add_definitions(-DCROS_EC)
+endif()
+
+if(CROS_ZEPHYR)
+  add_definitions(-DCROS_ZEPHYR)
+endif()
+
 if(FUZZ)
   if(NOT CLANG)
     message(FATAL_ERROR "You need to build with Clang for fuzzing to work")
