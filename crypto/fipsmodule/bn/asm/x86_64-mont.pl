@@ -114,6 +114,26 @@ $code.=<<___;
 
 .align	16
 .Lmul_enter:
+
+___
+$code.=<<___ if ($addx and not $win64);
+	leaq	OPENSSL_ia32cap_P(%rip),%r11
+	mov	8(%r11),%r11d
+
+	and	\$0x80100,%r11d
+	cmp	\$0x80100,%r11d
+	jne	.Lmul_do
+
+	cmp \$6,${num}d
+	je .Lmulx384_enter
+
+	cmp \$9,${num}d
+	je .Lmulx576_enter
+
+.Lmul_do: 
+___
+$code.=<<___;
+
 	push	%rbx
 .cfi_push	%rbx
 	push	%rbp
@@ -1387,6 +1407,365 @@ $code.=<<___;
 .size	bn_mulx4x_mont,.-bn_mulx4x_mont
 ___
 }}}
+
+if ($addx and not $win64) {{{
+$code.=<<___;
+.type bn_mulx384_mont,\@function,6
+.align 32
+bn_mulx384_mont:
+	.cfi_startproc
+.Lmulx384_enter:
+	push %rbx
+	.cfi_push %rbx
+	push %rbp
+	.cfi_push %rbp
+	push %r12
+	.cfi_push %r12
+	push %r13
+	.cfi_push %r13
+	push %r14
+	.cfi_push %r14
+	push %r15
+	.cfi_push %r15
+
+	sub \$48, %rsp
+___
+my ($t0, $t1, $t2, $zero, $acc0, $acc1, $acc6, $acc7)=
+("%r10","%r11","%r12","%r13","%r14","%r15","%rbp","%rax");
+my ($bp, $tp)=("%rbx","%rsp");
+$code.=<<___;
+
+	xor $acc0, $acc0
+	movq \$0, $acc1
+	movq \$0, 8*2($tp)
+	movq \$0, 8*3($tp)
+	movq \$0, 8*4($tp)
+	movq \$0, 8*5($tp)
+	xor $acc6, $acc6
+	xor $acc7, $acc7
+
+	mov ($n0),$n0
+
+	mov %rdx, $bp
+
+.align 32
+.Lmulx384_body:
+		mov ($bp), %rdx
+		leaq 8($bp), $bp
+
+		xor $zero, $zero # clear flags
+
+		mulx 8*0($ap), $t0, $t1
+		adcx $t0, $acc0
+		adox $t1, $acc1
+		mulx 8*1($ap), $t0, $t2
+		adcx $t0, $acc1
+		adox 8*2($tp), $t2
+		mulx 8*2($ap), $t0, $t1
+		adcx $t2, $t0
+		adox 8*3($tp), $t1
+			mov $t0, 8*2($tp)
+		mulx 8*3($ap), $t0, $t2
+		adcx $t1, $t0
+		adox 8*4($tp), $t2
+			mov $t0, 8*3($tp)
+		mulx 8*4($ap), $t0, $t1
+		adcx $t2, $t0
+		adox 8*5($tp), $t1
+			mov $t0, 8*4($tp)
+		mulx 8*5($ap), $t0, $t2
+		adcx $t1, $t0
+		adox $t2, $acc6
+			mov $t0, 8*5($tp)
+		adcx $zero, $acc6
+		adox $zero, $acc7
+		adc \$0, $acc7
+
+		mov $acc0, %rdx
+		imul $n0, %rdx
+
+		xor $zero, $zero # clear flags
+
+		mulx 8*0($np), $t0, $t1
+		adcx $t0, $acc0
+		adox $t1, $acc1
+		mulx 8*1($np), $acc0, $t2
+		adcx $acc1, $acc0
+		adox 8*2($tp), $t2
+		mulx 8*2($np), $acc1, $t1
+		adcx $t2, $acc1
+		adox 8*3($tp), $t1
+		mulx 8*3($np), $t0, $t2
+		adcx $t1, $t0
+		adox 8*4($tp), $t2
+			mov $t0, 8*2($tp)
+		mulx 8*4($np), $t0, $t1
+		adcx $t2, $t0
+		adox 8*5($tp), $t1
+			mov $t0, 8*3($tp)
+		mulx 8*5($np), $t0, $t2
+		adcx $t1, $t0
+		adox $t2, $acc6
+			mov $t0, 8*4($tp)
+		adcx $zero, $acc6
+		adox $zero, $acc7
+			mov $acc6, 8*5($tp)
+		adc \$0, $acc7
+			mov $acc7, $acc6
+			xor $acc7, $acc7
+
+		dec $num
+	jnz .Lmulx384_body
+
+	xor %rbx, %rbx
+
+	mov $acc0, %r8
+	mov $acc1, %r9
+	mov 8*2($tp), %r10
+	mov 8*3($tp), %r11
+	mov 8*4($tp), %r12
+	mov 8*5($tp), %r13
+
+	sub 8*0($np), %r8
+	sbb 8*1($np), %r9
+	sbb 8*2($np), %r10
+	sbb 8*3($np), %r11
+	sbb 8*4($np), %r12
+	sbb 8*5($np), %r13
+	sbb %rbx, $acc6
+
+	cmovc $acc0, %r8
+	cmovc $acc1, %r9
+	cmovc 8*2($tp), %r10
+	cmovc 8*3($tp), %r11
+	cmovc 8*4($tp), %r12
+	cmovc 8*5($tp), %r13
+
+	mov %r8, 8*0($rp)
+	mov %r9, 8*1($rp)
+	mov %r10, 8*2($rp)
+	mov %r11, 8*3($rp)
+	mov %r12, 8*4($rp)
+	mov %r13, 8*5($rp)
+
+	mov \$1,%rax
+	add \$48, %rsp
+	pop %r15
+	.cfi_restore %r15
+	pop %r14
+	.cfi_restore %r14
+	pop %r13
+	.cfi_restore %r13
+	pop %r12
+	.cfi_restore %r12
+	pop %rbp
+	.cfi_restore %rbp
+	pop %rbx
+	.cfi_restore %rbx
+	ret
+.cfi_endproc
+.size bn_mulx384_mont,.-bn_mulx384_mont
+___
+
+$code.=<<___;
+.type bn_mulx576_mont,\@function,6
+.align 32
+bn_mulx576_mont:
+	.cfi_startproc
+.Lmulx576_enter:
+	push %rbx
+	.cfi_push %rbx
+	push %rbp
+	.cfi_push %rbp
+	push %r12
+	.cfi_push %r12
+	push %r13
+	.cfi_push %r13
+	push %r14
+	.cfi_push %r14
+	push %r15
+	.cfi_push %r15
+
+	sub \$72, %rsp
+___
+my ($t0, $t1, $t2, $zero, $acc0, $acc1, $acc9, $acc10)=
+("%r10","%r11","%r12","%r13","%r14","%r15","%rbp","%rax");
+my ($bp, $tp)=("%rbx","%rsp");
+$code.=<<___;
+
+	xor $acc0, $acc0
+	xor $acc1, $acc1
+	movq \$0, 8*2($tp)
+	movq \$0, 8*3($tp)
+	movq \$0, 8*4($tp)
+	movq \$0, 8*5($tp)
+	movq \$0, 8*6($tp)
+	movq \$0, 8*7($tp)
+	movq \$0, 8*8($tp)
+	xor $acc9, $acc9
+	xor $acc10, $acc10
+
+	mov ($n0),$n0
+
+	mov %rdx, $bp
+
+.align 32
+.Lmulx576_body:
+		mov ($bp), %rdx
+		leaq 8($bp), $bp
+
+		xor $zero, $zero # clear flags
+
+		mulx 8*0($ap), $t0, $t1
+		adcx $t0, $acc0
+		adox $t1, $acc1
+		mulx 8*1($ap), $t0, $t2
+		adcx $t0, $acc1
+		adox 8*2($tp), $t2
+		mulx 8*2($ap), $t0, $t1
+		adcx $t2, $t0
+		adox 8*3($tp), $t1
+			mov $t0, 8*2($tp)
+		mulx 8*3($ap), $t0, $t2
+		adcx $t1, $t0
+		adox 8*4($tp), $t2
+			mov $t0, 8*3($tp)
+		mulx 8*4($ap), $t0, $t1
+		adcx $t2, $t0
+		adox 8*5($tp), $t1
+			mov $t0, 8*4($tp)
+		mulx 8*5($ap), $t0, $t2
+		adcx $t1, $t0
+		adox 8*6($tp), $t2
+			mov $t0, 8*5($tp)
+		mulx 8*6($ap), $t0, $t1
+		adcx $t2, $t0
+		adox 8*7($tp), $t1
+			mov $t0, 8*6($tp)
+		mulx 8*7($ap), $t0, $t2
+		adcx $t1, $t0
+		adox 8*8($tp), $t2
+			mov $t0, 8*7($tp)
+		mulx 8*8($ap), $t0, $t1
+		adcx $t2, $t0
+		adox $t1, $acc9
+			mov $t0, 8*8($tp)
+		adcx $zero, $acc9
+		adox $zero, $acc10
+		adcx $zero, $acc10
+
+		mov $acc0, %rdx
+		imul $n0, %rdx
+
+		xor $zero, $zero # clear flags
+
+		mulx 8*0($np), $t0, $t1
+		adcx $acc0, $t0
+		adox $acc1, $t1
+		mulx 8*1($np), $acc0, $t2
+		adcx $t1, $acc0
+		adox 8*2($tp), $t2
+		mulx 8*2($np), $acc1, $t1
+		adcx $t2, $acc1
+		adox 8*3($tp), $t1
+		mulx 8*3($np), $t0, $t2
+		adcx $t1, $t0
+		adox 8*4($tp), $t2
+			mov $t0, 8*2($tp)
+		mulx 8*4($np), $t0, $t1
+		adcx $t2, $t0
+		adox 8*5($tp), $t1
+			mov $t0, 8*3($tp)
+		mulx 8*5($np), $t0, $t2
+		adcx $t1, $t0
+		adox 8*6($tp), $t2
+			mov $t0, 8*4($tp)
+		mulx 8*6($np), $t0, $t1
+		adcx $t2, $t0
+		adox 8*7($tp), $t1
+			mov $t0, 8*5($tp)
+		mulx 8*7($np), $t0, $t2
+		adcx $t1, $t0
+		adox 8*8($tp), $t2
+			mov $t0, 8*6($tp)
+		mulx 8*8($np), $t0, $t1
+		adcx $t2, $t0
+		adox $t1, $acc9
+			mov $t0, 8*7($tp)
+		adcx $zero, $acc9
+			mov $acc9, 8*8($tp)
+		adox $zero, $acc10
+		adc \$0, $acc10
+			mov $acc10, $acc9
+			xor $acc10, $acc10
+
+		dec $num
+	jnz .Lmulx576_body
+
+	xor %rbx, %rbx
+
+	mov $acc0, %r8
+	mov $acc1, %r9
+	mov 8*2($tp), %r10
+	mov 8*3($tp), %r11
+	mov 8*4($tp), %r12
+	mov 8*5($tp), %r13
+	mov 8*6($tp), %rsi
+	mov 8*7($tp), %rax
+	mov 8*8($tp), %rdx
+
+	sub 8*0($np), %r8
+	sbb 8*1($np), %r9
+	sbb 8*2($np), %r10
+	sbb 8*3($np), %r11
+	sbb 8*4($np), %r12
+	sbb 8*5($np), %r13
+	sbb 8*6($np), %rsi
+	sbb 8*7($np), %rax
+	sbb 8*8($np), %rdx
+	sbb %rbx, $acc9
+
+	cmovc $acc0, %r8
+	cmovc $acc1, %r9
+	cmovc 8*2($tp), %r10
+	cmovc 8*3($tp), %r11
+	cmovc 8*4($tp), %r12
+	cmovc 8*5($tp), %r13
+	cmovc 8*6($tp), %rsi
+	cmovc 8*7($tp), %rax
+	cmovc 8*8($tp), %rdx
+
+	mov %r8, 8*0($rp)
+	mov %r9, 8*1($rp)
+	mov %r10, 8*2($rp)
+	mov %r11, 8*3($rp)
+	mov %r12, 8*4($rp)
+	mov %r13, 8*5($rp)
+	mov %rsi, 8*6($rp)
+	mov %rax, 8*7($rp)
+	mov %rdx, 8*8($rp)
+
+	mov \$1,%rax
+	add \$72, %rsp
+	pop %r15
+	.cfi_restore %r15
+	pop %r14
+	.cfi_restore %r14
+	pop %r13
+	.cfi_restore %r13
+	pop %r12
+	.cfi_restore %r12
+	pop %rbp
+	.cfi_restore %rbp
+	pop %rbx
+	.cfi_restore %rbx
+	ret
+.cfi_endproc
+.size bn_mulx576_mont,.-bn_mulx576_mont
+___
+}}}
+
+
 $code.=<<___;
 .asciz	"Montgomery Multiplication for x86_64, CRYPTOGAMS by <appro\@openssl.org>"
 .align	16
