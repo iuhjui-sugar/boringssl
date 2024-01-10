@@ -16,6 +16,24 @@
       "message": "For your amusement, we found someone with a broken build where they were passing `-mgoldmont`, which implies SHA extensions, and then expecting the binary to run on something that didn\u0027t support everything Goldmont supports. 😊\n\nNot a problem. I expect we can just get them to fix their build and don\u0027t need to temporarily remove the `__SHA__` ifdef (though that wouldn\u0027t be the end of the world), but amusing nonetheless.",
       "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5daaee64_91e7f251",
+        "filename": "crypto/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-10T22:10:23Z",
+      "side": 1,
+      "message": "Yes, I guess that is the danger for any of these changes that make code paths sensitive to the static CPU feature set when they previously weren\u0027t. IDK if that warrants any change in strategy.",
+      "parentUuid": "18efadfe_40f72fb9",
+      "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
