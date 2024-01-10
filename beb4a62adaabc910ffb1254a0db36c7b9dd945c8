@@ -171,6 +171,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f81f8ee7_05bc3543",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-10T22:02:04Z",
+      "side": 1,
+      "message": "Hi, I finally got around to looking at your suggested changes. I used some ideas from that to help clean up my comments here. I think it is useful to keep the threshold discussion because that is integral to optimizing this. I did drop all the Hamming weight stuff.",
+      "parentUuid": "57a5e60a_ae88a51f",
+      "range": {
+        "startLine": 182,
+        "startChar": 73,
+        "endLine": 182,
+        "endChar": 76
+      },
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95371f67_5f03d686",
@@ -184,6 +208,24 @@
       "writtenOn": "2023-11-14T20:15:01Z",
       "side": 1,
       "message": "This comment looks wrong. `2*R` is not `2*2^t`. We\u0027re trying to calculate `2^t * R \u003d 2^(t + lgBigR)`.",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cb7f85_7366cb20",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-10T22:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95371f67_5f03d686",
       "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -237,6 +279,24 @@
       "side": 1,
       "message": "(Per above, this was just referring to the comments, not the code.)",
       "parentUuid": "39d96544_1d0aa425",
+      "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "327a4d55_f2b3416e",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-10T22:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdee721e_84caa82a",
       "revId": "beb4a62adaabc910ffb1254a0db36c7b9dd945c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

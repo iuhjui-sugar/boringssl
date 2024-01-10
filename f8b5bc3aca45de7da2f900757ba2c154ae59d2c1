@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0572568f_4d7358d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-10T22:02:04Z",
+      "side": 1,
+      "message": "Hi David, I finally got around to cleaning this up. PTAL.",
+      "revId": "f8b5bc3aca45de7da2f900757ba2c154ae59d2c1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
