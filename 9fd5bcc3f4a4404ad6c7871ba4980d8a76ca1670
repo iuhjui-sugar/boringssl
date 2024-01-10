@@ -16,6 +16,24 @@
       "message": "I don\u0027t know how much value there is in writing this assert when `threshold` is defined 10 lines earlier. We could even write `const int threshold` to be sure it wasn\u0027t modified. 😊",
       "revId": "9fd5bcc3f4a4404ad6c7871ba4980d8a76ca1670",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c054515_e2a06c04",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-10T22:39:16Z",
+      "side": 1,
+      "message": "Based on my own personal experience with this particular change, an assertion like this would have saved us both a lot of time 😊 as I would have seen my mistakes earlier. So let\u0027s keep it.",
+      "parentUuid": "8591848a_b69feb91",
+      "revId": "9fd5bcc3f4a4404ad6c7871ba4980d8a76ca1670",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
