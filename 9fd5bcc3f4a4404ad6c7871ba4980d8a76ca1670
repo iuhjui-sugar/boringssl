@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8591848a_b69feb91",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T22:24:22Z",
+      "side": 1,
+      "message": "I don\u0027t know how much value there is in writing this assert when `threshold` is defined 10 lines earlier. We could even write `const int threshold` to be sure it wasn\u0027t modified. 😊",
+      "revId": "9fd5bcc3f4a4404ad6c7871ba4980d8a76ca1670",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
