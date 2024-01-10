@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d59b6e1a_617236c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-10T22:04:18Z",
+      "side": 1,
+      "message": "Hi, Gerrit says it\u0027s \"my turn\" here but I think we\u0027re waiting on David\u0027s review. At least, I don\u0027t know what I\u0027m supposed to do.",
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
