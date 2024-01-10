@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8ac1bf8_efea2471",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-10T23:04:40Z",
+      "side": 1,
+      "message": "Actually, maybe C\u0027s promotion rules take care of this already? But even if so, that\u0027s too subtle.",
+      "revId": "ec7483c2e3a00e5fe4a97efe61fa2ea101aa0399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
