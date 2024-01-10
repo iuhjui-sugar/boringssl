@@ -16,6 +16,242 @@
       "message": "Hi, Gerrit says it\u0027s \"my turn\" here but I think we\u0027re waiting on David\u0027s review. At least, I don\u0027t know what I\u0027m supposed to do.",
       "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a26f8ac_1370ddb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "Whoops! Sorry about that. Somehow this fell through my inbox. I probably saw that Bob stamped it and wasn\u0027t thinking about it.",
+      "parentUuid": "d59b6e1a_617236c4",
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa24bf5_7c229da7",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "For completeness, we double-checked the old version of this code, and I think `\u003e\u003d` was correct for these.",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 20
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "702aaff4_50edc264",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "This corresponds to this code in the old `ChaCha20_ssse3`, right?\n\n```\n\tcmp\t\\$128,$len\t\t# we might throw away some data,\n\tja\t.LChaCha20_4x\t\t# but overall it won\u0027t be slower\n```\n\nShouldn\u0027t this be `len \u003e 128` in that case? Or am I just confused? (Quite likely.)",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a93fd3c_8ba81bc5",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 59,
+        "startChar": 16,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbe99c83_e3c65567",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "Likewise I think this should be `len \u003e 192`? From the old `ChaCha20_4x`:\n\n```\n\tcmp\t\t\\$192,$len\n\tja\t\t.Lproceed4x\n```",
+      "range": {
+        "startLine": 60,
+        "startChar": 15,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0390d2fc_52070e9a",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59ff7c99_d506cc66",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1403,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "Optional: what if we renamed this to `CRYPTO_hardware_supports_XSAVE` to reflect that?",
+      "range": {
+        "startLine": 1403,
+        "startChar": 15,
+        "endLine": 1403,
+        "endChar": 53
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49102341_a581e46c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "Is this `TODO:` because (at the time), we hadn\u0027t sorted out the static check strategy, because this function is only used by `CRYPTO_choose_silvermont_optimized_code_path` which is... slightly weird, or because you weren\u0027t sure what to do when writing it and uploaded it as-is. Somewhat unclear just reading the code. 😊\n\n(FWIW, LLVM does seem to use that string for XSAVE.)",
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fffe8dc1_a1a87eff",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1481,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "```suggestion\n// A heuristic to test when deciding whether to choose a code path optimized\n```",
+      "range": {
+        "startLine": 1481,
+        "startChar": 0,
+        "endLine": 1481,
+        "endChar": 4
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b66f41b_77687f02",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1485,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "Bonnell?",
+      "range": {
+        "startLine": 1485,
+        "startChar": 3,
+        "endLine": 1485,
+        "endChar": 9
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d02576_4e18bc39",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T23:19:30Z",
+      "side": 1,
+      "message": "I struggled a bit with this function name. \"choose\" sounds like this function does something, but it just returns a boolean and \"optimized_code_path\" is a bit weird when this is in common code, so there isn\u0027t any individual codepath to talk about yet.\n\nSomething like CRYPTO_is_silvermont feels more natural except, as the comment discusses, this captures a whole family of things, both by virtue of checking capability bits and because it includes a bunch of other models.\n\nLooking at Bonnet and Knights Landing...\n\nThe Knights Landing code came from here and says \u0027Knights Landing is of Silvermont \"ancestry\":\nhttps://github.com/openssl/openssl/commit/64d92d74985ebb3d0be58a9718f9e080a14a8e7f\n\nhttps://en.wikipedia.org/wiki/Xeon_Phi seems to confirm this.\n\nWDYT about CRYPTO_is_silvermont_like and then...\n\n\u003e CRYPTO_is_silvermont_like returns one if, based on a heuristic, the CPU has Silvermont-like performance characteristics. It is often faster to run different codepaths on these CPUs than the available instructions would otherwise select. See chacha-x86_64.pl [...]\n\n(I\u0027m not thrilled by this name either. Just makes it a bit clearer which direction 0 and 1 go.)",
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
