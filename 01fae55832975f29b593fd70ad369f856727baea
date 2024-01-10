@@ -22,6 +22,30 @@
       },
       "revId": "01fae55832975f29b593fd70ad369f856727baea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf1d45ea_33b7d592",
+        "filename": "crypto/x509/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-10T22:32:10Z",
+      "side": 1,
+      "message": "Done. Though we\u0027ve done so many of these that calling them all out would probably be mostly noise. 😊",
+      "parentUuid": "717af626_2f92d797",
+      "range": {
+        "startLine": 123,
+        "startChar": 1,
+        "endLine": 123,
+        "endChar": 2
+      },
+      "revId": "01fae55832975f29b593fd70ad369f856727baea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
