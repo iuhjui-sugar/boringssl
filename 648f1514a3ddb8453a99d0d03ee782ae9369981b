@@ -16,6 +16,23 @@
       "message": "Good point.",
       "revId": "648f1514a3ddb8453a99d0d03ee782ae9369981b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5eda79_40b5e4e1",
+        "filename": "crypto/cpu_intel.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-11T19:54:03Z",
+      "side": 1,
+      "message": "Guessing you didn\u0027t mean to keep this in here. :-)",
+      "revId": "648f1514a3ddb8453a99d0d03ee782ae9369981b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
