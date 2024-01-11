@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f67a39_04180ac1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-11T21:46:00Z",
+      "side": 1,
+      "message": "Looks like we\u0027ve got two build issues on Windows.\n\n```\nC:\\b\\s\\w\\ir\\x\\w\\boringssl\\build\\crypto\\chacha\\chacha-x86_64-win.asm:1738: error: symbol `L$no_data\u0027 undefined\nC:\\b\\s\\w\\ir\\x\\w\\boringssl\\build\\crypto\\chacha\\chacha-x86_64-win.asm:1892: error: symbol `L$SEH_info_ChaCha20_ctr32_avx2\u0027 undefined\n```",
+      "revId": "250632cd46c2248d951852c53cb1b1394857470e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78d07776_1774ca51",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 16
+      },
+      "lineNbr": 2548,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-11T21:46:00Z",
+      "side": 1,
+      "message": "Apparently this relies on `.Lno_data` existing. (I really gotta finish fixing all these to use the actual Windows SEH stuff.)",
+      "revId": "250632cd46c2248d951852c53cb1b1394857470e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebc76791_d721480c",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 16
+      },
+      "lineNbr": 2733,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-11T21:46:00Z",
+      "side": 1,
+      "message": "And this needs to be renamed to match line 2704.",
+      "range": {
+        "startLine": 2733,
+        "startChar": 1,
+        "endLine": 2733,
+        "endChar": 22
+      },
+      "revId": "250632cd46c2248d951852c53cb1b1394857470e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
