@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd1e0a99_c05867b4",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-11T21:15:37Z",
+      "side": 1,
+      "message": "Is it worth simply making the secret and salt different types to make sure you really have to want to screw up the order of these?",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 28
+      },
+      "revId": "59b925ce8dd343cf34e42669997ad9d0b5603f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
