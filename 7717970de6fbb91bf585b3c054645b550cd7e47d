@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c994301b_8b09f7d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-11T18:40:11Z",
+      "side": 1,
+      "message": "CC bits look fine to me, I\u0027ll let David review the Go tests.",
+      "revId": "7717970de6fbb91bf585b3c054645b550cd7e47d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "827614e1_86498a12",
