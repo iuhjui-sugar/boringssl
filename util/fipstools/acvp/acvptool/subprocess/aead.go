@@ -32,12 +32,13 @@ type aeadVectorSet struct {
 }
 
 type aeadTestGroup struct {
-	ID        uint64 `json:"tgId"`
-	Type      string `json:"testType"`
-	Direction string `json:"direction"`
-	KeyBits   int    `json:"keyLen"`
-	TagBits   int    `json:"tagLen"`
-	Tests     []struct {
+	ID          uint64 `json:"tgId"`
+	Type        string `json:"testType"`
+	Direction   string `json:"direction"`
+	KeyBits     int    `json:"keyLen"`
+	TagBits     int    `json:"tagLen"`
+	NonceSource string `json:"ivGen"`
+	Tests       []struct {
 		ID            uint64 `json:"tcId"`
 		PlaintextHex  string `json:"pt"`
 		CiphertextHex string `json:"ct"`
@@ -57,6 +58,7 @@ type aeadTestResponse struct {
 	ID            uint64  `json:"tcId"`
 	CiphertextHex *string `json:"ct,omitempty"`
 	TagHex        string  `json:"tag,omitempty"`
+	NonceHex      string  `json:"iv,omitempty"`
 	PlaintextHex  *string `json:"pt,omitempty"`
 	Passed        *bool   `json:"testPassed,omitempty"`
 }
@@ -86,9 +88,24 @@ func (a *aead) Process(vectorSet []byte, m Transactable) (interface{}, error) {
 			return nil, fmt.Errorf("test group %d has unknown direction %q", group.ID, group.Direction)
 		}
 
-		op := a.algo + "/seal"
-		if !encrypt {
-			op = a.algo + "/open"
+		var randnonce bool
+		switch group.NonceSource {
+		case "internal":
+			randnonce = true
+		case "external", "":
+			randnonce = false
+		default:
+			return nil, fmt.Errorf("test group %d has unknown nonce source %q", group.ID, group.NonceSource)
+		}
+
+		op := a.algo
+		if randnonce {
+			op += "-randnonce"
+		}
+		if encrypt {
+			op += "/seal"
+		} else {
+			op += "/open"
 		}
 
 		if group.KeyBits%8 != 0 || group.KeyBits < 0 {
@@ -166,35 +183,43 @@ func (a *aead) Process(vectorSet []byte, m Transactable) (interface{}, error) {
 					return nil, err
 				}
 
-				if len(result[0]) < tagBytes {
-					return nil, fmt.Errorf("ciphertext from subprocess for test case %d/%d is shorter than the tag (%d vs %d)", group.ID, test.ID, len(result[0]), tagBytes)
-				}
-
-				if a.tagMergedWithCiphertext {
-					ciphertextHex := hex.EncodeToString(result[0])
-					testResp.CiphertextHex = &ciphertextHex
-				} else {
-					ciphertext := result[0][:len(result[0])-tagBytes]
-					ciphertextHex := hex.EncodeToString(ciphertext)
-					testResp.CiphertextHex = &ciphertextHex
-					tag := result[0][len(result[0])-tagBytes:]
-					testResp.TagHex = hex.EncodeToString(tag)
-				}
+					if a.tagMergedWithCiphertext {
+						ciphertextHex := hex.EncodeToString(result[0])
+						testResp.CiphertextHex = &ciphertextHex
+					} else {
+						ciphertext := result[0]
+						if randnonce {
+							var nonce []byte
+							ciphertext, nonce = splitOffRight(ciphertext, 12)
+							testResp.NonceHex = hex.EncodeToString(nonce)
+						}
+						ciphertext, tag := splitOffRight(ciphertext, tagBytes)
+						ciphertextHex := hex.EncodeToString(ciphertext)
+						testResp.CiphertextHex = &ciphertextHex
+						testResp.TagHex = hex.EncodeToString(tag)
+					}
+					response.Tests = append(response.Tests, testResp)
+					return nil
+				})
 			} else {
-				result, err := m.Transact(op, 2, uint32le(uint32(tagBytes)), key, append(input, tag...), nonce, aad)
-				if err != nil {
-					return nil, err
+				ciphertext := append(input, tag...)
+				if randnonce {
+					ciphertext = append(ciphertext, nonce...)
+					nonce = []byte{}
 				}
-
-				if len(result[0]) != 1 || (result[0][0]&0xfe) != 0 {
-					return nil, fmt.Errorf("invalid AEAD status result from subprocess")
-				}
-				passed := result[0][0] == 1
-				testResp.Passed = &passed
-				if passed {
-					plaintextHex := hex.EncodeToString(result[1])
-					testResp.PlaintextHex = &plaintextHex
-				}
+				m.TransactAsync(op, 2, [][]byte{uint32le(uint32(tagBytes)), key, ciphertext, nonce, aad}, func(result [][]byte) error {
+					if len(result[0]) != 1 || (result[0][0]&0xfe) != 0 {
+						return fmt.Errorf("invalid AEAD status result from subprocess")
+					}
+					passed := result[0][0] == 1
+					testResp.Passed = &passed
+					if passed {
+						plaintextHex := hex.EncodeToString(result[1])
+						testResp.PlaintextHex = &plaintextHex
+					}
+					response.Tests = append(response.Tests, testResp)
+					return nil
+				})
 			}
 
 			response.Tests = append(response.Tests, testResp)
@@ -204,4 +229,12 @@ func (a *aead) Process(vectorSet []byte, m Transactable) (interface{}, error) {
 	}
 
 	return ret, nil
+}
+
+func splitOffRight(in []byte, suffixSize int) ([]byte, []byte) {
+	if len(in) < suffixSize {
+		panic("input too small to split")
+	}
+	split := len(in) - suffixSize
+	return in[:split], in[split:]
 }
