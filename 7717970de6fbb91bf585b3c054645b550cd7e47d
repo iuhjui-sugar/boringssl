@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "827614e1_86498a12",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-11T18:40:09Z",
+      "side": 1,
+      "message": "Ever-so-slightly shorter:\n\n```suggestion\n  if (tag_len_span.size() !\u003d sizeof(tag_len_32)) {\n    LOG_ERROR(\"Tag size value is %u bytes, not an uint32_t\\n\",\n              static_cast\u003cunsigned\u003e(tag_len_span.size()));\n    return false;\n  }\n  uint32_t tag_len_32 \u003d CRYPTO_load_u32_le(tag_len_span.data());\n```",
+      "range": {
+        "startLine": 1190,
+        "startChar": 0,
+        "endLine": 1196,
+        "endChar": 63
+      },
+      "revId": "7717970de6fbb91bf585b3c054645b550cd7e47d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
