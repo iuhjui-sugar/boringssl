@@ -82,6 +82,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f28538_cc4327b3",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "You are right that it should be `\u003e 128` to match the assembly. It seems like the AVX2 and 4x code actually do support shorter lengths, at least that\u0027s what my testing showed. But I also do intend to match the old logic.",
+      "parentUuid": "702aaff4_50edc264",
+      "range": {
+        "startLine": 52,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a93fd3c_8ba81bc5",
@@ -95,6 +119,30 @@
       "writtenOn": "2024-01-10T23:19:30Z",
       "side": 1,
       "message": "See above.",
+      "range": {
+        "startLine": 59,
+        "startChar": 16,
+        "endLine": 59,
+        "endChar": 28
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d699b8d1_41a1b30c",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a93fd3c_8ba81bc5",
       "range": {
         "startLine": 59,
         "startChar": 16,
@@ -128,6 +176,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a200a9d_7087983e",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbe99c83_e3c65567",
+      "range": {
+        "startLine": 60,
+        "startChar": 15,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0390d2fc_52070e9a",
@@ -141,6 +213,30 @@
       "writtenOn": "2024-01-10T23:19:30Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 68,
+        "startChar": 9,
+        "endLine": 68,
+        "endChar": 21
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5266848b_f789bf26",
+        "filename": "crypto/chacha/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0390d2fc_52070e9a",
       "range": {
         "startLine": 68,
         "startChar": 9,
@@ -174,6 +270,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4fefd3a_f54a586f",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1403,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59ff7c99_d506cc66",
+      "range": {
+        "startLine": 1403,
+        "startChar": 15,
+        "endLine": 1403,
+        "endChar": 53
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49102341_a581e46c",
@@ -191,6 +311,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b75bfa4_58b2516d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1415,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "I don\u0027t remember. 😊 I fixed it.",
+      "parentUuid": "49102341_a581e46c",
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fffe8dc1_a1a87eff",
@@ -204,6 +342,30 @@
       "writtenOn": "2024-01-10T23:19:30Z",
       "side": 1,
       "message": "```suggestion\n// A heuristic to test when deciding whether to choose a code path optimized\n```",
+      "range": {
+        "startLine": 1481,
+        "startChar": 0,
+        "endLine": 1481,
+        "endChar": 4
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "447d7097_1efb710b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1481,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fffe8dc1_a1a87eff",
       "range": {
         "startLine": 1481,
         "startChar": 0,
@@ -237,6 +399,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a1caae9_4990b882",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1485,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b66f41b_77687f02",
+      "range": {
+        "startLine": 1485,
+        "startChar": 3,
+        "endLine": 1485,
+        "endChar": 9
+      },
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15d02576_4e18bc39",
@@ -250,6 +436,24 @@
       "writtenOn": "2024-01-10T23:19:30Z",
       "side": 1,
       "message": "I struggled a bit with this function name. \"choose\" sounds like this function does something, but it just returns a boolean and \"optimized_code_path\" is a bit weird when this is in common code, so there isn\u0027t any individual codepath to talk about yet.\n\nSomething like CRYPTO_is_silvermont feels more natural except, as the comment discusses, this captures a whole family of things, both by virtue of checking capability bits and because it includes a bunch of other models.\n\nLooking at Bonnet and Knights Landing...\n\nThe Knights Landing code came from here and says \u0027Knights Landing is of Silvermont \"ancestry\":\nhttps://github.com/openssl/openssl/commit/64d92d74985ebb3d0be58a9718f9e080a14a8e7f\n\nhttps://en.wikipedia.org/wiki/Xeon_Phi seems to confirm this.\n\nWDYT about CRYPTO_is_silvermont_like and then...\n\n\u003e CRYPTO_is_silvermont_like returns one if, based on a heuristic, the CPU has Silvermont-like performance characteristics. It is often faster to run different codepaths on these CPUs than the available instructions would otherwise select. See chacha-x86_64.pl [...]\n\n(I\u0027m not thrilled by this name either. Just makes it a bit clearer which direction 0 and 1 go.)",
+      "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c422800_d1b6f4c1",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 1486,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "I took your suggestion, but I tried to find a better function name that emphasizes the performance aspect.",
+      "parentUuid": "15d02576_4e18bc39",
       "revId": "b59ee430403bd0489d5d2059a290cf07724dbd7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

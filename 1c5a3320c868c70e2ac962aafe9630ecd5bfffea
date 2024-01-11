@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09ebc9dd_282828cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T01:52:08Z",
+      "side": 1,
+      "message": "Thanks for the careful review. I will comment more in the issue regarding potential future improvements for the length checks.",
+      "revId": "1c5a3320c868c70e2ac962aafe9630ecd5bfffea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
