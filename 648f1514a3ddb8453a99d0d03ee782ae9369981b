@@ -33,6 +33,24 @@
       "message": "Guessing you didn\u0027t mean to keep this in here. :-)",
       "revId": "648f1514a3ddb8453a99d0d03ee782ae9369981b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e25c75ab_540870fa",
+        "filename": "crypto/cpu_intel.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-11T19:59:16Z",
+      "side": 1,
+      "message": "Sorry. That was part of my wife\u0027s anniversary present. Didn\u0027t mean to include it here.",
+      "parentUuid": "fb5eda79_40b5e4e1",
+      "revId": "648f1514a3ddb8453a99d0d03ee782ae9369981b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
