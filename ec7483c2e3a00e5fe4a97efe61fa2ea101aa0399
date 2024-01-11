@@ -16,6 +16,24 @@
       "message": "Actually, maybe C\u0027s promotion rules take care of this already? But even if so, that\u0027s too subtle.",
       "revId": "ec7483c2e3a00e5fe4a97efe61fa2ea101aa0399",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30e6fb6a_5b518d6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-11T18:47:14Z",
+      "side": 1,
+      "message": "They don\u0027t. That looks like a bug. Would be nice to be able to test it, but we\u0027d need to allocate a 512MiB buffer in a 32-bit process, which probably has a good chance of breaking for other reasons. :-(",
+      "parentUuid": "c8ac1bf8_efea2471",
+      "revId": "ec7483c2e3a00e5fe4a97efe61fa2ea101aa0399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
