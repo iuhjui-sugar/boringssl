@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a428c661_f90bf311",
+        "filename": "crypto/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 1417,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-11T17:39:28Z",
+      "side": 1,
+      "message": "Oof, I think I figured out why past-you left this as a TODO. It\u0027s because the \"make Knights Landing look like Silvermont\" hack may turn the XSAVE bit off even though the hardware supports XSAVE. Which means this is neither \"we can use XSAVE\" or \"hardware supports XSAVE\" but \"hardware supports XSAVE and not Knights Landing and not Knights Mill\".\n\nWhat a mess. So I think we want to not check `__XSAVE__` and leave a comment about this.\n\nAlternatively, given that this doesn\u0027t even mean the hardware supports XSAVE, and is really only used for the Silvermont heuristic, perhaps we shouldn\u0027t have this function at all and just inline this into `CRYPTO_cpu_perf_is_like_silvermont` with an explanatory comment there.",
+      "range": {
+        "startLine": 1413,
+        "startChar": 0,
+        "endLine": 1417,
+        "endChar": 6
+      },
+      "revId": "d207d47dd6f04a88d4bb6d6e3c5d9b91b6a20981",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
