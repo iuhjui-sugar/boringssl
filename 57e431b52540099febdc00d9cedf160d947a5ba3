@@ -16,6 +16,24 @@
       "message": "This does not pass cargo deny check. please fix:\n\nerror[not-allowed]: crate \u0027bssl-crypto \u003d 0.2.0\u0027 is not explicitly allowed\n \u003d bssl-crypto v0.2.0\n\nerror[rejected]: failed to satisfy license requirements\n  ┌─ bssl-crypto 0.2.0 (path+file:///Users/bbe/boringssl/rust/bssl-crypto):4:12\n  │\n4 │ license \u003d \"ISC\"\n  │            ^^^\n  │            │\n  │            license expression retrieved via Cargo.toml `license`\n  │            rejected: not explicitly allowed\n  │\n  \u003d bssl-crypto v0.2.0\n\nadvisories ok, bans FAILED, licenses FAILED, sources ok\n\nSufficient to just make the appropriate change in deny.toml.",
       "revId": "57e431b52540099febdc00d9cedf160d947a5ba3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "259bed8b_1dc9b371",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-11T21:07:00Z",
+      "side": 1,
+      "message": "anyway, please fix deny.toml to match this change.",
+      "parentUuid": "a2fed13c_ad02e1c9",
+      "revId": "57e431b52540099febdc00d9cedf160d947a5ba3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
