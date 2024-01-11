@@ -16,6 +16,52 @@
       "message": "Ok I\u0027ve stared at the macros long enough I can\u0027t find fault, and really like the result.",
       "revId": "a01db5cdbc7d1abde3fdca34a9c7abf1fd5bdf1d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d013c99_c51925e7",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2024-01-11T21:35:38Z",
+      "side": 1,
+      "message": "This macro is hiding some safety checks. Perhaps document those here, and call this `unsafe_iuf_algo`?",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "a01db5cdbc7d1abde3fdca34a9c7abf1fd5bdf1d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee268b6f_67cf174f",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2024-01-11T21:35:38Z",
+      "side": 1,
+      "message": "Should these functions be part of the trait? That will allow the `From` and `Write` implementations to be blanket implementations instead",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 23
+      },
+      "revId": "a01db5cdbc7d1abde3fdca34a9c7abf1fd5bdf1d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
