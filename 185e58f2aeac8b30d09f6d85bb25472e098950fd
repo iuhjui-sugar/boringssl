@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08ceb8b1_3433c8b1",
+        "filename": "rust/bssl-crypto/src/aes.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-12T20:03:30Z",
+      "side": 1,
+      "message": "Well, it also differs in that the usual boringssl convention is 1 for success and 0 or failure, and this is 0 for success or a negative number for failure. which took me down a bit of a signed/unsigned rabbit hole on the bitwise xor conversion and if we could end up with a negative corner case here.\n\nHonestly rather than think about it, once I gave initialized_struct_fallible a success_value parameter and changed the calls in this stack I was happier. \n\nI.E. this - with the call sites changed to have a success value of 0 or 1\nappropriately. \n\ndiff --git a/rust/bssl-crypto/src/lib.rs b/rust/bssl-crypto/src/lib.rs\nindex c71a989e3..7c2125560 100644\n--- a/rust/bssl-crypto/src/lib.rs\n+++ b/rust/bssl-crypto/src/lib.rs\n@@ -260,16 +260,16 @@ where\n \n /// Returns a BoringSSL structure that is initialized by some function.\n /// Requires that the given function completely initializes the value or else\n-/// returns a value other than one.\n+/// returns a value other than the success_value argument.\n ///\n /// (Tagged `unsafe` because a no-op argument would otherwise expose\n /// uninitialized memory.)\n-unsafe fn initialized_struct_fallible\u003cT, F\u003e(init: F) -\u003e Option\u003cT\u003e\n+unsafe fn initialized_struct_fallible\u003cT, F\u003e(init: F, success_value: i32) -\u003e Option\u003cT\u003e\n where\n     F: FnOnce(*mut T) -\u003e core::ffi::c_int,\n {\n     let mut out_uninit \u003d core::mem::MaybeUninit::\u003cT\u003e::uninit();\n-    if init(out_uninit.as_mut_ptr()) \u003d\u003d 1 {\n+    if init(out_uninit.as_mut_ptr()) \u003d\u003d success_value {\n         Some(unsafe { out_uninit.assume_init() })\n     } else {\n         None",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 49
+      },
+      "revId": "185e58f2aeac8b30d09f6d85bb25472e098950fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
