@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f72eb8c_1be1c321",
+        "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-01-12T20:25:50Z",
+      "side": 1,
+      "message": "I intentionally tried to minimize the change surface. If the dispatching logic is moved, then sure I can make those symbols external, easy to do.\n\nThe P-384 NO is not Montgomery friendly if that what you mean. P-521 is. But you can check if N0 \u003d 1 in asm.",
+      "parentUuid": "d42dac2d_a1255aef",
+      "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0fb212ad_7cc0ab14",
         "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "writtenOn": "2024-01-12T18:50:23Z",
       "side": 1,
       "message": "Along with the change I mentioned in the above comment, it would be better if this code wasn\u0027t in bn/asm/ but rather in ec/asm, and in particular separate from this file, if practical. If we were to make the change I\u0027m suggesting, then we\u0027d need to redo this part.",
+      "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "988de40e_70cffaf8",
+        "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-01-12T20:25:50Z",
+      "side": 1,
+      "message": "I don\u0027t know, it really is just a specialization of bn_mul_mont, would be weird if bn started calling ec functions",
+      "parentUuid": "0fb212ad_7cc0ab14",
       "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
