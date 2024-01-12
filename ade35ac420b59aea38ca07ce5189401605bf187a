@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4457a7e_88c31659",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-12T23:18:52Z",
+      "side": 1,
+      "message": "rslgtm\n\nI think the CQ no longer works on very old branches because some paths got moved around. The joys of LUCI\u0027s non-hermetic recipes. :-(",
+      "revId": "ade35ac420b59aea38ca07ce5189401605bf187a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
