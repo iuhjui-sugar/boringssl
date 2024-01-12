@@ -46,6 +46,30 @@
       },
       "revId": "185e58f2aeac8b30d09f6d85bb25472e098950fd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7428a5f_ecf1ff0f",
+        "filename": "rust/bssl-crypto/src/aes.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-12T20:35:38Z",
+      "side": 1,
+      "message": "(An `Option` or `Result` type would probably be less ambiguous, but going from an `i32` to those is quite a lot more typing.)",
+      "parentUuid": "39da4a3a_629ba41a",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 49
+      },
+      "revId": "185e58f2aeac8b30d09f6d85bb25472e098950fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
