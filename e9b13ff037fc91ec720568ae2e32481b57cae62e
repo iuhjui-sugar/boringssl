@@ -16,6 +16,24 @@
       "message": "Sorry, on this system I don\u0027t have a Windows build environment for BoringSSL. I will work on creating one so we don\u0027t have to go through these extra rounds.",
       "revId": "e9b13ff037fc91ec720568ae2e32481b57cae62e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "109c4155_d5fac2c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-12T16:23:44Z",
+      "side": 1,
+      "message": "No worries! I don\u0027t think any of us develop on Windows regularly.",
+      "parentUuid": "6944bbad_946833b0",
+      "revId": "e9b13ff037fc91ec720568ae2e32481b57cae62e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
