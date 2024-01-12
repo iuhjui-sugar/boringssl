@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6944bbad_946833b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-12T01:18:37Z",
+      "side": 1,
+      "message": "Sorry, on this system I don\u0027t have a Windows build environment for BoringSSL. I will work on creating one so we don\u0027t have to go through these extra rounds.",
+      "revId": "e9b13ff037fc91ec720568ae2e32481b57cae62e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
