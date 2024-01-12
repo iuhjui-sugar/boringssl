@@ -22,6 +22,30 @@
       },
       "revId": "185e58f2aeac8b30d09f6d85bb25472e098950fd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39da4a3a_629ba41a",
+        "filename": "rust/bssl-crypto/src/aes.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-12T20:34:49Z",
+      "side": 1,
+      "message": "We could also just make `F` return a `bool` and make the caller stick a `!\u003d 0` or `\u003d\u003d 0` in there as appropriate.",
+      "parentUuid": "08ceb8b1_3433c8b1",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 49
+      },
+      "revId": "185e58f2aeac8b30d09f6d85bb25472e098950fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
