@@ -16,6 +16,40 @@
       "message": "Seeing how other P384-P521 work doesn\u0027t seem to go anywhere, decided this tiny change might be worthwhile, have a parallel x64 implementation",
       "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42dac2d_a1255aef",
+        "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-12T18:50:23Z",
+      "side": 1,
+      "message": "I think it would be better to have the P-384 and P-521 code in crypto/fipsmodule/ec call the new functions directly, instead of adding special cases to bn_mul_mont. BTW, I am currently working on moving all of this dispatching logic from bn_mul_mont and friends to C. See https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d673.\n\nHaving them be separate would also enable us to add the ABI tests for the new functions.\n\nThis would also allow us to, in the future, add a flag to the new 384-bit function to indicate that the modulus is the P-384 field modulus, which would allow us to add a branch that is optimized for the almost-Montgomery N0 value (Maybe P-521 also has a similar consideration). (Not sure how much that optimization would matter, but I guess it would be a non-trivial improvement because it would save quite a non-trivial number of multiplications.)",
+      "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fb212ad_7cc0ab14",
+        "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-12T18:50:23Z",
+      "side": 1,
+      "message": "Along with the change I mentioned in the above comment, it would be better if this code wasn\u0027t in bn/asm/ but rather in ec/asm, and in particular separate from this file, if practical. If we were to make the change I\u0027m suggesting, then we\u0027d need to redo this part.",
+      "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
