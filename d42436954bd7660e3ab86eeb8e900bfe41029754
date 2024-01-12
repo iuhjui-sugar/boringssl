@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52199cd9_8554f877",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-01-12T17:37:35Z",
+      "side": 1,
+      "message": "Seeing how other P384-P521 work doesn\u0027t seem to go anywhere, decided this tiny change might be worthwhile, have a parallel x64 implementation",
+      "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
