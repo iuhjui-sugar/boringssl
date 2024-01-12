@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7be6cf5a_ef524a5b",
+        "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-12T21:00:04Z",
+      "side": 1,
+      "message": "\u003e The P-384 NO is not Montgomery friendly if that what you mean. P-521 is. But you can check if N0 \u003d 1 in asm.\n\nIn the abstract, you are right that since N0 is just a single word we can check it in assmebly directly without needing a separate flag. In the case of P-384, I think you already mentioned that it is possible to special case N0\u003d0x10000001 to do a shift-and-add instead of multiply. But again, we could just look for N0\u003d0x10000001.\n\nHowever, we cannot branch on the value of N0 in bn/* because N0 is derived from the modulus, which might be secret. If this were in ec/* then we could assume that the modulus isn\u0027t secret.",
+      "parentUuid": "4f72eb8c_1be1c321",
+      "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0fb212ad_7cc0ab14",
         "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
         "patchSetId": 2
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "I don\u0027t know, it really is just a specialization of bn_mul_mont, would be weird if bn started calling ec functions",
       "parentUuid": "0fb212ad_7cc0ab14",
+      "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fac36e7_6046f503",
+        "filename": "crypto/fipsmodule/bn/asm/armv8-mont.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-12T21:00:04Z",
+      "side": 1,
+      "message": "I am not suggesting that bn_mul_mont calls a function in ec/. I am suggesting to move this new code to ec/, and then change the code in ec/ to use these functions directly instead of calling bn_mul_mont, for the P-384 and P-521 curves.",
+      "parentUuid": "988de40e_70cffaf8",
       "revId": "d42436954bd7660e3ab86eeb8e900bfe41029754",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
