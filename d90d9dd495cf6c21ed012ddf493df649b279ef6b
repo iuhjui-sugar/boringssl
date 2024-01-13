@@ -16,6 +16,24 @@
       "message": "Specifically, it seems that when `__ARM_ARCH` is 6 and we\u0027re building for Arm mode (i.e. not Thumb mode), `sha256_block_data_order_nohw` emits slightly different code that breaks the very fragile assumptions on `sha256_block_data_order_neon`\u0027s ADR offset.",
       "revId": "d90d9dd495cf6c21ed012ddf493df649b279ef6b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6086dc92_9e9930b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-13T01:33:55Z",
+      "side": 1,
+      "message": "(I have a fixed version, but I foolishly left my test device not plugged into my workstation back at the office, so I think I\u0027ll just upload that next week.)",
+      "parentUuid": "a8a9fe39_4eed9f0d",
+      "revId": "d90d9dd495cf6c21ed012ddf493df649b279ef6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
