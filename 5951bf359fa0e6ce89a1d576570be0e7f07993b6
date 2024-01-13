@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0818088_dbbecdcf",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-13T13:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de5868e7_b3a3ecd9",
+      "range": {
+        "startLine": 251,
+        "startChar": 14,
+        "endLine": 254,
+        "endChar": 31
+      },
+      "revId": "5951bf359fa0e6ce89a1d576570be0e7f07993b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "094a77e6_9d87c1f6",
@@ -84,6 +108,30 @@
       "writtenOn": "2024-01-09T21:48:49Z",
       "side": 1,
       "message": "```suggestion\n    /// the two public values as inputs.\n```\n\nOtherwise it reads as if you\u0027re supposed to KDF the private key in there. :-)",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 29
+      },
+      "revId": "5951bf359fa0e6ce89a1d576570be0e7f07993b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "490c72cd_ec919060",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-13T13:25:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2db7bbd4_360bc53c",
       "range": {
         "startLine": 73,
         "startChar": 11,
