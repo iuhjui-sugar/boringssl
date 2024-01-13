@@ -16,6 +16,23 @@
       "message": "(No CQ because no point.)",
       "revId": "4526f1e912abafccc44b7b838fd2d0855819a24d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bb517f9_39658e76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-13T19:29:18Z",
+      "side": 1,
+      "message": "rslgtm",
+      "revId": "4526f1e912abafccc44b7b838fd2d0855819a24d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
