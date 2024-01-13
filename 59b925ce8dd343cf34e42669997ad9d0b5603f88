@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d727e4f_dcd42cae",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-13T14:58:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "854b400b_3e790186",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 15
+      },
+      "revId": "59b925ce8dd343cf34e42669997ad9d0b5603f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd1e0a99_c05867b4",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-11T21:15:37Z",
       "side": 1,
       "message": "Is it worth simply making the secret and salt different types to make sure you really have to want to screw up the order of these?",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 28
+      },
+      "revId": "59b925ce8dd343cf34e42669997ad9d0b5603f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "281b66d2_bf44c28c",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-13T14:58:58Z",
+      "side": 1,
+      "message": "Yea, there is indeed possibly enough confusion in the ecosystem. Done.",
+      "parentUuid": "dd1e0a99_c05867b4",
       "range": {
         "startLine": 113,
         "startChar": 0,
