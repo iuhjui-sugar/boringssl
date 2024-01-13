@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "220bd14e_244dcb16",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-13T14:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d013c99_c51925e7",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 21
+      },
+      "revId": "a01db5cdbc7d1abde3fdca34a9c7abf1fd5bdf1d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee268b6f_67cf174f",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-01-11T21:35:38Z",
       "side": 1,
       "message": "Should these functions be part of the trait? That will allow the `From` and `Write` implementations to be blanket implementations instead",
+      "range": {
+        "startLine": 33,
+        "startChar": 12,
+        "endLine": 33,
+        "endChar": 23
+      },
+      "revId": "a01db5cdbc7d1abde3fdca34a9c7abf1fd5bdf1d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b97ded85_06cbb779",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-13T14:10:27Z",
+      "side": 1,
+      "message": "There isn\u0027t a trait on these hash functions now. I did go back and forth on that, and I left one in aead.rs for fuzzy reasons. But the problem is that, with functions on a trait, calling something like `update` doesn\u0027t work: it needs you to import the trait. That\u0027s annoying for such a basic operation and I don\u0027t feel that generic hashing is terribly common. And, if needed, `Write` is implemented.",
+      "parentUuid": "ee268b6f_67cf174f",
       "range": {
         "startLine": 33,
         "startChar": 12,
