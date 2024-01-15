@@ -88,6 +88,24 @@
       "parentUuid": "02deecb5_cf6c465d",
       "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a9e6be2_653aac46",
+        "filename": "crypto/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-15T17:07:36Z",
+      "side": 1,
+      "message": "\u003e silently\n\n\u003e warnings\n\nSorry, \"silently\" was wrong. It will print a warning (at least seems to in the one caller we ran into), but still proceed in emulating not-quite-Goldmont.",
+      "parentUuid": "6c934c09_174f02f4",
+      "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
