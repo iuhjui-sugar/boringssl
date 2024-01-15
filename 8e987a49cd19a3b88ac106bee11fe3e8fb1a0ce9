@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e81e66b_7076ebea",
+        "filename": "rust/bssl-crypto/src/ecdsa.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-15T23:18:59Z",
+      "side": 1,
+      "message": "Hopefully the use of these to tie the ownership of the ffi data to the lifetime of C remains sane in the future -\u003e \n\"The exact interaction of PhantomData with drop check may change in the future.\"",
+      "revId": "8e987a49cd19a3b88ac106bee11fe3e8fb1a0ce9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f07ea4c6_0c308989",
+        "filename": "rust/bssl-crypto/src/ecdsa.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-15T23:18:59Z",
+      "side": 1,
+      "message": "```suggestion\n    /// Verify `signature` as a valid signature of a digest of `signed_msg` with\n    /// this public key. SHA-256 will be used to produce the digest if the curve\n    /// of this public key is P-256. SHA-384 will be used to produce the\n    /// digest if the curve of this public key is P-384.\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 66
+      },
+      "revId": "8e987a49cd19a3b88ac106bee11fe3e8fb1a0ce9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bbc1ca4_0eaa4c11",
+        "filename": "rust/bssl-crypto/src/ecdsa.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-15T23:18:59Z",
+      "side": 1,
+      "message": "```suggestion\n    /// Return the private key as zero-padded, big-endian bytes.\n```",
+      "range": {
+        "startLine": 130,
+        "startChar": 27,
+        "endLine": 130,
+        "endChar": 33
+      },
+      "revId": "8e987a49cd19a3b88ac106bee11fe3e8fb1a0ce9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05e586e1_46269fea",
+        "filename": "rust/bssl-crypto/src/ecdsa.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-15T23:18:59Z",
+      "side": 1,
+      "message": "```suggestion\n    /// Sign a digest of `to_be_signed` using this key and return\n    /// the signature of the digest. SHA-256 will be used to\n    /// produce the digest if the curve of this public key is P-256.\n    /// SHA-384 will be used to produce the digest if the curve of\n    /// this public key is P-384.\n```",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 66
+      },
+      "revId": "8e987a49cd19a3b88ac106bee11fe3e8fb1a0ce9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
