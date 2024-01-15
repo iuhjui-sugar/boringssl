@@ -70,6 +70,24 @@
       "parentUuid": "497b1cb4_36002943",
       "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c934c09_174f02f4",
+        "filename": "crypto/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-15T17:05:04Z",
+      "side": 1,
+      "message": "Another (I think unrelated) thing we\u0027ve discovered: QEMU doesn\u0027t support SHA extensions until QEMU 8.2, just released. When you tell older QEMU to emulate a SHA-capable CPU, it will silently turn off the older instructions anyway.\n\nWe\u0027re tentatively saying that this is a caller-specific testing limitation that the caller should be aware of and workaround. I.e. if you\u0027re trying to make a binary that runs on both Goldmont and QEMU-8.1-Goldmont, then you need to build `-march\u003dgoldmont -mno-sha` because QEMU-8.1-Goldmont is not *quite* Goldmont.\n\nBenefits:\n* Callers without this limitation (don\u0027t use QEMU or test on QEMU 8.2) still benefit from the optimization.\n* BoringSSL is a bit more principled. Well, you asked for baseline SHA, so you got it! If your testing strategy meant you didn\u0027t actually want baseline SHA, don\u0027t ask for it.\n* If you\u0027re running on QEMU-Goldmont, presumably you actually wanted to test the behavior on Goldmont. Getting an error and finding that your test and prod environments were incompatible is useful to know. (Though the only real way to catch this is to notice the warnings QEMU spews.)\n\nDrawbacks:\n* If lots of people do this, they\u0027ll all need workarounds and it may be tedious\n* New people doing this may get a hard-to-diagnose crash\n\nIf this comes up more, might be worth disabling the optimization, maybe with a comment to turn it back on in a year or so. We\u0027ll see.",
+      "parentUuid": "02deecb5_cf6c465d",
+      "revId": "10c24cb433e54f874574fec480c0f60eaf598d31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
