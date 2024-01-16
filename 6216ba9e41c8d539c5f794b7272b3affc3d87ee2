@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c6e0a0d_1348eefe",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-16T18:51:15Z",
+      "side": 1,
+      "message": "\"as a trusted certificate\" -\u003e trusted for what? I think we might need to be a bit more explicit here about what it means to throw a self signed, and a non-self signed certificate into a trust store with this function without doing anything else.\n\nSadly this is a bloody mess.",
+      "range": {
+        "startLine": 2232,
+        "startChar": 0,
+        "endLine": 2237,
+        "endChar": 46
+      },
+      "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6563b574_14406992",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2497,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-16T18:51:15Z",
+      "side": 1,
+      "message": "```suggestion\n//\n// Due to the limitations of the path builder used by\n// |X509_verify_cert|, If certain certificates in the trust store are given\n// explicit trust settings, It may be advisable to use the\n// |X509_V_FLAG_TRUSTED_FIRST| value to ensure the path builder is more\n// likely to choose these certificates instead of an untrusted\n// intermediate when path building.\n```",
+      "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
