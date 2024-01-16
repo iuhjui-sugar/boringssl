@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf44aab9_e45cd498",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-16T19:20:08Z",
+      "side": 1,
+      "message": "WDYT about this approach? An alternative would be for me to create an (inline) C wrapper around these functions just for x86-64 that passes in an additional \"perF_is_lkke_silvermont\" argument that is computed from CRYPTO_cpu_perf_is_like_silvermont().",
+      "revId": "2f0754badd25fd62dfb68f80c1cdf44282d0658e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
