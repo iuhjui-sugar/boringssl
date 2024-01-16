@@ -3585,6 +3585,11 @@ OPENSSL_EXPORT int X509_cmp(const X509 *a, const X509 *b);
 // X509_NAME_hash returns a hash of |name|, or zero on error. This is the new
 // hash used by |X509_LOOKUP_hash_dir|.
 //
+// This hash is specific to the |X509_LOOKUP_hash_dir| filesystem format and is
+// not suitable for general-purpose X.509 name processing. It is very short, so
+// there will be hash collisions. It also depends on an OpenSSL-specific
+// canonicalization process.
+//
 // TODO(https://crbug.com/boringssl/407): This should be const and thread-safe
 // but currently is neither, notably if |name| was modified from its parsed
 // value.
@@ -3593,6 +3598,10 @@ OPENSSL_EXPORT uint32_t X509_NAME_hash(X509_NAME *name);
 // X509_NAME_hash_old returns a hash of |name|, or zero on error. This is the
 // legacy hash used by |X509_LOOKUP_hash_dir|, which is still supported for
 // compatibility.
+//
+// This hash is specific to the |X509_LOOKUP_hash_dir| filesystem format and is
+// not suitable for general-purpose X.509 name processing. It is very short, so
+// there will be hash collisions.
 //
 // TODO(https://crbug.com/boringssl/407): This should be const and thread-safe
 // but currently is neither, notably if |name| was modified from its parsed
