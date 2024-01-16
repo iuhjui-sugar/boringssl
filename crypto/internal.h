@@ -581,6 +581,12 @@ static inline int constant_time_declassify_int(int v) {
   return value_barrier_u32(v);
 }
 
+// declassify_assert behaves like |assert| but declassifies the result of
+// evaluating |expr|. This allows the assertion to branch on the (presumably
+// public) result, but still ensures that values leading up to the computation
+// were secret.
+#define declassify_assert(expr) assert(constant_time_declassify_int(expr))
+
 
 // Thread-safe initialisation.
 
@@ -1154,13 +1160,13 @@ static inline uint64_t CRYPTO_rotr_u64(uint64_t value, int shift) {
 
 static inline uint32_t CRYPTO_addc_u32(uint32_t x, uint32_t y, uint32_t carry,
                                        uint32_t *out_carry) {
-  assert(carry <= 1);
+  declassify_assert(carry <= 1);
   return CRYPTO_GENERIC_ADDC(x, y, carry, out_carry);
 }
 
 static inline uint64_t CRYPTO_addc_u64(uint64_t x, uint64_t y, uint64_t carry,
                                        uint64_t *out_carry) {
-  assert(carry <= 1);
+  declassify_assert(carry <= 1);
   return CRYPTO_GENERIC_ADDC(x, y, carry, out_carry);
 }
 
@@ -1168,7 +1174,7 @@ static inline uint64_t CRYPTO_addc_u64(uint64_t x, uint64_t y, uint64_t carry,
 
 static inline uint32_t CRYPTO_addc_u32(uint32_t x, uint32_t y, uint32_t carry,
                                        uint32_t *out_carry) {
-  assert(carry <= 1);
+  declassify_assert(carry <= 1);
   uint64_t ret = carry;
   ret += (uint64_t)x + y;
   *out_carry = (uint32_t)(ret >> 32);
@@ -1177,7 +1183,7 @@ static inline uint32_t CRYPTO_addc_u32(uint32_t x, uint32_t y, uint32_t carry,
 
 static inline uint64_t CRYPTO_addc_u64(uint64_t x, uint64_t y, uint64_t carry,
                                        uint64_t *out_carry) {
-  assert(carry <= 1);
+  declassify_assert(carry <= 1);
 #if defined(BORINGSSL_HAS_UINT128)
   uint128_t ret = carry;
   ret += (uint128_t)x + y;
@@ -1206,13 +1212,13 @@ static inline uint64_t CRYPTO_addc_u64(uint64_t x, uint64_t y, uint64_t carry,
 
 static inline uint32_t CRYPTO_subc_u32(uint32_t x, uint32_t y, uint32_t borrow,
                                        uint32_t *out_borrow) {
-  assert(borrow <= 1);
+  declassify_assert(borrow <= 1);
   return CRYPTO_GENERIC_SUBC(x, y, borrow, out_borrow);
 }
 
 static inline uint64_t CRYPTO_subc_u64(uint64_t x, uint64_t y, uint64_t borrow,
                                        uint64_t *out_borrow) {
-  assert(borrow <= 1);
+  declassify_assert(borrow <= 1);
   return CRYPTO_GENERIC_SUBC(x, y, borrow, out_borrow);
 }
 
@@ -1220,7 +1226,7 @@ static inline uint64_t CRYPTO_subc_u64(uint64_t x, uint64_t y, uint64_t borrow,
 
 static inline uint32_t CRYPTO_subc_u32(uint32_t x, uint32_t y, uint32_t borrow,
                                        uint32_t *out_borrow) {
-  assert(borrow <= 1);
+  declassify_assert(borrow <= 1);
   uint32_t ret = x - y - borrow;
   *out_borrow = (x < y) | ((x == y) & borrow);
   return ret;
@@ -1228,7 +1234,7 @@ static inline uint32_t CRYPTO_subc_u32(uint32_t x, uint32_t y, uint32_t borrow,
 
 static inline uint64_t CRYPTO_subc_u64(uint64_t x, uint64_t y, uint64_t borrow,
                                        uint64_t *out_borrow) {
-  assert(borrow <= 1);
+  declassify_assert(borrow <= 1);
   uint64_t ret = x - y - borrow;
   *out_borrow = (x < y) | ((x == y) & borrow);
   return ret;
