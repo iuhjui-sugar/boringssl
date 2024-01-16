@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608775eb_645b3aef",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3591,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-16T18:14:39Z",
+      "side": 1,
+      "message": "Name canonicalization is, nominally, in the spec. But everyone implements different subsets of canonicalization. Also, since this is reflected on disk, we\u0027re effectively forced to freeze that algorithm.",
+      "range": {
+        "startLine": 3590,
+        "startChar": 34,
+        "endLine": 3591,
+        "endChar": 28
+      },
+      "revId": "72c0aa5ece281cdc867aa2780a27f635f6a84886",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
