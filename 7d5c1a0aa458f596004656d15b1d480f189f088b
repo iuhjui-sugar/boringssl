@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f109593_aff87b31",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T19:15:20Z",
+      "side": 1,
+      "message": "Don\u0027t really care either way, but would it make sense for `open` to also return `Result\u003cVec\u003cu8\u003e, InvalidCiphertext\u003e`? I don\u0027t know what\u0027s standard for Rust code.",
+      "range": {
+        "startLine": 54,
+        "startChar": 45,
+        "endLine": 54,
+        "endChar": 53
+      },
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e9218e_238fe3ae",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T19:15:20Z",
+      "side": 1,
+      "message": "This assumes an `EVP_AEAD_CTX` is safe to move via `memmove`. I think it might happen to be true right now, but it\u0027s pretty precarious:\n\n* The funny stateful TLS \"AEADs\" have an embedded `EVP_CIPHER_CTX` in `AEAD_TLS_CTX`\n* `EVP_CIPHER_CTX` is, in turn, not necessarily movable by `memmove`\n* An AES-GCM `EVP_CIPHER_CTX` contains a `EVP_AES_GCM_CTX`\n* `EVP_AES_GCM_CTX`\u0027s `iv` field sometimes points into the `EVP_CIPHER_CTX`. This is gross and perhaps we should rework it...\n\n(Not that the stateful \"AEAD\"s would be compatible with these APIs anyway for threading reasons.)\n\nWe\u0027ve also run into problems with things being immovable because C is very bad at alignment. (I.e. all those tricks we do where we make the struct bigger and then find the place to put the struct later.) Though I don\u0027t think any currently impact things, and I wouldn\u0027t mind just knocking all those out of the public headers anyway. The problem is that large `alignas` doesn\u0027t really work, and that we don\u0027t currently believe we can put `alignas` in our public headers.\n\nFor interfacing with C++, I\u0027ve so far tried to avoid promising this (since we don\u0027t really meet it right now), and instead provided `FOO_move` functions. But that\u0027s not compatible with Rust.\n\nThoughts?\n\nSince we control both sides of this and require the versions match exactly, we could say it\u0027s okay because we know how we\u0027re implemented, but it\u0027s a bit precarious. We probably at least need comments here and some kind of testing story.\n\nOr we could just box it and eat the allocation cost for now. :-)",
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9af4e23_e76ef703",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T19:15:20Z",
+      "side": 1,
+      "message": "```suggestion\n/// If successful, it must return the number of bytes written.\n```",
+      "range": {
+        "startLine": 347,
+        "startChar": 7,
+        "endLine": 347,
+        "endChar": 18
+      },
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "583a15f9_37f37222",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T19:15:20Z",
+      "side": 1,
+      "message": "Oh good, they have this now. At one point they didn\u0027t have this API and instead every use of this pattern had a bug when the capacity calculation overflowed.",
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9441b7d_24b73535",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T19:15:20Z",
+      "side": 1,
+      "message": "Perhaps:\n\n```suggestion\n    assert!(num_written \u003c\u003d out.capacity());\n```\n\nShould be the exact same thing, but that\u0027s the actual precondition for `ret.set_len`.",
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "732a431e_1bfa450b",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T19:15:20Z",
+      "side": 1,
+      "message": "I guess the issue is with all these is that Rust doesn\u0027t have a good way automatically implement traits when the type you wrap also implements them. :-(",
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
