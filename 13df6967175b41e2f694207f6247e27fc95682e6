@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d0096df_3291bc36",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "We\u0027re kind of all over the place when it comes to putting BoringSSL vs OpenSSL in headers. But perhaps `OPENSSL_HEADER_PKI_CERTIFICATE_H` just to match all our other ones? I figure:\n\n1. We probably should have `PKI` in there.\n\n2. Well, one way or another, we\u0027ve squatted `OPENSSL_HEADER_..._H` as the include guard throughout the project. May as well only squat the one namespace.",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "434ce235_a3d15da8",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "Oh hmm. This is probably a separate change, but we should replace both this and the ones inside pki/ into `BSSL_NAMESPACE_BEGIN` and `BSSL_NAMESPACE_END`. That way they can get an `inline namespace` when symbol prefixing is on. (Not that symbol prefixing works, but...)",
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1aed80f_fbe6e0cb",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "This does mean we\u0027re handing back `Box\u003cArc\u003cT\u003e\u003e`, which is mildly silly. But I guess we want to keep `ParsedCertificate` out of the header for now. :-/\n\nThough I do wonder if, long term, we\u0027ll just morph this and `ParsedCertificate` into each other...",
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1f827b0_d1686d0d",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "`optional\u003cunique_ptr\u003cT\u003e\u003e` is kinda goofy. First it costs two words. Second, `unique_ptr\u003cT\u003e` is already nullable, so now there\u0027s actually two distinct missing states: `std::nullopt` and `nullptr`.",
+      "range": {
+        "startLine": 43,
+        "startChar": 9,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22114fd8_b8a0e51d",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "Nit: I think we usually right-align all the `*`s and `\u0026`s. (clang-format should have rewritten that.)",
+      "range": {
+        "startLine": 44,
+        "startChar": 39,
+        "endLine": 44,
+        "endChar": 41
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fe089d9_e292cbd3",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "Do we want to take `bssl::Span\u003cconst uint8_t\u003e`, since this is binary data?\n\nIf we do that, but have a function to go from `Span\u003cconst char\u003e` to `Span\u003cconst uint8_t\u003e` in `openssl/span.h`, that could help out people who have a `string_view`. Also aligns nicely with getting rid of `der::Input`.",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "660bd4a0_6aca0400",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "I think \"self-signed\" means you are actually signing yourself. And yeah I don\u0027t know if that\u0027s super well-defined.\n\nSelf-issued just means the names match and is used throughout path verification because they\u0027re treated kinda funny. I think they\u0027re meant to be used for same-name key transitions (yuck). That one is quite well-defined, apart from canonicalization variations. It\u0027s not meant to check AKID/SKID.\n\nBut since this is mostly a path-builder notion, I\u0027m a little confused why we want to export this. Looking at the two internal callers, both of them seem to actually want a self-signed check anyway.",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a1d3352_4ecaa79f",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "Oh this gets into the mess about whether X.509 deals in instants of time or second-resolution chunks of time. I\u0027m pretty sure it\u0027s always the latter in practice, and it\u0027s the only plausible interpretation of \"inclusive\".\n\nThat is, `t \u003c\u003d not_after` for *instants* `t` would suggest to me that it is valid at exactly `not_after` but not at `not_after + epsilon`. But in practice we compare POSIX timestamps rounded down to seconds, which would make it valid up to `not_after + 1 second - epsilon`.",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c3f5a3_2d162141",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "Since the certificate is immutable and all, any reason not to just return a `bssl::Span\u003cconst uint8_t\u003e`?",
+      "range": {
+        "startLine": 75,
+        "startChar": 1,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feaa2981_73711815",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T23:08:54Z",
+      "side": 1,
+      "message": "bssl?",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
