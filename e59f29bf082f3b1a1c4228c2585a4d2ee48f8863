@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3c0180c_24ffeef7",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T19:17:29Z",
+      "side": 1,
+      "message": "A little annoying that our GN Rust bits cannot just figure it out from the root. Ah well.",
+      "revId": "e59f29bf082f3b1a1c4228c2585a4d2ee48f8863",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
