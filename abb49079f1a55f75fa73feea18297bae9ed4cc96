@@ -16,6 +16,24 @@
       "message": "If we were to do this is there any reason to make this special in here? as opposed to simply changing them all and calling this BORINGSSL_assert() or something like that?",
       "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8086f277_4806284d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T01:05:58Z",
+      "side": 1,
+      "message": "Ah yeah, declassifying public values is perfectly kosher. That would avoid us having to make that decision everywhere, though at the cost of making all our code (a lot of which is not asserting on private data), look different from standard C.\n\nNaming is a bit interesting... our other APIs that look like the C standard library, but with our variant on the semantics, are named like `OPENSSL_memcpy` or `OPENSSL_malloc`. But upstream has an `OPENSSL_assert` already... except they decided to make it not `assert`, but `CHECK`. It runs unconditionally!",
+      "parentUuid": "e1760a5c_e17aa58f",
+      "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
