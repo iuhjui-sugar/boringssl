@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f5afe96_2c90f2b6",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T02:24:10Z",
+      "side": 1,
+      "message": "So we don\u0027t have to define it all the time, I was thinking this would be defined just once by the section preamble above, which says:\n\n\u003e Certificates in an |X509_STORE| are referred to as \"trusted certificates\"\n\nIt\u0027s a bit circular, but if we just write \"adds |x509| to |store|\", then readers who aren\u0027t paying attention won\u0027t realize that they can\u0027t add untrusted certificates this way. So the thinking was to intentionally use a kinda loaded term to be clear about this.\n\nIn particular, it also works out that, if the reader isn\u0027t paying attention and thinks \"trusted certificate\" means \"trust anchor\", then they\u0027ll instead see...\n\n\u003e Certificates configured by this function are still subject to the checks described in |X509_VERIFY_PARAM_set_trust|.\n\nIf you then jump there, it covers all of this stuff:\n\n\u003e I think we might need to be a bit more explicit here about what it means to throw a self signed, and a non-self signed certificate into a trust store with this function without doing anything else.",
+      "parentUuid": "9c6e0a0d_1348eefe",
+      "range": {
+        "startLine": 2232,
+        "startChar": 0,
+        "endLine": 2237,
+        "endChar": 46
+      },
+      "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6563b574_14406992",
         "filename": "include/openssl/x509.h",
         "patchSetId": 2
@@ -37,6 +61,24 @@
       "writtenOn": "2024-01-16T18:51:15Z",
       "side": 1,
       "message": "```suggestion\n//\n// Due to the limitations of the path builder used by\n// |X509_verify_cert|, If certain certificates in the trust store are given\n// explicit trust settings, It may be advisable to use the\n// |X509_V_FLAG_TRUSTED_FIRST| value to ensure the path builder is more\n// likely to choose these certificates instead of an untrusted\n// intermediate when path building.\n```",
+      "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853b8481_6acf4750",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2497,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-17T02:24:10Z",
+      "side": 1,
+      "message": "X509_V_FLAG_TRUSTED_FIRST is already the default, so I think we can just leave it alone. (TBH, we can probably just make it always on.) It\u0027s not really specific to trust settings. Any situation where the longer path is more likely to be worse than the shorter path.",
+      "parentUuid": "6563b574_14406992",
       "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
