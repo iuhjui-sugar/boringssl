@@ -34,6 +34,24 @@
       "parentUuid": "e1760a5c_e17aa58f",
       "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0926c7_5c26c5a5",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-17T17:48:24Z",
+      "side": 1,
+      "message": "well, then it can\u0027t be OPENSSL_assert, it could be BORINGSSL_assert, although people might still then assume it\u0027s the same.  Boo on openssl for making me a thing with assert in the name that can\u0027t be compiled out. \n\nnevertheless that\u0027s still an outlier for something caller assert in C, so I think BORINGSSL_assert would be just fine\n\nAlternatively could be BORINGSSL_DCHECK",
+      "parentUuid": "8086f277_4806284d",
+      "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
