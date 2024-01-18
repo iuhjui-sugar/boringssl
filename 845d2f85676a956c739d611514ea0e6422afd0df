@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4396c4de_a0318ccf",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79525e4a_5df51bad",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 35
+      },
+      "revId": "845d2f85676a956c739d611514ea0e6422afd0df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2318721_02d4e48b",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-01-15T23:45:13Z",
       "side": 1,
       "message": "```suggestion\n    /// Compute the signature of the digest of `to_be_signed` with PKCS#1 using\n    /// this private key. The specified hash function is used to compute the\n    //  digest.\n```",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 95
+      },
+      "revId": "845d2f85676a956c739d611514ea0e6422afd0df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b40a22aa_9d1a9a38",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:37:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2318721_02d4e48b",
       "range": {
         "startLine": 240,
         "startChar": 0,
