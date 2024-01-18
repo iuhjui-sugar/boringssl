@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61c91f4d_a179109c",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:37:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "259e743c_cb3741d6",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 37
+      },
+      "revId": "9c1bc8d614f47546935147a5181f8867957fb550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c08e4aed_5e09de27",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "536f5377_d78010ca",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:37:04Z",
+      "side": 1,
+      "message": "No warning either way, but I\u0027ve a `debug_assert!` as documentation although it\u0027s really strongly the case that this function cannot return zero :)",
+      "parentUuid": "c08e4aed_5e09de27",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 13
+      },
+      "revId": "9c1bc8d614f47546935147a5181f8867957fb550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1eabc1d1_c6308f46",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-01-15T20:16:05Z",
       "side": 1,
       "message": "similar.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "9c1bc8d614f47546935147a5181f8867957fb550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0c6db57_7cb95e1a",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:37:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eabc1d1_c6308f46",
       "range": {
         "startLine": 31,
         "startChar": 0,
