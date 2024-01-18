@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c21693d1_94492983",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2867,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-18T17:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dea5a6b2_9b0a1e99",
+      "revId": "72c0aa5ece281cdc867aa2780a27f635f6a84886",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8cce9698_74841ea2",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-01-17T21:51:46Z",
       "side": 1,
       "message": "And this one.",
+      "revId": "72c0aa5ece281cdc867aa2780a27f635f6a84886",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93e1f3ba_bdc7e9f0",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2871,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-18T17:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8cce9698_74841ea2",
       "revId": "72c0aa5ece281cdc867aa2780a27f635f6a84886",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b78817da_4d0dcc1d",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2875,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-18T17:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "172e9a23_3986a15c",
+      "revId": "72c0aa5ece281cdc867aa2780a27f635f6a84886",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd44bcad_f028cf17",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-01-17T21:51:46Z",
       "side": 1,
       "message": "And this one.",
+      "revId": "72c0aa5ece281cdc867aa2780a27f635f6a84886",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ea8b601_89043f72",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2879,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-18T17:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd44bcad_f028cf17",
       "revId": "72c0aa5ece281cdc867aa2780a27f635f6a84886",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
