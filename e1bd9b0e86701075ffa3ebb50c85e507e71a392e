@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe571f3_21214890",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-18T22:02:00Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/65587 is the follow-up for the squaring case.",
+      "revId": "e1bd9b0e86701075ffa3ebb50c85e507e71a392e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
