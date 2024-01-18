@@ -94,6 +94,30 @@
       },
       "revId": "185e58f2aeac8b30d09f6d85bb25472e098950fd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b0d2127_0558607c",
+        "filename": "rust/bssl-crypto/src/aes.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:36:39Z",
+      "side": 1,
+      "message": "Ok :) Made it return a `bool`. I\u0027ll update all the other other uses to `\u003d\u003d 1` and be explicit about the expected return value.",
+      "parentUuid": "9b9d06a9_39b642b0",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 49
+      },
+      "revId": "185e58f2aeac8b30d09f6d85bb25472e098950fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
