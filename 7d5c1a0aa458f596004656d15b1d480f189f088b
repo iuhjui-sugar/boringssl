@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a40d069_c2d96952",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:36:32Z",
+      "side": 1,
+      "message": "My reasoning is that, if the only output is via a return value, it\u0027s fine to return an `Option` because you can\u0027t get the return value without dealing with whether it failed.\n\nIf a function takes a `\u0026mut [u8]` or something, then it must return a `Result` because Rust will yell at you for ignoring a `Result`.\n\nIf you believe that your error space is sufficiently broad and descriptive that people will incorporate it into their own error spaces, then it\u0027s fine to return `Result` everywhere so that they can use `?`. But I don\u0027t think that\u0027s the case here.\n\nI might revise that with more experience, but this appears to be mostly consistent with what I observe in the standard library.",
+      "parentUuid": "6f109593_aff87b31",
+      "range": {
+        "startLine": 54,
+        "startChar": 45,
+        "endLine": 54,
+        "endChar": 53
+      },
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75e9218e_238fe3ae",
@@ -41,6 +65,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "266c1463_c7b15fda",
+        "filename": "rust/bssl-crypto/src/aead.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:36:32Z",
+      "side": 1,
+      "message": "I do hate allocations, but your alignment point is a good one. I can see those tricks being used in reasonable AEADs.\n\nI\u0027ve boxed it instead.",
+      "parentUuid": "75e9218e_238fe3ae",
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d9af4e23_e76ef703",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-01-17T19:15:20Z",
       "side": 1,
       "message": "```suggestion\n/// If successful, it must return the number of bytes written.\n```",
+      "range": {
+        "startLine": 347,
+        "startChar": 7,
+        "endLine": 347,
+        "endChar": 18
+      },
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a90c0cff_98b17440",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9af4e23_e76ef703",
       "range": {
         "startLine": 347,
         "startChar": 7,
@@ -94,6 +160,24 @@
       "writtenOn": "2024-01-17T19:15:20Z",
       "side": 1,
       "message": "Perhaps:\n\n```suggestion\n    assert!(num_written \u003c\u003d out.capacity());\n```\n\nShould be the exact same thing, but that\u0027s the actual precondition for `ret.set_len`.",
+      "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b605fb0f_4c15d3c9",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9441b7d_24b73535",
       "revId": "7d5c1a0aa458f596004656d15b1d480f189f088b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
