@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da04083a_22d08541",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-18T22:59:30Z",
+      "side": 1,
+      "message": "We work on an OpenSSL derivative. These words should never be uttered by any of us.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "d1a470a29f1e86323d14ff223b581549f23fc807",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
