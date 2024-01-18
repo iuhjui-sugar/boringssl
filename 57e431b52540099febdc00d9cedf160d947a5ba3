@@ -34,6 +34,24 @@
       "parentUuid": "a2fed13c_ad02e1c9",
       "revId": "57e431b52540099febdc00d9cedf160d947a5ba3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08803431_abc86e7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-18T21:37:47Z",
+      "side": 1,
+      "message": "TIL about `cargo deny`. Done.",
+      "parentUuid": "259bed8b_1dc9b371",
+      "revId": "57e431b52540099febdc00d9cedf160d947a5ba3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
