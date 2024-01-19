@@ -16,6 +16,24 @@
       "message": "Doesn\u0027t this technically need to be _Alignas for C11, and it only aligns with C++ in C23? \n\n(apologies for the terrible pun...)",
       "revId": "30074893ba1efecdb3d6710899ef783294670858",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d6c7e55_daace7de",
+        "filename": "crypto/fipsmodule/cipher/e_aesccm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-19T21:31:47Z",
+      "side": 1,
+      "message": "C11 has `alignas`. You just have to include `\u003cstdalign.h\u003e`. This header doesn\u0027t, but `crypto/internal.h` does and we historically treated `alignas` as being defined in `crypto/internal.h` instead because of things like https://boringssl-review.googlesource.com/c/boringssl/+/61445\n\nThat said, I think we can move past this now and move `\u003cstdalign.h\u003e` out of `crypto/internal.h` and into the individual files which use it. But I suggest we do that separately for all files at once.",
+      "parentUuid": "7c0f1734_abc8efca",
+      "revId": "30074893ba1efecdb3d6710899ef783294670858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
