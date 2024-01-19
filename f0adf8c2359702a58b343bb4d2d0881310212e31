@@ -16,6 +16,24 @@
       "message": "Or we could just box this for now and not think about it too hard. *shrug* I filed https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d682 to ponder, more generally, what to do about Rust\u0027s problematic decisions here.",
       "revId": "f0adf8c2359702a58b343bb4d2d0881310212e31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d952dc_7de9b7ab",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-19T00:25:05Z",
+      "side": 1,
+      "message": "Hashing should be a light-weight operation, as much as possible. I could go either way because I guess we have allocations within HMAC_CTX too. I guess that makes me a little sad and I wonder whether we could special case SHA-256 and avoid that, but not wanting to invite more yaks in.",
+      "parentUuid": "1443c5e9_21485809",
+      "revId": "f0adf8c2359702a58b343bb4d2d0881310212e31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
