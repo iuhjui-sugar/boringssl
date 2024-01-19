@@ -34,6 +34,24 @@
       "parentUuid": "47c60710_8654151b",
       "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "703ae237_a0e95ad1",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2024-01-19T17:15:06Z",
+      "side": 1,
+      "message": "It looks like [`CMAKE_SYSTEM_NAME` should be set to `Generic`](https://cmake.org/cmake/help/book/mastering-cmake/chapter/Cross%20Compiling%20With%20CMake.html#toolchain-files) for embedded OSes:\n\n\u003e  If your target is an embedded system without an OS, set CMAKE_SYSTEM_NAME to “Generic.”\n\nI checked and both EC and Zephyr are configured this way. We could assume that `Generic` means a platform without threads, though that may not always be true as other platforms are added in the future.",
+      "parentUuid": "13911dfc_45b73f52",
+      "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
