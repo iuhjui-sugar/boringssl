@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b26cbf62_87b8007e",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-19T23:36:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d0096df_3291bc36",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "434ce235_a3d15da8",
@@ -54,6 +78,24 @@
       "writtenOn": "2024-01-17T23:08:54Z",
       "side": 1,
       "message": "This does mean we\u0027re handing back `Box\u003cArc\u003cT\u003e\u003e`, which is mildly silly. But I guess we want to keep `ParsedCertificate` out of the header for now. :-/\n\nThough I do wonder if, long term, we\u0027ll just morph this and `ParsedCertificate` into each other...",
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5f72600_9dd9d297",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-19T23:36:37Z",
+      "side": 1,
+      "message": "Yeah, I do expect this to change, right now it\u0027s just \"let\u0027s do something we can use in google3 - and this is effectively, google3",
+      "parentUuid": "c1aed80f_fbe6e0cb",
       "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -129,6 +171,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d8828e9_a04add07",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-19T23:36:37Z",
+      "side": 1,
+      "message": "The problem with changing these here now, is that they turn around and call other\nlibpki parsers (as in the pem tokenizer) which have come from chrome converted all into std::string_view because they used absl::string_view before... \n\nSo without wholesale changes underneath this today, I have to then convert the bssl:Span\u003cconst uint8_t\u003e back into an std::string_view all the time which seems\nmore trouble than it\u0027s worth, at least until the underlying stuff changes and\nwe conver this along with it.",
+      "parentUuid": "9fe089d9_e292cbd3",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62931847_29e88632",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-19T23:36:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22114fd8_b8a0e51d",
+      "range": {
+        "startLine": 44,
+        "startChar": 39,
+        "endLine": 44,
+        "endChar": 41
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "660bd4a0_6aca0400",
         "filename": "include/openssl/pki/certificate.h",
         "patchSetId": 15
@@ -173,6 +263,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9aa30f2_8a32d4a8",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-19T23:36:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1d3352_4ecaa79f",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88c3f5a3_2d162141",
@@ -196,6 +310,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcaba44a_d5c10790",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-19T23:36:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88c3f5a3_2d162141",
+      "range": {
+        "startLine": 75,
+        "startChar": 1,
+        "endLine": 75,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "feaa2981_73711815",
@@ -209,6 +347,30 @@
       "writtenOn": "2024-01-17T23:08:54Z",
       "side": 1,
       "message": "bssl?",
+      "range": {
+        "startLine": 83,
+        "startChar": 16,
+        "endLine": 83,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505d8677_a8e9cedb",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-19T23:36:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feaa2981_73711815",
       "range": {
         "startLine": 83,
         "startChar": 16,
