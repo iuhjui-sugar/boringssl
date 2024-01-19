@@ -16,6 +16,24 @@
       "message": "Are these official CMake variables for these platforms? That seems odd. The usual way CMake toolchain files are expected to report the system name is with `CMAKE_SYSTEM_NAME`.\n\nI see we do use `ANDROID`, but I suspect that\u0027s outdated. That variable comes from the old third-party Android NDK CMake file. In the modern one, it\u0027s only set by android-legacy.toolchain.cmake. I see they still include that file by default, which is probably why our build works at all, but we probably should change that to check `CMAKE_SYSTEM_NAME` too...",
       "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13911dfc_45b73f52",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2024-01-19T00:01:32Z",
+      "side": 1,
+      "message": "\u003e Are these official CMake variables for these platforms? \n\nNo, these were just variables that I added, similar to how `ANDROID` was configured. When running `cmake`, I was passing `-DCROS_EC\u003dYES` (or setting the variable in the `CMakeLists.txt` that includes the boringssl cmake files).\n\nWe do have toolchain files for our builds, so it would be easy to set `CMAKE_SYSTEM_NAME`, but let me make sure that doesn\u0027t inadvertently cause other issues.",
+      "parentUuid": "47c60710_8654151b",
+      "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
