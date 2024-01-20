@@ -123,6 +123,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2892d810_9b4b98c2",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-20T00:05:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1f827b0_d1686d0d",
+      "range": {
+        "startLine": 43,
+        "startChar": 9,
+        "endLine": 43,
+        "endChar": 53
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22114fd8_b8a0e51d",
