@@ -52,6 +52,24 @@
       "parentUuid": "13911dfc_45b73f52",
       "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03386911_6858296d",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-22T20:54:24Z",
+      "side": 1,
+      "message": "Amazing. Well, I guess it\u0027s documented that way, so let\u0027s try it. It won\u0027t actually turn off threads in openssl/target.h, so if we get it wrong, it\u0027ll fail to link rather than silently not be thread-safe.",
+      "parentUuid": "703ae237_a0e95ad1",
+      "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
