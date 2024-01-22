@@ -34,6 +34,24 @@
       "parentUuid": "1443c5e9_21485809",
       "revId": "f0adf8c2359702a58b343bb4d2d0881310212e31",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "679d37ed_37e77582",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-22T18:34:43Z",
+      "side": 1,
+      "message": "Yeah, the allocations inside `HMAC_CTX` have also always irritated me. We could fix that, if we want, by embedding the hash data inside `EVP_MD_CTX`. We could even just make it a:\n\n```\nunion {\n  SHA_CTX sha1;\n  SHA256_CTX sha256;\n  ...\n}\n```\n\nIf we\u0027re willing to have all the structs visible in the headers.\n\nFor that matter, this isn\u0027t even *quite* the ideal API shape if you\u0027re computing multiple HMACs with a single key. You could save a couple runs of the compression function by running `HMAC_Init_ex` once and making a copy of the `HMAC_CTX` to do each operation.\n\nBut `HMAC_CTX` ends up storing state that you don\u0027t need if you\u0027re doing that. But also that probably doesn\u0027t *really* matter.\n\nAnyway, I figure I\u0027ll just land this as-is so it\u0027s at least self-consistent and we can kick the can down the road. We can always change the boxing vs commenting question without breaking the API.\n\n(Long-term, I suspect bssl-crypto wants to talk to some lower level, possibly internal functions anyway. All the indirections in the EVP bits are redundant with Rust\u0027s existing trait machinery.)",
+      "parentUuid": "13d952dc_7de9b7ab",
+      "revId": "f0adf8c2359702a58b343bb4d2d0881310212e31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
