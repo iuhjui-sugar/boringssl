@@ -88,6 +88,42 @@
       "parentUuid": "03386911_6858296d",
       "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6f181fb_1d324333",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-23T20:25:25Z",
+      "side": 1,
+      "message": "To close the loop, https://boringssl-review.googlesource.com/c/boringssl/+/65670 makes the ANDROID checks match.",
+      "parentUuid": "88d74ee8_85b6bf0f",
+      "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a629f24_96146722",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-23T20:25:25Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/65670",
+      "parentUuid": "88d74ee8_85b6bf0f",
+      "revId": "b9cf65a74a876ce714df73b406e8a668b197be59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
