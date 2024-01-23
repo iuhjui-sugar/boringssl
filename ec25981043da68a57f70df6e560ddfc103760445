@@ -22,6 +22,30 @@
       },
       "revId": "ec25981043da68a57f70df6e560ddfc103760445",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2724886f_35056524",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-23T20:08:06Z",
+      "side": 1,
+      "message": "`Span\u003cT\u003e` is a templated function, so we\u0027d have to do an annoying `enable_if_t` dance to specialize.\n\nWe could do that, but that would make our `Span\u003cconst uint8_t\u003e` and `Span\u003cconst char\u003e` behave special, and also be wildly different from everyone else\u0027s span type. I\u0027m slightly inclined to make those free functions you have to call. Though it is definitely more verbose that way. :-/ (Still better than the reinterpret_cast mess.)\n\nEither way, I figure that can be for the next round. This CL is just to align their APIs a bit.",
+      "parentUuid": "25c730b9_9ee8b0c1",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "ec25981043da68a57f70df6e560ddfc103760445",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
