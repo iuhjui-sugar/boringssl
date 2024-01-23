@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db6156e6_e05e92f9",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-23T21:04:41Z",
+      "side": 1,
+      "message": "Ok, I re-read the preamble and am good with it. this is an awful API.",
+      "parentUuid": "2f5afe96_2c90f2b6",
+      "range": {
+        "startLine": 2232,
+        "startChar": 0,
+        "endLine": 2237,
+        "endChar": 46
+      },
+      "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6563b574_14406992",
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "X509_V_FLAG_TRUSTED_FIRST is already the default, so I think we can just leave it alone. (TBH, we can probably just make it always on.) It\u0027s not really specific to trust settings. Any situation where the longer path is more likely to be worse than the shorter path.",
       "parentUuid": "6563b574_14406992",
+      "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24c3f685_ef780192",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2497,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-23T21:04:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "853b8481_6acf4750",
       "revId": "6216ba9e41c8d539c5f794b7272b3affc3d87ee2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
