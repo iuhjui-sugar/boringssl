@@ -34,6 +34,24 @@
       "parentUuid": "f416f11f_20bf9d6f",
       "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "492d9dce_54ace394",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-23T22:40:45Z",
+      "side": 1,
+      "message": "I wondered if the huge source file size may have resulted in a disproportionate amount of debug info in the .o file that might make things look worse than they actually are, so I built this branch and looked at the output:\n\n```\n$ ls -l aes-gcm-avx512.S.o\n879376\n```\nThis matches what David said\n\n\n```\n$ strip aes-gcm-avx512.S.o \u0026\u0026 ls -l aes-gcm-avx512.S.o\n699336\n```\n\nSo, no, it is still huge. I rebuilt and inspected it using nm:\n\n$  nm --print-size --size-sort --radix\u003dd aes-gcm-avx512.S.o\n0000000000000800                154 T gcm_gmult_avx512\n0000000000000000                770 T gcm_init_avx512\n0000000000000960              9,211 T gcm_ghash_avx512\n0000000000010176              9,730 T gcm_setiv_avx512\n0000000000358464            338,498 T aes_gcm_decrypt_avx512\n0000000000019936            338,502 T aes_gcm_encrypt_avx512\n\nI also did a diff between the AWS-LC copy of this and there\u0027s nothing that seems different enough that it would change this.\n\nFor comparison, the existing code:\n```\n$ ls -l aesni-gcm-x86_64.S.o\n6792\n$ nm --print-size --size-sort --radix\u003dd build-linux-x86_64/crypto\n/fipsmodule/CMakeFiles/fipsmodule.dir/aesni-gcm-x86_64.S.o\n0000000000001408              305 T aesni_gcm_decrypt\n0000000000001728              380 t _aesni_ctr32_6x\n0000000000002112            1,084 T aesni_gcm_encrypt\n0000000000000000            1,404 t _aesni_ctr32_ghash_6x\n```\n\nHTH.",
+      "parentUuid": "19a5119b_35e64972",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
