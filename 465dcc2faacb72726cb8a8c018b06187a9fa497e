@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7371685e_6e1b75b2",
+        "filename": "pki/name_constraints.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-24T20:35:42Z",
+      "side": 1,
+      "message": "Please document.",
+      "revId": "465dcc2faacb72726cb8a8c018b06187a9fa497e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
