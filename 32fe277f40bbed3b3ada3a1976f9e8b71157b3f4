@@ -88,6 +88,23 @@
       "parentUuid": "c02674d1_b00386dd",
       "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59f33bee_7aa8a8dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-01-24T18:18:09Z",
+      "side": 1,
+      "message": "I just wanted to expand on the 100x comment to be helpful to Tomasz. My understanding is that the submitted implementation contains separate implementations of AES-128, -192, and -256. This would account for a 3x code size increase compared to existing code that implements them all in a single loop. Furthermore, the submitted implementation completely unrolls each implementation. So this accounts for 10+12+14 \u003d ~36x size increase. Notice how 3*36 is approximately 100x. So it does seem like 100x is the natural result of a fully-unrolled implementation, so it seems like full unrolling can\u0027t work.",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
