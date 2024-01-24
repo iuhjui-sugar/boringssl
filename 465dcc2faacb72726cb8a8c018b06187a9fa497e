@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75f41808_303f2e59",
+        "filename": "pki/name_constraints.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-24T21:26:55Z",
+      "side": 1,
+      "message": "Do you even need excluded names?\n\nSee also my comments in the chrome one - is this really what you want?",
+      "revId": "465dcc2faacb72726cb8a8c018b06187a9fa497e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7371685e_6e1b75b2",
         "filename": "pki/name_constraints.h",
         "patchSetId": 1
