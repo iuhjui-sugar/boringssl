@@ -70,6 +70,24 @@
       "parentUuid": "492d9dce_54ace394",
       "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c37133bc_568365bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-24T15:46:02Z",
+      "side": 1,
+      "message": "This one is too large by factor of around 100x. At that scale, we\u0027re not looking at code size reduction, but starting over. As noted above, to move forward on AVX-512 AES-GCM optimizations in BoringSSL, we would need a completely different implementation as the starting point.\n\nI\u0027ll go ahead and close out this CL as we won\u0027t be accepting this one in any form.",
+      "parentUuid": "c02674d1_b00386dd",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
