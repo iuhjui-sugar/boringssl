@@ -52,6 +52,24 @@
       "parentUuid": "19a5119b_35e64972",
       "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c02674d1_b00386dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15276
+      },
+      "writtenOn": "2024-01-24T15:42:29Z",
+      "side": 1,
+      "message": "Thanks for the feedback and looking into size of the debug info.\nYes, you are right - this implementation prioritizes performance vs code size.\nI\u0027ll have a look into some code size reduction options and get back here before making any re-work.",
+      "parentUuid": "492d9dce_54ace394",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
