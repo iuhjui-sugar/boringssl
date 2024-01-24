@@ -105,6 +105,24 @@
       "message": "I just wanted to expand on the 100x comment to be helpful to Tomasz. My understanding is that the submitted implementation contains separate implementations of AES-128, -192, and -256. This would account for a 3x code size increase compared to existing code that implements them all in a single loop. Furthermore, the submitted implementation completely unrolls each implementation. So this accounts for 10+12+14 \u003d ~36x size increase. Notice how 3*36 is approximately 100x. So it does seem like 100x is the natural result of a fully-unrolled implementation, so it seems like full unrolling can\u0027t work.",
       "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b151f3c3_3422b05f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-24T18:27:55Z",
+      "side": 1,
+      "message": "I don\u0027t think that math is right, by many counts. If you\u0027re doing 10+12+14, that\u0027s already accounting for AES-128, AES-192, and AES-256. We shouldn\u0027t be doing another multiplication by 3. That means we still have at least a 3x not accounted for.\n\nMoreover, that math also only works if the reference file does *not* expand out the AES rounds., and that\u0027s also not true. It does indeed unroll the AES rounds. Although it is smarter about it and does:\n\n1. 10 rounds\n2. If \u003e AES-128, do another 2 rounds\n3. If \u003e AES-192, do another 2 rounds\n\nThat means 10+12+14 is not the right factor. Whatever unreasonable things this file is doing, it\u0027s not as simple as \"don\u0027t unroll AES rounds\".\n\nBut, again, please discard this file entirely and start over if you want to encourage AVX-512 adoption.",
+      "parentUuid": "59f33bee_7aa8a8dc",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
