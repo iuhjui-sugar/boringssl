@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15fd77af_292ac2da",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-24T17:53:11Z",
+      "side": 0,
+      "message": "For posterity, this is effectively reverting 5599c7331b90d9d29c9914c2a95c16d91485415a from upstream. Based on that, probably 16% perf hit to CTR.",
+      "revId": "fcec1397a411cbe4e27bd1428dad63adf207dc33",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24acc575_73a8fd0a",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-24T17:53:11Z",
+      "side": 0,
+      "message": "For posterity, this comes from upstream\u0027s 98e143f118aedc2fa79fa0ae90f1b039da106309, but there\u0027s also a lot more being preserved.\n\nBased on the commit message, probably expect an upper bound of 15% perf hit, but since we\u0027re keeping most of it, probably lower.",
+      "revId": "fcec1397a411cbe4e27bd1428dad63adf207dc33",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
