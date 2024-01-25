@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "551d5775_dae1b210",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-01-25T00:25:55Z",
+      "side": 1,
+      "message": "Splitting up CLs is good when changes are scattered, but I think all these CLs could be squashed into one for review.",
+      "revId": "cd64697ebf866b242498fa09d7ec7cb2f411c719",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
