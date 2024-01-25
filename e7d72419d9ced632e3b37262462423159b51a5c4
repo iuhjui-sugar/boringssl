@@ -16,6 +16,24 @@
       "message": "Since this is still a magical value that prevents the configuration from being set, Either we should have a comment to that effect here, or just make a new value with amore sensible name and a comment about what it really does in internal.h",
       "revId": "e7d72419d9ced632e3b37262462423159b51a5c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a8fc495_b9ffa547",
+        "filename": "crypto/x509/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-25T23:29:00Z",
+      "side": 1,
+      "message": "Fair enough. I was mostly trying to avoid having to document a symbol. :-)",
+      "parentUuid": "6d3a83c1_4b1b1197",
+      "revId": "e7d72419d9ced632e3b37262462423159b51a5c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
