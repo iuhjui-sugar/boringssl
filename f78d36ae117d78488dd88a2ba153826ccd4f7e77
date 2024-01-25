@@ -16,6 +16,24 @@
       "message": "what ever was the point of this? sigh.",
       "revId": "f78d36ae117d78488dd88a2ba153826ccd4f7e77",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0d38526_5db6dfd3",
+        "filename": "crypto/des/des.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-25T20:19:01Z",
+      "side": 0,
+      "message": "When this file was in the FIPS module, we had to `#undef` every macro at the end of each file to avoid polluting the next file that was concatenated into `bcm.c`.",
+      "parentUuid": "987ca199_f0f8aa19",
+      "revId": "f78d36ae117d78488dd88a2ba153826ccd4f7e77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
