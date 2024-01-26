@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82726712_17417b6e",
+        "filename": "util/doc.config",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T18:54:56Z",
+      "side": 1,
+      "message": "Bah. JSON. You need to remove the trailing comma on this line and add it on line 17.",
+      "revId": "87e1c56bec7ad5cd0b0d646d0b29b4929979c12c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
