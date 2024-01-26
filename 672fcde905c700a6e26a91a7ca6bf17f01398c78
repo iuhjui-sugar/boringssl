@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad5d04b_3ea0a6b4",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T17:06:37Z",
+      "side": 1,
+      "message": "Gross, but fair enough. :-)",
+      "range": {
+        "startLine": 424,
+        "startChar": 52,
+        "endLine": 424,
+        "endChar": 78
+      },
+      "revId": "672fcde905c700a6e26a91a7ca6bf17f01398c78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
