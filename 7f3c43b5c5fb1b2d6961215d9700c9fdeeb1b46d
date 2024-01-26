@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a82136f8_94c62054",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T16:56:26Z",
+      "side": 1,
+      "message": "This does make me a little sad. I mean, what is the point of having directories if not to be able to namespace files? :-)",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "7f3c43b5c5fb1b2d6961215d9700c9fdeeb1b46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a185f4_4391e404",
+        "filename": "include/openssl/posix_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T16:56:26Z",
+      "side": 1,
+      "message": "Looks like we\u0027ve already got some users that depend on the old name. Maybe drop in a compat header?\nhttps://source.chromium.org/chromium/chromium/src/+/main:net/third_party/quiche/src/quiche/common/platform/default/quiche_platform_impl/quiche_time_utils_impl.cc;drc\u003d243b262be37654cee51ba4bb5411796745e1ed6b;l\u003d7",
+      "revId": "7f3c43b5c5fb1b2d6961215d9700c9fdeeb1b46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792dd66a_4ccf8d9d",
+        "filename": "include/openssl/posix_time.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T16:56:26Z",
+      "side": 1,
+      "message": "Update to match",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 29
+      },
+      "revId": "7f3c43b5c5fb1b2d6961215d9700c9fdeeb1b46d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
