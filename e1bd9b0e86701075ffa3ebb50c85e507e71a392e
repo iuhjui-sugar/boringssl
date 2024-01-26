@@ -33,6 +33,24 @@
       "message": "I think this function also wants a `mov ${num}d,${num}d` to preserve the existing behavior.\n\nAlthough I\u0027m actually not sure it\u0027s necessary. It clears the upper half other register. However, we make the function take a `size_t` in the type signature, which means all bits in the register are well-defined. Of course, it is a little interesting that we say it takes a `size_t` while the function secretly will truncate really giant inputs. But it\u0027s moot because we\u0027d never be able to `alloca` that much and we\u0027ve now defined that `BN_MONTGOMERY_MAX_WORDS` is the largest this function will accept.\n\nIn OpenSSL, `bn_mul_mont` takes an `int`, so clearing the upper half actually matters. Both Windows and SysV x86_64 calling conventions leave the upper half undefined when the parameter is only 32 bits. (The ABI tests cover this. See `ToWord`.)\n\nStill, better to consistently clear it or consistently not clear it.",
       "revId": "e1bd9b0e86701075ffa3ebb50c85e507e71a392e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cfb75ca_f0f89943",
+        "filename": "crypto/fipsmodule/bn/asm/x86_64-mont.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T17:04:30Z",
+      "side": 1,
+      "message": "Oh I guess it\u0027s not needed because the first operation on num is a 32-bit operation.",
+      "parentUuid": "108f990e_f612ab1f",
+      "revId": "e1bd9b0e86701075ffa3ebb50c85e507e71a392e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
