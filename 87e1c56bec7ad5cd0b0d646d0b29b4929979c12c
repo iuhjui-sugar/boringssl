@@ -16,6 +16,24 @@
       "message": "Bah. JSON. You need to remove the trailing comma on this line and add it on line 17.",
       "revId": "87e1c56bec7ad5cd0b0d646d0b29b4929979c12c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55a14524_f0849ec8",
+        "filename": "util/doc.config",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-26T18:57:02Z",
+      "side": 1,
+      "message": "Every time I touch json.",
+      "parentUuid": "82726712_17417b6e",
+      "revId": "87e1c56bec7ad5cd0b0d646d0b29b4929979c12c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
