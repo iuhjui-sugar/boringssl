@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afaceb76_e87caf26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T18:23:55Z",
+      "side": 1,
+      "message": "Fiiiiiiiiine. 😜",
+      "revId": "70c2e58372d69f850e78ea319ca1d4b56505dd73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea368fd_291722c0",
+        "filename": "include/openssl/posix_time.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-26T18:23:55Z",
+      "side": 1,
+      "message": "Oh, one last thing I forgot: util/doc.config also references this.",
+      "revId": "70c2e58372d69f850e78ea319ca1d4b56505dd73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
