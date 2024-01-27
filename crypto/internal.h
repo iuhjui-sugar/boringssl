@@ -235,10 +235,19 @@ typedef __uint128_t uint128_t;
 #define OPENSSL_FALLTHROUGH
 #endif
 
+#if defined(OPENSSL_X86) && !defined(OPENSSL_NO_ASM) && !defined(__SSE2__)
+#error \
+    "x86 assembly requires SSE2. Build with -msse2 (recommended), or disable assembly optimizations with -DOPENSSL_NO_ASM."
+#endif
+
 // For convenience in testing 64-bit generic code, we allow disabling SSE2
 // intrinsics via |OPENSSL_NO_SSE2_FOR_TESTING|. x86_64 always has SSE2
 // available, so we would otherwise need to test such code on a non-x86_64
 // platform.
+//
+// This does not remove the above requirement for SSE2 support with assembly
+// optimizations. All it does is disable some intrinsics-based optimizations so
+// that we can test the fallback code on CI.
 #if defined(__SSE2__) && !defined(OPENSSL_NO_SSE2_FOR_TESTING)
 #define OPENSSL_SSE2
 #endif
