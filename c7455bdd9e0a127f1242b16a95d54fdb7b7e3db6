@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9e07c2_2fa6994a",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-29T22:08:00Z",
+      "side": 1,
+      "message": "Apparently Windows doesn\u0027t define `__SSE2__`. Instead it uses `_M_IX86_FP` for 32-bit and you just have to know it\u0027s there for 64-bit. Fun....",
+      "revId": "c7455bdd9e0a127f1242b16a95d54fdb7b7e3db6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
