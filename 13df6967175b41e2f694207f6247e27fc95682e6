@@ -65,6 +65,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "151d9d8b_0276ade0",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-29T21:09:42Z",
+      "side": 1,
+      "message": "Filed https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d687",
+      "parentUuid": "434ce235_a3d15da8",
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1aed80f_fbe6e0cb",
@@ -96,6 +114,24 @@
       "side": 1,
       "message": "Yeah, I do expect this to change, right now it\u0027s just \"let\u0027s do something we can use in google3 - and this is effectively, google3",
       "parentUuid": "c1aed80f_fbe6e0cb",
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c53750d7_41d77eef",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-29T21:09:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b5f72600_9dd9d297",
       "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -236,6 +272,30 @@
         "startChar": 39,
         "endLine": 44,
         "endChar": 41
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1eafb9b_fc995d86",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-29T21:09:42Z",
+      "side": 1,
+      "message": "It\u0027s a bit easier to change internals than public APIs, so I\u0027m inclined to say we should do the API we want and sort out the internals. As for what we want...\n\nDo you need to do it with `FromDER`? That seems like it would prefer a span anyway, to avoid a cast.\n\n`FromPEM` would require a conversion, yeah. That one I\u0027m less clear what the right type is. PEM is an ASCII format and all. Keeping that as `std::string_view` seems... not necessarily wrong?? I dunno, what do you think?",
+      "parentUuid": "4d8828e9_a04add07",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 22
       },
       "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"

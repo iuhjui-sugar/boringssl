@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "760771ca_755a53e4",
+        "filename": "pki/certificate.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-29T21:09:42Z",
+      "side": 1,
+      "message": "`der::Input` converts to span, so this can just be...\n\n```suggestion\n  return internals_-\u003ecert-\u003etbs().serial_number;\n```",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 49
+      },
+      "revId": "dce351945e40a5e58e100ffafbe68e56acad0030",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
