@@ -22,6 +22,30 @@
       },
       "revId": "dce351945e40a5e58e100ffafbe68e56acad0030",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed437ac8_a1c0fe36",
+        "filename": "pki/certificate.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-30T01:23:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "760771ca_755a53e4",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 49
+      },
+      "revId": "dce351945e40a5e58e100ffafbe68e56acad0030",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
