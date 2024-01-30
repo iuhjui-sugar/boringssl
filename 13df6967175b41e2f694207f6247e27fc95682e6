@@ -301,6 +301,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6769db33_27bed7ec",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-30T01:17:07Z",
+      "side": 1,
+      "message": "yeah that seems not wrong, so leaving PEM alone it\u0027s only annoying, not awful :)",
+      "parentUuid": "f1eafb9b_fc995d86",
+      "range": {
+        "startLine": 44,
+        "startChar": 6,
+        "endLine": 44,
+        "endChar": 22
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "660bd4a0_6aca0400",
@@ -314,6 +338,30 @@
       "writtenOn": "2024-01-17T23:08:54Z",
       "side": 1,
       "message": "I think \"self-signed\" means you are actually signing yourself. And yeah I don\u0027t know if that\u0027s super well-defined.\n\nSelf-issued just means the names match and is used throughout path verification because they\u0027re treated kinda funny. I think they\u0027re meant to be used for same-name key transitions (yuck). That one is quite well-defined, apart from canonicalization variations. It\u0027s not meant to check AKID/SKID.\n\nBut since this is mostly a path-builder notion, I\u0027m a little confused why we want to export this. Looking at the two internal callers, both of them seem to actually want a self-signed check anyway.",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c15807_d468c589",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-30T01:17:07Z",
+      "side": 1,
+      "message": "I have only put it in there, because google3 uses it today like this.  Should we remove it?",
+      "parentUuid": "660bd4a0_6aca0400",
       "range": {
         "startLine": 55,
         "startChar": 22,
