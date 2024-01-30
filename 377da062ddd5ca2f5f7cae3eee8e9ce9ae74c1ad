@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84537523_0739b305",
+        "filename": "pki/simple_path_builder_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-30T18:16:34Z",
+      "side": 1,
+      "message": "This is sort of \"the way we can do this today\" to get nick up and running, but we should perhaps consider having a config structure for the path builder as part of / seperate from the delegate?",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
