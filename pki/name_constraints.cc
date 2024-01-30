@@ -288,6 +288,17 @@ std::unique_ptr<NameConstraints> NameConstraints::Create(
   return name_constraints;
 }
 
+std::unique_ptr<NameConstraints> NameConstraints::CreateFromGeneralNames(
+    GeneralNames permitted_subtrees) {
+  auto name_constraints = std::make_unique<NameConstraints>();
+
+  name_constraints->permitted_subtrees_ = permitted_subtrees;
+  name_constraints->constrained_name_types_ |=
+      permitted_subtrees.present_name_types;
+
+  return name_constraints;
+}
+
 bool NameConstraints::Parse(der::Input extension_value, bool is_critical,
                             CertErrors *errors) {
   BSSL_CHECK(errors);
