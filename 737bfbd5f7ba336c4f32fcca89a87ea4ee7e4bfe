@@ -16,6 +16,23 @@
       "message": "Thoughts?",
       "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5748335_836c5183",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-01-30T16:49:20Z",
+      "side": 1,
+      "message": "It seemss strange to tell callers \"Use BytesAsString and then convert to std::string\" - much as I don\u0027t like the longer name, maybe these are better named BytesAsStringView and StringViewAsBytes",
+      "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
