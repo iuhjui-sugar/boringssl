@@ -37,8 +37,9 @@ TEST(CertificateTest, IsSelfIssued) {
   std::string diagnostic;
   const std::string leaf =
       bssl::ReadTestFileToString("testdata/verify_unittest/google-leaf.der");
+  std::vector<uint8_t> der(leaf.begin(), leaf.end());
   std::unique_ptr<bssl::Certificate> leaf_cert(
-      bssl::Certificate::FromDER(leaf, &diagnostic));
+      bssl::Certificate::FromDER(der, &diagnostic));
   EXPECT_TRUE(leaf_cert);
   EXPECT_FALSE(leaf_cert->IsSelfIssued());
 
@@ -54,8 +55,9 @@ TEST(CertificateTest, Validity) {
   std::string diagnostic;
   const std::string leaf =
       bssl::ReadTestFileToString("testdata/verify_unittest/google-leaf.der");
+  std::vector<uint8_t> der(leaf.begin(), leaf.end());
   std::unique_ptr<bssl::Certificate> cert(
-      bssl::Certificate::FromDER(leaf, &diagnostic));
+      bssl::Certificate::FromDER(der, &diagnostic));
   EXPECT_TRUE(cert);
 
   bssl::Certificate::Validity validity = cert->GetValidity();
@@ -67,12 +69,10 @@ TEST(CertificateTest, SerialNumber) {
   std::string diagnostic;
   const std::string leaf =
       bssl::ReadTestFileToString("testdata/verify_unittest/google-leaf.der");
+  std::vector<uint8_t> der(leaf.begin(), leaf.end());
   std::unique_ptr<bssl::Certificate> cert(
-      bssl::Certificate::FromDER(leaf, &diagnostic));
+      bssl::Certificate::FromDER(der, &diagnostic));
   EXPECT_TRUE(cert);
-  EXPECT_STREQ(
-      (bssl::string_util::HexEncode(cert->GetSerialNumber().data(),
-                                    cert->GetSerialNumber().size()))
-          .c_str(),
-      "0118F044A8F31892");
+  EXPECT_STREQ((bssl::string_util::HexEncode(cert->GetSerialNumber())).c_str(),
+               "0118F044A8F31892");
 }

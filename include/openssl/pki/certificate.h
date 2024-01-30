@@ -41,7 +41,7 @@ class OPENSSL_EXPORT Certificate {
   // may be set to a string of human readable debugging information if
   // information abou the failure is available.
   static std::unique_ptr<Certificate> FromDER(
-      std::string_view der, std::string *out_diagnostic);
+      bssl::Span<const uint8_t> der, std::string *out_diagnostic);
 
   // FromPEM returns a certificate from the first CERTIFICATE PEM block in
   // |pem|. In the event of a failure, it will return no value, and
