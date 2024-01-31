@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eefe5d75_6b74b5c0",
+        "filename": "pki/name_constraints.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-01-31T22:00:52Z",
+      "side": 1,
+      "message": "std::move(permitted_subtrees)",
+      "revId": "de3b10c926d6bbbe68d85a915bffa97225a89c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81c275db_b9f77a1f",
+        "filename": "pki/name_constraints.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-01-31T22:00:52Z",
+      "side": 1,
+      "message": "(and then you need to either move this before the std::move, or access the value from name_constraints-\u003epermitted_subtrees_)",
+      "revId": "de3b10c926d6bbbe68d85a915bffa97225a89c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
