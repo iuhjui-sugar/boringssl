@@ -33,6 +33,24 @@
       "message": "It seemss strange to tell callers \"Use BytesAsString and then convert to std::string\" - much as I don\u0027t like the longer name, maybe these are better named BytesAsStringView and StringViewAsBytes",
       "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe055c83_0e9d968d",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-01-31T19:56:18Z",
+      "side": 1,
+      "message": "Hmm, that\u0027s a good point. It\u0027s unfortunate that, unlike Rust, we don\u0027t have a pithy `str` name for the view type.\n\nSo `StringViewAsBytes` is a little interesting because that function works for both `string` and `string_view`. So we\u0027d never have a companion function that takes `string`. We could call it the longer one anyway, but it seems needlessly wordy?\n\nThe other direction is a bit more ambiguous, so `BytesAsStringView` sounds reasonable. We could even add `BytesAsString`, or perhaps `BytesToString` later if we decide [these conventions](https://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv) are nice.\n\nBut then it seems weird to have `BytesAsStringView` and `StringAsBytes`. Another option is to give up on \"string\" and call it `BytesAsChars` and `CharsAsBytes`. Except then it\u0027s weird that it\u0027s `string_view` and not `Span\u003cconst char\u003e`.\n\nThoughts?",
+      "parentUuid": "d5748335_836c5183",
+      "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
