@@ -54,6 +54,9 @@
 #define OPENSSL_32_BIT
 #elif defined(__myriad2__)
 #define OPENSSL_32_BIT
+#elif defined(__loongarch64)
+#define OPENSSL_64_BIT
+#define OPENSSL_LOONGARCH64
 #else
 // The list above enumerates the platforms that BoringSSL supports. For these
 // platforms we keep a reasonable bar of not breaking them: automated test
