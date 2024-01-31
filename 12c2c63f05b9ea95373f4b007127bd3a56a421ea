@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c362f97_4c690667",
+        "filename": "pki/name_constraints.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2024-01-31T15:50:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9457094_e1812864",
+      "range": {
+        "startLine": 296,
+        "startChar": 0,
+        "endLine": 296,
+        "endChar": 46
+      },
+      "revId": "12c2c63f05b9ea95373f4b007127bd3a56a421ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55ac6dce_1d48e4e9",
@@ -41,6 +65,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "324448e2_b10dda7c",
+        "filename": "pki/name_constraints.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2024-01-31T15:50:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55ac6dce_1d48e4e9",
+      "revId": "12c2c63f05b9ea95373f4b007127bd3a56a421ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f03f3b3_f01449fb",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-01-30T21:07:53Z",
       "side": 1,
       "message": "CreateFromPermittedSubtrees?",
+      "range": {
+        "startLine": 40,
+        "startChar": 52,
+        "endLine": 40,
+        "endChar": 64
+      },
+      "revId": "12c2c63f05b9ea95373f4b007127bd3a56a421ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fdd8e15_8ced3362",
+        "filename": "pki/name_constraints.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 17561
+      },
+      "writtenOn": "2024-01-31T15:50:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f03f3b3_f01449fb",
       "range": {
         "startLine": 40,
         "startChar": 52,
