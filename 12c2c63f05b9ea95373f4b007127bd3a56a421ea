@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55ac6dce_1d48e4e9",
+        "filename": "pki/name_constraints.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-01-31T02:15:58Z",
+      "side": 1,
+      "message": "should document whether this can fail or not",
+      "revId": "12c2c63f05b9ea95373f4b007127bd3a56a421ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f03f3b3_f01449fb",
         "filename": "pki/name_constraints.h",
         "patchSetId": 4
