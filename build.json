@@ -146,7 +146,8 @@
             {"src": "crypto/fipsmodule/sha/asm/sha512-x86_64.pl", "args": ["sha512"]},
             {"src": "crypto/fipsmodule/aes/asm/vpaes-x86_64.pl"},
             {"src": "crypto/fipsmodule/bn/asm/x86_64-mont.pl"},
-            {"src": "crypto/fipsmodule/bn/asm/x86_64-mont5.pl"}
+            {"src": "crypto/fipsmodule/bn/asm/x86_64-mont5.pl"},
+            {"src": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.pl"}
         ]
     },
     "crypto": {

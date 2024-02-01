@@ -150,6 +150,35 @@ TEST(GCMTest, ABI) {
     }
 
 #if defined(GHASH_ASM_X86_64)
+#if defined(AVX512_GCM)
+    if (CRYPTO_is_VAES_capable() && CRYPTO_is_VPCLMULQDQ_capable()) {
+      CHECK_ABI_SEH(gcm_init_avx512, Htable, kH);
+      CHECK_ABI_SEH(gcm_gmult_avx512, X, Htable);
+      for (size_t blocks : kBlockCounts) {
+        CHECK_ABI_SEH(gcm_ghash_avx512, X, Htable, buf, 16 * blocks);
+      }
+
+      AES_KEY aes_key;
+      static const uint8_t kKey[16] = {0};
+      uint8_t iv[16] = {0};
+
+      aes_hw_set_encrypt_key(kKey, 128, &aes_key);
+      for (size_t blocks : kBlockCounts) {
+        CHECK_ABI_SEH(gcm_enc_avx512, buf, buf, &aes_key, blocks * 16, iv,
+                      Htable, X);
+        CHECK_ABI_SEH(gcm_enc_avx512, buf, buf, &aes_key, blocks * 16 + 7,
+                      iv, Htable, X);
+      }
+      aes_hw_set_decrypt_key(kKey, 128, &aes_key);
+      for (size_t blocks : kBlockCounts) {
+        CHECK_ABI_SEH(gcm_dec_avx512, buf, buf, &aes_key, blocks * 16, iv,
+                      Htable, X);
+        CHECK_ABI_SEH(gcm_dec_avx512, buf, buf, &aes_key, blocks * 16 + 7,
+                      iv, Htable, X);
+      }
+    }
+#endif
+
     if (CRYPTO_is_AVX_capable() && CRYPTO_is_MOVBE_capable()) {
       CHECK_ABI_SEH(gcm_init_avx, Htable, kH);
       CHECK_ABI_SEH(gcm_gmult_avx, X, Htable);

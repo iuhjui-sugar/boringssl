@@ -1508,6 +1508,44 @@ OPENSSL_INLINE int CRYPTO_is_x86_SHA_capable(void) {
   return (OPENSSL_get_ia32cap(2) & (1u << 29)) != 0;
 }
 
+OPENSSL_INLINE int CRYPTO_is_AVX512F_capable(void) {
+#if defined(__AVX512F__)
+  return 1;
+#else
+  return (OPENSSL_get_ia32cap(2) & (1u << 16)) != 0;
+#endif
+}
+
+OPENSSL_INLINE int CRYPTO_is_AVX512VL_capable(void) {
+#if defined(__AVX512VL__)
+  return 1;
+#else
+  return (OPENSSL_get_ia32cap(2) & (1u << 31)) != 0;
+#endif
+}
+
+OPENSSL_INLINE int CRYPTO_is_VAES_capable(void) {
+#if defined(__VAES__)
+  return 1;
+#else
+  if (!CRYPTO_is_AVX512F_capable() || !CRYPTO_is_AVX512VL_capable()) {
+    return 0;
+  }
+  return (OPENSSL_get_ia32cap(3) & (1u << 9)) != 0;
+#endif
+}
+
+OPENSSL_INLINE int CRYPTO_is_VPCLMULQDQ_capable(void) {
+#if defined(__VPCLMULQDQ__)
+  return 1;
+#else
+  if (!CRYPTO_is_AVX512F_capable() || !CRYPTO_is_AVX512VL_capable()) {
+    return 0;
+  }
+  return (OPENSSL_get_ia32cap(3) & (1u << 10)) != 0;
+#endif
+}
+
 // CRYPTO_cpu_perf_is_like_silvermont returns one if, based on a heuristic, the
 // CPU has Silvermont-like performance characteristics. It is often faster to
 // run different codepaths on these CPUs than the available instructions would

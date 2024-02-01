@@ -126,6 +126,18 @@ void CRYPTO_ctr128_encrypt_ctr32(const uint8_t *in, uint8_t *out, size_t len,
 // can be safely copied. Additionally, |gcm_key| is split into a separate
 // struct.
 
+typedef enum ImplVersion {
+  Other,
+  AVX,
+  AVX512VAES,
+} ImplVersion;
+
+typedef enum GcmHwVersion {
+  NoHardware,
+  UseHardware,
+  UseAVX512AES,
+} GcmHwVersion;
+
 typedef struct { uint64_t hi,lo; } u128;
 
 // gmult_func multiplies |Xi| by the GCM key and writes the result back to
@@ -149,9 +161,9 @@ typedef struct gcm128_key_st {
 
   block128_f block;
 
-  // use_hw_gcm_crypt is true if this context should use platform-specific
+  // use_hw_gcm_crypt is set if this context should use platform-specific
   // assembly to process GCM data.
-  unsigned use_hw_gcm_crypt:1;
+  GcmHwVersion use_hw_gcm_crypt:2;
 } GCM128_KEY;
 
 // GCM128_CONTEXT contains state for a single GCM operation. The structure
@@ -182,11 +194,10 @@ int crypto_gcm_clmul_enabled(void);
 
 // CRYPTO_ghash_init writes a precomputed table of powers of |gcm_key| to
 // |out_table| and sets |*out_mult| and |*out_hash| to (potentially hardware
-// accelerated) functions for performing operations in the GHASH field. If the
-// AVX implementation was used |*out_is_avx| will be true.
-void CRYPTO_ghash_init(gmult_func *out_mult, ghash_func *out_hash,
-                       u128 out_table[16], int *out_is_avx,
-                       const uint8_t gcm_key[16]);
+// accelerated) functions for performing operations in the GHASH field. If one
+// of the AVX implementations was used the return value will indicate it.
+ImplVersion CRYPTO_ghash_init(gmult_func *out_mult, ghash_func *out_hash,
+                              u128 out_table[16], const uint8_t gcm_key[16]);
 
 // CRYPTO_gcm128_init_key initialises |gcm_key| to use |block| (typically AES)
 // with the given key. |block_is_hwaes| is one if |block| is |aes_hw_encrypt|.
@@ -287,6 +298,23 @@ size_t aesni_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
 size_t aesni_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
                          const AES_KEY *key, uint8_t ivec[16],
                          const u128 Htable[16], uint8_t Xi[16]);
+
+#if !defined(__APPLE__) && !defined(OPENSSL_WINDOWS)
+#define AVX512_GCM
+void gcm_init_avx512(u128 Htable[16], const uint64_t Xi[2]);
+void gcm_gmult_avx512(uint8_t Xi[16], const u128 Htable[16]);
+void gcm_ghash_avx512(uint8_t Xi[16], const u128 Htable[16], const uint8_t *in,
+                      size_t len);
+
+size_t gcm_enc_avx512(const uint8_t *in, uint8_t *out, const AES_KEY *key,
+                      size_t len, uint8_t ivec[16], const u128 Htable[16],
+                      uint8_t Xi[16]);
+
+size_t gcm_dec_avx512(const uint8_t *in, uint8_t *out, const AES_KEY *key,
+                      size_t len, uint8_t ivec[16], const u128 Htable[16],
+                      uint8_t Xi[16]);
+#endif
+
 #endif  // OPENSSL_X86_64
 
 #if defined(OPENSSL_X86)
