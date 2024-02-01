@@ -151,7 +151,7 @@ typedef struct gcm128_key_st {
 
   // use_hw_gcm_crypt is true if this context should use platform-specific
   // assembly to process GCM data.
-  unsigned use_hw_gcm_crypt:1;
+  unsigned use_hw_gcm_crypt:2;
 } GCM128_KEY;
 
 // GCM128_CONTEXT contains state for a single GCM operation. The structure
@@ -287,6 +287,23 @@ size_t aesni_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
 size_t aesni_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
                          const AES_KEY *key, uint8_t ivec[16],
                          const u128 Htable[16], uint8_t Xi[16]);
+
+#if !defined(__APPLE__) && !defined(OPENSSL_WINDOWS)
+#define AVX512_GCM
+void gcm_init_avx512(u128 Htable[16], const uint64_t Xi[2]);
+void gcm_gmult_avx512(uint8_t Xi[16], const u128 Htable[16]);
+void gcm_ghash_avx512(uint8_t Xi[16], const u128 Htable[16], const uint8_t *in,
+                      size_t len);
+
+size_t gcm_enc_avx512(const uint8_t *in, uint8_t *out, const AES_KEY *key,
+                      size_t len, uint8_t ivec[16], const u128 Htable[16],
+                      uint8_t Xi[16]);
+
+size_t gcm_dec_avx512(const uint8_t *in, uint8_t *out, const AES_KEY *key,
+                      size_t len, uint8_t ivec[16], const u128 Htable[16],
+                      uint8_t Xi[16]);
+#endif
+
 #endif  // OPENSSL_X86_64
 
 #if defined(OPENSSL_X86)

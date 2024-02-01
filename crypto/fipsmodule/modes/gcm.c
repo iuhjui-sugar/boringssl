@@ -135,13 +135,35 @@ void gcm_init_ssse3(u128 Htable[16], const uint64_t H[2]) {
 #if defined(HW_GCM) && defined(OPENSSL_X86_64)
 static size_t hw_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                              const AES_KEY *key, uint8_t ivec[16],
-                             uint8_t Xi[16], const u128 Htable[16]) {
+                             uint8_t Xi[16], const u128 Htable[16],
+                             int version) {
+
+#if defined(AVX512_GCM)
+  if (version == 3) {
+    // The AVX512 method can consume the full input, however the
+    // scatter/gather API assumes only full blocks are consumed.
+    size_t blen = len & kSizeTWithoutLower4Bits;
+    return gcm_enc_avx512(in, out, key, blen, ivec, Htable, Xi);
+  }
+#endif
+
   return aesni_gcm_encrypt(in, out, len, key, ivec, Htable, Xi);
 }
 
 static size_t hw_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
                              const AES_KEY *key, uint8_t ivec[16],
-                             uint8_t Xi[16], const u128 Htable[16]) {
+                             uint8_t Xi[16], const u128 Htable[16],
+                             int version) {
+
+#if defined(AVX512_GCM)
+  if (version == 3) {
+    // The AVX512 method can consume the full input, however the
+    // scatter/gather API assumes only full blocks are consumed.
+    size_t blen = len & kSizeTWithoutLower4Bits;
+    return gcm_dec_avx512(in, out, key, blen, ivec, Htable, Xi);
+  }
+#endif
+
   return aesni_gcm_decrypt(in, out, len, key, ivec, Htable, Xi);
 }
 #endif  // HW_GCM && X86_64
@@ -150,7 +172,8 @@ static size_t hw_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
 
 static size_t hw_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                              const AES_KEY *key, uint8_t ivec[16],
-                             uint8_t Xi[16], const u128 Htable[16]) {
+                             uint8_t Xi[16], const u128 Htable[16],
+                             int version) {
   const size_t len_blocks = len & kSizeTWithoutLower4Bits;
   if (!len_blocks) {
     return 0;
@@ -161,7 +184,8 @@ static size_t hw_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
 
 static size_t hw_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
                              const AES_KEY *key, uint8_t ivec[16],
-                             uint8_t Xi[16], const u128 Htable[16]) {
+                             uint8_t Xi[16], const u128 Htable[16],
+                             int version) {
   const size_t len_blocks = len & kSizeTWithoutLower4Bits;
   if (!len_blocks) {
     return 0;
@@ -183,6 +207,15 @@ void CRYPTO_ghash_init(gmult_func *out_mult, ghash_func *out_hash,
 
 #if defined(GHASH_ASM_X86_64)
   if (crypto_gcm_clmul_enabled()) {
+    #if defined(AVX512_GCM)
+    if (CRYPTO_is_VAES_capable() && CRYPTO_is_VPCLMULQDQ_capable()) {
+      gcm_init_avx512(out_table, H);
+      *out_mult = gcm_gmult_avx512;
+      *out_hash = gcm_ghash_avx512;
+      *out_is_avx = 512;
+      return;
+    }
+    #endif
     if (CRYPTO_is_AVX_capable() && CRYPTO_is_MOVBE_capable()) {
       gcm_init_avx(out_table, H);
       *out_mult = gcm_gmult_avx;
@@ -251,7 +284,7 @@ void CRYPTO_gcm128_init_key(GCM128_KEY *gcm_key, const AES_KEY *aes_key,
 #if defined(OPENSSL_AARCH64) && !defined(OPENSSL_NO_ASM)
   gcm_key->use_hw_gcm_crypt = (gcm_pmull_capable() && block_is_hwaes) ? 1 : 0;
 #else
-  gcm_key->use_hw_gcm_crypt = (is_avx && block_is_hwaes) ? 1 : 0;
+  gcm_key->use_hw_gcm_crypt = (is_avx && block_is_hwaes) ? is_avx == 512 ? 3 : 1 : 0;
 #endif
 }
 
@@ -569,7 +602,7 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_CONTEXT *ctx, const AES_KEY *key,
     // |hw_gcm_encrypt| may not process all the input given to it. It may
     // not process *any* of its input if it is deemed too small.
     size_t bulk = hw_gcm_encrypt(in, out, len, key, ctx->Yi, ctx->Xi,
-                                 ctx->gcm_key.Htable);
+                                 ctx->gcm_key.Htable, ctx->gcm_key.use_hw_gcm_crypt);
     in += bulk;
     out += bulk;
     len -= bulk;
@@ -658,7 +691,7 @@ int CRYPTO_gcm128_decrypt_ctr32(GCM128_CONTEXT *ctx, const AES_KEY *key,
     // |hw_gcm_decrypt| may not process all the input given to it. It may
     // not process *any* of its input if it is deemed too small.
     size_t bulk = hw_gcm_decrypt(in, out, len, key, ctx->Yi, ctx->Xi,
-                                 ctx->gcm_key.Htable);
+                                 ctx->gcm_key.Htable, ctx->gcm_key.use_hw_gcm_crypt);
     in += bulk;
     out += bulk;
     len -= bulk;
