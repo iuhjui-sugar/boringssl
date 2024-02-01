@@ -51,6 +51,24 @@
       "parentUuid": "48ef8845_a4588d04",
       "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b283796_fd8731bb",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-01T21:11:17Z",
+      "side": 1,
+      "message": "This comment explains why this patch is fine for you to carry locally, but not something that we would accept upstream.",
+      "parentUuid": "0d2722ba_7e1f8a29",
+      "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
