@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "131acac5_3e6c804f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3284300
+      },
+      "writtenOn": "2024-02-01T12:45:00Z",
+      "side": 1,
+      "message": "Define NR_getrandom for riscv64\n\nThis syscall is required by generatekey in keystore.",
+      "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "48ef8845_a4588d04",
@@ -14,6 +31,24 @@
       "writtenOn": "2024-01-31T14:05:25Z",
       "side": 1,
       "message": "Please see the comment here.",
+      "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d2722ba_7e1f8a29",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3284300
+      },
+      "writtenOn": "2024-02-01T12:45:00Z",
+      "side": 1,
+      "message": "Yes. Defined above is for OPENSSL_LOONGARCH64 used for crypto/fipsmodule/rand/getrandom_fillin.h\nThis syscall is required by generatekey in keystore.\nWe built boringssl in arch Loongarch depened it.\nThe Loongarch info:https://loongson.github.io/LoongArch-Documentation/README-EN.html",
+      "parentUuid": "48ef8845_a4588d04",
       "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
