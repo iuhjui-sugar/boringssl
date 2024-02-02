@@ -8,9 +8,8 @@
 #include <cassert>
 
 #include <openssl/base.h>
+#include <openssl/pki/cert_errors.h>
 #include "cert_error_params.h"
-#include "cert_errors.h"
-#include "common_cert_errors.h"
 #include "extended_key_usage.h"
 #include "input.h"
 #include "name_constraints.h"

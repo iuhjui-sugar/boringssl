@@ -77,7 +77,7 @@ class VerifyCertificateChainPkitsTestDelegate {
                            errors_file_path);
     } else if (!did_succeed) {
       // If it failed and wasn't supposed to fail, print the errors.
-      EXPECT_EQ("", path_errors.ToDebugString(input_chain));
+      EXPECT_EQ("", PrettyPrintCertPathErrors(path_errors, input_chain));
     }
   }
 };

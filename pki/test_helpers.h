@@ -7,6 +7,7 @@
 
 #include <stddef.h>
 
+#include <openssl/pki/cert_errors.h>
 #include <ostream>
 #include <string>
 #include <string_view>
@@ -161,6 +162,11 @@ void VerifyUserConstrainedPolicySet(
     const std::set<std::string> &expected_user_constrained_policy_str_set,
     const std::set<der::Input> &actual_user_constrained_policy_set,
     const std::string &errors_file_path);
+
+// Pretty-prints all the errors in the CertPathErrors. If there were no
+// errors/warnings, returns an empty string.
+std::string PrettyPrintCertPathErrors(const CertPathErrors &errors,
+                                      const ParsedCertificateList &certs);
 
 }  // namespace bssl
 

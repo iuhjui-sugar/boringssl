@@ -10,10 +10,10 @@
 #include <unordered_set>
 
 #include <openssl/base.h>
+#include <openssl/pki/cert_errors.h>
 #include <openssl/sha.h>
 #include "cert_issuer_source.h"
 #include "certificate_policies.h"
-#include "common_cert_errors.h"
 #include "parse_certificate.h"
 #include "parse_name.h"  // For CertDebugString.
 #include "parser.h"

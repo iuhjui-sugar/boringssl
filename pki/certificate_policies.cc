@@ -7,8 +7,8 @@
 #include "certificate_policies.h"
 
 #include <openssl/base.h>
+#include <openssl/pki/cert_errors.h>
 #include "cert_error_params.h"
-#include "cert_errors.h"
 #include "input.h"
 #include "parse_values.h"
 #include "parser.h"

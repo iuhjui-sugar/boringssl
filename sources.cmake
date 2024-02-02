@@ -355,7 +355,6 @@ set(
 set(
   PKI_SOURCES
 
-  pki/cert_error_id.cc
   pki/cert_error_params.cc
   pki/cert_errors.cc
   pki/cert_issuer_source_static.cc

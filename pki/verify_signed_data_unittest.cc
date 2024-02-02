@@ -9,7 +9,7 @@
 
 #include <gtest/gtest.h>
 #include <optional>
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "input.h"
 #include "mock_signature_verify_cache.h"
 #include "parse_values.h"

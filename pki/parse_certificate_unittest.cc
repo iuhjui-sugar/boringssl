@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 #include <openssl/pool.h>
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "general_names.h"
 #include "input.h"
 #include "parsed_certificate.h"
