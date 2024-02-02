@@ -8,7 +8,7 @@
 #include <memory>
 
 #include <gtest/gtest.h>
-#include "common_cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "test_helpers.h"
 
 namespace bssl {

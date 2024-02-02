@@ -10,7 +10,7 @@
 
 #include <openssl/base.h>
 
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "input.h"
 #include "parse_values.h"
 #include "parsed_certificate.h"

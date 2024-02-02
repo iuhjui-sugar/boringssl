@@ -9,8 +9,8 @@
 
 #include <openssl/base.h>
 #include <openssl/evp.h>
+#include <openssl/pki/cert_errors.h>
 
-#include "cert_errors.h"
 #include "input.h"
 #include "parsed_certificate.h"
 #include "signature_verify_cache.h"

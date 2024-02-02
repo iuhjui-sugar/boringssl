@@ -14,9 +14,10 @@
 #include <gtest/gtest.h>
 #include <openssl/bytestring.h>
 #include <openssl/mem.h>
+#include <openssl/pki/cert_errors.h>
 #include <openssl/pool.h>
 #include "cert_error_params.h"
-#include "cert_errors.h"
+#include "parse_name.h"
 #include "parser.h"
 #include "pem.h"
 #include "simple_path_builder_delegate.h"
@@ -468,7 +469,7 @@ void VerifyCertPathErrors(const std::string &expected_errors_str,
                           const CertPathErrors &actual_errors,
                           const ParsedCertificateList &chain,
                           const std::string &errors_file_path) {
-  std::string actual_errors_str = actual_errors.ToDebugString(chain);
+  std::string actual_errors_str = PrettyPrintCertPathErrors(actual_errors, chain);
 
   if (expected_errors_str != actual_errors_str) {
     ADD_FAILURE() << "Cert path errors don't match expectations ("
@@ -520,6 +521,24 @@ void VerifyUserConstrainedPolicySet(
                   << StrSetToString(actual_user_constrained_policy_str_set)
                   << "\n";
   }
+}
+
+// Pretty-prints all the errors in the CertPathErrors. If there were no
+// errors/warnings, returns an empty string.
+std::string PrettyPrintCertPathErrors(const CertPathErrors &errors,
+                                      const ParsedCertificateList &certs) {
+  std::vector<std::string> cert_names;
+
+  for (size_t i = 0; i < certs.size() && certs[i]; i++) {
+    RDNSequence subject;
+    std::string cert_subject;
+    if (ParseName(certs[i]->tbs().subject_tlv, &subject) &&
+        ConvertToRFC2253(subject, &cert_subject)) {
+      cert_names.push_back(cert_subject);
+    }
+  }
+
+  return errors.ToDebugString(cert_names);
 }
 
 }  // namespace bssl

@@ -8,8 +8,8 @@
 #include <algorithm>
 
 #include <gtest/gtest.h>
+#include <openssl/pki/cert_errors.h>
 #include <openssl/pool.h>
-#include "cert_errors.h"
 #include "cert_issuer_source.h"
 #include "test_helpers.h"
 

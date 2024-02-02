@@ -9,7 +9,7 @@
 #include <openssl/mem.h>
 #include <openssl/pool.h>
 #include <openssl/sha.h>
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "extended_key_usage.h"
 #include "parsed_certificate.h"
 #include "revocation_util.h"

@@ -10,8 +10,7 @@
 
 #include <openssl/base.h>
 #include <optional>
-#include "cert_errors.h"
-#include "common_cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "general_names.h"
 #include "input.h"
 #include "ip_util.h"

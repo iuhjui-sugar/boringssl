@@ -5,7 +5,7 @@
 #include "parsed_certificate.h"
 
 #include <openssl/pool.h>
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "certificate_policies.h"
 #include "extended_key_usage.h"
 #include "name_constraints.h"

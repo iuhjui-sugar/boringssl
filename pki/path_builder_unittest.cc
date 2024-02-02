@@ -6,9 +6,9 @@
 
 #include <algorithm>
 
+#include <openssl/pki/cert_errors.h>
 #include "cert_error_params.h"
 #include "cert_issuer_source_static.h"
-#include "common_cert_errors.h"
 #include "input.h"
 #include "mock_signature_verify_cache.h"
 #include "parsed_certificate.h"

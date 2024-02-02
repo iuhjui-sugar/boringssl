@@ -6,9 +6,9 @@
 
 #include <cstdint>
 
+#include <openssl/pki/cert_errors.h>
 #include <openssl/pool.h>
 #include "cert_issuer_source_static.h"
-#include "common_cert_errors.h"
 #include "crl.h"
 #include "encode_values.h"
 #include "input.h"
@@ -238,7 +238,9 @@ class PathBuilderPkitsTestDelegate {
         const bssl::CertPathBuilderResultPath *result_path =
             result.paths[i].get();
         msg << "path " << i << " errors:\n"
-            << result_path->errors.ToDebugString(result_path->certs) << "\n";
+            << PrettyPrintCertPathErrors(result_path->errors,
+                                         result_path->certs)
+            << "\n";
       }
       ASSERT_EQ(info.should_validate, result.HasValidPath()) << msg;
     }

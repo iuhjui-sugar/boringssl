@@ -5,10 +5,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "../pki/cert_errors.h"
-#include "../pki/parsed_certificate.h"
 #include <openssl/base.h>
+#include <openssl/pki/cert_errors.h>
 #include <openssl/pool.h>
+#include "../pki/parsed_certificate.h"
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
   bssl::CertErrors errors;

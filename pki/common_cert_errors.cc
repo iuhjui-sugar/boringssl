@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "common_cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 
 namespace bssl::cert_errors {
 

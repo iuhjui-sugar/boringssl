@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 
 #include "cert_error_params.h"
 #include "parse_name.h"
@@ -26,6 +26,11 @@ void AppendLinesWithIndentation(const std::string &text,
 }
 
 }  // namespace
+
+const char *CertErrorIdToDebugString(CertErrorId id) {
+  // The CertErrorId is simply a pointer for a C-string literal.
+  return reinterpret_cast<const char *>(id);
+}
 
 CertError::CertError() = default;
 
@@ -164,7 +169,7 @@ bool CertPathErrors::ContainsAnyErrorWithSeverity(
 }
 
 std::string CertPathErrors::ToDebugString(
-    const ParsedCertificateList &certs) const {
+    const std::vector<std::string> &cert_names) const {
   std::ostringstream result;
 
   for (size_t i = 0; i < cert_errors_.size(); ++i) {
@@ -179,12 +184,8 @@ std::string CertPathErrors::ToDebugString(
     // Add a header that identifies which certificate this CertErrors pertains
     // to.
     std::string cert_name_debug_str;
-    if (i < certs.size() && certs[i]) {
-      RDNSequence subject;
-      if (ParseName(certs[i]->tbs().subject_tlv, &subject) &&
-          ConvertToRFC2253(subject, &cert_name_debug_str)) {
-        cert_name_debug_str = " (" + cert_name_debug_str + ")";
-      }
+    if (i < cert_names.size()) {
+        cert_name_debug_str = " (" + cert_names[i] + ")";
     }
     result << "----- Certificate i=" << i << cert_name_debug_str << " -----\n";
     result << cert_errors_string << "\n";
