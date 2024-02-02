@@ -69,6 +69,24 @@
       "parentUuid": "0d2722ba_7e1f8a29",
       "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4adf0628_670d76bf",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3284300
+      },
+      "writtenOn": "2024-02-02T02:36:09Z",
+      "side": 1,
+      "message": "LoongArch is one newly instruction set, we want to join in more community and serve more people.\n\nAnd We check it in local,run compile_test case pass\n[----------] 2 tests from CompilerTest\n[ RUN      ] CompilerTest.IntegerRepresentation\n[       OK ] CompilerTest.IntegerRepresentation (0 ms)\n[ RUN      ] CompilerTest.PointerRepresentation\n[       OK ] CompilerTest.PointerRepresentation (0 ms)\n[----------] 2 tests from CompilerTest (0 ms total)\n\n[----------] Global test environment tear-down\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 2 tests from 1 test suite ran. (0 ms total)\n[  PASSED  ] 2 tests.\n\nAnd also We run crypto test pass\nLD_LIBRARY_PATH\u003ddebian/out debian/out/crypto_test\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 1288 tests from 68 test suites.\n[----------] Global test environment set-up.\n[----------] 1 test from ABITest\n[ RUN      ] ABITest.SanityCheck\n[       OK ] ABITest.SanityCheck (0 ms)\n[----------] 1 test from ABITest (0 ms total)\n........\n........\n[----------] Global test environment tear-down\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 1288 tests from 68 test suites ran. (108041 ms total)\n[  PASSED  ] 1288 tests.\n\nssl_test cases pass,too\n\nLD_LIBRARY_PATH\u003ddebian/out debian/out/ssl_test\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] Running 336 tests from 6 test suites.\n[----------] Global test environment set-up.\n[----------] 7 tests from SpanTest\n[ RUN      ] SpanTest.CtorEmpty\n[       OK ] SpanTest.CtorEmpty (0 ms)\n[ RUN      ] SpanTest.CtorFromPtrAndSize\n[       OK ] SpanTest.CtorFromPtrAndSize (0 ms)\n[ RUN      ] SpanTest.CtorFromVector\n[       OK ] SpanTest.CtorFromVector (0 ms)\n[ RUN      ] SpanTest.CtorConstFromArray\n[       OK ] SpanTest.CtorConstFromArray (0 ms)\n[ RUN      ] SpanTest.MakeSpan\n[       OK ] SpanTest.MakeSpan (0 ms)\n[ RUN      ] SpanTest.MakeConstSpan\n[       OK ] SpanTest.MakeConstSpan (0 ms)\n[ RUN      ] SpanTest.Accessor\n[       OK ] SpanTest.Accessor (0 ms)\n[----------] 7 tests from SpanTest (0 ms total)\n.........\n.........\n\n[----------] Global test environment tear-down\n[\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d] 336 tests from 6 test suites ran. (3089 ms total)\n[  PASSED  ] 335 tests.\n[  SKIPPED ] 1 test, listed below:\n[  SKIPPED ] SSLTest.HostMatching",
+      "parentUuid": "1b283796_fd8731bb",
+      "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
