@@ -7,8 +7,8 @@
 #include <string_view>
 
 #include <gtest/gtest.h>
+#include <openssl/pki/cert_errors.h>
 #include <openssl/pool.h>
-#include "cert_errors.h"
 #include "parsed_certificate.h"
 #include "string_util.h"
 #include "test_helpers.h"

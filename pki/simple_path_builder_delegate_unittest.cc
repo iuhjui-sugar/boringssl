@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 #include <openssl/nid.h>
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "input.h"
 #include "parse_values.h"
 #include "parser.h"

@@ -10,7 +10,7 @@
 #include <cstring>
 
 #include "cert_error_params.h"
-#include "cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "input.h"
 #include "ip_util.h"
 #include "parser.h"

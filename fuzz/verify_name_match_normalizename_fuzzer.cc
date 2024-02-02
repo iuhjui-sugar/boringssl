@@ -4,7 +4,7 @@
 
 #include "../pki/verify_name_match.h"
 
-#include "../pki/cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "../pki/input.h"
 
 // Entry point for LibFuzzer.

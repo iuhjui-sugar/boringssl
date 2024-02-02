@@ -4,8 +4,7 @@
 
 #include "verify_certificate_chain.h"
 
-#include "cert_errors.h"
-#include "common_cert_errors.h"
+#include <openssl/pki/cert_errors.h>
 #include "mock_signature_verify_cache.h"
 #include "simple_path_builder_delegate.h"
 #include "test_helpers.h"

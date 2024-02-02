@@ -6,8 +6,8 @@
 
 #include <openssl/base.h>
 #include <openssl/bytestring.h>
+#include <openssl/pki/cert_errors.h>
 #include "cert_error_params.h"
-#include "cert_errors.h"
 #include "input.h"
 #include "parse_name.h"
 #include "parser.h"
