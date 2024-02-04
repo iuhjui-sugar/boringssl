@@ -154,3 +154,74 @@ ScopedFD TemporaryFile::OpenFD(int flags) const {
   return ScopedFD(open(path_.c_str(), flags));
 #endif
 }
+
+TemporaryDirectory::~TemporaryDirectory() {
+  if (path_.empty()) {
+    return;
+  }
+
+#if defined(OPENSSL_WINDOWS)
+  for (const auto &file : files_) {
+    if (!DeleteFileA(GetFilePath(file).c_str())) {
+      PrintLastError("Could not delete file");
+    }
+  }
+  if (!RemoveDirectoryA(path_.c_str())) {
+    PrintLastError("Could not delete directory");
+  }
+#else
+  for (const auto &file : files_) {
+    if (unlink(GetFilePath(file).c_str()) != 0) {
+      perror("Could not delete file");
+    }
+  }
+  if (rmdir(path_.c_str()) != 0) {
+    perror("Could not delete directory");
+  }
+#endif
+}
+
+bool TemporaryDirectory::Init() {
+  // For simplicity, just try the first candidate and assume it works. 96 bits
+  // of cryptographically secure randomness is plenty.
+  std::string path = GetTempPathCandidate();
+  if (path.empty()) {
+    return false;
+  }
+
+#if defined(OPENSSL_WINDOWS)
+  if (!CreateDirectoryA(path.c_str(), /*lpSecurityAttributes=*/nullptr)) {
+    perror("Could not make temporary directory");
+    return false;
+  }
+#else
+  if (mkdir(path.c_str(), 0777) != 0) {
+    perror("Could not make temporary directory");
+    return false;
+  }
+#endif
+
+  path_ = std::move(path);
+  return true;
+}
+
+bool TemporaryDirectory::AddFile(const std::string &filename,
+                                 bssl::Span<const uint8_t> content) {
+  if (path_.empty()) {
+    return false;
+  }
+
+  ScopedFILE file(fopen(GetFilePath(filename).c_str(), "wb"));
+  if (file == nullptr) {
+    perror("Could not open temporary file");
+    return false;
+  }
+  if (!content.empty() &&
+      fwrite(content.data(), content.size(), /*nitems=*/1, file.get()) != 1) {
+    perror("Could not write temporary file");
+    return false;
+  }
+
+  files_.insert(filename);
+  return true;
+}
