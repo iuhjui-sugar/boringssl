@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b0fb2a6_78bfab3a",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-04T14:34:41Z",
+      "side": 1,
+      "message": "I mean, this does the job, but perhaps this would be a little less confusing. :-)\n\n```\n  if (tm-\u003etm_year \u003e 9999 - 1900 || tm-\u003etm_mon \u003e 12 - 1) {\n```\n\nOr\n\n```\n  if (tm-\u003etm_year \u003e INT_MAX - 1900 || tm-\u003etm_mon \u003e INT_MAX - 1) {\n```\n\nThe former to actually bound against year 9999 and December. Or the latter to say \"that\u0027s `posix_time_from_utc`\u0027s job, we\u0027re just going to guard for overflow right now\". Right now we kinda do neither. :-)",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
