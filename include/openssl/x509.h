@@ -3958,6 +3958,12 @@ OPENSSL_EXPORT STACK_OF(X509_CRL) *X509_STORE_CTX_get1_crls(X509_STORE_CTX *ctx,
 // Otherwise, the object currently in |ret| will be leaked when overwritten.
 // https://crbug.com/boringssl/685 tracks fixing this.
 //
+// WARNING: X.509 allows a single name to be associated with multiple keys. It
+// is thus possible for |ctx|'s |X509_STORE| to contain multiple CAs or CRLs
+// that share a name. This function cannot correctly handle this case and will
+// return an arbitrary match. Use |X509_STORE_CTX_get1_certs| and
+// |X509_STORE_CTX_get1_crls| instead.
+//
 // TODO(crbug.com/boringssl/407): |name| should be const.
 OPENSSL_EXPORT int X509_STORE_CTX_get_by_subject(X509_STORE_CTX *ctx, int type,
                                                  X509_NAME *name,
