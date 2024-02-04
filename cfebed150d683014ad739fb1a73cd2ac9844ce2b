@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e3ae435_6a1e2d3c",
+        "filename": "crypto/fipsmodule/sha/asm/sha256-586.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-04T15:09:18Z",
+      "side": 1,
+      "message": "We don\u0027t currently enable this, but I wanted to leave it in a less confusing state if we ever do.",
+      "revId": "cfebed150d683014ad739fb1a73cd2ac9844ce2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
