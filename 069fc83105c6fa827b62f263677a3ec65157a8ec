@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4142f058_e5a897f3",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3854,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-04T15:47:03Z",
+      "side": 1,
+      "message": "Self-review: add a WARNING that this function returns a match arbitrarily if multiple objects match `name`. All the callers inside the library actually work around this bug with the cache.\n\nPossibly we should remove this if not one uses it. Tell people to use get1_certs or get1_crls instead.",
+      "revId": "069fc83105c6fa827b62f263677a3ec65157a8ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
