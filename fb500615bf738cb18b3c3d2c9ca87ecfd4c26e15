@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7db220bd_55ebfb1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-02-05T19:57:34Z",
+      "side": 1,
+      "message": "Hi folks, this is an AVX512 implementation of AES-GCM based on my past work. Not *quite* production ready, but if there is general interest in merging this it can be polished in a very short time.",
+      "revId": "fb500615bf738cb18b3c3d2c9ca87ecfd4c26e15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
