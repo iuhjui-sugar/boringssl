@@ -16,6 +16,24 @@
       "message": "I mean, this does the job, but perhaps this would be a little less confusing. :-)\n\n```\n  if (tm-\u003etm_year \u003e 9999 - 1900 || tm-\u003etm_mon \u003e 12 - 1) {\n```\n\nOr\n\n```\n  if (tm-\u003etm_year \u003e INT_MAX - 1900 || tm-\u003etm_mon \u003e INT_MAX - 1) {\n```\n\nThe former to actually bound against year 9999 and December. Or the latter to say \"that\u0027s `posix_time_from_utc`\u0027s job, we\u0027re just going to guard for overflow right now\". Right now we kinda do neither. :-)",
       "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b643a7ee_8baf654d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-05T22:54:21Z",
+      "side": 1,
+      "message": "Well, we also sorta kinda do, since if that addition overflows by those amounts, the values will be negative and we\u0027ll toss them out and return 0 anyway as soon as we check for is_valid_time.  So effectively, this is really just for making it obvious ahead of time.. so what\u0027s your preference? (or not have the check at all)",
+      "parentUuid": "4b0fb2a6_78bfab3a",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
