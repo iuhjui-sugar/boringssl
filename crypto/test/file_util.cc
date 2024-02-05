@@ -46,7 +46,7 @@ void PrintLastError(const char *s) {
     }
   }
   LocalFree(buffer);
-  fprintf(stderr, "%s: %s (%d)\n", func, msg.c_str(), error);
+  fprintf(stderr, "%s: %s (%d)\n", s, msg.c_str(), error);
 }
 #endif  // OPENSSL_WINDOWS
 
