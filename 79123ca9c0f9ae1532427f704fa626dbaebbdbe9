@@ -34,6 +34,24 @@
       "parentUuid": "4b0fb2a6_78bfab3a",
       "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e689c6a6_b757a543",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-05T23:46:13Z",
+      "side": 1,
+      "message": "Oh, if it overflows, it\u0027ll be UB not negative, so definitely good that we put the check in! 😊 I\u0027m just quibbling over the exact spelling of the check. No particular preference between the two.",
+      "parentUuid": "b643a7ee_8baf654d",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
