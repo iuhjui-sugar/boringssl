@@ -52,6 +52,24 @@
       "parentUuid": "b643a7ee_8baf654d",
       "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48803549_d14e8fb0",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-02-06T00:06:38Z",
+      "side": 1,
+      "message": "When comparing this file with its version in LibreSSL I was confused about these checks since in our code they\u0027re done here, in `OPENSSL_gmtime_adj()`, but not in `OPENSSL_gmtime_diff()`. `posix_time_from_utc()` has `valid_date()`, which bounds year and month to be in the appropriate ranges already.\n\nIf this is a check against undefined signed integer overflow, as the comment indicates, then I would suggest using davidben\u0027s second variant, but please do it in all functions that do this kind of addition.",
+      "parentUuid": "e689c6a6_b757a543",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
