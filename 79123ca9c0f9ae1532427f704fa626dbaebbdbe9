@@ -142,6 +142,24 @@
       "parentUuid": "997468e6_c52175a7",
       "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f47c860_5dc8c5c6",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-06T22:55:03Z",
+      "side": 1,
+      "message": "Oh heh. We should at least grab my tests. I was running them through UBSan to catch everything. I also think it makes sense to switch all the `posix_time_from_utc` calls to the `struct tm` versions because they take `struct tm`s anyway. That\u0027s how I found that `OPENSSL_gmtime_adj` is actually kind of subtle and needs extra work to avoid overflow when `offset_sec` is very large. `offset_day` is fine, provided `int` is 32-bit.",
+      "parentUuid": "d9371c9b_a5ebd9a1",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
