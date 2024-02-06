@@ -51,6 +51,24 @@
       "parentUuid": "d5748335_836c5183",
       "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49dc7747_473057d9",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-06T21:13:53Z",
+      "side": 1,
+      "message": "I don\u0027t find StringViewAsBytes that jarring, since it\u0027s kind of just the way that in C++ you know that \"oh it takes a string view as input, and so yes I can feed that a string or a string_view\"\n\nand if we get over that hurdle, BytesAsStringView is sort of the natural other way, and since that\u0027s what it got converted to I know I\u0027m getting something non-owning..",
+      "parentUuid": "fe055c83_0e9d968d",
+      "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
