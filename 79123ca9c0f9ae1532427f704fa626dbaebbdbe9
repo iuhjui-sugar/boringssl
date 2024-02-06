@@ -70,6 +70,24 @@
       "parentUuid": "e689c6a6_b757a543",
       "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "214e4e56_b26a174f",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-06T18:48:56Z",
+      "side": 1,
+      "message": "Oh yeah, this impacts quite a lot of them, doesn\u0027t it. I think we fix this by replacing most of the `utc_from_posix_time`. with the `tm`-based versions. I\u0027ll take a stab at that...",
+      "parentUuid": "48803549_d14e8fb0",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
