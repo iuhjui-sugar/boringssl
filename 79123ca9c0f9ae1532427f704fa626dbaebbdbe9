@@ -124,6 +124,24 @@
       "parentUuid": "ed46a157_b0d051c6",
       "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9371c9b_a5ebd9a1",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-06T21:47:41Z",
+      "side": 1,
+      "message": "Lol I did it differentely\n\nhttps://boringssl-review.googlesource.com/c/boringssl/+/66047",
+      "parentUuid": "997468e6_c52175a7",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
