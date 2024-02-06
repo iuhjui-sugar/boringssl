@@ -70,10 +70,14 @@ static int is_valid_time(int hours, int minutes, int seconds) {
   return 1;
 }
 
+// 0000-01-01 00:00:00 UTC
+#define MIN_POSIX_TIME INT64_C(-62167219200)
+// 9999-12-31 23:59:59 UTC
+#define MAX_POSIX_TIME INT64_C(253402300799)
+
 // Is a int64 time representing a time within our expected range?
-static int is_valid_epoch_time(int64_t time) {
-  // 0000-01-01 00:00:00 UTC to 9999-12-31 23:59:59 UTC
-  return (int64_t)-62167219200 <= time && time <= (int64_t)253402300799;
+static int is_valid_posix_time(int64_t time) {
+  return MIN_POSIX_TIME <= time && time <= MAX_POSIX_TIME;
 }
 
 // Inspired by algorithms presented in
@@ -108,7 +112,7 @@ static int posix_time_from_utc(int year, int month, int day, int hours,
 static int utc_from_posix_time(int64_t time, int *out_year, int *out_month,
                                int *out_day, int *out_hours, int *out_minutes,
                                int *out_seconds) {
-  if (!is_valid_epoch_time(time)) {
+  if (!is_valid_posix_time(time)) {
     return 0;
   }
   int64_t days = time / SECS_PER_DAY;
@@ -144,7 +148,7 @@ static int utc_from_posix_time(int64_t time, int *out_year, int *out_month,
 
 int OPENSSL_tm_to_posix(const struct tm *tm, int64_t *out) {
   // Ensure the additions below do not overflow.
-  if (tm->tm_year > 9999 || tm->tm_mon > 12) {
+  if (tm->tm_year > INT_MAX - 1900 || tm->tm_mon > INT_MAX - 1) {
     return 0;
   }
 
@@ -192,43 +196,43 @@ struct tm *OPENSSL_gmtime(const time_t *time, struct tm *out_tm) {
   return out_tm;
 }
 
-int OPENSSL_gmtime_adj(struct tm *tm, int off_day, long offset_sec) {
-  int64_t posix_time;
-  if (!posix_time_from_utc(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
-                           tm->tm_hour, tm->tm_min, tm->tm_sec, &posix_time)) {
+static int add_with_overflow(int64_t *t, int64_t offset) {
+  if (*t > 0 && offset > INT64_MAX - *t) {
     return 0;
   }
-  if (!utc_from_posix_time(
-          posix_time + (int64_t)off_day * SECS_PER_DAY + offset_sec,
-          &tm->tm_year, &tm->tm_mon, &tm->tm_mday, &tm->tm_hour, &tm->tm_min,
-          &tm->tm_sec)) {
+  if (*t < 0 && offset < INT64_MIN - *t) {
     return 0;
   }
-  tm->tm_year -= 1900;
-  tm->tm_mon -= 1;
-
+  *t += offset;
   return 1;
+}
+
+int OPENSSL_gmtime_adj(struct tm *tm, int offset_day, long offset_sec) {
+  static_assert(INT_MAX <= INT64_MAX / SECS_PER_DAY,
+                "converting offset_day to seconds may overflow");
+
+  int64_t posix_time;
+  return OPENSSL_tm_to_posix(tm, &posix_time) &&
+         add_with_overflow(&posix_time, (int64_t)offset_day * SECS_PER_DAY) &&
+         add_with_overflow(&posix_time, offset_sec) &&
+         OPENSSL_posix_to_tm(posix_time, tm);
 }
 
 int OPENSSL_gmtime_diff(int *out_days, int *out_secs, const struct tm *from,
                         const struct tm *to) {
-  int64_t time_to;
-  if (!posix_time_from_utc(to->tm_year + 1900, to->tm_mon + 1, to->tm_mday,
-                           to->tm_hour, to->tm_min, to->tm_sec, &time_to)) {
+  int64_t time_to, time_from;
+  if (!OPENSSL_tm_to_posix(to, &time_to) ||
+      !OPENSSL_tm_to_posix(from, &time_from)) {
     return 0;
   }
-  int64_t time_from;
-  if (!posix_time_from_utc(from->tm_year + 1900, from->tm_mon + 1,
-                           from->tm_mday, from->tm_hour, from->tm_min,
-                           from->tm_sec, &time_from)) {
-    return 0;
-  }
+
+  // Times are in range, so these calculations cannot overflow.
   int64_t timediff = time_to - time_from;
   int64_t daydiff = timediff / SECS_PER_DAY;
   timediff %= SECS_PER_DAY;
-  if (daydiff > INT_MAX || daydiff < INT_MIN) {
-    return 0;
-  }
+  static_assert(SECS_PER_DAY <= INT_MAX, "seconds per day does not fit in int");
+  static_assert((MAX_POSIX_TIME - MIN_POSIX_TIME) / SECS_PER_DAY <= INT_MAX,
+                "range of valid POSIX times, in days, does not fit in int");
   *out_secs = (int)timediff;
   *out_days = (int)daydiff;
   return 1;
