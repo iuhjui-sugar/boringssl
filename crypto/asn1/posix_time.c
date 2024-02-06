@@ -31,7 +31,7 @@
 
 // Is a year/month/day combination valid, in the range from year 0000
 // to 9999?
-static int is_valid_date(int year, int month, int day) {
+static int is_valid_date(int64_t year, int64_t month, int64_t day) {
   if (day < 1 || month < 1 || year < 0 || year > 9999) {
     return 0;
   }
@@ -62,7 +62,7 @@ static int is_valid_date(int year, int month, int day) {
 
 // Is a time valid? Leap seconds of 60 are not considered valid, as
 // the POSIX time in seconds does not include them.
-static int is_valid_time(int hours, int minutes, int seconds) {
+static int is_valid_time(int64_t hours, int64_t minutes, int64_t seconds) {
   if (hours < 0 || minutes < 0 || seconds < 0 || hours > 23 || minutes > 59 ||
       seconds > 59) {
     return 0;
@@ -79,8 +79,8 @@ static int is_valid_epoch_time(int64_t time) {
 // Inspired by algorithms presented in
 // https://howardhinnant.github.io/date_algorithms.html
 // (Public Domain)
-static int posix_time_from_utc(int year, int month, int day, int hours,
-                               int minutes, int seconds, int64_t *out_time) {
+static int posix_time_from_utc(int64_t year, int64_t month, int64_t day, int64_t hours,
+                               int64_t minutes, int64_t seconds, int64_t *out_time) {
   if (!is_valid_date(year, month, day) ||
       !is_valid_time(hours, minutes, seconds)) {
     return 0;
@@ -143,12 +143,7 @@ static int utc_from_posix_time(int64_t time, int *out_year, int *out_month,
 }
 
 int OPENSSL_tm_to_posix(const struct tm *tm, int64_t *out) {
-  // Ensure the additions below do not overflow.
-  if (tm->tm_year > 9999 || tm->tm_mon > 12) {
-    return 0;
-  }
-
-  return posix_time_from_utc(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
+  return posix_time_from_utc(tm->tm_year + 1900LL, tm->tm_mon + 1LL, tm->tm_mday,
                              tm->tm_hour, tm->tm_min, tm->tm_sec, out);
 }
 
@@ -194,7 +189,7 @@ struct tm *OPENSSL_gmtime(const time_t *time, struct tm *out_tm) {
 
 int OPENSSL_gmtime_adj(struct tm *tm, int off_day, long offset_sec) {
   int64_t posix_time;
-  if (!posix_time_from_utc(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
+  if (!posix_time_from_utc(tm->tm_year + 1900LL, tm->tm_mon + 1LL, tm->tm_mday,
                            tm->tm_hour, tm->tm_min, tm->tm_sec, &posix_time)) {
     return 0;
   }
@@ -213,12 +208,12 @@ int OPENSSL_gmtime_adj(struct tm *tm, int off_day, long offset_sec) {
 int OPENSSL_gmtime_diff(int *out_days, int *out_secs, const struct tm *from,
                         const struct tm *to) {
   int64_t time_to;
-  if (!posix_time_from_utc(to->tm_year + 1900, to->tm_mon + 1, to->tm_mday,
+  if (!posix_time_from_utc(to->tm_year + 1900LL, to->tm_mon + 1LL, to->tm_mday,
                            to->tm_hour, to->tm_min, to->tm_sec, &time_to)) {
     return 0;
   }
   int64_t time_from;
-  if (!posix_time_from_utc(from->tm_year + 1900, from->tm_mon + 1,
+  if (!posix_time_from_utc(from->tm_year + 1900LL, from->tm_mon + 1LL,
                            from->tm_mday, from->tm_hour, from->tm_min,
                            from->tm_sec, &time_from)) {
     return 0;
