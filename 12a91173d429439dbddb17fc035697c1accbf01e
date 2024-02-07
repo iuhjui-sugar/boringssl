@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75a19c2e_f29473fe",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "`UINT64_C(24)`.\n\nThere\u0027s no guarantee that `long long` is `int64_t`. (It\u0027s sometimes `long` and sometimes `long long`.)",
+      "range": {
+        "startLine": 29,
+        "startChar": 22,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "143f415e_89976148",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "INT64_C(-62167219200)",
+      "range": {
+        "startLine": 74,
+        "startChar": 35,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a063d519_86e5eff3",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "INT64_C(253402300799)",
+      "range": {
+        "startLine": 76,
+        "startChar": 35,
+        "endLine": 76,
+        "endChar": 37
+      },
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ad55a1_f3d95121",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "Nit: clang-format\n\n(Arguably these changes aren\u0027t great for 32-bit machines, but I think the compiler will figure it out. :-) )",
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f2d2a4c_e879df8b",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "Nit: clang-format. Also perhaps `tm-\u003etm_year + INT64_C(1900)` or `(int64_t)tm_year + 1900`, just so we\u0027re not juggling around `long long` vs `int64_t`.\n\nStrictly speaking, this also only works if `int` is 32-bit and not 64-bit, but we already assume that. (See compiler_test.cc)",
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3d0ce45_02c1e565",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick:\n\n```suggestion\n  tmp_tm.tm_year -\u003d 1900;\n  tmp_tm.tm_mon -\u003d 1;\n  *out_tm \u003d tmp_tm;\n```\n\nIt doesn\u0027t really matter but:\n\n1. Since `tmp_tm` is itself a `struct tm`, it seems tidier to fix `tmp_tm` rather than just `out_tm`.\n\n2. I mean, we could `memcpy`, but assignment works just fine on structs. :-)",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 22
+      },
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8697cdd_eafadb2a",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "Nit: Existing issue, but let\u0027s rename this to `offset_day` while we\u0027re here. It\u0027s kinda weird that it doesn\u0027t match `offset_sec` and I think `offset_day` is what the header uses.",
+      "range": {
+        "startLine": 195,
+        "startChar": 42,
+        "endLine": 195,
+        "endChar": 49
+      },
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "693c996a_5eaea420",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "Oh right, I guess this can\u0027t overflow? Maybe worth some static asserts...\n\n```\n  static_assert(INT_MAX \u003c\u003d INT64_MAX / SECS_PER_DAY,\n                \"day offset in seconds cannot overflow\");\n  static_assert(MAX_POSIX_TIME \u003c\u003d INT64_MAX - INT_MAX * SECS_PER_DAY,\n                \"addition cannot overflow\");\n  static_assert(MIN_POSIX_TIME \u003e\u003d INT64_MIN - INT_MIN * SECS_PER_DAY,\n                \"addition cannot underflow\");\n```",
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7749b02f_d5348acc",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-07T21:14:40Z",
+      "side": 1,
+      "message": "Nit: curly braces",
+      "revId": "12a91173d429439dbddb17fc035697c1accbf01e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
