@@ -178,6 +178,24 @@
       "parentUuid": "6f47c860_5dc8c5c6",
       "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37bbae59_789e1b6f",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-07T23:05:13Z",
+      "side": 1,
+      "message": "done - take a look in https://boringssl-review.googlesource.com/c/boringssl/+/66047",
+      "parentUuid": "d5346942_39b73195",
+      "revId": "79123ca9c0f9ae1532427f704fa626dbaebbdbe9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
