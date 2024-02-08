@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd178f58_bd5e46fe",
+        "filename": "pki/parse_certificate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-08T23:37:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a3f6304_9fbea7b1",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84537523_0739b305",
@@ -53,6 +71,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95d03e8f_a304798b",
+        "filename": "pki/simple_path_builder_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-08T23:37:13Z",
+      "side": 1,
+      "message": "We could probably sneak it in,  I think we should have such a thing we should just decide what it looks like, and in the interim do this for Nick. I can change this around to use what we land on after.",
+      "parentUuid": "11dc5432_71fd53ec",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d415e664_3b3836ea",
@@ -66,6 +102,30 @@
       "writtenOn": "2024-02-08T22:43:47Z",
       "side": 1,
       "message": "Nit: I\u0027d maybe add \"Most callers should return false here.\"",
+      "range": {
+        "startLine": 78,
+        "startChar": 60,
+        "endLine": 78,
+        "endChar": 61
+      },
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5afa2495_17512960",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-08T23:37:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d415e664_3b3836ea",
       "range": {
         "startLine": 78,
         "startChar": 60,
