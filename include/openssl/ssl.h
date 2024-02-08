@@ -1170,7 +1170,7 @@ OPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER)*
 // This function may return nullptr if a handshake has completed even if
 // |SSL_set_chain_and_key| was previously called, since the configuration
 // containing the certificates is typically cleared after handshake completion.
-OPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) * SSL_get0_chain(const SSL *ssl);
+OPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER)* SSL_get0_chain(const SSL *ssl);
 
 // SSL_CTX_use_RSAPrivateKey sets |ctx|'s private key to |rsa|. It returns one
 // on success and zero on failure.
