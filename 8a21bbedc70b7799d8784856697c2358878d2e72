@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e454290_2c411b7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T22:30:25Z",
+      "side": 1,
+      "message": "(p.s. when updating a CL you need to amend the existing commit. Gerrit doesn\u0027t squash.)",
+      "revId": "8a21bbedc70b7799d8784856697c2358878d2e72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
