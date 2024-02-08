@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7a3f6304_9fbea7b1",
+        "filename": "pki/parse_certificate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T22:43:47Z",
+      "side": 1,
+      "message": "Nit: stray line",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84537523_0739b305",
         "filename": "pki/simple_path_builder_delegate.h",
         "patchSetId": 4
@@ -14,6 +31,64 @@
       "writtenOn": "2024-01-30T18:16:34Z",
       "side": 1,
       "message": "This is sort of \"the way we can do this today\" to get nick up and running, but we should perhaps consider having a config structure for the path builder as part of / seperate from the delegate?",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11dc5432_71fd53ec",
+        "filename": "pki/simple_path_builder_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T22:43:47Z",
+      "side": 1,
+      "message": "Yeah, I think that would make a lot of sense. I guess this is something the three of us can talk about on Tuesday?",
+      "parentUuid": "84537523_0739b305",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d415e664_3b3836ea",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T22:43:47Z",
+      "side": 1,
+      "message": "Nit: I\u0027d maybe add \"Most callers should return false here.\"",
+      "range": {
+        "startLine": 78,
+        "startChar": 60,
+        "endLine": 78,
+        "endChar": 61
+      },
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e769382_b59369b4",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T22:43:47Z",
+      "side": 1,
+      "message": "It\u0027s really annoying that we don\u0027t have a config struct or something. A config struct could also allow us to do things like... default it to false.",
       "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
