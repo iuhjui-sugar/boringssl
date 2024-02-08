@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475dfcd6_7b932215",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T21:31:15Z",
+      "side": 1,
+      "message": "clang-format\n\n(Guessing you formatted this in google3. google3\u0027s clang-format is wrong and misparses this `*` as a product instead of a pointer. Our `.clang-format` fixes this by telling it about `STACK_OF(T)`, but google3 somewhat unhelpfully ignores `.clang-format`. It really should honor them inside `//third_party`.)",
+      "revId": "1fa3640d6d1b8f679a6158cc952a95738aaa1ba6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acaed106_bff10d4b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1609,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T21:31:15Z",
+      "side": 1,
+      "message": "This function is a bit confusing since it\u0027s really \"reconfigure client and server and then complete their handshakes\". Looks like all the fields are unused in your test, except for `shed_handshake_config`. Perhaps just call `SSL_set_shed_handshake_config` and then call `CompleteHandshakes`?",
+      "revId": "1fa3640d6d1b8f679a6158cc952a95738aaa1ba6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eec1ed7_51a306e6",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T21:31:15Z",
+      "side": 1,
+      "message": "clang-format (80 char limit)\n\n(Except I think you can revert this change per above.)",
+      "revId": "1fa3640d6d1b8f679a6158cc952a95738aaa1ba6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dddaf55f_14a89235",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T21:31:15Z",
+      "side": 1,
+      "message": "clang-format (80 char limit)",
+      "revId": "1fa3640d6d1b8f679a6158cc952a95738aaa1ba6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e17c24_864953ff",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4620,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T21:31:15Z",
+      "side": 1,
+      "message": "```suggestion\n  ASSERT_TRUE(SSL_set_chain_and_key(server.get(), chain.data(),\n```\n\nNot that it matters, but I prefer to use `std::vector::data()` everywhere to avoid thinking about the `vec.empty()` case.",
+      "range": {
+        "startLine": 4620,
+        "startChar": 50,
+        "endLine": 4620,
+        "endChar": 59
+      },
+      "revId": "1fa3640d6d1b8f679a6158cc952a95738aaa1ba6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d06d8627_abf40d02",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4634,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-08T21:31:15Z",
+      "side": 1,
+      "message": "This probably warrants a comment. Perhaps:\n\n// The server is configured to shed handshake config, so the certificate is no longer available after the handshake.",
+      "revId": "1fa3640d6d1b8f679a6158cc952a95738aaa1ba6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
