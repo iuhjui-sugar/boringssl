@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "762fe383_5f5e2e35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:15:40Z",
+      "side": 1,
+      "message": "(Are the other CLs obsolete now? If yes, I\u0027ll mark them as abandoned.)",
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
