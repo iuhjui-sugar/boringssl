@@ -16,6 +16,154 @@
       "message": "(Are the other CLs obsolete now? If yes, I\u0027ll mark them as abandoned.)",
       "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a30092f8_37644a8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "I\u0027ve added some comments below, however I\u0027m also happy to take over this CL and apply the BoringSSL-isms if that\u0027s preferable.",
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d4ba3d_8feb9a2c",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "These are probably enums, right?",
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef273f74_7b2c3751",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "Since this doesn\u0027t carry any information I would only tend to use it in cases where we need to force the caller to pay attention to the error. E.g. if there\u0027s a `\u0026mut [u8]` that they could be getting an output from. If the caller can\u0027t do anything without the return value, then I\u0027d tend to represent that as an `Option` rather than a content-less error.",
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "229857cd_202e5701",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "Rather than use `CSlice`, see the `as_ffi_ptr` and `as_mut_ffi_ptr`. It reduces lines of code and allows for unsafe uses of `as_ptr` etc to be more obvious in review.",
+      "range": {
+        "startLine": 85,
+        "startChar": 33,
+        "endLine": 85,
+        "endChar": 42
+      },
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e31c865_839cc98b",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "Could use `with_output_vec_fallible` to save some boilerplate. Your call.",
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3bf7e54_2d13d6fb",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "Is this leaking `ctx`? (You could add something to `scoped.rs` if you wanted, although not clearly worthwhile for one case like this.)",
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aecbb949_08017556",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "ditto about `CSlice`.",
+      "range": {
+        "startLine": 151,
+        "startChar": 40,
+        "endLine": 151,
+        "endChar": 46
+      },
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83700f52_cffa96fa",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-08T01:27:27Z",
+      "side": 1,
+      "message": "Leaks `hpke_key`? (And below.)",
+      "revId": "c4092917b3977b232954c87c7c60b31dd01aa84b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
