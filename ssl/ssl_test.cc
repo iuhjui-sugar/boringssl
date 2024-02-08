@@ -1606,33 +1606,6 @@ struct ClientConfig {
   bool early_data = false;
 };
 
-static bool ConnectClientAndServer(SSL *client,
-                                   SSL *server,
-                                   const ClientConfig &config = ClientConfig(),
-                                   bool shed_handshake_config = true) {
-  if (config.early_data) {
-    SSL_set_early_data_enabled(client, 1);
-  }
-  if (config.session) {
-    SSL_set_session(client, config.session);
-  }
-  if (!config.servername.empty() &&
-      !SSL_set_tlsext_host_name(client, config.servername.c_str())) {
-    return false;
-  }
-  if (!config.verify_hostname.empty()) {
-    if (!SSL_set1_host(client, config.verify_hostname.c_str())) {
-      return false;
-    }
-    SSL_set_hostflags(client, config.hostflags);
-  }
-
-  SSL_set_shed_handshake_config(client, shed_handshake_config);
-  SSL_set_shed_handshake_config(server, shed_handshake_config);
-
-  return CompleteHandshakes(client, server);
-}
-
 static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
                                    bssl::UniquePtr<SSL> *out_server,
                                    SSL_CTX *client_ctx, SSL_CTX *server_ctx,
@@ -1642,12 +1615,33 @@ static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
   if (!CreateClientAndServer(&client, &server, client_ctx, server_ctx)) {
     return false;
   }
-  if (ConnectClientAndServer(client.get(), server.get(), config, shed_handshake_config)) {
-    *out_client = std::move(client);
-    *out_server = std::move(server);
-    return true;
+  if (config.early_data) {
+    SSL_set_early_data_enabled(client.get(), 1);
   }
-  return false;
+  if (config.session) {
+    SSL_set_session(client.get(), config.session);
+  }
+  if (!config.servername.empty() &&
+      !SSL_set_tlsext_host_name(client.get(), config.servername.c_str())) {
+    return false;
+  }
+  if (!config.verify_hostname.empty()) {
+    if (!SSL_set1_host(client.get(), config.verify_hostname.c_str())) {
+      return false;
+    }
+    SSL_set_hostflags(client.get(), config.hostflags);
+  }
+
+  SSL_set_shed_handshake_config(client.get(), shed_handshake_config);
+  SSL_set_shed_handshake_config(server.get(), shed_handshake_config);
+
+  if (!CompleteHandshakes(client.get(), server.get())) {
+    return false;
+  }
+
+  *out_client = std::move(client);
+  *out_server = std::move(server);
+  return true;
 }
 
 static bssl::UniquePtr<SSL_SESSION> g_last_session;
@@ -4556,7 +4550,7 @@ TEST(SSLTest, SetChainAndKeyMismatch) {
   };
 
   // Should fail because |GetTestKey| doesn't match the chain-test certificate.
-  ASSERT_FALSE(SSL_CTX_set_chain_and_key(ctx.get(), &chain[0], chain.size(),
+  ASSERT_FALSE(SSL_CTX_set_chain_and_key(ctx.get(), chain.data(), chain.size(),
                                          key.get(), nullptr));
   ERR_clear_error();
 }
@@ -4579,7 +4573,7 @@ TEST(SSLTest, SetChainAndKeyCtx) {
   std::vector<CRYPTO_BUFFER*> chain = {
       leaf.get(), intermediate.get(),
   };
-  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), &chain[0],
+  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), chain.data(),
                                         chain.size(), key.get(), nullptr));
 
   ASSERT_EQ(chain.size(),
@@ -4603,7 +4597,10 @@ TEST(SSLTest, SetChainAndKeySSL) {
   ASSERT_TRUE(server_ctx);
 
   bssl::UniquePtr<SSL> client, server;
-  ASSERT_TRUE(CreateClientAndServer(&client, &server, client_ctx.get(), server_ctx.get()));
+  ASSERT_TRUE(CreateClientAndServer(&client, &server, client_ctx.get(),
+                                    server_ctx.get()));
+  SSL_set_shed_handshake_config(client.get(), true);
+  SSL_set_shed_handshake_config(server.get(), true);
 
   ASSERT_EQ(nullptr, SSL_get0_chain(server.get()));
 
@@ -4617,7 +4614,7 @@ TEST(SSLTest, SetChainAndKeySSL) {
   std::vector<CRYPTO_BUFFER*> chain = {
       leaf.get(), intermediate.get(),
   };
-  ASSERT_TRUE(SSL_set_chain_and_key(server.get(), &chain[0],
+  ASSERT_TRUE(SSL_set_chain_and_key(server.get(), chain.data(),
                                     chain.size(), key.get(), nullptr));
 
   ASSERT_EQ(chain.size(),
@@ -4629,8 +4626,10 @@ TEST(SSLTest, SetChainAndKeySSL) {
         return ssl_verify_ok;
       });
 
-  ASSERT_TRUE(ConnectClientAndServer(client.get(), server.get()));
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
 
+  // The server is configured to shed handshake config, so the certificate is no
+  // longer available after the handshake.
   ASSERT_EQ(nullptr, SSL_get0_chain(server.get()));
 }
 
@@ -4645,7 +4644,7 @@ TEST(SSLTest, BuffersFailWithoutCustomVerify) {
   bssl::UniquePtr<CRYPTO_BUFFER> leaf = GetChainTestCertificateBuffer();
   ASSERT_TRUE(leaf);
   std::vector<CRYPTO_BUFFER*> chain = { leaf.get() };
-  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), &chain[0],
+  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), chain.data(),
                                         chain.size(), key.get(), nullptr));
 
   // Without SSL_CTX_set_custom_verify(), i.e. with everything in the default
@@ -4675,7 +4674,7 @@ TEST(SSLTest, CustomVerify) {
   bssl::UniquePtr<CRYPTO_BUFFER> leaf = GetChainTestCertificateBuffer();
   ASSERT_TRUE(leaf);
   std::vector<CRYPTO_BUFFER*> chain = { leaf.get() };
-  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), &chain[0],
+  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), chain.data(),
                                         chain.size(), key.get(), nullptr));
 
   SSL_CTX_set_custom_verify(
@@ -4728,7 +4727,7 @@ TEST(SSLTest, ClientCABuffers) {
       leaf.get(),
       intermediate.get(),
   };
-  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), &chain[0],
+  ASSERT_TRUE(SSL_CTX_set_chain_and_key(server_ctx.get(), chain.data(),
                                         chain.size(), key.get(), nullptr));
 
   bssl::UniquePtr<CRYPTO_BUFFER> ca_name(
