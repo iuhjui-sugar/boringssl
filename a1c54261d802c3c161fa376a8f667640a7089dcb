@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7f3c179_4495d913",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-09T17:09:38Z",
+      "side": 1,
+      "message": "The main thing missing is documentation. The module should have code samples in the top-level documentation block like https://boringssl.googlesource.com/boringssl/+/fbb4133d6407d88287d6b12f3f18970884e4dd5e/rust/bssl-crypto/src/hmac.rs#22\n\nDoing this will highlight that important bits are missing, e.g. the ability to generate key pairs.\n\nYou should assume, when naming things, that people will `use bssl_crypto::hpke` and thus write names like `hpke::foo`. In this context, putting `Algorithm` on the end of KEM, KDF, and AEAD is probably more typing than any clarity justifies.\n\nFor each function, if the documentation is truely just repeating the function name, it\u0027s better to #allow it away. But these functions each need some significant documentation about their arguments. You can copy-paste from hpke.h if it helps.",
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b7f151_3d0886b1",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-09T17:09:38Z",
+      "side": 1,
+      "message": "`new_from_rfc_ids`?",
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a13bad0_8911f21b",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-09T17:09:38Z",
+      "side": 1,
+      "message": "`\u0026[u8]` so that we\u0027re not promising to have a `Vec` internally forever.",
+      "range": {
+        "startLine": 154,
+        "startChar": 39,
+        "endLine": 154,
+        "endChar": 46
+      },
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f9165d6_195bab51",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-09T17:09:38Z",
+      "side": 1,
+      "message": "This function should never fail. I.e. the result should be a `Vec\u003cu8\u003e` and the code should `assert!` that BoringSSL function returns 1.",
+      "range": {
+        "startLine": 209,
+        "startChar": 53,
+        "endLine": 209,
+        "endChar": 68
+      },
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77349835_7320400c",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-09T17:09:38Z",
+      "side": 1,
+      "message": "Use `checked_add` to crash on overflow.",
+      "range": {
+        "startLine": 212,
+        "startChar": 20,
+        "endLine": 212,
+        "endChar": 23
+      },
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
