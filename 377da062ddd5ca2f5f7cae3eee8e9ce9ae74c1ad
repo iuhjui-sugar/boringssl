@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3da27c16_d2f5a3e1",
+        "filename": "pki/simple_path_builder_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-09T17:12:19Z",
+      "side": 1,
+      "message": "Ah yeah, we could just do this as a setter on the PathBuilder. That\u0027s probably the simplest public API.\n\nPast the public API, the plumbing from PathBuilder to VerifyCertificateChain is currently pretty tedious. Maybe worth making that a params struct, I dunno.\n\nMy kingdom for named parameters!",
+      "parentUuid": "bd0a01ea_a13fb442",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d415e664_3b3836ea",
         "filename": "pki/verify_certificate_chain.h",
         "patchSetId": 4
