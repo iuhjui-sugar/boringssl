@@ -69,6 +69,24 @@
       "parentUuid": "fe055c83_0e9d968d",
       "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3e3057_e440c873",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-09T17:58:30Z",
+      "side": 1,
+      "message": "Switched to `BytesAsStringView` because that definitely needs to be in the name.\n\nI kept it `StringAsBytes` for now just because it seems more natural here:\n```\nconst char *c_str;\nauto span \u003d StringViewAsBytes(c_str);\n\nstd::string str;\nauto span \u003d StringViewAsBytes(str);\n```",
+      "parentUuid": "49dc7747_473057d9",
+      "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
