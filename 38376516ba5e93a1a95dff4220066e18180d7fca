@@ -33,6 +33,24 @@
       "message": "Oh, we actually do this C-style with the `*` aligning with the name:\n```suggestion\nOPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *SSL_get0_chain(const SSL *ssl);\n```",
       "revId": "38376516ba5e93a1a95dff4220066e18180d7fca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "288ff91d_acb1e5f8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 6740
+      },
+      "writtenOn": "2024-02-09T16:29:52Z",
+      "side": 1,
+      "message": "Fix applied.\n\n(note that this contradicts the declaration just above)",
+      "parentUuid": "1c2f7c8b_c7383ff1",
+      "revId": "38376516ba5e93a1a95dff4220066e18180d7fca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
