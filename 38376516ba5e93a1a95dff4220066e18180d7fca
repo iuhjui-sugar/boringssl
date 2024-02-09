@@ -51,6 +51,24 @@
       "parentUuid": "1c2f7c8b_c7383ff1",
       "revId": "38376516ba5e93a1a95dff4220066e18180d7fca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "272a28c5_d7742fa2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-09T16:34:33Z",
+      "side": 1,
+      "message": "Ah yeah, clang-format seems to prefer to write that as\n```\nOPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *SSL_CTX_get0_chain(\n    const SSL_CTX *ctx);\n```\n\nIf line-breaking at the `*`, it\u0027s almost correct but needs a space:\n```\nOPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *\nSSL_CTX_get0_chainzzzzzzzzzzzzzzzzz(const SSL_CTX *ctx);\n```\n\nI bet that was hand-written before we had `TypenameMacros` macros in `.clang-format`. There was a time when we needed to hand-fix all the lines involving `STACK_OF(T)` because clang-format would make a huge mess of it. :-(\n\n*shrug*",
+      "parentUuid": "288ff91d_acb1e5f8",
+      "revId": "38376516ba5e93a1a95dff4220066e18180d7fca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
