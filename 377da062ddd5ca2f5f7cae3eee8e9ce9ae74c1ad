@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34fa30f1_c9b80173",
+        "filename": "pki/simple_path_builder_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-02-09T02:16:53Z",
+      "side": 1,
+      "message": "Well, for the path builder we already do config by having setters on the PathBuilder object, so I\u0027m not sure that we need a delegate method vs just adding another setter? (putting off the question about whether there should be a config struct vs individual setters, I think they would both still be set on PathBuilder)\n\nI guess the thing the delegate buys in this CL is not having to add another parameter to VerifyCertificateChain to pass the parameter from the PathBuilder? But with a config struct on PathBuilder you\u0027d still have to do that anyway right? (I guess VerifyCertificateChain could have it\u0027s own separate config struct passed in?)",
+      "parentUuid": "95d03e8f_a304798b",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d415e664_3b3836ea",
         "filename": "pki/verify_certificate_chain.h",
         "patchSetId": 4
