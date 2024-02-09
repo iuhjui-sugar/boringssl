@@ -16,6 +16,23 @@
       "message": "After several rounds of holding-Git-wrong, I think all comments are addressed.",
       "revId": "38376516ba5e93a1a95dff4220066e18180d7fca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c2f7c8b_c7383ff1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-09T16:18:54Z",
+      "side": 1,
+      "message": "Oh, we actually do this C-style with the `*` aligning with the name:\n```suggestion\nOPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *SSL_get0_chain(const SSL *ssl);\n```",
+      "revId": "38376516ba5e93a1a95dff4220066e18180d7fca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
