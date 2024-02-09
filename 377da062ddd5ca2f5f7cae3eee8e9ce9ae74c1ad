@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd0a01ea_a13fb442",
+        "filename": "pki/simple_path_builder_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-09T17:06:05Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m sort of thinking we consider how we take the pain once (and perhaps add another parameter that has to get passed through) to effectively allow settable options to get passed through without having to plumb another parameter all the way through every time.  \n\nAnd also maybe think about \"well, do we want to just allow for booleans, scalars, whatnot) We can probably talk about it tuesday.",
+      "parentUuid": "34fa30f1_c9b80173",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d415e664_3b3836ea",
         "filename": "pki/verify_certificate_chain.h",
         "patchSetId": 4
