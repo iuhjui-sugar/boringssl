@@ -87,6 +87,24 @@
       "parentUuid": "49dc7747_473057d9",
       "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea4db62d_1b722de4",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-09T19:03:48Z",
+      "side": 1,
+      "message": "Good enough for me.",
+      "parentUuid": "6b3e3057_e440c873",
+      "revId": "737bfbd5f7ba336c4f32fcca89a87ea4ee7e4bfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
