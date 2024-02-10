@@ -358,6 +358,7 @@ typedef struct sha_state_st SHA_CTX;
 typedef struct spake2_ctx_st SPAKE2_CTX;
 typedef struct srtp_protection_profile_st SRTP_PROTECTION_PROFILE;
 typedef struct ssl_cipher_st SSL_CIPHER;
+typedef struct ssl_credential_st SSL_CREDENTIAL;
 typedef struct ssl_ctx_st SSL_CTX;
 typedef struct ssl_early_callback_ctx SSL_CLIENT_HELLO;
 typedef struct ssl_ech_keys_st SSL_ECH_KEYS;
