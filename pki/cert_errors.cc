@@ -92,6 +92,21 @@ std::string CertErrors::ToDebugString() const {
   return result;
 }
 
+bool CertErrors::ContainsNoOtherErrorWithSeverity(CertErrorId id,
+                                                  CertError::Severity severity,
+                                                  size_t &out_seen) const {
+  for (const CertError &node : nodes_) {
+    if (node.severity == severity) {
+      if (node.id == id) {
+        out_seen++;
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 bool CertErrors::ContainsErrorWithSeverity(CertErrorId id,
                                            CertError::Severity severity) const {
   for (const CertError &node : nodes_) {
@@ -166,6 +181,24 @@ bool CertPathErrors::ContainsAnyErrorWithSeverity(
   }
 
   return false;
+}
+
+bool CertPathErrors::ContainsOnlyError(
+    CertErrorId id) const {
+  size_t seen = 0;
+  for (const CertErrors &errors : cert_errors_) {
+    if (!errors.ContainsNoOtherErrorWithSeverity(id, CertError::SEVERITY_HIGH,
+                                                 seen)) {
+      return false;
+    }
+  }
+
+  if (!other_errors_.ContainsNoOtherErrorWithSeverity(
+          id, CertError::SEVERITY_HIGH, seen)) {
+    return false;
+  }
+
+  return seen == 1;
 }
 
 std::string CertPathErrors::ToDebugString(
