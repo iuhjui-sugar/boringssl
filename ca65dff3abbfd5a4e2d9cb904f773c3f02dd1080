@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6488f28b_1a824ef7",
+        "filename": "pki/cert_errors.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-13T23:35:13Z",
+      "side": 1,
+      "message": "severity",
+      "range": {
+        "startLine": 113,
+        "startChar": 10,
+        "endLine": 113,
+        "endChar": 19
+      },
+      "revId": "ca65dff3abbfd5a4e2d9cb904f773c3f02dd1080",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
