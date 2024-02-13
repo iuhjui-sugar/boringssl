@@ -374,6 +374,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c886537_9ed39817",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-13T19:32:23Z",
+      "side": 1,
+      "message": "Eh, if we need it, we can keep it. Separately, I think the google3 uses are wrong and we should work with them to remove it. But that can happen separately.\n\nJust I think we should rephrase the comment. Right now it reads as if we have picked a funny notion of self-signed, and we haven\u0027t. self-issued is self-issued, not self-signed.\n\nThat is, rather say \"This is often called self-signed\", let\u0027s clarify that different contexts may have different notion of \"self-signed\", and that this may or may not be this, due to signature checks and AKIDs and whatnot.",
+      "parentUuid": "e2c15807_d468c589",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a1d3352_4ecaa79f",
         "filename": "include/openssl/pki/certificate.h",
         "patchSetId": 15
