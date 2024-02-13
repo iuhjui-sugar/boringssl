@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba4fe7ff_5c12537b",
+        "filename": "include/openssl/pki/cert_errors.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-13T20:37:52Z",
+      "side": 1,
+      "message": "While this is nice in a way -\u003e should these really have defined values if someone wants to serialize them without writing their own mapping to something else?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 15
+      },
+      "revId": "48b4c42fa925909377ddb81dc5992e81988e1579",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
