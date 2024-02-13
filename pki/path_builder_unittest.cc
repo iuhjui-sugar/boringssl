@@ -722,7 +722,7 @@ TEST_F(PathBuilderMultiRootTest, TestTrivialDeadline) {
       EXPECT_FALSE(result.paths[0]->IsValid());
       ASSERT_EQ(1U, result.paths[0]->certs.size());
       EXPECT_EQ(a_by_b_, result.paths[0]->certs[0]);
-      EXPECT_TRUE(result.paths[0]->errors.ContainsError(
+      EXPECT_TRUE(result.paths[0]->errors.ContainsOnlyError(
           cert_errors::kDeadlineExceeded));
     } else {
       ASSERT_EQ(1U, result.paths.size());
@@ -818,7 +818,7 @@ TEST_F(PathBuilderMultiRootTest, TestDeadline) {
   EXPECT_EQ(b_by_c_, result.paths[0]->certs[1]);
   EXPECT_EQ(c_by_d_, result.paths[0]->certs[2]);
   EXPECT_TRUE(
-      result.paths[0]->errors.ContainsError(cert_errors::kDeadlineExceeded));
+      result.paths[0]->errors.ContainsOnlyError(cert_errors::kDeadlineExceeded));
 }
 
 TEST_F(PathBuilderMultiRootTest, TestDepthLimit) {
@@ -899,8 +899,8 @@ TEST_F(PathBuilderMultiRootTest, TestDepthLimitMultiplePaths) {
 
   const CertPathBuilderResultPath *truncated_path = result.paths[0].get();
   EXPECT_FALSE(truncated_path->IsValid());
-  EXPECT_TRUE(
-      truncated_path->errors.ContainsError(cert_errors::kDepthLimitExceeded));
+  EXPECT_TRUE(truncated_path->errors.ContainsOnlyError(
+      cert_errors::kDepthLimitExceeded));
   ASSERT_EQ(truncated_path->certs.size(), 3u);
   EXPECT_EQ(a_by_b_, truncated_path->certs[0]);
   EXPECT_EQ(b_by_f_, truncated_path->certs[1]);
@@ -909,7 +909,7 @@ TEST_F(PathBuilderMultiRootTest, TestDepthLimitMultiplePaths) {
   const CertPathBuilderResultPath *valid_path = result.paths[1].get();
   EXPECT_TRUE(valid_path->IsValid());
   EXPECT_FALSE(
-      valid_path->errors.ContainsError(cert_errors::kDepthLimitExceeded));
+      valid_path->errors.ContainsOnlyError(cert_errors::kDepthLimitExceeded));
   ASSERT_EQ(valid_path->certs.size(), 3u);
   EXPECT_EQ(a_by_b_, valid_path->certs[0]);
   EXPECT_EQ(b_by_c_, valid_path->certs[1]);
@@ -1165,7 +1165,7 @@ TEST_F(PathBuilderKeyRolloverTest, TestReturnsPartialPathEndedByLoopChecker) {
     EXPECT_EQ(target_, path.certs[0]);
     EXPECT_EQ(newintermediate_, path.certs[1]);
     EXPECT_EQ(newroot_, path.certs[2]);
-    EXPECT_TRUE(path.errors.ContainsError(cert_errors::kNoIssuersFound));
+    EXPECT_TRUE(path.errors.ContainsOnlyError(cert_errors::kNoIssuersFound));
   }
 
   {
@@ -1175,7 +1175,7 @@ TEST_F(PathBuilderKeyRolloverTest, TestReturnsPartialPathEndedByLoopChecker) {
     EXPECT_EQ(target_, path.certs[0]);
     EXPECT_EQ(newintermediate_, path.certs[1]);
     EXPECT_EQ(newrootrollover_, path.certs[2]);
-    EXPECT_TRUE(path.errors.ContainsError(cert_errors::kNoIssuersFound));
+    EXPECT_TRUE(path.errors.ContainsOnlyError(cert_errors::kNoIssuersFound));
   }
 }
 
@@ -1351,7 +1351,7 @@ TEST_F(PathBuilderKeyRolloverTest, ExploreAllPathsWithIterationLimit) {
       EXPECT_FALSE(path.IsValid());
       EXPECT_EQ(expectation.partial_path, path.certs);
       EXPECT_TRUE(
-          path.errors.ContainsError(cert_errors::kIterationLimitExceeded));
+          path.errors.ContainsOnlyError(cert_errors::kIterationLimitExceeded));
     }
 
     if (expectation.expected_num_paths > 0) {
@@ -1989,7 +1989,7 @@ TEST_F(PathBuilderDistrustTest, TargetIntermediateRoot) {
     ASSERT_EQ(1u, best_path->certs.size());
     EXPECT_EQ(best_path->certs[0], test_.chain[0]);
     EXPECT_TRUE(best_path->errors.ContainsHighSeverityErrors());
-    best_path->errors.ContainsError(cert_errors::kDistrustedByTrustStore);
+    best_path->errors.ContainsOnlyError(cert_errors::kDistrustedByTrustStore);
   }
 
   // Try path building when only the intermediate is blocked - should fail.
@@ -2005,7 +2005,7 @@ TEST_F(PathBuilderDistrustTest, TargetIntermediateRoot) {
     EXPECT_EQ(best_path->certs[0], test_.chain[0]);
     EXPECT_EQ(best_path->certs[1], test_.chain[1]);
     EXPECT_TRUE(best_path->errors.ContainsHighSeverityErrors());
-    best_path->errors.ContainsError(cert_errors::kDistrustedByTrustStore);
+    best_path->errors.ContainsOnlyError(cert_errors::kDistrustedByTrustStore);
   }
 
   // Try path building when only the root is blocked - should fail.
@@ -2022,7 +2022,7 @@ TEST_F(PathBuilderDistrustTest, TargetIntermediateRoot) {
     EXPECT_EQ(best_path->certs[1], test_.chain[1]);
     EXPECT_EQ(best_path->certs[2], test_.chain[2]);
     EXPECT_TRUE(best_path->errors.ContainsHighSeverityErrors());
-    best_path->errors.ContainsError(cert_errors::kDistrustedByTrustStore);
+    best_path->errors.ContainsOnlyError(cert_errors::kDistrustedByTrustStore);
   }
 }
 
@@ -2069,6 +2069,7 @@ class AddErrorPathBuilderDelegate : public CertPathBuilderDelegateBase {
  public:
   void CheckPathAfterVerification(const CertPathBuilder &path_builder,
                                   CertPathBuilderResultPath *path) override {
+    path->errors.GetErrorsForCert(1)->AddError(kErrorFromDelegate, nullptr);
     path->errors.GetErrorsForCert(2)->AddError(kErrorFromDelegate, nullptr);
   }
 };
@@ -2089,6 +2090,48 @@ TEST_F(PathBuilderCheckPathAfterVerificationTest, AddsErrorToValidPath) {
   const CertErrors *cert2_errors = failed_path->errors.GetErrorsForCert(2);
   ASSERT_TRUE(cert2_errors);
   EXPECT_TRUE(cert2_errors->ContainsError(kErrorFromDelegate));
+
+  // An error should also have been added to the certificate at index 1.
+  // So we should expect the failed path to contain the error.
+  EXPECT_TRUE(failed_path->errors.ContainsError(kErrorFromDelegate));
+  // However, since the error occurs twice it is not the only
+  // error.
+  EXPECT_FALSE(failed_path->errors.ContainsOnlyError(kErrorFromDelegate));
+}
+
+class AddMultipleErrorPathBuilderDelegate : public CertPathBuilderDelegateBase {
+ public:
+  void CheckPathAfterVerification(const CertPathBuilder &path_builder,
+                                  CertPathBuilderResultPath *path) override {
+    path->errors.GetErrorsForCert(1)->AddError(kErrorFromDelegate, nullptr);
+    path->errors.GetErrorsForCert(2)->AddError(cert_errors::kDeadlineExceeded, nullptr);
+  }
+};
+
+TEST_F(PathBuilderCheckPathAfterVerificationTest, AddsMultipleErrorToValidPath) {
+  AddMultipleErrorPathBuilderDelegate delegate;
+  CertPathBuilder::Result result = RunPathBuilder(nullptr, &delegate);
+
+  // Verification failed.
+  ASSERT_FALSE(result.HasValidPath());
+
+  ASSERT_LT(result.best_result_index, result.paths.size());
+  const CertPathBuilderResultPath *failed_path =
+      result.paths[result.best_result_index].get();
+  ASSERT_TRUE(failed_path);
+
+  // An error should have been added to certificate at index 1 in the path.
+  const CertErrors *cert1_errors = failed_path->errors.GetErrorsForCert(1);
+  ASSERT_TRUE(cert1_errors);
+  EXPECT_TRUE(cert1_errors->ContainsError(kErrorFromDelegate));
+  // So we should expect the failed path to contain the error.
+  EXPECT_TRUE(failed_path->errors.ContainsError(kErrorFromDelegate));
+
+  // However, since we added a different error at index 2, this should not be
+  // the only error.
+  EXPECT_TRUE(failed_path->errors.ContainsError(cert_errors::kDeadlineExceeded));
+  EXPECT_FALSE(failed_path->errors.ContainsOnlyError(kErrorFromDelegate));
+  EXPECT_FALSE(failed_path->errors.ContainsOnlyError(cert_errors::kDeadlineExceeded));
 }
 
 TEST_F(PathBuilderCheckPathAfterVerificationTest, NoopToAlreadyInvalidPath) {
