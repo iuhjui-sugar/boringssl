@@ -116,6 +116,12 @@ class OPENSSL_EXPORT CertErrors {
   // Returns true if this contains any errors of the given severity level.
   bool ContainsAnyErrorWithSeverity(CertError::Severity severity) const;
 
+  // Returns true if this contains no other errors of severity |severity| than
+  // |id|, increasing |out_seen| by one for every error of |id| seen.
+  bool ContainsNoOtherErrorWithSeverity(CertErrorId id,
+                                       CertError::Severity severity,
+                                       size_t &out_seen) const;
+
  private:
   std::vector<CertError> nodes_;
 };
@@ -156,6 +162,9 @@ class OPENSSL_EXPORT CertPathErrors {
   bool ContainsHighSeverityErrors() const {
     return ContainsAnyErrorWithSeverity(CertError::SEVERITY_HIGH);
   }
+
+  // Returns true if |id| is the only high severity error. false otherwise
+  bool ContainsOnlyError(CertErrorId id) const;
 
   // Pretty-prints all the errors in the CertPathErrors. If there were no
   // errors/warnings, returns an empty string.
