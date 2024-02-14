@@ -33,6 +33,23 @@
       "message": "Bah. Looks like, for span.h, we did an inner `BORINGSSL_NO_CXX` ifdef, but that\u0027s pretty longer, so maybe this version is better anyway. *shrug*\n\nI know compilers have some cleverness to detect include guards, but I don\u0027t know how fragile it is.",
       "revId": "3720f89c43772ab887f68d0f48a3f9ce568caea5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82a5b4ad_2a2c0620",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-14T23:56:23Z",
+      "side": 1,
+      "message": "Looks like we have a bunch of uses of both BORINGSSL_NO_CXX and __cplusplus in the headers. If someone has a preference, happy to do whatever here.",
+      "revId": "3720f89c43772ab887f68d0f48a3f9ce568caea5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
