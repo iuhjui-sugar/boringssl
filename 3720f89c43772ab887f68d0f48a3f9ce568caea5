@@ -16,6 +16,23 @@
       "message": "This one I\u0027m not sure about, although I\u0027ve confirmed that it does fix the problem.",
       "revId": "3720f89c43772ab887f68d0f48a3f9ce568caea5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65df8cfe_84f74289",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-14T23:47:22Z",
+      "side": 1,
+      "message": "Bah. Looks like, for span.h, we did an inner `BORINGSSL_NO_CXX` ifdef, but that\u0027s pretty longer, so maybe this version is better anyway. *shrug*\n\nI know compilers have some cleverness to detect include guards, but I don\u0027t know how fragile it is.",
+      "revId": "3720f89c43772ab887f68d0f48a3f9ce568caea5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
