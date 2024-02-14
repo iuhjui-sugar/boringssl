@@ -34,6 +34,24 @@
       "parentUuid": "4142f058_e5a897f3",
       "revId": "069fc83105c6fa827b62f263677a3ec65157a8ec",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d75b1a9a_67419646",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3854,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-14T23:26:09Z",
+      "side": 1,
+      "message": "This API is actually not Python, but it is also bad yeah. (Note, when you search for it, most people use the old X509_STORE_get_by_subject name.)\n\nWarning added.",
+      "parentUuid": "0ad59460_b054cc94",
+      "revId": "069fc83105c6fa827b62f263677a3ec65157a8ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
