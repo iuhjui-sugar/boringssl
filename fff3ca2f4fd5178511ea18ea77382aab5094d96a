@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edd8a04b_660b2f48",
+        "filename": "pki/cert_errors.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-14T17:33:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e35a5c19_37de6486",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25191d67_5918c466",
@@ -66,6 +84,24 @@
       "writtenOn": "2024-02-14T01:45:03Z",
       "side": 1,
       "message": "erm, some of these are no-ops since they are just ignoring the return value (no EXPECT_TRUE() around them). \n(maybe we should be using `[[nodiscard]]`)",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59323ad8_2537b264",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1992,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-14T17:33:50Z",
+      "side": 1,
+      "message": "Yeah, let\u0027s just wrap them in EXPECT_TRUE so they look normal.",
+      "parentUuid": "25191d67_5918c466",
       "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
