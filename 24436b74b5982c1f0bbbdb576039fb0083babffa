@@ -22,6 +22,30 @@
       },
       "revId": "24436b74b5982c1f0bbbdb576039fb0083babffa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63ec475f_82b923fe",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2669,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-14T23:51:08Z",
+      "side": 1,
+      "message": "Someone uses it. :-( You may recognize them. go/ignores-critical-extensions",
+      "parentUuid": "0ca2dc7a_bb530ca7",
+      "range": {
+        "startLine": 2667,
+        "startChar": 0,
+        "endLine": 2669,
+        "endChar": 54
+      },
+      "revId": "24436b74b5982c1f0bbbdb576039fb0083babffa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
