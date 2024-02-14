@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "467c5203_44f3b241",
+        "filename": "pki/cert_errors.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-14T19:22:37Z",
+      "side": 1,
+      "message": "thinking about it a little more, even to the point of \"oh I had an expired cert on the leaf\" - we might not care, but *IF* we ever got to \"I have an expired leaf and an expired intermediate\" the expired intermediate could mean that, were we checking for revocation, the intermediate was revoked but since it is expired we don\u0027t bother checking anymore.  (the same is true of the leaf but let\u0027s assume a world where we don\u0027t do direct expiry checking of leaves). So possibly even in the expired case this still might make sense to just err on the side of caution and say that more than one of the same error is \"multiple errors\" if it happens.",
+      "parentUuid": "1833d704_ad079083",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e35a5c19_37de6486",
         "filename": "pki/cert_errors.h",
         "patchSetId": 4
