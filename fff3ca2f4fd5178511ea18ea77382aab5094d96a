@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ea50e1d_49d62fe4",
+        "filename": "pki/cert_errors.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-02-14T01:45:03Z",
+      "side": 1,
+      "message": "not about the reasoning behind this part. Say for example, a chain with both the leaf and intermediate are expired. I\u0027m not sure why that would want to be handled any differently than a chain where only the leaf or only the intermediate are expired. Are there cases where two of the same error should be handled differently than one?",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e35a5c19_37de6486",
+        "filename": "pki/cert_errors.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-02-14T01:45:03Z",
+      "side": 1,
+      "message": "nit: `, false otherwise.`",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25191d67_5918c466",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1992,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-02-14T01:45:03Z",
+      "side": 1,
+      "message": "erm, some of these are no-ops since they are just ignoring the return value (no EXPECT_TRUE() around them). \n(maybe we should be using `[[nodiscard]]`)",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
