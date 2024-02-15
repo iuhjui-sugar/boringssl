@@ -442,20 +442,6 @@ both_builders("docs", LINUX_HOST, recipe = "boringssl_docs", short_name = "doc")
 # in luci.flex.ci and luci.flex.try pools. When this changes, switch to
 # MAC_ARM64_HOST.
 both_builders(
-    "ios_compile",
-    MAC_X86_64_HOST,
-    category = "ios",
-    short_name = "32",
-    properties = {
-        "cmake_args": {
-            "CMAKE_OSX_ARCHITECTURES": "armv7",
-            "CMAKE_OSX_SYSROOT": "iphoneos",
-        },
-        "run_unit_tests": False,
-        "run_ssl_tests": False,
-    },
-)
-both_builders(
     "ios64_compile",
     MAC_X86_64_HOST,
     category = "ios",
