@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a906b4e_9aeed398",
+        "filename": "pki/cert_errors.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-15T20:13:51Z",
+      "side": 1,
+      "message": "Yeah, I think the more likely useful thing is that we\u0027re okay if there are multiple errors of that type. If this function is OK with expired-intermediate and OK with expired-leaf, it\u0027s weird that it\u0027s not OK with the combination of the two.\n\nAnd in terms of use cases, a caller checking for this is really asking \"is the only thing wrong with the certificate time-related\", which is true when there are multiple of them.\n\nI mean, really we\u0027re divining why the caller was interested in \"only\" this error, because we don\u0027t have individual functions like\n\n* IsPathBadOnlyBecauseOfExpiryChecks\n* IsPathBadOnlyBecauseHostnameWasWrong\n\netc. Because in that model, IsPathBadOnlyBecauseSigAlgWasUnacceptable is just a function we\u0027d never offer because it\u0027s incoherent. If we don\u0027t like the sigalg, we didn\u0027t check the signature, so it\u0027s all nonsense.\n\nBut individual functions seems a bit tedious.",
+      "parentUuid": "6fc4ebe8_cd9d3fe6",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e35a5c19_37de6486",
         "filename": "pki/cert_errors.h",
         "patchSetId": 4
