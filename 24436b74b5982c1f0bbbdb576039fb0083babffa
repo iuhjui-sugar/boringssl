@@ -46,6 +46,30 @@
       },
       "revId": "24436b74b5982c1f0bbbdb576039fb0083babffa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4f4310_618dd6f6",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2669,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-15T16:52:05Z",
+      "side": 1,
+      "message": "😭",
+      "parentUuid": "63ec475f_82b923fe",
+      "range": {
+        "startLine": 2667,
+        "startChar": 0,
+        "endLine": 2669,
+        "endChar": 54
+      },
+      "revId": "24436b74b5982c1f0bbbdb576039fb0083babffa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
