@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b3cacd8_2b3582ea",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-15T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7f3c179_4495d913",
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41b7f151_3d0886b1",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ef5002_45f92ac8",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-15T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41b7f151_3d0886b1",
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a13bad0_8911f21b",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-02-09T17:09:38Z",
       "side": 1,
       "message": "`\u0026[u8]` so that we\u0027re not promising to have a `Vec` internally forever.",
+      "range": {
+        "startLine": 154,
+        "startChar": 39,
+        "endLine": 154,
+        "endChar": 46
+      },
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2a7a445_e46394e5",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-15T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a13bad0_8911f21b",
       "range": {
         "startLine": 154,
         "startChar": 39,
@@ -81,6 +141,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efa03337_0c96f77c",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-15T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f9165d6_195bab51",
+      "range": {
+        "startLine": 209,
+        "startChar": 53,
+        "endLine": 209,
+        "endChar": 68
+      },
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77349835_7320400c",
@@ -94,6 +178,30 @@
       "writtenOn": "2024-02-09T17:09:38Z",
       "side": 1,
       "message": "Use `checked_add` to crash on overflow.",
+      "range": {
+        "startLine": 212,
+        "startChar": 20,
+        "endLine": 212,
+        "endChar": 23
+      },
+      "revId": "a1c54261d802c3c161fa376a8f667640a7089dcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85313df3_0e07e75d",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-15T22:43:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77349835_7320400c",
       "range": {
         "startLine": 212,
         "startChar": 20,
