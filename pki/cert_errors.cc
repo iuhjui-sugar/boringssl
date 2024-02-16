@@ -168,6 +168,26 @@ bool CertPathErrors::ContainsAnyErrorWithSeverity(
   return false;
 }
 
+bool CertPathErrors::ContainsMultipleHighSeverityErrors() const {
+  bool error_seen = false;
+  CertErrorId id_seen;
+  for (size_t i = 0; i < cert_errors_.size(); ++i) {
+    const CertErrors *errors = GetErrorsForCert(i);
+    for (const CertError &node : errors->nodes_) {
+      if (node.severity == CertError::SEVERITY_HIGH) {
+        if (!error_seen) {
+          error_seen = true;
+          id_seen = node.id;
+        }
+        if (id_seen != node.id) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
 std::string CertPathErrors::ToDebugString(
     const ParsedCertificateList &certs) const {
   std::ostringstream result;

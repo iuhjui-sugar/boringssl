@@ -10,6 +10,7 @@
 #include <unordered_set>
 
 #include <openssl/base.h>
+#include <openssl/pki/verify_error.h>
 #include <openssl/sha.h>
 
 #include "cert_issuer_source.h"
@@ -709,6 +710,109 @@ CertPathBuilderResultPath::~CertPathBuilderResultPath() = default;
 bool CertPathBuilderResultPath::IsValid() const {
   return GetTrustedCert() && !errors.ContainsHighSeverityErrors();
 }
+
+VerifyError CertPathBuilderResultPath::GetVerifyError() {
+  // Diagnostic string is always "everything" about the path.
+  std::string diagnostic  = errors.ToDebugString(certs);
+  if (!errors.ContainsHighSeverityErrors()) {
+    if (GetTrustedCert()) {
+      return VerifyError(VerifyError::StatusCode::PATH_VERIFIED, 0, diagnostic);
+    } else {
+      return VerifyError(VerifyError::StatusCode::UNKNOWN_ERROR, -1,
+                         diagnostic);
+    }
+  }
+  if (errors.ContainsError(cert_errors::kInternalError) ||
+      errors.ContainsError(cert_errors::kChainIsEmpty)) {
+    // Check for the presence of things that amount to Internal errors in the
+    // verification code. We deliberately prioritize this to not hide it in
+    // multiple error cases.
+    return VerifyError(VerifyError::StatusCode::UNKNOWN_ERROR, -1, diagnostic);
+  }
+  if (errors.ContainsMultipleHighSeverityErrors()) {
+    return VerifyError(VerifyError::StatusCode::PATH_MULTIPLE_ERRORS, -1,
+                       diagnostic);
+  }
+  for (ssize_t i = -1; i < (ssize_t)certs.size(); ++i) {
+    const CertErrors *cert_errors =
+        (i < 0) ? errors.GetOtherErrors() : errors.GetErrorsForCert(i);
+    if (cert_errors->ContainsError(cert_errors::kValidityFailedNotAfter)) {
+      return VerifyError(VerifyError::StatusCode::CERTIFICATE_EXPIRED, i,
+                         diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kValidityFailedNotBefore)) {
+      return VerifyError(VerifyError::StatusCode::CERTIFICATE_NOT_YET_VALID, i,
+                         diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kNoIssuersFound)) {
+      return VerifyError((i == 0)
+                             ? VerifyError::StatusCode::CERTIFICATE_SELF_SIGNED
+                             : VerifyError::StatusCode::PATH_NOT_FOUND,
+                         i, diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kDistrustedByTrustStore) ||
+        cert_errors->ContainsError(cert_errors::kVerifySignedDataFailed) ||
+        cert_errors->ContainsError(cert_errors::kCertIsNotTrustAnchor) ||
+        cert_errors->ContainsError(cert_errors::kMaxPathLengthViolated) ||
+        cert_errors->ContainsError(cert_errors::kSubjectDoesNotMatchIssuer)) {
+      return VerifyError(VerifyError::StatusCode::PATH_NOT_FOUND, i,
+                         diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kSignatureAlgorithmMismatch) ||
+        cert_errors->ContainsError(cert_errors::kVerifySignedDataFailed) ||
+        cert_errors->ContainsError(cert_errors::kUnacceptableSignatureAlgorithm)) {
+      return VerifyError(VerifyError::StatusCode::CERTIFICATE_INVALID_SIGNATURE,
+                         i, diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kUnacceptablePublicKey)) {
+      return VerifyError(VerifyError::StatusCode::CERTIFICATE_UNSUPPORTED_KEY,
+                         i, diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kEkuLacksServerAuth) ||
+        cert_errors->ContainsError(cert_errors::kEkuLacksServerAuthButHasAnyEKU) ||
+        cert_errors->ContainsError(cert_errors::kEkuLacksClientAuth) ||
+        cert_errors->ContainsError(cert_errors::kEkuLacksClientAuthButHasAnyEKU) ||
+        cert_errors->ContainsError(cert_errors::kEkuLacksClientAuthOrServerAuth)) {
+      return VerifyError(VerifyError::StatusCode::CERTIFICATE_NO_MATCHING_EKU,
+                         i, diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kCertificateRevoked)) {
+      return VerifyError(VerifyError::StatusCode::CERTIFICATE_REVOKED, i,
+                         diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kNoRevocationMechanism)) {
+      return VerifyError(
+          VerifyError::StatusCode::CERTIFICATE_NO_REVOCATION_MECHANISM, i,
+          diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kUnableToCheckRevocation)) {
+      return VerifyError(
+          VerifyError::StatusCode::CERTIFICATE_UNABLE_TO_CHECK_REVOCATION, i,
+          diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kDeadlineExceeded)) {
+      return VerifyError(VerifyError::StatusCode::PATH_DEADLINE_EXCEEDED, i,
+                         diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kIterationLimitExceeded)) {
+      return VerifyError(VerifyError::StatusCode::PATH_ITERATION_COUNT_EXCEEDED,
+                         i, diagnostic);
+    }
+    if (cert_errors->ContainsError(cert_errors::kDepthLimitExceeded)) {
+      return VerifyError(VerifyError::StatusCode::PATH_DEPTH_LIMIT_REACHED, i,
+                         diagnostic);
+    }
+    // All other High severity errors map to CERTIFICATE_INVALID
+    if (cert_errors->ContainsAnyErrorWithSeverity(CertError::SEVERITY_HIGH)) {
+      return VerifyError(VerifyError::StatusCode::CERTIFICATE_INVALID, i,
+                          diagnostic);
+    }
+  }
+  assert(0);  // NOTREACHED
+  return VerifyError(VerifyError::StatusCode::UNKNOWN_ERROR, -1,
+                     diagnostic + "\n!!!!SHOULD NOT HAVE HAPPENED!!!!\n");
+}
+
 
 CertPathBuilder::Result::Result() = default;
 CertPathBuilder::Result::Result(Result &&) = default;

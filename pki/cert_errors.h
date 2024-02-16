@@ -57,6 +57,7 @@
 namespace bssl {
 
 class CertErrorParams;
+class CertPathErrors;
 
 // CertError represents either an error or a warning.
 struct OPENSSL_EXPORT CertError {
@@ -117,6 +118,7 @@ class OPENSSL_EXPORT CertErrors {
   bool ContainsAnyErrorWithSeverity(CertError::Severity severity) const;
 
  private:
+ friend CertPathErrors;
   std::vector<CertError> nodes_;
 };
 
@@ -151,6 +153,10 @@ class OPENSSL_EXPORT CertPathErrors {
 
   // Returns true if this contains any errors of the given severity level.
   bool ContainsAnyErrorWithSeverity(CertError::Severity severity) const;
+
+  // Returns true if this contains multiple distinct errors of the given
+  // severity level.
+  bool ContainsMultipleHighSeverityErrors() const;
 
   // Shortcut for ContainsAnyErrorWithSeverity(CertError::SEVERITY_HIGH).
   bool ContainsHighSeverityErrors() const {
