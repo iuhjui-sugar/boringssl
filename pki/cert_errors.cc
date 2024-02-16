@@ -139,6 +139,10 @@ const CertErrors *CertPathErrors::GetErrorsForCert(size_t cert_index) const {
 
 CertErrors *CertPathErrors::GetOtherErrors() { return &other_errors_; }
 
+const CertErrors *CertPathErrors::GetOtherErrors() const {
+  return &other_errors_;
+}
+
 bool CertPathErrors::ContainsError(CertErrorId id) const {
   for (const CertErrors &errors : cert_errors_) {
     if (errors.ContainsError(id)) {
@@ -165,6 +169,26 @@ bool CertPathErrors::ContainsAnyErrorWithSeverity(
     return true;
   }
 
+  return false;
+}
+
+bool CertPathErrors::ContainsMultipleHighSeverityErrors() const {
+  bool error_seen = false;
+  CertErrorId id_seen;
+  for (ptrdiff_t i = -1; i < (ptrdiff_t)cert_errors_.size(); ++i) {
+    const CertErrors *errors = (i < 0) ? GetOtherErrors() : GetErrorsForCert(i);
+    for (const CertError &node : errors->nodes_) {
+      if (node.severity == CertError::SEVERITY_HIGH) {
+        if (!error_seen) {
+          error_seen = true;
+          id_seen = node.id;
+        }
+        if (id_seen != node.id) {
+          return true;
+        }
+      }
+    }
+  }
   return false;
 }
 
