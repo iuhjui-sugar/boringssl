@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3529ed_245f5a11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-16T22:38:44Z",
+      "side": 1,
+      "message": "Having both of you look at this one because it does actually change server behavior.",
+      "revId": "bcc33f3085a6096a914e3386f26801d1afea3d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3450034_bcc0fec9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-16T22:38:44Z",
+      "side": 1,
+      "message": "These bitmasks are questionably useful at this point, TBH, but I\u0027ve left them alone for now.",
+      "revId": "bcc33f3085a6096a914e3386f26801d1afea3d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
