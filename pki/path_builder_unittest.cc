@@ -230,6 +230,9 @@ TEST_F(PathBuilderMultiRootTest, TargetHasNameAndSpkiOfTrustAnchor) {
   auto result = path_builder.Run();
 
   ASSERT_TRUE(result.HasValidPath());
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
   const auto &path = *result.GetBestValidPath();
   ASSERT_EQ(2U, path.certs.size());
   EXPECT_EQ(a_by_b_, path.certs[0]);
@@ -249,9 +252,11 @@ TEST_F(PathBuilderMultiRootTest, TargetWithSameNameAsTrustAnchorFails) {
       initial_policy_mapping_inhibit_, initial_any_policy_inhibit_);
 
   auto result = path_builder.Run();
-
   EXPECT_FALSE(result.HasValidPath());
   EXPECT_EQ(1U, result.max_depth_seen);
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // Test a failed path building when the trust anchor is provided as a
@@ -291,6 +296,10 @@ TEST_F(PathBuilderMultiRootTest, SelfSignedTrustAnchorSupplementalCert) {
   EXPECT_EQ(b_by_c_, path0.certs[0]);
   EXPECT_EQ(c_by_d_, path0.certs[1]);
   EXPECT_EQ(d_by_d_, path0.certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::CERTIFICATE_NOT_YET_VALID)
+      << error.DiagnosticString();
 }
 
 // Test verifying a certificate that is a trust anchor.
@@ -315,6 +324,10 @@ TEST_F(PathBuilderMultiRootTest, TargetIsSelfSignedTrustAnchor) {
   ASSERT_EQ(2U, path.certs.size());
   EXPECT_EQ(e_by_e_, path.certs[0]);
   EXPECT_EQ(e_by_e_, path.certs[1]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // If the target cert is directly issued by a trust anchor, it should verify
@@ -335,6 +348,10 @@ TEST_F(PathBuilderMultiRootTest, TargetDirectlySignedByTrustAnchor) {
   ASSERT_EQ(2U, path.certs.size());
   EXPECT_EQ(a_by_b_, path.certs[0]);
   EXPECT_EQ(b_by_f_, path.certs[1]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Test that async cert queries are not made if the path can be successfully
@@ -362,6 +379,10 @@ TEST_F(PathBuilderMultiRootTest, TriesSyncFirst) {
 
   EXPECT_TRUE(result.HasValidPath());
   EXPECT_EQ(0, async_certs.num_async_gets());
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // If async queries are needed, all async sources will be queried
@@ -393,6 +414,10 @@ TEST_F(PathBuilderMultiRootTest, TestAsyncSimultaneous) {
   EXPECT_TRUE(result.HasValidPath());
   EXPECT_EQ(1, async_certs1.num_async_gets());
   EXPECT_EQ(1, async_certs2.num_async_gets());
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Test that PathBuilder does not generate longer paths than necessary if one of
@@ -421,6 +446,10 @@ TEST_F(PathBuilderMultiRootTest, TestLongChain) {
   // The result path should be A(B) <- B(C) <- C(D)
   // not the longer but also valid A(B) <- B(C) <- C(D) <- D(D)
   EXPECT_EQ(3U, result.GetBestValidPath()->certs.size());
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Test that PathBuilder will backtrack and try a different path if the first
@@ -471,6 +500,10 @@ TEST_F(PathBuilderMultiRootTest, TestBacktracking) {
   EXPECT_EQ(b_by_c_, path.certs[1]);
   EXPECT_EQ(c_by_d_, path.certs[2]);
   EXPECT_EQ(d_by_d_, path.certs[3]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Test that if no path to a trust anchor was found, the partial path is
@@ -502,6 +535,10 @@ TEST_F(PathBuilderMultiRootTest, TestOnlyPartialPathResult) {
   EXPECT_EQ(a_by_b_, result.paths[0]->certs[0]);
   EXPECT_EQ(b_by_f_, result.paths[0]->certs[1]);
   EXPECT_EQ(f_by_e_, result.paths[0]->certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // Test that if two partial paths are returned, the first is marked as the best
@@ -547,6 +584,10 @@ TEST_F(PathBuilderMultiRootTest, TestTwoPartialPathResults) {
   EXPECT_EQ(a_by_b_, result.paths[1]->certs[0]);
   EXPECT_EQ(b_by_c_, result.paths[1]->certs[1]);
   EXPECT_EQ(c_by_d_, result.paths[1]->certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // Test that if no valid path is found, and the first invalid path is a partial
@@ -598,6 +639,10 @@ TEST_F(PathBuilderMultiRootTest, TestDistrustedPathPreferredOverPartialPath) {
   EXPECT_EQ(b_by_c_, path.certs[1]);
   EXPECT_EQ(c_by_d_, path.certs[2]);
   EXPECT_EQ(d_by_d_, path.certs[3]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // Test that whichever order CertIssuerSource returns the issuers, the path
@@ -639,6 +684,10 @@ TEST_F(PathBuilderMultiRootTest, TestCertIssuerOrdering) {
     EXPECT_EQ(b_by_c_, path.certs[1]);
     EXPECT_EQ(c_by_d_, path.certs[2]);
     EXPECT_EQ(d_by_d_, path.certs[3]);
+
+    VerifyError error = result.GetBestPathVerifyError();
+    ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+        << error.DiagnosticString();
   }
 }
 
@@ -682,10 +731,15 @@ TEST_F(PathBuilderMultiRootTest, TestIterationLimit) {
     EXPECT_EQ(!insufficient_limit, result.HasValidPath());
     EXPECT_EQ(insufficient_limit, result.exceeded_iteration_limit);
 
+    VerifyError error = result.GetBestPathVerifyError();
     if (insufficient_limit) {
       EXPECT_EQ(2U, result.iteration_count);
+      ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_ITERATION_COUNT_EXCEEDED)
+          << error.DiagnosticString();
     } else {
       EXPECT_EQ(3U, result.iteration_count);
+      ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+          << error.DiagnosticString();
     }
   }
 }
@@ -777,6 +831,10 @@ TEST_F(PathBuilderMultiRootTest, TestVerifyCache) {
     EXPECT_EQ(delegate_.GetMockVerifyCache()->CacheHits(), i * 2);
     EXPECT_EQ(delegate_.GetMockVerifyCache()->CacheMisses(), 2U);
     EXPECT_EQ(delegate_.GetMockVerifyCache()->CacheStores(), 2U);
+
+    VerifyError error = result.GetBestPathVerifyError();
+    ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+        << error.DiagnosticString();
   }
 }
 
@@ -819,6 +877,10 @@ TEST_F(PathBuilderMultiRootTest, TestDeadline) {
   EXPECT_EQ(c_by_d_, result.paths[0]->certs[2]);
   EXPECT_TRUE(
       result.paths[0]->errors.ContainsError(cert_errors::kDeadlineExceeded));
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_DEADLINE_EXCEEDED)
+      << error.DiagnosticString();
 }
 
 TEST_F(PathBuilderMultiRootTest, TestDepthLimit) {
@@ -854,10 +916,15 @@ TEST_F(PathBuilderMultiRootTest, TestDepthLimit) {
     EXPECT_EQ(!insufficient_limit, result.HasValidPath());
     EXPECT_EQ(insufficient_limit,
               result.AnyPathContainsError(cert_errors::kDepthLimitExceeded));
+    VerifyError error = result.GetBestPathVerifyError();
     if (insufficient_limit) {
       EXPECT_EQ(2U, result.max_depth_seen);
+      ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_DEPTH_LIMIT_REACHED)
+          << error.DiagnosticString();
     } else {
       EXPECT_EQ(4U, result.max_depth_seen);
+      ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+          << error.DiagnosticString();
     }
   }
 }
@@ -894,7 +961,6 @@ TEST_F(PathBuilderMultiRootTest, TestDepthLimitMultiplePaths) {
 
   EXPECT_TRUE(result.HasValidPath());
   EXPECT_TRUE(result.AnyPathContainsError(cert_errors::kDepthLimitExceeded));
-
   ASSERT_EQ(result.paths.size(), 2u);
 
   const CertPathBuilderResultPath *truncated_path = result.paths[0].get();
@@ -914,6 +980,10 @@ TEST_F(PathBuilderMultiRootTest, TestDepthLimitMultiplePaths) {
   EXPECT_EQ(a_by_b_, valid_path->certs[0]);
   EXPECT_EQ(b_by_c_, valid_path->certs[1]);
   EXPECT_EQ(c_by_d_, valid_path->certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 TEST_F(PathBuilderMultiRootTest, TestPreCertificate) {
@@ -942,6 +1012,10 @@ TEST_F(PathBuilderMultiRootTest, TestPreCertificate) {
   ASSERT_EQ(1U, result.paths.size());
   ASSERT_FALSE(result.paths[0]->IsValid())
       << result.paths[0]->errors.ToDebugString(result.paths[0]->certs);
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::CERTIFICATE_INVALID)
+      << error.DiagnosticString();
+
 
   // PreCertificate should be accepted if configured.
   delegate_.AllowPrecert();
@@ -954,6 +1028,9 @@ TEST_F(PathBuilderMultiRootTest, TestPreCertificate) {
   ASSERT_EQ(1U, result2.paths.size());
   ASSERT_TRUE(result2.paths[0]->IsValid())
       << result2.paths[0]->errors.ToDebugString(result.paths[0]->certs);
+  VerifyError error2 = result2.GetBestPathVerifyError();
+  ASSERT_EQ(error2.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error2.DiagnosticString();
 }
 
 class PathBuilderKeyRolloverTest : public ::testing::Test {
@@ -1059,6 +1136,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestRolloverOnlyOldRootTrusted) {
   EXPECT_EQ(newintermediate_, path0.certs[1]);
   EXPECT_EQ(newrootrollover_, path0.certs[2]);
   EXPECT_EQ(oldroot_, path0.certs[3]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Tests that if both old and new roots are trusted it builds a path through
@@ -1094,6 +1175,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestRolloverBothRootsTrusted) {
   // path building.
   EXPECT_EQ(newintermediate_, path.certs[1]);
   EXPECT_EQ(newroot_, path.certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // If trust anchor query returned no results, and there are no issuer
@@ -1116,6 +1201,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestAnchorsNoMatchAndNoIssuerSources) {
   EXPECT_FALSE(result.paths[0]->IsValid());
   ASSERT_EQ(1U, path.certs.size());
   EXPECT_EQ(target_, path.certs[0]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // If a path to a trust anchor could not be found, and the last issuer(s) in
@@ -1177,6 +1266,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestReturnsPartialPathEndedByLoopChecker) {
     EXPECT_EQ(newrootrollover_, path.certs[2]);
     EXPECT_TRUE(path.errors.ContainsError(cert_errors::kNoIssuersFound));
   }
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // Tests that multiple trust root matches on a single path will be considered.
@@ -1219,6 +1312,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestMultipleRootMatchesOnlyOneWorks) {
   EXPECT_EQ(target_, path.certs[0]);
   EXPECT_EQ(oldintermediate_, path.certs[1]);
   EXPECT_EQ(oldroot_, path.certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Tests that the path builder doesn't build longer than necessary paths,
@@ -1285,6 +1382,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestRolloverLongChain) {
   EXPECT_EQ(newintermediate_, path2.certs[1]);
   EXPECT_EQ(newrootrollover_, path2.certs[2]);
   EXPECT_EQ(oldroot_, path2.certs[3]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Tests that when SetExploreAllPaths is combined with SetIterationLimit the
@@ -1343,6 +1444,15 @@ TEST_F(PathBuilderKeyRolloverTest, ExploreAllPathsWithIterationLimit) {
     auto result = path_builder.Run();
 
     EXPECT_EQ(expectation.expected_num_paths > 0, result.HasValidPath());
+    VerifyError error = result.GetBestPathVerifyError();
+    if (expectation.expected_num_paths > 0) {
+      ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+          << error.DiagnosticString();
+    } else {
+      ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_ITERATION_COUNT_EXCEEDED)
+          << error.DiagnosticString();
+    }
+
     if (expectation.partial_path.empty()) {
       ASSERT_EQ(expectation.expected_num_paths, result.paths.size());
     } else {
@@ -1485,12 +1595,16 @@ TEST_F(PathBuilderKeyRolloverTest, ExplorePathsWithPathLimit) {
       EXPECT_EQ(newroot_, path3.certs[2]);
       EXPECT_EQ(3U, result.max_depth_seen);
     }
+
+    VerifyError error = result.GetBestPathVerifyError();
+    ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+        << error.DiagnosticString();
   }
 }
 
 // If the target cert is a trust anchor, however is not itself *signed* by a
 // trust anchor, then it is not considered valid (the SPKI and name of the
-// trust anchor matches the SPKI and subject of the targe certificate, but the
+// trust anchor matches the SPKI and subject of the target certificate, but the
 // rest of the certificate cannot be verified).
 TEST_F(PathBuilderKeyRolloverTest, TestEndEntityIsTrustRoot) {
   // Trust newintermediate.
@@ -1506,6 +1620,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestEndEntityIsTrustRoot) {
   auto result = path_builder.Run();
 
   EXPECT_FALSE(result.HasValidPath());
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // If target has same Name+SAN+SPKI as a necessary intermediate, test if a path
@@ -1534,6 +1652,10 @@ TEST_F(PathBuilderKeyRolloverTest,
   // This could actually be OK, but CertPathBuilder does not build the
   // newroot <- newrootrollover <- oldroot path.
   EXPECT_FALSE(result.HasValidPath());
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 // If target has same Name+SAN+SPKI as the trust root, test that a (trivial)
@@ -1562,6 +1684,10 @@ TEST_F(PathBuilderKeyRolloverTest,
   ASSERT_EQ(2U, best_result->certs.size());
   EXPECT_EQ(newroot_, best_result->certs[0]);
   EXPECT_EQ(newrootrollover_, best_result->certs[1]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Test that PathBuilder will not try the same path twice if multiple
@@ -1628,6 +1754,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestDuplicateIntermediates) {
   EXPECT_EQ(target_, path1.certs[0]);
   EXPECT_EQ(newintermediate_, path1.certs[1]);
   EXPECT_EQ(newroot_, path1.certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Test when PathBuilder is given a cert via CertIssuerSources that has the same
@@ -1671,6 +1801,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestDuplicateIntermediateAndRoot) {
   // Compare the DER instead of ParsedCertificate pointer, don't care which copy
   // of newroot was used in the path.
   EXPECT_EQ(newroot_->der_cert(), path.certs[2]->der_cert());
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 class MockCertIssuerSourceRequest : public CertIssuerSource::Request {
@@ -1796,6 +1930,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestMultipleAsyncIssuersFromSingleSource) {
   EXPECT_EQ(target_, path1.certs[0]);
   EXPECT_EQ(newintermediate_, path1.certs[1]);
   EXPECT_EQ(newroot_, path1.certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 // Test that PathBuilder will not try the same path twice if CertIssuerSources
@@ -1885,6 +2023,10 @@ TEST_F(PathBuilderKeyRolloverTest, TestDuplicateAsyncIntermediates) {
   EXPECT_EQ(target_, path1.certs[0]);
   EXPECT_EQ(newintermediate_, path1.certs[1]);
   EXPECT_EQ(newroot_, path1.certs[2]);
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 class PathBuilderSimpleChainTest : public ::testing::Test {
@@ -2061,6 +2203,11 @@ TEST_F(PathBuilderCheckPathAfterVerificationTest, AddsWarningToValidPath) {
   ASSERT_TRUE(cert1_errors);
   EXPECT_TRUE(cert1_errors->ContainsErrorWithSeverity(
       kWarningFromDelegate, CertError::SEVERITY_WARNING));
+
+  // The warning should not affect the VerifyError
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 }
 
 DEFINE_CERT_ERROR_ID(kErrorFromDelegate, "Error from delegate");
@@ -2089,6 +2236,11 @@ TEST_F(PathBuilderCheckPathAfterVerificationTest, AddsErrorToValidPath) {
   const CertErrors *cert2_errors = failed_path->errors.GetErrorsForCert(2);
   ASSERT_TRUE(cert2_errors);
   EXPECT_TRUE(cert2_errors->ContainsError(kErrorFromDelegate));
+
+  // The newly defined delegate error should map to CERTIFICATE_INVALID
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::CERTIFICATE_INVALID)
+      << error.DiagnosticString();
 }
 
 TEST_F(PathBuilderCheckPathAfterVerificationTest, NoopToAlreadyInvalidPath) {
@@ -2099,6 +2251,10 @@ TEST_F(PathBuilderCheckPathAfterVerificationTest, NoopToAlreadyInvalidPath) {
   // Run the pathbuilder with certificate at index 1 actively distrusted.
   CertPathBuilder::Result result = RunPathBuilder(test_.chain[1], &delegate);
   EXPECT_FALSE(result.HasValidPath());
+
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+      << error.DiagnosticString();
 }
 
 struct DelegateData : public CertPathBuilderDelegateData {
@@ -2181,6 +2337,11 @@ TEST(PathBuilderPrioritizationTest, DatePrioritization) {
 
     CertPathBuilder::Result result = path_builder.Run();
     EXPECT_FALSE(result.HasValidPath());
+
+    VerifyError error = result.GetBestPathVerifyError();
+    ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+        << error.DiagnosticString();
+
     ASSERT_EQ(4U, result.paths.size());
 
     // Path builder should have attempted paths using the intermediates in
@@ -2523,6 +2684,9 @@ TEST(PathBuilderPrioritizationTest, KeyIdNameAndSerialPrioritization) {
     CertPathBuilder::Result result = path_builder.Run();
     EXPECT_FALSE(result.HasValidPath());
     ASSERT_EQ(3U, result.paths.size());
+    VerifyError error = result.GetBestPathVerifyError();
+    ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_NOT_FOUND)
+        << error.DiagnosticString();
 
     // The serial & issuer method is not used in prioritization, so the certs
     // should have been prioritized based on dates. The test certs have the
@@ -2579,6 +2743,9 @@ TEST(PathBuilderPrioritizationTest, SelfIssuedPrioritization) {
 
   CertPathBuilder::Result result = path_builder.Run();
   EXPECT_TRUE(result.HasValidPath());
+  VerifyError error = result.GetBestPathVerifyError();
+  ASSERT_EQ(error.Code(), VerifyError::StatusCode::PATH_VERIFIED)
+      << error.DiagnosticString();
 
   // Path builder should have built paths to both trusted roots.
   ASSERT_EQ(2U, result.paths.size());
