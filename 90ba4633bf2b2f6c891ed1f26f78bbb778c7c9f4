@@ -87,6 +87,24 @@
       "parentUuid": "1b283796_fd8731bb",
       "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a71f3b8_66c7f699",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 3284300
+      },
+      "writtenOn": "2024-02-20T03:00:53Z",
+      "side": 1,
+      "message": "Now we are pushing debian + loongarch env, but building failed for lack of arch support. The fail link is following https://buildd.debian.org/status/fetch.php?pkg\u003dandroid-platform-external-boringssl\u0026arch\u003dloong64\u0026ver\u003d14.0.0%2Br11-4\u0026stamp\u003d1707133908\u0026raw\u003d0.\nWe want push the support from upstream, and now verifed pass in local.",
+      "parentUuid": "4adf0628_670d76bf",
+      "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
