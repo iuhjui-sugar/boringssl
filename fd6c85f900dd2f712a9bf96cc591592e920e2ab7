@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fec94b72_4fd5a203",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-20T18:59:01Z",
+      "side": 1,
+      "message": "Impl is kinda yukky.  RefUp and RefDown?",
+      "revId": "fd6c85f900dd2f712a9bf96cc591592e920e2ab7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
