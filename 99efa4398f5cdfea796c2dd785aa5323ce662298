@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00052d35_51e7ad13",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-20T18:42:29Z",
+      "side": 1,
+      "message": "Self-review: rename this. Otherwise it conflicts with `bssl::UpRef` and it\u0027s really tedious.\n\nC++\u0027s implicit `this` thing is the worst.",
+      "range": {
+        "startLine": 473,
+        "startChar": 7,
+        "endLine": 473,
+        "endChar": 12
+      },
+      "revId": "99efa4398f5cdfea796c2dd785aa5323ce662298",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
