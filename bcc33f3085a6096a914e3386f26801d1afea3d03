@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c34f4a5f_6f86a055",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-20T19:05:48Z",
+      "side": 1,
+      "message": "I think it makes sense to enable this by default. We already do this when there\u0027s no ECDHE curve in common.\n\nIn the SSL_CREDENTIAL version, I don\u0027t think it would make sense to make it configurable. Checking sigalgs for SSL_CREDENTIAL is integral to being able to decide whether the credential\u0027s key is allowed. This isn\u0027t like the X.509 signatures, or the trust anchor, where the connection will proceed and we\u0027re just not positive what will happen. We know, *for sure*, the connection will *definitely* not work, because we will go to generate a signature and immediately fail to do so.\n\nWe could say that the default credential and other credentials have totally different cipher suite selection rules, but that\u0027s just weird.",
+      "parentUuid": "77660e0a_4cadb222",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "bcc33f3085a6096a914e3386f26801d1afea3d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4b3529ed_245f5a11",
