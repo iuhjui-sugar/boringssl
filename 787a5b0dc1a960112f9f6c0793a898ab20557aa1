@@ -34,6 +34,24 @@
       "parentUuid": "e1bd7720_6bfd60e9",
       "revId": "787a5b0dc1a960112f9f6c0793a898ab20557aa1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62f7ee1c_0ad77971",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-20T16:15:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7479d94e_85ade0fa",
+      "revId": "787a5b0dc1a960112f9f6c0793a898ab20557aa1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

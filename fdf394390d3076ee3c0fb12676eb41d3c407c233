@@ -16,6 +16,24 @@
       "message": "I\u0027ll add an exhaustive test for all the errors in here once we agree on what should map to what fully.",
       "revId": "fdf394390d3076ee3c0fb12676eb41d3c407c233",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a3bd7bf_1f409b66",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-20T16:15:06Z",
+      "side": 1,
+      "message": "ok, I\u0027ve added in the check all the mappings test as they currently sit. \n\nIf we change our mind we\u0027ll just change them.",
+      "parentUuid": "8dcdffa1_f405e85c",
+      "revId": "fdf394390d3076ee3c0fb12676eb41d3c407c233",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
