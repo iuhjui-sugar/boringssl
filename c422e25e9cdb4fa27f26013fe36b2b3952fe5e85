@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "819e6a86_c6e5d4da",
+        "filename": "crypto/test/file_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-20T20:20:22Z",
+      "side": 1,
+      "message": "Ok, I know this is just test stuff and in theory doesn\u0027t matter because the input should not be hostile, but to avoid the use of these to clobber files via symlinks and do it without a race, POSIX has ha mkstemp since 2001 and mkdtemp since 2008 and is really what should be used for this stuff.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "c422e25e9cdb4fa27f26013fe36b2b3952fe5e85",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
