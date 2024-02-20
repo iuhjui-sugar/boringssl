@@ -105,6 +105,24 @@
       "parentUuid": "4adf0628_670d76bf",
       "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "161c1ec0_6e4f714e",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-20T14:06:28Z",
+      "side": 1,
+      "message": "Please see above. If you are committing to supporting other architectures then you must be able to carry patches because we do not build nor test on platforms that are not supported by us, and we will not accept platform-specific patches for unsupported platforms.\n\nIf you can carry local patches then it\u0027s easy to patch this.",
+      "parentUuid": "5a71f3b8_66c7f699",
+      "revId": "90ba4633bf2b2f6c891ed1f26f78bbb778c7c9f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
