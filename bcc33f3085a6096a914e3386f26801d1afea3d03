@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "77660e0a_4cadb222",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-20T18:43:16Z",
+      "side": 1,
+      "message": "Will we truly want this behaviour change by default? I understand sure we\u0027ll want to support it with SSL_CREDENTIAL, but would that not end up being something configurable, and we would not have it on by default? \n\n(Effectively what I\u0027m asking is do we want to have is to land change but don\u0027t make it accept the RSA key exchange for now)",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "bcc33f3085a6096a914e3386f26801d1afea3d03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4b3529ed_245f5a11",
