@@ -143,6 +143,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aebbd748_dae03869",
+        "filename": "pki/simple_path_builder_delegate.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3da27c16_d2f5a3e1",
+      "revId": "377da062ddd5ca2f5f7cae3eee8e9ce9ae74c1ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d415e664_3b3836ea",
