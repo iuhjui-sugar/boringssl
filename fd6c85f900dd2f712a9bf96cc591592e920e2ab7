@@ -52,6 +52,24 @@
       "parentUuid": "f171666a_0b5d5ef8",
       "revId": "fd6c85f900dd2f712a9bf96cc591592e920e2ab7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9feb1bc5_0d4032d4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T18:45:26Z",
+      "side": 1,
+      "message": "well, if it\u0027s used internally only, we can be consistent and use up_ref() and pop_free()",
+      "parentUuid": "5aad6fe7_b9e81df0",
+      "revId": "fd6c85f900dd2f712a9bf96cc591592e920e2ab7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
