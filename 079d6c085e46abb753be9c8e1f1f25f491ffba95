@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76be59c_0b65599e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T18:09:08Z",
+      "side": 1,
+      "message": "An emphatic stamp.. eew.",
+      "revId": "079d6c085e46abb753be9c8e1f1f25f491ffba95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
