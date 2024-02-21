@@ -88,6 +88,24 @@
       "parentUuid": "9feb1bc5_0d4032d4",
       "revId": "fd6c85f900dd2f712a9bf96cc591592e920e2ab7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc4f1c55_f24c74ba",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-21T19:59:36Z",
+      "side": 1,
+      "message": "When I say internal, I mean internal to the class\u0027s implementation. I.e. even within libssl, only SSL_SESSION_up_ref will ever call UpRef here.\n\nI\u0027d really prefer we casing or word order as a way distinguish functions that are ultimately doing different things. It\u0027ll forever be confusing which is which. I think we should just say in words what we mean. \"Impl\" was trying to say this is the implementation of UpRef.\n\nAs for inconsistent casing, yeah, the mix of Google C++ style and OpenSSL C style in libssl is... regrettable. It came from when I first converted the tests to GTest. The rest of GTest used Google C++ style, and extrapolating OpenSSL C to C++ seemed a bit weird, so I figured we\u0027d use Google C++ style for the C++ code. And then when we made libssl into (partially) C++, I figured we\u0027d continue that trend, and then ultimately perhaps libssl\u0027s C API would be a thin wrapper over more conventionally C++ internals. And, in theory, the different casing could help with conveying whether you should expect a type to be C++-y with methods or C-y with fields you shouldn\u0027t touch and free functions.\n\nThat, of course, never happened, so we\u0027re now in this weird mix. I wouldn\u0027t mind rethinking that, but doubling down on the inconsistency to capture this unrelated notion seems not great. :-)",
+      "parentUuid": "834f6adf_c3ce5ec9",
+      "revId": "fd6c85f900dd2f712a9bf96cc591592e920e2ab7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
