@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "655557bb_3cf682d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-21T18:49:35Z",
+      "side": 1,
+      "message": "No worries; I understand the desire for clarity.",
+      "parentUuid": "f33bbd1f_da86bef2",
+      "revId": "4642b51608b361b40fee85e6e98791b7f4b68714",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b534acdf_56534c0f",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28c4194c_52816c45",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-21T18:49:35Z",
+      "side": 1,
+      "message": "Still needed to avoid adding comments for every enum value, e.g. X25519HkdfSha256.",
+      "parentUuid": "b534acdf_56534c0f",
+      "revId": "4642b51608b361b40fee85e6e98791b7f4b68714",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d23cfba_fa8a2e9c",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-02-21T16:26:50Z",
       "side": 1,
       "message": "One last comment:\n\nRust uses `len` for length throughout. Also, even though this name is based on the constant in the C headers, I think `ENC` is a little too short for `ENCAPSULATED_KEY`.\n\nSo I would rename this `MAX_ENCAPSULATED_KEY_LEN`.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 20
+      },
+      "revId": "4642b51608b361b40fee85e6e98791b7f4b68714",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9885f5fe_6701f1aa",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-02-21T18:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d23cfba_fa8a2e9c",
       "range": {
         "startLine": 76,
         "startChar": 6,
