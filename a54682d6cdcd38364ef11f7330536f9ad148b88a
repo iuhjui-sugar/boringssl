@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31962904_27d6f93c",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c32737d_5d3b140f",
+      "revId": "a54682d6cdcd38364ef11f7330536f9ad148b88a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03190fba_3061d11f",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-02-14T19:25:58Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "a54682d6cdcd38364ef11f7330536f9ad148b88a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "477f1146_574e8d48",
+        "filename": "pki/verify_signed_data.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03190fba_3061d11f",
       "revId": "a54682d6cdcd38364ef11f7330536f9ad148b88a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
