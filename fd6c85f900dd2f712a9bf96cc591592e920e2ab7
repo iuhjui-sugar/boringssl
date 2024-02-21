@@ -16,6 +16,24 @@
       "message": "Impl is kinda yukky.  RefUp and RefDown?",
       "revId": "fd6c85f900dd2f712a9bf96cc591592e920e2ab7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f171666a_0b5d5ef8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T16:26:08Z",
+      "side": 1,
+      "message": "Reference() and DeReference()?  Naming is hard.",
+      "parentUuid": "fec94b72_4fd5a203",
+      "revId": "fd6c85f900dd2f712a9bf96cc591592e920e2ab7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
