@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d63ca8e_cf6c70e2",
+        "filename": "pki/cert_errors.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:50:38Z",
+      "side": 1,
+      "message": "With that in mind, I think I\u0027ll abandon this in favour of what I did inhttps://boringssl-review.googlesource.com/c/boringssl/+/66327",
+      "parentUuid": "6a906b4e_9aeed398",
+      "revId": "fff3ca2f4fd5178511ea18ea77382aab5094d96a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e35a5c19_37de6486",
         "filename": "pki/cert_errors.h",
         "patchSetId": 4
