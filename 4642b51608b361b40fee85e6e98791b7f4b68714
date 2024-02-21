@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33bbd1f_da86bef2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-21T16:26:50Z",
+      "side": 1,
+      "message": "Thank you. You\u0027ve been waiting a long time, sorry about that! I\u0027ll likely update the documentation a bit after you\u0027ve landed this, but I didn\u0027t want to block landing any longer.",
+      "revId": "4642b51608b361b40fee85e6e98791b7f4b68714",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b534acdf_56534c0f",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-21T16:26:50Z",
+      "side": 1,
+      "message": "No need for `missing_docs` now, I think? (And two instances just below.)",
+      "revId": "4642b51608b361b40fee85e6e98791b7f4b68714",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d23cfba_fa8a2e9c",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-02-21T16:26:50Z",
+      "side": 1,
+      "message": "One last comment:\n\nRust uses `len` for length throughout. Also, even though this name is based on the constant in the C headers, I think `ENC` is a little too short for `ENCAPSULATED_KEY`.\n\nSo I would rename this `MAX_ENCAPSULATED_KEY_LEN`.",
+      "range": {
+        "startLine": 76,
+        "startChar": 6,
+        "endLine": 76,
+        "endChar": 20
+      },
+      "revId": "4642b51608b361b40fee85e6e98791b7f4b68714",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
