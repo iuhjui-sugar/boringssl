@@ -16,6 +16,24 @@
       "message": "I\u0027m really bad at naming things so haven\u0027t change this yet. keep it as verify? move it to bssl? make it bssl:pki? something else?",
       "revId": "d320ef4c121ee5da38cd619203e6baf2688f997d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8a99ff2_7c1ead98",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:59Z",
+      "side": 1,
+      "message": "Now bssl",
+      "parentUuid": "2a5263d2_283540d4",
+      "revId": "d320ef4c121ee5da38cd619203e6baf2688f997d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

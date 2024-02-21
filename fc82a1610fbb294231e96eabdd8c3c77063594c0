@@ -16,6 +16,24 @@
       "message": "I am sorely tempted to just make this public. (which would then change the tests to just checking for the enum value) Thoughts?",
       "revId": "fc82a1610fbb294231e96eabdd8c3c77063594c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573bd805_4a2fd210",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:59Z",
+      "side": 1,
+      "message": "Replaced by VerifyError",
+      "parentUuid": "bab43529_7d0cda26",
+      "revId": "fc82a1610fbb294231e96eabdd8c3c77063594c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
