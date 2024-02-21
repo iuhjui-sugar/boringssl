@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bd1cf70_fda0385b",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bf35d73_cf1abbb2",
+      "range": {
+        "startLine": 65,
+        "startChar": 14,
+        "endLine": 65,
+        "endChar": 19
+      },
+      "revId": "59f778e4796f85044f73e655c5e81065a3c7f3ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c353f00_98cfe405",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-13T19:32:23Z",
       "side": 1,
       "message": "```suggestion\n  return FromDER(StringAsBytes(tokenizer.data()), out_diagnostic);\n```",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 22
+      },
+      "revId": "59f778e4796f85044f73e655c5e81065a3c7f3ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d8418dd_ddd890ff",
+        "filename": "pki/certificate.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c353f00_98cfe405",
       "range": {
         "startLine": 93,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f109a15d_fb426b97",
+        "filename": "pki/certificate_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "425fae98_0a3273d6",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 52
+      },
+      "revId": "59f778e4796f85044f73e655c5e81065a3c7f3ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c972e830_a113eda2",
@@ -83,6 +155,24 @@
       "writtenOn": "2024-02-13T19:32:23Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "59f778e4796f85044f73e655c5e81065a3c7f3ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a6c63c4_6c9510fe",
+        "filename": "pki/certificate_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c972e830_a113eda2",
       "revId": "59f778e4796f85044f73e655c5e81065a3c7f3ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -104,6 +194,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19d53c31_87670e70",
+        "filename": "pki/certificate_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b943b93f_f6fc09a4",
+      "revId": "59f778e4796f85044f73e655c5e81065a3c7f3ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9be99e8d_db2c4ff6",
@@ -117,6 +225,30 @@
       "writtenOn": "2024-02-13T19:32:23Z",
       "side": 1,
       "message": "I think this should work:\n\n```suggestion\n  EXPECT_EQ(bssl::string_util::HexEncode(cert-\u003eGetSerialNumber()),\n            \"0118F044A8F31892\");\n```",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 35
+      },
+      "revId": "59f778e4796f85044f73e655c5e81065a3c7f3ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2331ea8b_8bffecd2",
+        "filename": "pki/certificate_unittest.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:36Z",
+      "side": 1,
+      "message": "yes it does.",
+      "parentUuid": "9be99e8d_db2c4ff6",
       "range": {
         "startLine": 76,
         "startChar": 0,

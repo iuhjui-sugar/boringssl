@@ -396,6 +396,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa1368fb_42483b82",
+        "filename": "include/openssl/pki/certificate.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T22:49:36Z",
+      "side": 1,
+      "message": "yeah removed the somewhat misleading discussion :)",
+      "parentUuid": "8c886537_9ed39817",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "13df6967175b41e2f694207f6247e27fc95682e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a1d3352_4ecaa79f",
