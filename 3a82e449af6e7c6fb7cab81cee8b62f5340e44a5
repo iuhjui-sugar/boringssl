@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c6f06f3_11239311",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-21T19:54:27Z",
+      "side": 1,
+      "message": "```suggestion\n// certificate and key pair only works if the certificate is configured first.\n```",
+      "range": {
+        "startLine": 854,
+        "startChar": 61,
+        "endLine": 854,
+        "endChar": 70
+      },
+      "revId": "3a82e449af6e7c6fb7cab81cee8b62f5340e44a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
