@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "373fb45e7866239731b2e0b1596a90e4a1938fb9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3073688f_5b759f51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17386
+      },
+      "writtenOn": "2024-02-22T15:30:37Z",
+      "side": 1,
+      "message": "How can I submit it? I don\u0027t have the permission and no owner is found for this file.",
+      "revId": "373fb45e7866239731b2e0b1596a90e4a1938fb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
