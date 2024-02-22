@@ -69,6 +69,24 @@
       "parentUuid": "51bba0d7_283b0961",
       "revId": "373fb45e7866239731b2e0b1596a90e4a1938fb9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93f2284e_059e7773",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17386
+      },
+      "writtenOn": "2024-02-22T16:03:31Z",
+      "side": 1,
+      "message": "NVM, just noticed that Adam is agl@..",
+      "parentUuid": "62ef4ab1_b1322ce5",
+      "revId": "373fb45e7866239731b2e0b1596a90e4a1938fb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
