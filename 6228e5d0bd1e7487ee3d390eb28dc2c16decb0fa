@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5db9af_587d0672",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-22T19:16:39Z",
+      "side": 1,
+      "message": "We should really ban these 6 words from our vocabulary when working with these API\u0027s - It\u0027s basically karmic suicide.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "6228e5d0bd1e7487ee3d390eb28dc2c16decb0fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
