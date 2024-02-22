@@ -374,6 +374,7 @@ struct evp_hpke_ctx_st {
 };
 
 struct evp_hpke_key_st {
+  // Rust may move this structure. See bssl-crypto/src/scoped.rs:EvpHpkeKey.
   const EVP_HPKE_KEM *kem;
   uint8_t private_key[X25519_PRIVATE_KEY_LEN];
   uint8_t public_key[X25519_PUBLIC_VALUE_LEN];
