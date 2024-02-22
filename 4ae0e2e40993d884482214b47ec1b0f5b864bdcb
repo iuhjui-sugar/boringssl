@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5a7b5ed_36de62ac",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 9118,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-22T22:11:24Z",
+      "side": 1,
+      "message": "```suggestion\n    // as if there is no certificate.\n```",
+      "range": {
+        "startLine": 9118,
+        "startChar": 25,
+        "endLine": 9118,
+        "endChar": 37
+      },
+      "revId": "4ae0e2e40993d884482214b47ec1b0f5b864bdcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab95d96_bf57f328",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 9122,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-22T22:11:24Z",
+      "side": 1,
+      "message": "\"Nobody should ever do this\" (tm)",
+      "revId": "4ae0e2e40993d884482214b47ec1b0f5b864bdcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
