@@ -51,6 +51,24 @@
       "parentUuid": "3073688f_5b759f51",
       "revId": "373fb45e7866239731b2e0b1596a90e4a1938fb9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62ef4ab1_b1322ce5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17386
+      },
+      "writtenOn": "2024-02-22T16:02:57Z",
+      "side": 1,
+      "message": "I can\u0027t add either agl@chromium.org or agl@google.com as reviewer. I also tried using `git cl upload -r agl@chromium.org`, but it just add it on the description.",
+      "parentUuid": "51bba0d7_283b0961",
+      "revId": "373fb45e7866239731b2e0b1596a90e4a1938fb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
