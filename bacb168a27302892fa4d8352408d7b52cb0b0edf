@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c21af34_077ace84",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-22T22:20:37Z",
+      "side": 1,
+      "message": "`EVP_HPKE_KEY_move` is our supported API for moving the type. Maybe put the comment there, since that\u0027s what we\u0027d have to modify on the C side if we ever changed our mind on this.",
+      "revId": "bacb168a27302892fa4d8352408d7b52cb0b0edf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
