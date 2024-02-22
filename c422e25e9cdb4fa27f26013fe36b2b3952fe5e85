@@ -22,6 +22,30 @@
       },
       "revId": "c422e25e9cdb4fa27f26013fe36b2b3952fe5e85",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b857cd4f_af045205",
+        "filename": "crypto/test/file_util.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-22T19:57:31Z",
+      "side": 1,
+      "message": "Resolved in previous CL. I went ahead and used `mkdtemp` here for consistency, but I don\u0027t think `mkdtemp` actually adds any race condition safety over what the CL as previously doing.",
+      "parentUuid": "819e6a86_c6e5d4da",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "c422e25e9cdb4fa27f26013fe36b2b3952fe5e85",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
