@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00223929_fc5e67fb",
+        "filename": "include/openssl/dilithium.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-23T16:42:52Z",
+      "side": 1,
+      "message": "Move this file to include/openssl/experimental/dilithium.h\n\n(And add it to the experimental section at the bottom of util/doc.config)\n\nWe have added \"openssl/experimental\" to make it easier to land \nthese things without giving an unreasonable expectation that these will be\nusable with a standardized implementation.",
+      "revId": "55fee97bcfb74663addb29bb9e4a6382a82b5807",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
