@@ -10450,8 +10450,7 @@ func addSignatureAlgorithmTests() {
 				signatureRSAPKCS1WithSHA1,
 			},
 			Bugs: ProtocolBugs{
-				NoSignatureAlgorithms:       true,
-				DisableDelegatedCredentials: true,
+				NoSignatureAlgorithms: true,
 			},
 		},
 		shouldFail:    true,
@@ -16656,9 +16655,6 @@ func addDelegatedCredentialTests() {
 		config: Config{
 			MinVersion: VersionTLS13,
 			MaxVersion: VersionTLS13,
-			Bugs: ProtocolBugs{
-				DisableDelegatedCredentials: true,
-			},
 		},
 		flags: []string{
 			"-delegated-credential", ecdsaFlagValue,
@@ -16669,8 +16665,32 @@ func addDelegatedCredentialTests() {
 		testType: serverTest,
 		name:     "DelegatedCredentials-Basic",
 		config: Config{
+			MinVersion:                    VersionTLS13,
+			MaxVersion:                    VersionTLS13,
+			DelegatedCredentialAlgorithms: []signatureAlgorithm{signatureECDSAWithP256AndSHA256},
+			Bugs: ProtocolBugs{
+				ExpectDelegatedCredentials: true,
+			},
+		},
+		flags: []string{
+			"-delegated-credential", ecdsaFlagValue,
+			"-expect-delegated-credential-used",
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "DelegatedCredentials-ExactAlgorithmMatch",
+		config: Config{
 			MinVersion: VersionTLS13,
 			MaxVersion: VersionTLS13,
+			// Test that the server doesn't mix up the two signature algorithm
+			// fields. These options are a match because the signature_algorithms
+			// extension matches against the signature on the delegated
+			// credential, while the delegated_credential extension matches
+			// against the signature made by the delegated credential.
+			VerifySignatureAlgorithms:     []signatureAlgorithm{signatureRSAPSSWithSHA256},
+			DelegatedCredentialAlgorithms: []signatureAlgorithm{signatureECDSAWithP256AndSHA256},
 			Bugs: ProtocolBugs{
 				ExpectDelegatedCredentials: true,
 			},
@@ -16687,13 +16707,33 @@ func addDelegatedCredentialTests() {
 		config: Config{
 			MinVersion: VersionTLS13,
 			MaxVersion: VersionTLS13,
+			// If the client doesn't support the signature in the delegated credential,
+			// the server should not use delegated credentials.
+			VerifySignatureAlgorithms:     []signatureAlgorithm{signatureRSAPSSWithSHA384},
+			DelegatedCredentialAlgorithms: []signatureAlgorithm{signatureECDSAWithP256AndSHA256},
 			Bugs: ProtocolBugs{
 				FailIfDelegatedCredentials: true,
 			},
-			// If the client doesn't support the delegated credential signature
-			// algorithm then the handshake should complete without using delegated
+		},
+		flags: []string{
+			"-delegated-credential", ecdsaFlagValue,
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "DelegatedCredentials-CertVerifySigAlgoMissing",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			// If the client doesn't support the delegated credential's
+			// CertificateVerify algorithm, the server should not use delegated
 			// credentials.
-			VerifySignatureAlgorithms: []signatureAlgorithm{signatureRSAPSSWithSHA256},
+			VerifySignatureAlgorithms:     []signatureAlgorithm{signatureRSAPSSWithSHA256},
+			DelegatedCredentialAlgorithms: []signatureAlgorithm{signatureECDSAWithP384AndSHA384},
+			Bugs: ProtocolBugs{
+				FailIfDelegatedCredentials: true,
+			},
 		},
 		flags: []string{
 			"-delegated-credential", ecdsaFlagValue,
