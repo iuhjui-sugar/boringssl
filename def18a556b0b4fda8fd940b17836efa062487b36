@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eb38139_1764607f",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4935,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-23T19:09:00Z",
+      "side": 1,
+      "message": "This silly pattern is because of https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d700",
+      "range": {
+        "startLine": 4935,
+        "startChar": 2,
+        "endLine": 4935,
+        "endChar": 50
+      },
+      "revId": "def18a556b0b4fda8fd940b17836efa062487b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
