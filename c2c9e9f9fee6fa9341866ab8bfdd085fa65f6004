@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bf3a85d_a44177ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-23T23:46:45Z",
+      "side": 1,
+      "message": "Handwavy",
+      "range": {
+        "startLine": 10,
+        "startChar": 8,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "c2c9e9f9fee6fa9341866ab8bfdd085fa65f6004",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f69e996b_fd38da18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-23T23:46:45Z",
+      "side": 1,
+      "message": "libre long ago removed the ability to set this with environment variables, and decided /etc/ssl, /etc/ssl/certs.pem were the default directory and files, respectivey for this.",
+      "range": {
+        "startLine": 11,
+        "startChar": 14,
+        "endLine": 12,
+        "endChar": 43
+      },
+      "revId": "c2c9e9f9fee6fa9341866ab8bfdd085fa65f6004",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
