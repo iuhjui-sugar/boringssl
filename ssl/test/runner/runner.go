@@ -16757,6 +16757,25 @@ func addDelegatedCredentialTests() {
 		shouldFail:    true,
 		expectedError: ":KEY_VALUES_MISMATCH:",
 	})
+
+	// RSA delegated credentials should be rejected at configuration time.
+	rsaDC, rsaPKCS8, err := createDelegatedCredential(delegatedCredentialConfig{
+		algo:   signatureRSAPSSWithSHA256,
+		dcAlgo: signatureRSAPSSWithSHA256,
+	}, parentDER, rsaPriv)
+	if err != nil {
+		panic(err)
+	}
+	rsaFlagValue := fmt.Sprintf("%x,%x", rsaDC, rsaPKCS8)
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "DelegatedCredentials-NoRSA",
+		flags: []string{
+			"-delegated-credential", rsaFlagValue,
+		},
+		shouldFail:    true,
+		expectedError: ":INVALID_SIGNATURE_ALGORITHM:",
+	})
 }
 
 type echCipher struct {
