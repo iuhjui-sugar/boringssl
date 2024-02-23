@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c5f037_37c4d60d",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 5054,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-02-23T23:51:53Z",
+      "side": 1,
+      "message": "We should probably really just get rid of these.",
+      "revId": "e561d638c47cec11018dbcb6cd209df0a9274be2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
