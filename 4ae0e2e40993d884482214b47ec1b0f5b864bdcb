@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3d9073f8_6bd8e02c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 9118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-23T18:11:19Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "f5a7b5ed_36de62ac",
+      "range": {
+        "startLine": 9118,
+        "startChar": 25,
+        "endLine": 9118,
+        "endChar": 37
+      },
+      "revId": "4ae0e2e40993d884482214b47ec1b0f5b864bdcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "5ab95d96_bf57f328",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
