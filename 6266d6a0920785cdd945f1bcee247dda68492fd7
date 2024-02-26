@@ -1,0 +1,198 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32511bc3_a41b3909",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Sorry about taking so long to get to this. This looks pretty good!",
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41db1042_cc710ed0",
+        "filename": "ssl/test/runner/ecdsa_p224_key.pem",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "I remember, a long long time ago, the NSS folks had a hard time parsing BEGIN EC PRIVATE KEY and needed the PKCS#8 BEGIN PRIVATE KEY form. Any reason for the change? (TBH you can probably just leave the files unmodified.)\n\nEdit: Ah, I guess it was to use Parse{PKCS1,EC}PrivateKey instead of ParsePKCS8PrivateKey?",
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ad888e_38cd6e6f",
+        "filename": "ssl/test/runner/key.pem",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "If you\u0027re deleting/renaming this one, guessing we also want to delete cert.pem.",
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c09227dc_4205f491",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Looks like this is no longer populated but still defined. It dates to https://boringssl-review.googlesource.com/12261, in order to test that intermediates get sent. E.g. TLS 1.3 has some fun logic to only include extensions on the leaf.",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 212,
+        "endChar": 20
+      },
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fd14275_32606956",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably read \"loadKeyDER\" to mean \"load key from DER\" rather than \"load key from PEM and return the DER\".",
+      "range": {
+        "startLine": 284,
+        "startChar": 5,
+        "endLine": 284,
+        "endChar": 15
+      },
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a398ea47_977020c6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Nit: These aren\u0027t PKCS#8 private keys anymore, but per other comment, we probably want to just make it all PKCS#8.\n\nThat, in turn, means loadKeyDER can probably return a crypto.PrivateKey and these type-specific wrappers just do a down-cast. Or maybe we skip the wrappers and do the down-cast at the caller?\n\nAside: it\u0027s an existing issue, but in theory we should be looking at `block.Type` to determine how to parse the contents. Once it\u0027s unified, maybe check that it\u0027s \"PRIVATE KEY\" for good measure?",
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0122c22_91468e4a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Nit: Perhaps `shimCertificate`. We usually say \"shim\" and \"runner\" rather than \"send\" and \"receive\" because it gets ambiguous otherwise.",
+      "range": {
+        "startLine": 726,
+        "startChar": 1,
+        "endLine": 726,
+        "endChar": 16
+      },
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58f20ad4_37b0fcda",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1396,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Hmm, what\u0027s this change for?",
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86d78892_c9be957b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 14879,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Maybe populate this in initKeys, still as channelIDKeyFile? Still a bad hack, but at least in one place.",
+      "range": {
+        "startLine": 14879,
+        "startChar": 56,
+        "endLine": 14879,
+        "endChar": 70
+      },
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9b41080_0ccb0fbb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 15465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T22:50:37Z",
+      "side": 1,
+      "message": "Seems we\u0027re losing coverage on this test since it\u0027s no longer sending an intermediate.",
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
