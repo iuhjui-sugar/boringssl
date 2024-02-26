@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "559e0d4c_b874bbe8",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 5054,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T19:07:27Z",
+      "side": 1,
+      "message": "Probably. They aren\u0027t embedded in other ASN.1 types very often. Though I don\u0027t think it\u0027d make a huge difference, because every built-in X.509 extension is required to have ASN1_ITEM by way of X509V3_EXT_METHOD. So I left it alone for now.",
+      "parentUuid": "36c5f037_37c4d60d",
+      "revId": "e561d638c47cec11018dbcb6cd209df0a9274be2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f7fdd319_3eab3b8a",
         "filename": "include/openssl/x509.h",
         "patchSetId": 3
