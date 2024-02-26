@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "780952b6_5c6301a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-26T16:43:48Z",
+      "side": 1,
+      "message": "libpki not ready for use in Android yet, I don\u0027t think we want to solve the Cronet problem this way, as it will cause all kinds of problems with version skew.\n\nCan you start an email thread with g/boringssl? Let\u0027s see if we can figure out a better way to solve your problem. I suspect you will need to temporarily import libpki as part of Cronet and not part of BoringSSL, to avoid version skew problems.",
+      "revId": "ceab5047f7d3afbbb52aa9db168cd240760124a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
