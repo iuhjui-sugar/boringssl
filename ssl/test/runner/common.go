@@ -2203,7 +2203,6 @@ func (c *Config) BuildNameToCertificate() {
 
 // A Certificate is a chain of one or more certificates, leaf first.
 type Certificate struct {
-	ID          testCert
 	Certificate [][]byte
 	PrivateKey  crypto.PrivateKey // supported types: *rsa.PrivateKey, *ecdsa.PrivateKey
 	// OCSPStaple contains an optional OCSP response which will be served
@@ -2452,7 +2451,7 @@ var baseCertTemplate = &x509.Certificate{
 
 var tmpDir string
 
-func generateTestCert(id testCert, template, issuer *x509.Certificate, key crypto.Signer, ocspStaple, sctList []byte) Certificate {
+func generateTestCert(template, issuer *x509.Certificate, key crypto.Signer, ocspStaple, sctList []byte) Certificate {
 	if template == nil {
 		template = baseCertTemplate
 	}
@@ -2496,7 +2495,6 @@ func generateTestCert(id testCert, template, issuer *x509.Certificate, key crypt
 	}
 
 	return Certificate{
-		ID:                             id,
 		Certificate:                    [][]byte{der},
 		PrivateKey:                     key,
 		OCSPStaple:                     ocspStaple,

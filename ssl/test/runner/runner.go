@@ -111,19 +111,6 @@ var shimConfig ShimConfiguration = ShimConfiguration{
 	HalfRTTTickets: 2,
 }
 
-type testCert int
-
-const (
-	testCertRSA testCert = iota
-	testCertRSAChain
-	testCertRSA1024
-	testCertECDSAP224
-	testCertECDSAP256
-	testCertECDSAP384
-	testCertECDSAP521
-	testCertEd25519
-)
-
 const (
 	rsa2048KeyFile = "rsa_2048_key.pem"
 	rsa1024KeyFile = "rsa_1024_key.pem"
@@ -223,19 +210,18 @@ var testCerts []*Certificate
 
 func initCertificates() {
 	for _, def := range []struct {
-		id  testCert
 		key crypto.Signer
 		out *Certificate
 	}{
-		{testCertRSA1024, &rsa1024Key, &rsa1024Certificate},
-		{testCertRSA, &rsa2048Key, &rsaCertificate},
-		{testCertECDSAP224, &ecdsaP224Key, &ecdsaP224Certificate},
-		{testCertECDSAP256, &ecdsaP256Key, &ecdsaP256Certificate},
-		{testCertECDSAP384, &ecdsaP384Key, &ecdsaP384Certificate},
-		{testCertECDSAP521, &ecdsaP521Key, &ecdsaP521Certificate},
-		{testCertEd25519, ed25519Key, &ed25519Certificate},
+		{&rsa1024Key, &rsa1024Certificate},
+		{&rsa2048Key, &rsaCertificate},
+		{&ecdsaP224Key, &ecdsaP224Certificate},
+		{&ecdsaP256Key, &ecdsaP256Certificate},
+		{&ecdsaP384Key, &ecdsaP384Certificate},
+		{&ecdsaP521Key, &ecdsaP521Certificate},
+		{ed25519Key, &ed25519Certificate},
 	} {
-		*def.out = generateTestCert(def.id, nil, nil, def.key, testOCSPResponse, testSCTList)
+		*def.out = generateTestCert(nil, nil, def.key, testOCSPResponse, testSCTList)
 		testCerts = append(testCerts, def.out)
 	}
 
@@ -250,8 +236,8 @@ func initCertificates() {
 	// us what we want without a lot of additional complexity.
 	rootTmpl := *baseCertTemplate
 	rootTmpl.Subject.CommonName = "test root"
-	chainRoot := generateTestCert(testCertRSAChain, &rootTmpl, nil, &rsa2048Key, testOCSPResponse, testSCTList)
-	chainLeaf := generateTestCert(testCertRSAChain, nil, chainRoot.Leaf, &rsa2048Key, testOCSPResponse, testSCTList)
+	chainRoot := generateTestCert(&rootTmpl, nil, &rsa2048Key, testOCSPResponse, testSCTList)
+	chainLeaf := generateTestCert(nil, chainRoot.Leaf, &rsa2048Key, testOCSPResponse, testSCTList)
 
 	chainRoot.Certificate = append(chainRoot.Certificate, chainLeaf.Certificate...)
 	chainRoot.Leaf = chainLeaf.Leaf
@@ -420,33 +406,6 @@ func createDelegatedCredential(config delegatedCredentialConfig, parentDER []byt
 	dc = append(dc, parentSignature...)
 
 	return dc, privPKCS8, nil
-}
-
-func getRunnerCertificate(t testCert) Certificate {
-	for _, cert := range testCerts {
-		if cert.ID == t {
-			return *cert
-		}
-	}
-	panic("Unknown test certificate")
-}
-
-func getShimCertificate(t testCert) string {
-	for _, cert := range testCerts {
-		if cert.ID == t {
-			return cert.CertPath
-		}
-	}
-	panic("Unknown test certificate")
-}
-
-func getShimKey(t testCert) string {
-	for _, cert := range testCerts {
-		if cert.ID == t {
-			return cert.KeyPath
-		}
-	}
-	panic("Unknown test certificate")
 }
 
 // recordVersionToWire maps a record-layer protocol version to its wire
@@ -9918,30 +9877,30 @@ func addDTLSReplayTests() {
 var testSignatureAlgorithms = []struct {
 	name string
 	id   signatureAlgorithm
-	cert testCert
+	cert *Certificate
 	// If non-zero, the curve that must be supported in TLS 1.2 for cert to be
 	// accepted.
 	curve CurveID
 }{
-	{"RSA_PKCS1_SHA1", signatureRSAPKCS1WithSHA1, testCertRSA, 0},
-	{"RSA_PKCS1_SHA256", signatureRSAPKCS1WithSHA256, testCertRSA, 0},
-	{"RSA_PKCS1_SHA384", signatureRSAPKCS1WithSHA384, testCertRSA, 0},
-	{"RSA_PKCS1_SHA512", signatureRSAPKCS1WithSHA512, testCertRSA, 0},
-	{"ECDSA_SHA1", signatureECDSAWithSHA1, testCertECDSAP256, CurveP256},
+	{"RSA_PKCS1_SHA1", signatureRSAPKCS1WithSHA1, &rsaCertificate, 0},
+	{"RSA_PKCS1_SHA256", signatureRSAPKCS1WithSHA256, &rsaCertificate, 0},
+	{"RSA_PKCS1_SHA384", signatureRSAPKCS1WithSHA384, &rsaCertificate, 0},
+	{"RSA_PKCS1_SHA512", signatureRSAPKCS1WithSHA512, &rsaCertificate, 0},
+	{"ECDSA_SHA1", signatureECDSAWithSHA1, &ecdsaP256Certificate, CurveP256},
 	// The “P256” in the following line is not a mistake. In TLS 1.2 the
 	// hash function doesn't have to match the curve and so the same
 	// signature algorithm works with P-224.
-	{"ECDSA_P224_SHA256", signatureECDSAWithP256AndSHA256, testCertECDSAP224, CurveP224},
-	{"ECDSA_P256_SHA256", signatureECDSAWithP256AndSHA256, testCertECDSAP256, CurveP256},
-	{"ECDSA_P384_SHA384", signatureECDSAWithP384AndSHA384, testCertECDSAP384, CurveP384},
-	{"ECDSA_P521_SHA512", signatureECDSAWithP521AndSHA512, testCertECDSAP521, CurveP521},
-	{"RSA_PSS_SHA256", signatureRSAPSSWithSHA256, testCertRSA, 0},
-	{"RSA_PSS_SHA384", signatureRSAPSSWithSHA384, testCertRSA, 0},
-	{"RSA_PSS_SHA512", signatureRSAPSSWithSHA512, testCertRSA, 0},
-	{"Ed25519", signatureEd25519, testCertEd25519, 0},
+	{"ECDSA_P224_SHA256", signatureECDSAWithP256AndSHA256, &ecdsaP224Certificate, CurveP224},
+	{"ECDSA_P256_SHA256", signatureECDSAWithP256AndSHA256, &ecdsaP256Certificate, CurveP256},
+	{"ECDSA_P384_SHA384", signatureECDSAWithP384AndSHA384, &ecdsaP384Certificate, CurveP384},
+	{"ECDSA_P521_SHA512", signatureECDSAWithP521AndSHA512, &ecdsaP521Certificate, CurveP521},
+	{"RSA_PSS_SHA256", signatureRSAPSSWithSHA256, &rsaCertificate, 0},
+	{"RSA_PSS_SHA384", signatureRSAPSSWithSHA384, &rsaCertificate, 0},
+	{"RSA_PSS_SHA512", signatureRSAPSSWithSHA512, &rsaCertificate, 0},
+	{"Ed25519", signatureEd25519, &ed25519Certificate, 0},
 	// Tests for key types prior to TLS 1.2.
-	{"RSA", 0, testCertRSA, 0},
-	{"ECDSA", 0, testCertECDSAP256, CurveP256},
+	{"RSA", 0, &rsaCertificate, 0},
+	{"ECDSA", 0, &ecdsaP256Certificate, CurveP256},
 }
 
 const fakeSigAlg1 signatureAlgorithm = 0x2a01
@@ -9984,7 +9943,7 @@ func addSignatureAlgorithmTests() {
 			}
 			// SHA-224 has been removed from TLS 1.3 and, in 1.3,
 			// the curve has to match the hash size.
-			if ver.version >= VersionTLS13 && alg.cert == testCertECDSAP224 {
+			if ver.version >= VersionTLS13 && alg.curve == CurveP224 {
 				shouldFail = true
 			}
 
@@ -10023,7 +9982,6 @@ func addSignatureAlgorithmTests() {
 				}
 
 				// Test the shim using the algorithm for signing.
-				cert := getRunnerCertificate(alg.cert)
 				signTest := testCase{
 					testType: testType,
 					name:     prefix + "Sign" + suffix,
@@ -10035,7 +9993,7 @@ func addSignatureAlgorithmTests() {
 							fakeSigAlg2,
 						},
 					},
-					shimCertificate:    &cert,
+					shimCertificate:    alg.cert,
 					flags:              curveFlags,
 					shouldFail:         shouldFail,
 					expectedError:      signError,
@@ -10054,7 +10012,7 @@ func addSignatureAlgorithmTests() {
 						MaxVersion:                ver.version,
 						VerifySignatureAlgorithms: allAlgorithms,
 					},
-					shimCertificate: &cert,
+					shimCertificate: alg.cert,
 					flags:           curveFlags,
 					expectations: connectionExpectations{
 						peerSignatureAlgorithm: alg.id,
@@ -10084,7 +10042,7 @@ func addSignatureAlgorithmTests() {
 					name:     prefix + "Verify" + suffix,
 					config: Config{
 						MaxVersion:   ver.version,
-						Certificates: []Certificate{getRunnerCertificate(alg.cert)},
+						Certificates: []Certificate{*alg.cert},
 						SignSignatureAlgorithms: []signatureAlgorithm{
 							alg.id,
 						},
@@ -10115,7 +10073,7 @@ func addSignatureAlgorithmTests() {
 					name:     prefix + "VerifyDefault" + suffix,
 					config: Config{
 						MaxVersion:   ver.version,
-						Certificates: []Certificate{getRunnerCertificate(alg.cert)},
+						Certificates: []Certificate{*alg.cert},
 						SignSignatureAlgorithms: []signatureAlgorithm{
 							alg.id,
 						},
@@ -10144,7 +10102,7 @@ func addSignatureAlgorithmTests() {
 					name:     prefix + "InvalidSignature" + suffix,
 					config: Config{
 						MaxVersion:   ver.version,
-						Certificates: []Certificate{getRunnerCertificate(alg.cert)},
+						Certificates: []Certificate{*alg.cert},
 						SignSignatureAlgorithms: []signatureAlgorithm{
 							alg.id,
 						},
@@ -15648,7 +15606,7 @@ func addECDSAKeyUsageTests() {
 		BasicConstraintsValid: true,
 	}
 
-	cert := generateTestCert(0, template, nil, &ecdsaP256Key, nil, nil)
+	cert := generateTestCert(template, nil, &ecdsaP256Key, nil, nil)
 
 	for _, ver := range tlsVersions {
 		if ver.version < VersionTLS12 {
@@ -15715,9 +15673,9 @@ func addRSAKeyUsageTests() {
 		BasicConstraintsValid: true,
 	}
 
-	dsCert := generateTestCert(0, &dsTemplate, nil, priv, nil, nil)
+	dsCert := generateTestCert(&dsTemplate, nil, priv, nil, nil)
 
-	encCert := generateTestCert(0, &encTemplate, nil, priv, nil, nil)
+	encCert := generateTestCert(&encTemplate, nil, priv, nil, nil)
 
 	dsSuites := []uint16{
 		TLS_AES_128_GCM_SHA256,
@@ -19457,7 +19415,7 @@ func addCompliancePolicyTests() {
 				isWPASigAlg = true
 			}
 
-			if sigalg.cert == testCertECDSAP224 {
+			if sigalg.curve == CurveP224 {
 				// This can work in TLS 1.2, but not with TLS 1.3.
 				// For consistency it's not permitted in FIPS mode.
 				isFIPSSigAlg = false
@@ -19480,7 +19438,6 @@ func addCompliancePolicyTests() {
 			}
 
 			for _, policy := range policies {
-				cert := getRunnerCertificate(sigalg.cert)
 				testCases = append(testCases, testCase{
 					testType: serverTest,
 					protocol: protocol,
@@ -19490,7 +19447,7 @@ func addCompliancePolicyTests() {
 						MaxVersion:                maxVersion,
 						VerifySignatureAlgorithms: []signatureAlgorithm{sigalg.id},
 					},
-					shimCertificate: &cert,
+					shimCertificate: sigalg.cert,
 					flags:           []string{policy.flag},
 					shouldFail:      !policy.sigAlgOk,
 				})
@@ -19503,7 +19460,7 @@ func addCompliancePolicyTests() {
 						MinVersion:              VersionTLS12,
 						MaxVersion:              maxVersion,
 						SignSignatureAlgorithms: []signatureAlgorithm{sigalg.id},
-						Certificates:            []Certificate{getRunnerCertificate(sigalg.cert)},
+						Certificates:            []Certificate{*sigalg.cert},
 					},
 					flags: []string{
 						policy.flag,
