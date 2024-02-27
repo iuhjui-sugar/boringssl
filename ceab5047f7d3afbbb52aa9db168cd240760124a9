@@ -34,6 +34,24 @@
       "parentUuid": "780952b6_5c6301a3",
       "revId": "ceab5047f7d3afbbb52aa9db168cd240760124a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a75d2f_9a25f10d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T19:15:21Z",
+      "side": 1,
+      "message": "Oh interesting. That\u0027s different from what I remember the conclusion being, but I\u0027m probably misremembering. 😊\n\nIs that *exactly* the same revision as Chromium? I thought there was still to be a little version skew. I remember a long discussion and us concluding that you all were going to live with some version skew. (I\u0027ll follow-up with you out-of-band with a link.) That won\u0027t work well with libpki right now. (Once we\u0027ve gotten a proper API boundary between the two, it\u0027ll be a bit less tight.)",
+      "parentUuid": "929dd89a_09601a0b",
+      "revId": "ceab5047f7d3afbbb52aa9db168cd240760124a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
