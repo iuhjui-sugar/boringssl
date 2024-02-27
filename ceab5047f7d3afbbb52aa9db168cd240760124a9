@@ -52,6 +52,24 @@
       "parentUuid": "929dd89a_09601a0b",
       "revId": "ceab5047f7d3afbbb52aa9db168cd240760124a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79250ec5_205bd88a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T21:49:40Z",
+      "side": 1,
+      "message": "From email, sounds like this is fine.",
+      "parentUuid": "40a75d2f_9a25f10d",
+      "revId": "ceab5047f7d3afbbb52aa9db168cd240760124a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
