@@ -16,6 +16,24 @@
       "message": "libpki not ready for use in Android yet, I don\u0027t think we want to solve the Cronet problem this way, as it will cause all kinds of problems with version skew.\n\nCan you start an email thread with g/boringssl? Let\u0027s see if we can figure out a better way to solve your problem. I suspect you will need to temporarily import libpki as part of Cronet and not part of BoringSSL, to avoid version skew problems.",
       "revId": "ceab5047f7d3afbbb52aa9db168cd240760124a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "929dd89a_09601a0b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3307170
+      },
+      "writtenOn": "2024-02-27T10:57:30Z",
+      "side": 1,
+      "message": "Cronet bundles it\u0027s own BoringSSL and hence pki sources - https://cs.android.com/android/platform/superproject/main/+/main:external/cronet/third_party/boringssl/.\n\nThis is separate from the BoringSSL generally available for Android - https://cs.android.com/android/platform/superproject/main/+/main:external/boringssl\n\nI don\u0027t think we would run into any version skew problems.",
+      "parentUuid": "780952b6_5c6301a3",
+      "revId": "ceab5047f7d3afbbb52aa9db168cd240760124a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
