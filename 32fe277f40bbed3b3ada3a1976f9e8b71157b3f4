@@ -123,6 +123,24 @@
       "parentUuid": "59f33bee_7aa8a8dc",
       "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0aa5c16_c8c21e55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15276
+      },
+      "writtenOn": "2024-02-27T11:45:20Z",
+      "side": 1,
+      "message": "OK, we\u0027ll look into a new design",
+      "parentUuid": "b151f3c3_3422b05f",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
