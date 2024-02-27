@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e50ff7_e9d651aa",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T22:28:30Z",
+      "side": 1,
+      "message": "This is arguably better named `getCertificate` now (and the two functions below it are unused), but we can do one better: there\u0027s no actual need to have this, or the IDs, at all anymore!\n\nHere\u0027s something to fold into the CL: https://boringssl-review.googlesource.com/c/boringssl/+/66608",
+      "range": {
+        "startLine": 425,
+        "startChar": 5,
+        "endLine": 425,
+        "endChar": 25
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96648146_65695c47",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5791,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T22:28:30Z",
+      "side": 1,
+      "message": "Looks like we lost the `path.join(*resourceDir, ...)` part. Ditto throughout.",
+      "range": {
+        "startLine": 5791,
+        "startChar": 24,
+        "endLine": 5791,
+        "endChar": 40
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72d98c07_0a4ab49e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 9800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T22:28:30Z",
+      "side": 1,
+      "message": "Nit: Doesn\u0027t matter that strongly, but let\u0027s keep this at `rsaChainCertificate` so that just the certificate (and not, say, the cipher suite) is changing.",
+      "range": {
+        "startLine": 9800,
+        "startChar": 31,
+        "endLine": 9800,
+        "endChar": 51
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e7d6820_587b5509",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 15100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T22:28:30Z",
+      "side": 1,
+      "message": "Nit: TBH I\u0027m not sure why we did this as rsaChainCertificate instead of rsaCertificate previously, but may as well preserve that I suppose...",
+      "range": {
+        "startLine": 15100,
+        "startChar": 31,
+        "endLine": 15100,
+        "endChar": 45
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0888b110_f0121521",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 15122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T22:28:30Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 15122,
+        "startChar": 31,
+        "endLine": 15122,
+        "endChar": 45
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9adfd374_414b9644",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T22:28:30Z",
+      "side": 1,
+      "message": "Not needed for this CL or anything, just musing, if we used the go:embed thing, we wouldn\u0027t need to ship those files at all. Maybe after this lands, I\u0027ll take a stab at that.",
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

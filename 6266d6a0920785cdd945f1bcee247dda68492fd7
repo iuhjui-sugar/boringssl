@@ -231,6 +231,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf396660_0fc0b05a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-27T22:28:30Z",
+      "side": 1,
+      "message": "From chat, it sounds like we could pretty easily resolve this by just adding a separate RootPath field to the Certificate structure.",
+      "parentUuid": "fb8b8039_2ad38fc1",
+      "range": {
+        "startLine": 212,
+        "startChar": 1,
+        "endLine": 212,
+        "endChar": 20
+      },
+      "revId": "6266d6a0920785cdd945f1bcee247dda68492fd7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3fd14275_32606956",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
