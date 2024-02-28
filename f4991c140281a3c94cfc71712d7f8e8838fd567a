@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25e42a8e_2a561738",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-28T18:04:28Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "f4991c140281a3c94cfc71712d7f8e8838fd567a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa97ca3c_46917296",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-02-28T18:04:28Z",
+      "side": 1,
+      "message": "We should probably remove most of this stuff. Not needed in a testing stack... :-)",
+      "revId": "f4991c140281a3c94cfc71712d7f8e8838fd567a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
