@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0cc4b0b_f965cba7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-02-28T02:47:39Z",
+      "side": 1,
+      "message": "Ooh, much nicer, done.",
+      "parentUuid": "00e50ff7_e9d651aa",
+      "range": {
+        "startLine": 425,
+        "startChar": 5,
+        "endLine": 425,
+        "endChar": 25
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96648146_65695c47",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-27T22:28:30Z",
       "side": 1,
       "message": "Looks like we lost the `path.join(*resourceDir, ...)` part. Ditto throughout.",
+      "range": {
+        "startLine": 5791,
+        "startChar": 24,
+        "endLine": 5791,
+        "endChar": 40
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2726d8c_aa818c66",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5791,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-02-28T02:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96648146_65695c47",
       "range": {
         "startLine": 5791,
         "startChar": 24,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cba18a4_8632fa7b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 9800,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-02-28T02:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72d98c07_0a4ab49e",
+      "range": {
+        "startLine": 9800,
+        "startChar": 31,
+        "endLine": 9800,
+        "endChar": 51
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e7d6820_587b5509",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-27T22:28:30Z",
       "side": 1,
       "message": "Nit: TBH I\u0027m not sure why we did this as rsaChainCertificate instead of rsaCertificate previously, but may as well preserve that I suppose...",
+      "range": {
+        "startLine": 15100,
+        "startChar": 31,
+        "endLine": 15100,
+        "endChar": 45
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94fd29ed_93649322",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 15100,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-02-28T02:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e7d6820_587b5509",
       "range": {
         "startLine": 15100,
         "startChar": 31,
@@ -118,6 +214,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0bb9345e_06b5a0b0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 15122,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-02-28T02:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0888b110_f0121521",
+      "range": {
+        "startLine": 15122,
+        "startChar": 31,
+        "endLine": 15122,
+        "endChar": 45
+      },
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9adfd374_414b9644",
         "filename": "util/run_android_tests.go",
         "patchSetId": 5
@@ -129,6 +249,24 @@
       "writtenOn": "2024-02-27T22:28:30Z",
       "side": 1,
       "message": "Not needed for this CL or anything, just musing, if we used the go:embed thing, we wouldn\u0027t need to ship those files at all. Maybe after this lands, I\u0027ll take a stab at that.",
+      "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f2faf03_5eb7dc11",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-02-28T02:47:39Z",
+      "side": 1,
+      "message": "Yeah I think it\u0027d be a nice next step.",
+      "parentUuid": "9adfd374_414b9644",
       "revId": "d23af5ef63c8811210c46e3a749f62ea6822ac59",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
