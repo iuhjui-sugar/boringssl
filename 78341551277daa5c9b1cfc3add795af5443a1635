@@ -16,6 +16,24 @@
       "message": "TODO: One more set of tests I forgot. Test the combination of\n- SSL_CREDENTIAL\n- Defer configuring credentials until the cert callback\n- Everything async (including custom private keys)",
       "revId": "78341551277daa5c9b1cfc3add795af5443a1635",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6f3a45f_4d888754",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 19645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-04T04:12:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd22c16b_baf18feb",
+      "revId": "78341551277daa5c9b1cfc3add795af5443a1635",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
