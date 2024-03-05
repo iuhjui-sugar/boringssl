@@ -261,6 +261,18 @@ int main(int argc, char **argv) {
   ECDSA_SIG_free(sig);
   EC_KEY_free(ec_key);
 
+  /* ECDSA with an invalid public key. */
+  ec_key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
+  static const kNotValidX926[] = {1,2,3,4,5,6};
+  if (!EC_KEY_oct2key(ec_key, kNotValidX926, sizeof(kNotValidX926),
+                      /*ctx=*/NULL)) {
+    printf("Error while parsing invalid ECDSA public key");
+  } else {
+    printf("Unexpected success while parsing invalid ECDSA public key");
+    goto err;
+  }
+  EC_KEY_free(ec_key);
+
   /* DBRG */
   CTR_DRBG_STATE drbg;
   printf("About to seed CTR-DRBG with ");
