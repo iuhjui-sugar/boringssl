@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "545220b3_a4482a18",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-05T23:32:30Z",
+      "side": 1,
+      "message": "```suggestion\n// credential\" which is evaluated at the end of this list if no matching credential was found. \n```",
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7e59448_06b61114",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-05T23:32:30Z",
+      "side": 1,
+      "message": "```suggestion\n// example, a callback could evaluate application-specific SNI rules to filter down to\n```",
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb2eafe0_5331cea4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-05T23:32:30Z",
+      "side": 1,
+      "message": "move this to the end, and be slightly more forceful with the language indicating that using the internal pref value, or calling this on a delegated credential is indeed an error and not a suggestion. (elsewhere you say \"it is an error\", which I like better)",
+      "range": {
+        "startLine": 911,
+        "startChar": 66,
+        "endLine": 912,
+        "endChar": 34
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "642fb14c_05515e2e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-05T23:32:30Z",
+      "side": 1,
+      "message": "We don\u0027t actually enforce this now - we will fail if it\u0027s the *only* pref passed in. so this language should probably either be corrected, or we should change the credential code to actually fail if this value is present.",
+      "range": {
+        "startLine": 913,
+        "startChar": 10,
+        "endLine": 913,
+        "endChar": 37
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f32f36e_63944b54",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-05T23:32:30Z",
+      "side": 1,
+      "message": "```suggestion\n// select a signature algorithm that |key_method| does not support. This is not\n```",
+      "range": {
+        "startLine": 1475,
+        "startChar": 0,
+        "endLine": 1475,
+        "endChar": 80
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cda7388d_b07144d4",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-05T23:32:30Z",
+      "side": 1,
+      "message": "```suggestion\n  // For now, we only support X.509 certificates as client credentials\n```",
+      "range": {
+        "startLine": 836,
+        "startChar": 14,
+        "endLine": 836,
+        "endChar": 76
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
