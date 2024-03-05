@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "405ffac7_6bc578f3",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-05T23:50:22Z",
+      "side": 1,
+      "message": "Ok @davidben@google.com and @mattm@google.com - I think this is line 6 of our little spreadsheet -  CERTIFICATE_INVALID here or CERTIFICATE_INVALID_SIGNATURE? \n\nMy last comment there based on our discussions has me leaning to changing this to CERTIFICATE_INVALID, as this cert is effectively considered broken by 5280.",
+      "revId": "f48b021dd7b4ed776fe4a082b018f9adfe456204",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
