@@ -819,6 +819,7 @@ both_builders(
     WIN_HOST,
     category = "win|x86",
     short_name = "dbg",
+    cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
         "msvc_target": "x86",
     },
@@ -902,6 +903,7 @@ both_builders(
     WIN_HOST,
     category = "win|x64",
     short_name = "dbg",
+    cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
         "msvc_target": "x64",
     },
