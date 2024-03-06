@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "680d68e3_89e8362e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-06T21:56:48Z",
+      "side": 1,
+      "message": "Realized this makes no sense since \"this list\" now refers to the wrong thing. Moved around.",
+      "parentUuid": "545220b3_a4482a18",
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7e59448_06b61114",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7049253_ce13cf2d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-06T21:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7e59448_06b61114",
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb2eafe0_5331cea4",
@@ -48,6 +84,30 @@
       "writtenOn": "2024-03-05T23:32:30Z",
       "side": 1,
       "message": "move this to the end, and be slightly more forceful with the language indicating that using the internal pref value, or calling this on a delegated credential is indeed an error and not a suggestion. (elsewhere you say \"it is an error\", which I like better)",
+      "range": {
+        "startLine": 911,
+        "startChar": 66,
+        "endLine": 912,
+        "endChar": 34
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "058cb165_c27333ff",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-06T21:56:48Z",
+      "side": 1,
+      "message": "Switched the last paragraph to \"it is an error\". But I think if we move this sentence, it gets a little screwy because \"prefs should not include ...\" is not describing an error condition. It\u0027s an instruction to the caller and one that, as you note, we don\u0027t quite enforce.\n\nI think it\u0027s best to leave that alone for now due to the mess below.",
+      "parentUuid": "bb2eafe0_5331cea4",
       "range": {
         "startLine": 911,
         "startChar": 66,
@@ -105,6 +165,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e488d65d_e581850b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 913,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-06T21:56:48Z",
+      "side": 1,
+      "message": "Yeah, this is because we used to document this rule, but then we were kinda fuzzy about it and there were some weird corner cases. E.g. https://boringssl-review.googlesource.com/c/boringssl/+/55446\n\nWe may want to rethink this anyway. See the \"TLS 1.0 and 1.1 and signature algorithm preferences\" section in the doc. For now, I\u0027m just leaving the behavior and docs as-is.",
+      "parentUuid": "c16d07c9_9a4d3b12",
+      "range": {
+        "startLine": 913,
+        "startChar": 10,
+        "endLine": 913,
+        "endChar": 37
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f32f36e_63944b54",
@@ -128,6 +212,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7d44312_b0662315",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-06T21:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f32f36e_63944b54",
+      "range": {
+        "startLine": 1475,
+        "startChar": 0,
+        "endLine": 1475,
+        "endChar": 80
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cda7388d_b07144d4",
@@ -141,6 +249,30 @@
       "writtenOn": "2024-03-05T23:32:30Z",
       "side": 1,
       "message": "```suggestion\n  // For now, we only support X.509 certificates as client credentials\n```",
+      "range": {
+        "startLine": 836,
+        "startChar": 14,
+        "endLine": 836,
+        "endChar": 76
+      },
+      "revId": "7528a528837f30ab40946c81a47d474fdf190cf2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d67948c_52059a69",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-06T21:56:48Z",
+      "side": 1,
+      "message": "The comment was really trying to capture that we might plausibly add DCs here, but yeah it\u0027s a bit weird. I agree your comment is better, but I think that comment adds nothing over the code alone, so I\u0027ll just remove the comment.",
+      "parentUuid": "cda7388d_b07144d4",
       "range": {
         "startLine": 836,
         "startChar": 14,
