@@ -47,7 +47,7 @@ bool GenerateRSAKey(const std::vector<std::string> &args) {
 
   bssl::UniquePtr<RSA> rsa(RSA_new());
   bssl::UniquePtr<BIGNUM> e(BN_new());
-  bssl::UniquePtr<BIO> bio(BIO_new_fp(stdout, BIO_NOCLOSE));
+  bssl::UniquePtr<BIO> bio(BIO_new_fp(stdout, BIO_NOCLOSE | BIO_FP_TEXT));
 
   if (!BN_set_word(e.get(), RSA_F4) ||
       !RSA_generate_key_ex(rsa.get(), bits, e.get(), NULL) ||
