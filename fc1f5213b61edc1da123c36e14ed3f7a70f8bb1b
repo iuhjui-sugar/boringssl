@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81ea9dcf_15460b40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-06T22:26:22Z",
+      "side": 1,
+      "message": "Hmm.. this breaks google3, because the FIPS directory uses the old API.",
+      "revId": "fc1f5213b61edc1da123c36e14ed3f7a70f8bb1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
