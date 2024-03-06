@@ -416,7 +416,8 @@ bool Server(const std::vector<std::string> &args) {
     }
 
     fprintf(stderr, "Connected.\n");
-    bssl::UniquePtr<BIO> bio_stderr(BIO_new_fp(stderr, BIO_NOCLOSE));
+    bssl::UniquePtr<BIO> bio_stderr(
+        BIO_new_fp(stderr, BIO_NOCLOSE | BIO_FP_TEXT));
     PrintConnectionInfo(bio_stderr.get(), ssl.get());
 
     if (args_map.count("-www") != 0) {

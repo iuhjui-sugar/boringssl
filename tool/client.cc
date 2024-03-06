@@ -358,7 +358,8 @@ static bool DoConnection(SSL_CTX *ctx,
   }
 
   fprintf(stderr, "Connected.\n");
-  bssl::UniquePtr<BIO> bio_stderr(BIO_new_fp(stderr, BIO_NOCLOSE));
+  bssl::UniquePtr<BIO> bio_stderr(
+      BIO_new_fp(stderr, BIO_NOCLOSE | BIO_FP_TEXT));
   PrintConnectionInfo(bio_stderr.get(), ssl.get());
 
   return cb(ssl.get(), sock);
