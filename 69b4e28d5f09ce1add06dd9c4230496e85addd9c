@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b6a8063_079b28ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-08T21:24:31Z",
+      "side": 1,
+      "message": "😳 Oops. Thanks!",
+      "revId": "69b4e28d5f09ce1add06dd9c4230496e85addd9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b1f4449_0f062941",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-08T21:24:31Z",
+      "side": 1,
+      "message": "Oops, nice catch! Apparently that typo dates all the way back to https://boringssl-review.googlesource.com/c/boringssl/+/51548\n\nConfirmed with `clang -march\u003dhaswell -dM -E - \u003c /dev/null` that this is the correct spelling.",
+      "revId": "69b4e28d5f09ce1add06dd9c4230496e85addd9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
