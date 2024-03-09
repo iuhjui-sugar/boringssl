@@ -21,6 +21,9 @@
 extern "C" {
 #endif
 
+#if !defined(OPENSSL_I_UNDERSTAND_EXPERIMENTAL_FUNCTION_RISK)
+#error "This header implements experimental, draft versions of not-yet-standardized primitives. When the standard is complete, these functions will be removed and replaced with the final, incompatible standard version. They are available now for short-lived experiments, but must not be deployed anywhere durable, such as a long-lived key store. To use these functions define OPENSSL_I_UNDERSTAND_EXPERIMENTAL_FUNCTION_RISK"
+#endif
 
 // Kyber768.
 //
