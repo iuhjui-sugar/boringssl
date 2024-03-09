@@ -41,7 +41,7 @@ extern "C" {
 // result to |out_public_key| and |out_secret_key|.
 // Private key: SK.seed || SK.prf || PK.seed || PK.root
 // Public key: PK.seed || PK.root
-OPENSSL_EXPORT void spx_generate_key(
+OPENSSL_DEPRECATED void spx_generate_key(
     uint8_t out_public_key[SPX_PUBLIC_KEY_BYTES],
     uint8_t out_secret_key[SPX_SECRET_KEY_BYTES]);
 
@@ -49,7 +49,7 @@ OPENSSL_EXPORT void spx_generate_key(
 // 48-byte seed and writes the result to |out_public_key| and |out_secret_key|.
 // Secret key: SK.seed || SK.prf || PK.seed || PK.root
 // Public key: PK.seed || PK.root
-OPENSSL_EXPORT void spx_generate_key_from_seed(
+OPENSSL_DEPRECATED void spx_generate_key_from_seed(
     uint8_t out_public_key[SPX_PUBLIC_KEY_BYTES],
     uint8_t out_secret_key[SPX_SECRET_KEY_BYTES],
     const uint8_t seed[3 * SPX_N]);
@@ -59,7 +59,7 @@ OPENSSL_EXPORT void spx_generate_key_from_seed(
 //
 // if |randomized| is 0, deterministic signing is performed, otherwise,
 // non-deterministic signing is performed.
-OPENSSL_EXPORT void spx_sign(uint8_t out_snignature[SPX_SIGNATURE_BYTES],
+OPENSSL_DEPRECATED void spx_sign(uint8_t out_snignature[SPX_SIGNATURE_BYTES],
                              const uint8_t secret_key[SPX_SECRET_KEY_BYTES],
                              const uint8_t *msg, size_t msg_len,
                              int randomized);
@@ -67,7 +67,7 @@ OPENSSL_EXPORT void spx_sign(uint8_t out_snignature[SPX_SIGNATURE_BYTES],
 // spx_verify verifies a SPHINCS+-SHA2-128s signature in |signature| over |msg|
 // or length |msg_len| using |public_key|. 1 is returned if the signature
 // matches, 0 otherwise.
-OPENSSL_EXPORT int spx_verify(const uint8_t signature[SPX_SIGNATURE_BYTES],
+OPENSSL_DEPRECATED int spx_verify(const uint8_t signature[SPX_SIGNATURE_BYTES],
                               const uint8_t public_key[SPX_SECRET_KEY_BYTES],
                               const uint8_t *msg, size_t msg_len);
 
