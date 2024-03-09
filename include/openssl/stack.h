@@ -337,18 +337,18 @@ OPENSSL_EXPORT OPENSSL_STACK *OPENSSL_sk_deep_copy(
 typedef OPENSSL_STACK _STACK;
 
 // The following functions call the corresponding |OPENSSL_sk_*| function.
-OPENSSL_EXPORT OPENSSL_DEPRECATED OPENSSL_STACK *sk_new_null(void);
-OPENSSL_EXPORT OPENSSL_DEPRECATED size_t sk_num(const OPENSSL_STACK *sk);
-OPENSSL_EXPORT OPENSSL_DEPRECATED void *sk_value(const OPENSSL_STACK *sk,
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL OPENSSL_STACK *sk_new_null(void);
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL size_t sk_num(const OPENSSL_STACK *sk);
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL void *sk_value(const OPENSSL_STACK *sk,
                                                  size_t i);
-OPENSSL_EXPORT OPENSSL_DEPRECATED void sk_free(OPENSSL_STACK *sk);
-OPENSSL_EXPORT OPENSSL_DEPRECATED size_t sk_push(OPENSSL_STACK *sk, void *p);
-OPENSSL_EXPORT OPENSSL_DEPRECATED void *sk_pop(OPENSSL_STACK *sk);
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL void sk_free(OPENSSL_STACK *sk);
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL size_t sk_push(OPENSSL_STACK *sk, void *p);
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL void *sk_pop(OPENSSL_STACK *sk);
 
 // sk_pop_free_ex calls |OPENSSL_sk_pop_free_ex|.
 //
 // TODO(b/291994116): Remove this.
-OPENSSL_EXPORT OPENSSL_DEPRECATED void sk_pop_free_ex(
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL void sk_pop_free_ex(
     OPENSSL_STACK *sk, OPENSSL_sk_call_free_func call_free_func,
     OPENSSL_sk_free_func free_func);
 
@@ -357,7 +357,7 @@ OPENSSL_EXPORT OPENSSL_DEPRECATED void sk_pop_free_ex(
 // |sk_pop_free| directly.
 //
 // TODO(davidben): Migrate callers to bssl::UniquePtr and remove this.
-OPENSSL_EXPORT OPENSSL_DEPRECATED void sk_pop_free(
+OPENSSL_EXPORT OPENSSL_EXPERIMENTAL void sk_pop_free(
     OPENSSL_STACK *sk, OPENSSL_sk_free_func free_func);
 
 
