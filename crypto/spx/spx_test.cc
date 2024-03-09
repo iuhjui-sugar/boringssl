@@ -26,7 +26,8 @@
 #include "../test/file_test.h"
 #include "../test/test_util.h"
 
-
+// suppress warnings for experimental spx api
+OPENSSL_BEGIN_ALLOW_DEPRECATED
 namespace {
 
 TEST(SpxTest, KeyGeneration) {
@@ -136,5 +137,6 @@ TEST(SpxTest, TestVectors) {
   FileTestGTest("crypto/spx/spx_tests_deterministic.txt",
                 SpxFileDeterministicTest);
 }
+OPENSSL_END_ALLOW_DEPRECATED
 
 }  // namespace
