@@ -167,3 +167,12 @@ TEST(CryptoTest, DeprecatedFunction) {
   DeprecatedFunction();
 }
 OPENSSL_END_ALLOW_DEPRECATED
+
+OPENSSL_EXPERIMENTAL static void ExperimentalFunction() {}
+
+OPENSSL_BEGIN_ALLOW_EXPERIMENTAL
+TEST(CryptoTest, ExperimentalFunction) {
+  // This is experimental, but should not trigger any warnings.
+  ExperimentalFunction();
+}
+OPENSSL_END_ALLOW_EXPERIMENTAL

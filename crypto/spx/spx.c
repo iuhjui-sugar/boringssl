@@ -16,6 +16,7 @@
 
 #include <string.h>
 
+#define OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME
 #include <openssl/experimental/spx.h>
 #include <openssl/rand.h>
 
@@ -30,7 +31,9 @@ void spx_generate_key(uint8_t out_public_key[SPX_PUBLIC_KEY_BYTES],
                       uint8_t out_secret_key[SPX_SECRET_KEY_BYTES]) {
   uint8_t seed[3 * SPX_N];
   RAND_bytes(seed, 3 * SPX_N);
+  OPENSSL_BEGIN_ALLOW_EXPERIMENTAL
   spx_generate_key_from_seed(out_public_key, out_secret_key, seed);
+  OPENSSL_END_ALLOW_EXPERIMENTAL
 }
 
 void spx_generate_key_from_seed(uint8_t out_public_key[SPX_PUBLIC_KEY_BYTES],
