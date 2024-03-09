@@ -139,10 +139,17 @@ extern "C" {
 
 #if defined(_MSC_VER)
 
-// OPENSSL_DEPRECATED is used to mark a function as deprecated. Use
-// of any functions so marked in caller code will produce a warning.
-// OPENSSL_BEGIN_ALLOW_DEPRECATED and OPENSSL_END_ALLOW_DEPRECATED
-// can be used to suppress the warning in regions of caller code.
+// OPENSSL_EXPERIMENTAL uses the compiler's deprecation attribute to mark a
+// function as deprecated with a warning that the API is experimental. Use of
+// any functions so marked in caller code will produce a warning.
+// OPENSSL_BEGIN_ALLOW_EXPERIMENTAL and OPENSSL_END_ALLOW_EXPERIMENTAL can be
+// used to suppress the warning in regions of caller code.
+// OPENSSL_DEPRECATED is similar but does not add the custom warning about
+// experimental code.
+#define OPENSSL_EXPERIMENTAL __declspec(deprecated)
+#define OPENSSL_BEGIN_ALLOW_EXPERIMENTAL \
+  __pragma(warning(push)) __pragma(warning(disable : 4996))
+#define OPENSSL_END_ALLOW_EXPERIMENTAL __pragma(warning(pop))
 #define OPENSSL_DEPRECATED __declspec(deprecated)
 #define OPENSSL_BEGIN_ALLOW_DEPRECATED \
   __pragma(warning(push)) __pragma(warning(disable : 4996))
@@ -150,6 +157,14 @@ extern "C" {
 
 #elif defined(__GNUC__) || defined(__clang__)
 
+#define OPENSSL_EXPERIMENTAL                                                 \
+  __attribute__((__deprecated__(                                             \
+      "This is an experimental API. You should expect to be broken without " \
+      "warning when this API is changed or removed")))
+#define OPENSSL_BEGIN_ALLOW_EXPERIMENTAL \
+  _Pragma("GCC diagnostic push")       \
+      _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
+#define OPENSSL_END_ALLOW_EXPERIMENTAL _Pragma("GCC diagnostic pop")
 #define OPENSSL_DEPRECATED __attribute__((__deprecated__))
 #define OPENSSL_BEGIN_ALLOW_DEPRECATED \
   _Pragma("GCC diagnostic push")       \
@@ -158,12 +173,14 @@ extern "C" {
 
 #else
 
+#define OPENSSL_EXPERIMENTAL
+#define OPENSSL_BEGIN_ALLOW_EXPERIMENTAL
+#define OPENSSL_END_ALLOW_EXPERIMENTAL
 #define OPENSSL_DEPRECATED
 #define OPENSSL_BEGIN_ALLOW_DEPRECATED
 #define OPENSSL_END_ALLOW_DEPRECATED
 
 #endif
-
 
 #if defined(__GNUC__) || defined(__clang__)
 // MinGW has two different printf implementations. Ensure the format macro

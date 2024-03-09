@@ -1128,6 +1128,8 @@ static bool SpeedKyber(const std::string &selected) {
   return true;
 }
 
+// Suppress warnings for experimental spx api
+OPENSSL_BEGIN_ALLOW_EXPERIMENTAL
 static bool SpeedSpx(const std::string &selected) {
   if (!selected.empty() && selected.find("spx") == std::string::npos) {
     return true;
@@ -1173,6 +1175,7 @@ static bool SpeedSpx(const std::string &selected) {
 
   return true;
 }
+OPENSSL_END_ALLOW_EXPERIMENTAL
 
 static bool SpeedHashToCurve(const std::string &selected) {
   if (!selected.empty() && selected.find("hashtocurve") == std::string::npos) {
