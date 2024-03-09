@@ -27,7 +27,7 @@
 #include "../keccak/internal.h"
 #include "./internal.h"
 
-
+OPENSSL_BEGIN_ALLOW_EXPERIMENTAL
 template <typename T>
 static std::vector<uint8_t> Marshal(int (*marshal_func)(CBB *, const T *),
                                     const T *t) {
@@ -184,3 +184,4 @@ static void KyberFileTest(FileTest *t) {
 TEST(KyberTest, TestVectors) {
   FileTestGTest("crypto/kyber/kyber_tests.txt", KyberFileTest);
 }
+OPENSSL_END_ALLOW_EXPERIMENTAL

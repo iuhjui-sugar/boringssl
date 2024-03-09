@@ -1081,6 +1081,7 @@ static bool SpeedHRSS(const std::string &selected) {
   return true;
 }
 
+OPENSSL_BEGIN_ALLOW_EXPERIMENTAL
 static bool SpeedKyber(const std::string &selected) {
   if (!selected.empty() && selected != "Kyber") {
     return true;
@@ -1129,6 +1130,7 @@ static bool SpeedKyber(const std::string &selected) {
 
   return true;
 }
+OPENSSL_END_ALLOW_EXPERIMENTAL
 
 static bool SpeedSpx(const std::string &selected) {
   if (!selected.empty() && selected.find("spx") == std::string::npos) {

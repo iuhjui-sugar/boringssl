@@ -191,6 +191,7 @@ class X25519KeyShare : public SSLKeyShare {
   uint8_t private_key_[32];
 };
 
+OPENSSL_BEGIN_ALLOW_EXPERIMENTAL
 class X25519Kyber768KeyShare : public SSLKeyShare {
  public:
   X25519Kyber768KeyShare() {}
@@ -280,6 +281,7 @@ class X25519Kyber768KeyShare : public SSLKeyShare {
   uint8_t x25519_private_key_[32];
   KYBER_private_key kyber_private_key_;
 };
+OPENSSL_END_ALLOW_EXPERIMENTAL
 
 constexpr NamedGroup kNamedGroups[] = {
     {NID_secp224r1, SSL_GROUP_SECP224R1, "P-224", "secp224r1"},
