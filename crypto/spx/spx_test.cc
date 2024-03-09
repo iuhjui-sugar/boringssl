@@ -21,12 +21,13 @@
 
 #include <gtest/gtest.h>
 #include <openssl/bytestring.h>
+#define OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME
 #include <openssl/experimental/spx.h>
 
 #include "../test/file_test.h"
 #include "../test/test_util.h"
 
-
+// suppress warnings for experimental spx api
 namespace {
 
 TEST(SpxTest, KeyGeneration) {

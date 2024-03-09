@@ -139,10 +139,11 @@ extern "C" {
 
 #if defined(_MSC_VER)
 
-// OPENSSL_DEPRECATED is used to mark a function as deprecated. Use
-// of any functions so marked in caller code will produce a warning.
-// OPENSSL_BEGIN_ALLOW_DEPRECATED and OPENSSL_END_ALLOW_DEPRECATED
-// can be used to suppress the warning in regions of caller code.
+// OPENSSL_DEPRECATED uses the compiler's deprecation attribute to mark a
+// function as deprecated. Use of any functions so marked in caller code will
+// produce a warning.  OPENSSL_BEGIN_ALLOW_DEPRECATED and
+// OPENSSL_END_ALLOW_DEPRECATED can be used to suppress the warning in regions
+// of caller code.
 #define OPENSSL_DEPRECATED __declspec(deprecated)
 #define OPENSSL_BEGIN_ALLOW_DEPRECATED \
   __pragma(warning(push)) __pragma(warning(disable : 4996))
@@ -163,7 +164,6 @@ extern "C" {
 #define OPENSSL_END_ALLOW_DEPRECATED
 
 #endif
-
 
 #if defined(__GNUC__) || defined(__clang__)
 // MinGW has two different printf implementations. Ensure the format macro
