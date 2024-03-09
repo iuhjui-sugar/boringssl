@@ -16,6 +16,7 @@
 #define OPENSSL_HEADER_CRYPTO_KYBER_INTERNAL_H
 
 #include <openssl/base.h>
+#define OPENSSL_UNSTABLE_EXPERIMENTAL_KYBER
 #include <openssl/experimental/kyber.h>
 
 #if defined(__cplusplus)

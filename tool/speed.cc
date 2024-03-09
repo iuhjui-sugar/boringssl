@@ -25,8 +25,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define OPENSSL_I_UNDERSTAND_EXPERIMENTAL_FUNCTION_RISK
-
 #include <openssl/aead.h>
 #include <openssl/aes.h>
 #include <openssl/base64.h>
@@ -40,8 +38,9 @@
 #include <openssl/ecdsa.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
-#define OPENSSL_UNSTABLE_EXPERIMENTAL_SPX
+#define OPENSSL_UNSTABLE_EXPERIMENTAL_KYBER
 #include <openssl/experimental/kyber.h>
+#define OPENSSL_UNSTABLE_EXPERIMENTAL_SPX
 #include <openssl/experimental/spx.h>
 #include <openssl/hrss.h>
 #include <openssl/mem.h>
