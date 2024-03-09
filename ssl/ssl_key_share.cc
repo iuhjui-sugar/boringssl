@@ -24,6 +24,7 @@
 #include <openssl/curve25519.h>
 #include <openssl/ec.h>
 #include <openssl/err.h>
+#define OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME
 #include <openssl/experimental/kyber.h>
 #include <openssl/hrss.h>
 #include <openssl/mem.h>
