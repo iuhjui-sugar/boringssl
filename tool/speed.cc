@@ -1079,6 +1079,7 @@ static bool SpeedHRSS(const std::string &selected) {
   return true;
 }
 
+OPENSSL_BEGIN_ALLOW_DEPRECATED
 static bool SpeedKyber(const std::string &selected) {
   if (!selected.empty() && selected != "Kyber") {
     return true;
@@ -1127,6 +1128,7 @@ static bool SpeedKyber(const std::string &selected) {
 
   return true;
 }
+OPENSSL_END_ALLOW_DEPRECATED
 
 // Suppress warnings for experimental spx api
 OPENSSL_BEGIN_ALLOW_DEPRECATED
