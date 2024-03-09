@@ -30,7 +30,9 @@ void spx_generate_key(uint8_t out_public_key[SPX_PUBLIC_KEY_BYTES],
                       uint8_t out_secret_key[SPX_SECRET_KEY_BYTES]) {
   uint8_t seed[3 * SPX_N];
   RAND_bytes(seed, 3 * SPX_N);
+  OPENSSL_BEGIN_ALLOW_DEPRECATED
   spx_generate_key_from_seed(out_public_key, out_secret_key, seed);
+  OPENSSL_END_ALLOW_DEPRECATED
 }
 
 void spx_generate_key_from_seed(uint8_t out_public_key[SPX_PUBLIC_KEY_BYTES],
