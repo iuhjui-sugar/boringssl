@@ -16,6 +16,7 @@
 
 #include <string.h>
 
+#define OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME
 #include <openssl/experimental/spx.h>
 #include <openssl/rand.h>
 

@@ -21,6 +21,9 @@
 extern "C" {
 #endif
 
+#if !defined(OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME)
+#error "You must define OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME to use this experimental code, and be prepared to fix it yourself when it breaks without warning"
+#endif
 
 // SPX_N is the number of bytes in the hash output
 #define SPX_N 16
@@ -59,17 +62,18 @@ OPENSSL_EXPORT void spx_generate_key_from_seed(
 //
 // if |randomized| is 0, deterministic signing is performed, otherwise,
 // non-deterministic signing is performed.
-OPENSSL_EXPORT void spx_sign(uint8_t out_snignature[SPX_SIGNATURE_BYTES],
-                             const uint8_t secret_key[SPX_SECRET_KEY_BYTES],
-                             const uint8_t *msg, size_t msg_len,
-                             int randomized);
+OPENSSL_EXPORT void spx_sign(
+    uint8_t out_snignature[SPX_SIGNATURE_BYTES],
+    const uint8_t secret_key[SPX_SECRET_KEY_BYTES], const uint8_t *msg,
+    size_t msg_len, int randomized);
 
 // spx_verify verifies a SPHINCS+-SHA2-128s signature in |signature| over |msg|
 // or length |msg_len| using |public_key|. 1 is returned if the signature
 // matches, 0 otherwise.
-OPENSSL_EXPORT int spx_verify(const uint8_t signature[SPX_SIGNATURE_BYTES],
-                              const uint8_t public_key[SPX_SECRET_KEY_BYTES],
-                              const uint8_t *msg, size_t msg_len);
+OPENSSL_EXPORT int spx_verify(
+    const uint8_t signature[SPX_SIGNATURE_BYTES],
+    const uint8_t public_key[SPX_SECRET_KEY_BYTES], const uint8_t *msg,
+    size_t msg_len);
 
 
 #if defined(__cplusplus)
