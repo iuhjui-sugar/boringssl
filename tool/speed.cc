@@ -25,6 +25,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define OPENSSL_I_UNDERSTAND_EXPERIMENTAL_FUNCTION_RISK
+
 #include <openssl/aead.h>
 #include <openssl/aes.h>
 #include <openssl/base64.h>
@@ -1136,7 +1138,7 @@ static bool SpeedSpx(const std::string &selected) {
   TimeResults results;
   if (!TimeFunctionParallel(&results, []() -> bool {
         uint8_t public_key[32], private_key[64];
-        spx_generate_key(public_key, private_key);
+        SPX_generate_key(public_key, private_key);
         return true;
       })) {
     return false;
@@ -1145,12 +1147,12 @@ static bool SpeedSpx(const std::string &selected) {
   results.Print("SPHINCS+-SHA2-128s key generation");
 
   uint8_t public_key[32], private_key[64];
-  spx_generate_key(public_key, private_key);
+  SPX_generate_key(public_key, private_key);
   static const uint8_t kMessage[] = {0, 1, 2, 3, 4, 5};
 
   if (!TimeFunctionParallel(&results, [&private_key]() -> bool {
         uint8_t out[SPX_SIGNATURE_BYTES];
-        spx_sign(out, private_key, kMessage, sizeof(kMessage), true);
+        SPX_sign(out, private_key, kMessage, sizeof(kMessage), true);
         return true;
       })) {
     return false;
@@ -1159,10 +1161,10 @@ static bool SpeedSpx(const std::string &selected) {
   results.Print("SPHINCS+-SHA2-128s signing");
 
   uint8_t signature[SPX_SIGNATURE_BYTES];
-  spx_sign(signature, private_key, kMessage, sizeof(kMessage), true);
+  SPX_sign(signature, private_key, kMessage, sizeof(kMessage), true);
 
   if (!TimeFunctionParallel(&results, [&public_key, &signature]() -> bool {
-        return spx_verify(signature, public_key, kMessage, sizeof(kMessage)) ==
+        return SPX_verify(signature, public_key, kMessage, sizeof(kMessage)) ==
                1;
       })) {
     fprintf(stderr, "SPHINCS+-SHA2-128s verify failed.\n");
