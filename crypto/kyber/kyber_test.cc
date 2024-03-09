@@ -17,16 +17,15 @@
 #include <string.h>
 
 #include <gtest/gtest.h>
-
 #include <openssl/bytestring.h>
 #include <openssl/ctrdrbg.h>
+#define OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME
 #include <openssl/experimental/kyber.h>
 
 #include "../test/file_test.h"
 #include "../test/test_util.h"
 #include "../keccak/internal.h"
 #include "./internal.h"
-
 
 template <typename T>
 static std::vector<uint8_t> Marshal(int (*marshal_func)(CBB *, const T *),

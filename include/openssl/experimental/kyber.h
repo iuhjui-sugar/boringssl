@@ -21,6 +21,9 @@
 extern "C" {
 #endif
 
+#if !defined(OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME)
+#error "You must define OPENSSL_I_UNDERSTAND_THAT_I_AM_USING_EXPERIMENTAL_FUNCTIONS_THAT_WILL_CHANGE_OR_BE_DELETED_AT_ANY_TIME to use this experimental code, and be prepared to fix it yourself when it breaks without warning"
+#endif
 
 // Kyber768.
 //
