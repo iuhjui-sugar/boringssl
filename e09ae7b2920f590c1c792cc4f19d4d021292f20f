@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d22b5560_f5fd6156",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-11T17:10:48Z",
+      "side": 1,
+      "message": "Hey, sorry about the long delay here. Thanks for the CL. We\u0027ve been a bit caught up with other work leading up to IETF. Just wanted to ACK this CL and let you know it\u0027s in our queue. The numbers you cite are quite impressive, and it\u0027s nice that you seem to have avoided the truly comical size costs of the previous attempt. :-)\n\nBob and I will be traveling, but hopefully we can pick this up after IETF. (Or perhaps in between sessions if one of us gets distracted.)",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
