@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8546af4c_db04abcf",
+        "filename": "crypto/err/err_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-11T19:44:43Z",
+      "side": 1,
+      "message": "we could probably just consider making the human readable string \"errno\u003d%d\" for these.",
+      "range": {
+        "startLine": 319,
+        "startChar": 5,
+        "endLine": 319,
+        "endChar": 75
+      },
+      "revId": "a232f9d606227c217f27f9bc82b568494fa6c908",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
