@@ -22,6 +22,30 @@
       },
       "revId": "a232f9d606227c217f27f9bc82b568494fa6c908",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffc1fb3a_8a417808",
+        "filename": "crypto/err/err_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-11T20:11:32Z",
+      "side": 1,
+      "message": "Tricky thing is that `ERR_reason_error_string` needs to return a static string. Actually we need to do something here anyway because `strerror` isn\u0027t thread-safe.\n\nOpenSSL now returns NULL and only uses `strerror_r` in the various APIs that output a string. We could start doing that too. Maybe returning something like \"system error\" or something, I dunno. Or we could lazily fill in buffers, but that has threading implications.\n\nAnyway, separate issue.",
+      "parentUuid": "8546af4c_db04abcf",
+      "range": {
+        "startLine": 319,
+        "startChar": 5,
+        "endLine": 319,
+        "endChar": 75
+      },
+      "revId": "a232f9d606227c217f27f9bc82b568494fa6c908",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
