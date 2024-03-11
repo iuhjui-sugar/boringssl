@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75557fc6_8a1b0062",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-11T16:09:47Z",
+      "side": 1,
+      "message": "I have seen 16384 elsewhere, but a few more things need to be banished to the heap for that, so yeah let\u0027s start with this number. We can always change it later.",
+      "range": {
+        "startLine": 144,
+        "startChar": 90,
+        "endLine": 144,
+        "endChar": 95
+      },
+      "revId": "d7facd9421ec60bcbd85f61ed82e176c6fc59587",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
