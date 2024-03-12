@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc0db1b5_c4b1edbe",
+        "filename": "crypto/x509/by_dir.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-12T16:23:30Z",
+      "side": 1,
+      "message": "I think you can make OPENSSL_NO_POSIX_IO work for now by #if !defined around these\ntwo includes (and leaving the stat call in for now when defined)",
+      "revId": "fbbd98b9ee15eb59a1373245a388cfa292a82d57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
