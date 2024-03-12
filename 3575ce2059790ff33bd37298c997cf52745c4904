@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "934438c9_25a1ab8d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2024-03-12T14:21:43Z",
+      "side": 1,
+      "message": "Confirmed that this fixes Conscrypt PSK callback functionality.",
+      "revId": "3575ce2059790ff33bd37298c997cf52745c4904",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "280762a4_eb1a6c3f",
         "filename": "ssl/extensions.cc",
         "patchSetId": 1
