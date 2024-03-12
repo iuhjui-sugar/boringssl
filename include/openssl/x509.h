@@ -254,7 +254,7 @@ OPENSSL_EXPORT void X509_get0_uids(const X509 *x509,
 // should not be accepted.
 #define EXFLAG_CRITICAL 0x200
 // EXFLAG_SS indicates the certificate is likely self-signed. That is, if it is
-// self-issued, its authority key identifer (if any) matches itself, and its key
+// self-issued, its authority key identifier (if any) matches itself, and its key
 // usage extension (if any) allows certificate signatures. The signature itself
 // is not checked in computing this bit.
 #define EXFLAG_SS 0x2000
