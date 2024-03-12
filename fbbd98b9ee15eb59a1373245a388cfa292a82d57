@@ -16,6 +16,24 @@
       "message": "I think you can make OPENSSL_NO_POSIX_IO work for now by #if !defined around these\ntwo includes (and leaving the stat call in for now when defined)",
       "revId": "fbbd98b9ee15eb59a1373245a388cfa292a82d57",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b351fd87_b30c023a",
+        "filename": "crypto/x509/by_dir.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-12T16:25:15Z",
+      "side": 1,
+      "message": "Done.\n\nI mean, it doesn\u0027t work in that evidently the stat call is load bearing and they\u0027re missing the stat call, but yeah the includes should be guarded.",
+      "parentUuid": "dc0db1b5_c4b1edbe",
+      "revId": "fbbd98b9ee15eb59a1373245a388cfa292a82d57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
