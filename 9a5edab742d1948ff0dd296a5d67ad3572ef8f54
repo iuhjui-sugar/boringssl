@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ef33a32_c7b83864",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1792,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-12T18:44:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55f170ba_db8fc154",
+      "revId": "9a5edab742d1948ff0dd296a5d67ad3572ef8f54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10c456e0_f53442f7",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-03-12T18:02:40Z",
       "side": 1,
       "message": "Nit: rewrap to 80 chars",
+      "revId": "9a5edab742d1948ff0dd296a5d67ad3572ef8f54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3eeef27_42ab47ab",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-12T18:44:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10c456e0_f53442f7",
       "revId": "9a5edab742d1948ff0dd296a5d67ad3572ef8f54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
