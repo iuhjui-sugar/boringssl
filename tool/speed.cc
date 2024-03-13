@@ -40,6 +40,7 @@
 #include <openssl/ecdsa.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
+#define OPENSSL_UNSTABLE_EXPERIMENTAL_DILITHIUM
 #include <openssl/experimental/dilithium.h>
 #define OPENSSL_UNSTABLE_EXPERIMENTAL_SPX
 #include <openssl/experimental/kyber.h>
@@ -1139,10 +1140,15 @@ static bool SpeedDilithium(const std::string &selected) {
 
   TimeResults results;
 
-  uint8_t encoded_public_key[DILITHIUM_PUBLIC_KEY_BYTES];
-  DILITHIUM_private_key priv;
+  auto encoded_public_key =
+      std::make_unique<uint8_t[]>(DILITHIUM_PUBLIC_KEY_BYTES);
+  auto priv = std::make_unique< DILITHIUM_private_key>();
   if (!TimeFunctionParallel(&results, [&]() -> bool {
-        DILITHIUM_generate_key(encoded_public_key, &priv);
+        if (!DILITHIUM_generate_key(encoded_public_key.get(), priv.get())) {
+          fprintf(stderr,
+                  "Memory allocation failed in DILITHIUM_generate_key.\n");
+          return false;
+        }
         return true;
       })) {
     fprintf(stderr, "Failed to time DILITHIUM_generate_key.\n");
@@ -1151,15 +1157,15 @@ static bool SpeedDilithium(const std::string &selected) {
 
   results.Print("Dilithium key generation");
 
-  uint8_t encoded_private_key[DILITHIUM_PRIVATE_KEY_BYTES];
+  auto encoded_private_key = std::make_unique<uint8_t[]>(DILITHIUM_PRIVATE_KEY_BYTES);
   CBB cbb;
-  CBB_init_fixed(&cbb, encoded_private_key, sizeof(encoded_private_key));
-  DILITHIUM_marshal_private_key(&cbb, &priv);
+  CBB_init_fixed(&cbb, encoded_private_key.get(), sizeof(encoded_private_key));
+  DILITHIUM_marshal_private_key(&cbb, priv.get());
 
   if (!TimeFunctionParallel(&results, [&]() -> bool {
         CBS cbs;
-        CBS_init(&cbs, encoded_private_key, sizeof(encoded_private_key));
-        DILITHIUM_parse_private_key(&priv, &cbs);
+        CBS_init(&cbs, encoded_private_key.get(), sizeof(encoded_private_key));
+        DILITHIUM_parse_private_key(priv.get(), &cbs);
         return true;
       })) {
     fprintf(stderr, "Failed to time DILITHIUM_parse_private_key.\n");
@@ -1172,9 +1178,12 @@ static bool SpeedDilithium(const std::string &selected) {
   size_t message_len = strlen(message);
   uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES];
   if (!TimeFunctionParallel(&results, [&]() -> bool {
-        DILITHIUM_sign(out_encoded_signature, &priv, (const uint8_t *)message,
-                       message_len);
-        return true;
+        if (DILITHIUM_sign(out_encoded_signature, priv.get(),
+                           (const uint8_t *)message, message_len)) {
+          return true;
+        }
+        fprintf(stderr, "Malloc failed in DILITHIUM_sign.\n");
+        return false;
       })) {
     fprintf(stderr, "Failed to time DILITHIUM_sign.\n");
     return false;
@@ -1182,12 +1191,12 @@ static bool SpeedDilithium(const std::string &selected) {
 
   results.Print("Dilithium sign (randomized)");
 
-  DILITHIUM_public_key pub;
+  auto pub = std::make_unique< DILITHIUM_public_key>();
 
   if (!TimeFunctionParallel(&results, [&]() -> bool {
         CBS cbs;
-        CBS_init(&cbs, encoded_public_key, sizeof(encoded_public_key));
-        DILITHIUM_parse_public_key(&pub, &cbs);
+        CBS_init(&cbs, encoded_public_key.get(), sizeof(encoded_public_key));
+        DILITHIUM_parse_public_key(pub.get(), &cbs);
         return true;
       })) {
     fprintf(stderr, "Failed to time DILITHIUM_parse_public_key.\n");
@@ -1197,8 +1206,8 @@ static bool SpeedDilithium(const std::string &selected) {
   results.Print("Dilithium parse (valid) public key");
 
   if (!TimeFunctionParallel(&results, [&]() -> bool {
-        DILITHIUM_verify(&pub, out_encoded_signature, (const uint8_t *)message,
-                         message_len);
+        DILITHIUM_verify(pub.get(), out_encoded_signature,
+                         (const uint8_t *)message, message_len);
         return true;
       })) {
     fprintf(stderr, "Failed to time DILITHIUM_verify.\n");
@@ -1209,8 +1218,8 @@ static bool SpeedDilithium(const std::string &selected) {
 
   out_encoded_signature[42] ^= 0x42;
   if (!TimeFunctionParallel(&results, [&]() -> bool {
-        DILITHIUM_verify(&pub, out_encoded_signature, (const uint8_t *)message,
-                         message_len);
+        DILITHIUM_verify(pub.get(), out_encoded_signature,
+                         (const uint8_t *)message, message_len);
         return true;
       })) {
     fprintf(stderr, "Failed to time DILITHIUM_verify.\n");

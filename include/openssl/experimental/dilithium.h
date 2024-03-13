@@ -22,8 +22,15 @@ extern "C" {
 #endif
 
 
-// Dilithium3.
+#if defined(OPENSSL_UNSTABLE_EXPERIMENTAL_DILITHIUM)
+// This header implements experimental, draft versions of not-yet-standardized
+// primitives. When the standard is complete, these functions will be removed
+// and replaced with the final, incompatible standard version. They are
+// available now for short-lived experiments, but must not be deployed anywhere
+// durable, such as a long-lived key store. To use these functions define
+// OPENSSL_UNSTABLE_EXPERIMENTAL_DILITHIUM.
 
+// Dilithium3.
 
 // DILITHIUM_private_key contains a Dilithium3 private key. The contents of this
 // object should never leave the address space since the format is unstable.
@@ -57,15 +64,17 @@ struct DILITHIUM_public_key {
 
 // DILITHIUM_generate_key generates a random public/private key pair, writes the
 // encoded public key to |out_encoded_public_key| and sets |out_private_key| to
-// the private key.
-OPENSSL_EXPORT void DILITHIUM_generate_key(
+// the private key, returning 1 on success, or 0 if memory could not be
+// allocated.
+OPENSSL_EXPORT int DILITHIUM_generate_key(
     uint8_t out_encoded_public_key[DILITHIUM_PUBLIC_KEY_BYTES],
     struct DILITHIUM_private_key *out_private_key);
 
 // DILITHIUM_sign generates a signature for the message |msg| of length
 // |msg_len| using |private_key| following the randomized algorithm, and writes
-// the encoded signature to |out_encoded_signature|.
-OPENSSL_EXPORT void DILITHIUM_sign(
+// the encoded signature to |out_encoded_signature|, returning 1 on success,
+// or 0 if memory could not be allocated.
+OPENSSL_EXPORT int DILITHIUM_sign(
     uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES],
     const struct DILITHIUM_private_key *private_key, const uint8_t *msg,
     size_t msg_len);
@@ -105,6 +114,8 @@ OPENSSL_EXPORT int DILITHIUM_marshal_private_key(
 // there are trailing bytes in |in|.
 OPENSSL_EXPORT int DILITHIUM_parse_private_key(
     struct DILITHIUM_private_key *private_key, CBS *in);
+
+#endif // OPENSSL_UNSTABLE_EXPERIMENTAL_DILITHIUM
 
 
 #if defined(__cplusplus)
