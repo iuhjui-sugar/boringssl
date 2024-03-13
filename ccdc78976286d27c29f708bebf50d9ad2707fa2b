@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b518d8a_a5721b4c",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-13T22:05:32Z",
+      "side": 1,
+      "message": "Of note, OpenSSL_free will zero memory, so this will be paying the cost for that\nunless we switch these to use the system malloc and free.",
+      "revId": "ccdc78976286d27c29f708bebf50d9ad2707fa2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
