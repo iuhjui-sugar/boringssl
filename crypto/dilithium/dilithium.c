@@ -1123,21 +1123,22 @@ static struct public_key *public_key_from_external(
 /* API */
 
 // Calls |DILITHIUM_generate_key_external_entropy| with random bytes from
-// |RAND_bytes|.
-void DILITHIUM_generate_key(
+// |RAND_bytes|. Returns 1 on success, or 0 if memory allocation fails.
+int DILITHIUM_generate_key(
     uint8_t out_encoded_public_key[DILITHIUM_PUBLIC_KEY_BYTES],
     struct DILITHIUM_private_key *out_private_key) {
   uint8_t entropy[DILITHIUM_GENERATE_KEY_ENTROPY];
   RAND_bytes(entropy, sizeof(entropy));
-  DILITHIUM_generate_key_external_entropy(out_encoded_public_key,
-                                          out_private_key, entropy);
+  return DILITHIUM_generate_key_external_entropy(out_encoded_public_key,
+                                                 out_private_key, entropy);
 }
 
 // FIPS 204, Algorithm 1 (`ML-DSA.KeyGen`).
-void DILITHIUM_generate_key_external_entropy(
+int DILITHIUM_generate_key_external_entropy(
     uint8_t out_encoded_public_key[DILITHIUM_PUBLIC_KEY_BYTES],
     struct DILITHIUM_private_key *out_private_key,
     const uint8_t entropy[DILITHIUM_GENERATE_KEY_ENTROPY]) {
+  int ret = 0;
   struct public_key pub;
   struct private_key *priv = private_key_from_external(out_private_key);
 
@@ -1151,16 +1152,25 @@ void DILITHIUM_generate_key_external_entropy(
   OPENSSL_memcpy(priv->rho, rho, sizeof(priv->rho));
   OPENSSL_memcpy(priv->k, k, sizeof(priv->k));
 
-  matrix a_ntt;
-  matrix_expand(&a_ntt, rho);
+  matrix *a_ntt = NULL;
+  vectorl *s1_ntt = NULL;
+  a_ntt = OPENSSL_malloc(sizeof(matrix));
+  if (a_ntt == NULL) {
+    goto err;
+  }
+  matrix_expand(a_ntt, rho);
   vector_expand_short_vartime(&priv->s1, &priv->s2, sigma);
 
-  vectorl s1_ntt;
-  OPENSSL_memcpy(&s1_ntt, &priv->s1, sizeof(s1_ntt));
-  vectorl_ntt(&s1_ntt);
+  s1_ntt = OPENSSL_malloc(sizeof(vectorl));
+  if (s1_ntt == NULL) {
+    goto err;
+  }
+
+  OPENSSL_memcpy(s1_ntt, &priv->s1, sizeof(*s1_ntt));
+  vectorl_ntt(s1_ntt);
 
   vectork t;
-  matrix_mult(&t, &a_ntt, &s1_ntt);
+  matrix_mult(&t, a_ntt, s1_ntt);
   vectork_inverse_ntt(&t);
   vectork_add(&t, &t, &priv->s2);
 
@@ -1169,37 +1179,62 @@ void DILITHIUM_generate_key_external_entropy(
   CBB cbb;
   CBB_init_fixed(&cbb, out_encoded_public_key, DILITHIUM_PUBLIC_KEY_BYTES);
   if (!dilithium_marshal_public_key(&cbb, &pub)) {
-    abort();
+    goto err;
   }
 
   BORINGSSL_keccak(priv->public_key_hash, sizeof(priv->public_key_hash),
                    out_encoded_public_key, DILITHIUM_PUBLIC_KEY_BYTES,
                    boringssl_shake256);
+  ret = 1;
+err:
+  OPENSSL_free(a_ntt);
+  OPENSSL_free(s1_ntt);
+  return ret;
 }
 
 // FIPS 204, Algorithm 2 (`ML-DSA.Sign`).
-static void dilithium_sign_with_randomizer(
+static int dilithium_sign_with_randomizer(
     uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES],
     const struct DILITHIUM_private_key *private_key, const uint8_t *msg,
     size_t msg_len,
     const uint8_t randomizer[DILITHIUM_SIGNATURE_RANDOMIZER_BYTES]) {
-  struct signature sign;
+  int ret = 0;
+
+  // Intermediate values, allocated on the heap to allow use when there is a
+  // limited amount of stack.
+  struct values_st {
+    struct signature sign;
+    vectorl s1_ntt;
+    vectork s2_ntt;
+    vectork t0_ntt;
+    matrix a_ntt;
+    vectorl y;
+    vectorl y_ntt;
+    vectork w;
+    vectork w1;
+    uint8_t w1_encoded[128 * K];
+    scalar c_ntt;
+    vectorl cs1;
+    vectork cs2;
+    vectork r0;
+    vectork ct0;
+  };
+  struct values_st *values = OPENSSL_malloc(sizeof(*values));
+  if (values == NULL) {
+    goto err;
+  }
+
   const struct private_key *priv = private_key_from_external(private_key);
+  OPENSSL_memcpy(&values->s1_ntt, &priv->s1, sizeof(values->s1_ntt));
+  vectorl_ntt(&values->s1_ntt);
 
-  vectorl s1_ntt;
-  OPENSSL_memcpy(&s1_ntt, &priv->s1, sizeof(s1_ntt));
-  vectorl_ntt(&s1_ntt);
+  OPENSSL_memcpy(&values->s2_ntt, &priv->s2, sizeof(values->s2_ntt));
+  vectork_ntt(&values->s2_ntt);
 
-  vectork s2_ntt;
-  OPENSSL_memcpy(&s2_ntt, &priv->s2, sizeof(s2_ntt));
-  vectork_ntt(&s2_ntt);
+  OPENSSL_memcpy(&values->t0_ntt, &priv->t0, sizeof(values->t0_ntt));
+  vectork_ntt(&values->t0_ntt);
 
-  vectork t0_ntt;
-  OPENSSL_memcpy(&t0_ntt, &priv->t0, sizeof(t0_ntt));
-  vectork_ntt(&t0_ntt);
-
-  matrix a_ntt;
-  matrix_expand(&a_ntt, priv->rho);
+  matrix_expand(&values->a_ntt, priv->rho);
 
   uint8_t mu[MU_BYTES];
   struct BORINGSSL_keccak_st keccak_ctx;
@@ -1218,108 +1253,121 @@ static void dilithium_sign_with_randomizer(
   BORINGSSL_keccak_squeeze(&keccak_ctx, rho_prime, RHO_PRIME_BYTES);
 
   for (size_t kappa = 0;; kappa += L) {
-    vectorl y;
-    vectorl_expand_mask(&y, rho_prime, kappa);
+    vectorl_expand_mask(&values->y, rho_prime, kappa);
 
-    vectorl y_ntt;
-    OPENSSL_memcpy(&y_ntt, &y, sizeof(y_ntt));
-    vectorl_ntt(&y_ntt);
+    OPENSSL_memcpy(&values->y_ntt, &values->y, sizeof(values->y_ntt));
+    vectorl_ntt(&values->y_ntt);
 
-    vectork w;
-    matrix_mult(&w, &a_ntt, &y_ntt);
-    vectork_inverse_ntt(&w);
+    matrix_mult(&values->w, &values->a_ntt, &values->y_ntt);
+    vectork_inverse_ntt(&values->w);
 
-    vectork w1;
-    vectork_high_bits(&w1, &w);
-    uint8_t w1_encoded[128 * K];
-    w1_encode(w1_encoded, &w1);
+    vectork_high_bits(&values->w1, &values->w);
+
+    w1_encode(values->w1_encoded, &values->w1);
 
     BORINGSSL_keccak_init(&keccak_ctx, boringssl_shake256);
     BORINGSSL_keccak_absorb(&keccak_ctx, mu, MU_BYTES);
-    BORINGSSL_keccak_absorb(&keccak_ctx, w1_encoded, 128 * K);
-    BORINGSSL_keccak_squeeze(&keccak_ctx, sign.c_tilde, 2 * LAMBDA_BYTES);
+    BORINGSSL_keccak_absorb(&keccak_ctx, values->w1_encoded, 128 * K);
+    BORINGSSL_keccak_squeeze(&keccak_ctx, values->sign.c_tilde,
+                             2 * LAMBDA_BYTES);
 
-    scalar c_ntt;
-    scalar_sample_in_ball_vartime(&c_ntt, sign.c_tilde, 32);
-    scalar_ntt(&c_ntt);
+    scalar_sample_in_ball_vartime(&values->c_ntt, values->sign.c_tilde, 32);
+    scalar_ntt(&values->c_ntt);
 
-    vectorl cs1;
-    vectorl_mult_scalar(&cs1, &s1_ntt, &c_ntt);
-    vectorl_inverse_ntt(&cs1);
-    vectork cs2;
-    vectork_mult_scalar(&cs2, &s2_ntt, &c_ntt);
-    vectork_inverse_ntt(&cs2);
+    vectorl_mult_scalar(&values->cs1, &values->s1_ntt, &values->c_ntt);
+    vectorl_inverse_ntt(&values->cs1);
+    vectork_mult_scalar(&values->cs2, &values->s2_ntt, &values->c_ntt);
+    vectork_inverse_ntt(&values->cs2);
 
-    vectorl_add(&sign.z, &y, &cs1);
+    vectorl_add(&values->sign.z, &values->y, &values->cs1);
 
-    vectork r0;
-    vectork_sub(&r0, &w, &cs2);
-    vectork_low_bits(&r0, &r0);
+    vectork_sub(&values->r0, &values->w, &values->cs2);
+    vectork_low_bits(&values->r0, &values->r0);
 
-    uint32_t z_max = vectorl_max(&sign.z);
-    uint32_t r0_max = vectork_max_signed(&r0);
+    uint32_t z_max = vectorl_max(&values->sign.z);
+    uint32_t r0_max = vectork_max_signed(&values->r0);
     if (z_max >= kGamma1 - BETA || r0_max >= kGamma2 - BETA) {
       continue;
     }
 
-    vectork ct0;
-    vectork_mult_scalar(&ct0, &t0_ntt, &c_ntt);
-    vectork_inverse_ntt(&ct0);
-    vectork_make_hint(&sign.h, &ct0, &cs2, &w);
+    vectork_mult_scalar(&values->ct0, &values->t0_ntt, &values->c_ntt);
+    vectork_inverse_ntt(&values->ct0);
+    vectork_make_hint(&values->sign.h, &values->ct0, &values->cs2, &values->w);
 
-    uint32_t ct0_max = vectork_max(&ct0);
-    size_t h_ones = vectork_count_ones(&sign.h);
+    uint32_t ct0_max = vectork_max(&values->ct0);
+    size_t h_ones = vectork_count_ones(&values->sign.h);
     if (ct0_max >= kGamma2 || h_ones > OMEGA) {
       continue;
     }
 
     CBB cbb;
     CBB_init_fixed(&cbb, out_encoded_signature, DILITHIUM_SIGNATURE_BYTES);
-    if (!dilithium_marshal_signature(&cbb, &sign)) {
-      abort();
+    if (!dilithium_marshal_signature(&cbb, &values->sign)) {
+      goto err;
     }
 
-    return;
+    ret = 1;
+    break;
   }
+err:
+  OPENSSL_free(values);
+  return ret;
 }
 
 // Dilithium signature in deterministic mode.
-void DILITHIUM_sign_deterministic(
+int DILITHIUM_sign_deterministic(
     uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES],
     const struct DILITHIUM_private_key *private_key, const uint8_t *msg,
     size_t msg_len) {
   uint8_t randomizer[DILITHIUM_SIGNATURE_RANDOMIZER_BYTES];
   OPENSSL_memset(randomizer, 0, sizeof(randomizer));
-  dilithium_sign_with_randomizer(out_encoded_signature, private_key, msg,
-                                 msg_len, randomizer);
+  return dilithium_sign_with_randomizer(out_encoded_signature, private_key, msg,
+                                        msg_len, randomizer);
 }
 
 // Dilithium signature in randomized mode, filling the random bytes with
 // |RAND_bytes|.
-void DILITHIUM_sign(uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES],
+int DILITHIUM_sign(uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES],
                     const struct DILITHIUM_private_key *private_key,
                     const uint8_t *msg, size_t msg_len) {
   uint8_t randomizer[DILITHIUM_SIGNATURE_RANDOMIZER_BYTES];
   RAND_bytes(randomizer, sizeof(randomizer));
-  dilithium_sign_with_randomizer(out_encoded_signature, private_key, msg,
-                                 msg_len, randomizer);
+  return dilithium_sign_with_randomizer(out_encoded_signature, private_key, msg,
+                                        msg_len, randomizer);
 }
 
 // FIPS 204, Algorithm 3 (`ML-DSA.Verify`).
 int DILITHIUM_verify(const struct DILITHIUM_public_key *public_key,
                      const uint8_t encoded_signature[DILITHIUM_SIGNATURE_BYTES],
                      const uint8_t *msg, size_t msg_len) {
+  int ret = 0;
   const struct public_key *pub = public_key_from_external(public_key);
-  struct signature sign;
+
+  struct values_st {
+    struct signature sign;
+    matrix a_ntt;
+    scalar c_ntt;
+    vectorl z_ntt;
+    vectork az_ntt;
+    vectork t1_ntt;
+    vectork ct1_ntt;
+    vectork w_approx;
+    vectork w1;
+    uint8_t w1_encoded[128 * K];
+    uint8_t c_tilde[2 * LAMBDA_BYTES];
+  };
+  struct values_st *values = OPENSSL_malloc(sizeof(*values));
+  if (values == NULL) {
+    goto err;
+  }
 
   CBS cbs;
   CBS_init(&cbs, encoded_signature, DILITHIUM_SIGNATURE_BYTES);
-  if (!dilithium_parse_signature(&sign, &cbs)) {
-    return 0;
+  if (!dilithium_parse_signature(&values->sign, &cbs)) {
+    goto err;
   }
 
-  matrix a_ntt;
-  matrix_expand(&a_ntt, pub->rho);
+  matrix_expand(&values->a_ntt, pub->rho);
 
   uint8_t mu[MU_BYTES];
   struct BORINGSSL_keccak_st keccak_ctx;
@@ -1329,47 +1377,41 @@ int DILITHIUM_verify(const struct DILITHIUM_public_key *public_key,
   BORINGSSL_keccak_absorb(&keccak_ctx, msg, msg_len);
   BORINGSSL_keccak_squeeze(&keccak_ctx, mu, MU_BYTES);
 
-  scalar c_ntt;
-  scalar_sample_in_ball_vartime(&c_ntt, sign.c_tilde, 32);
-  scalar_ntt(&c_ntt);
+  scalar_sample_in_ball_vartime(&values->c_ntt, values->sign.c_tilde, 32);
+  scalar_ntt(&values->c_ntt);
 
-  vectorl z_ntt;
-  OPENSSL_memcpy(&z_ntt, &sign.z, sizeof(z_ntt));
-  vectorl_ntt(&z_ntt);
+  OPENSSL_memcpy(&values->z_ntt, &values->sign.z, sizeof(values->z_ntt));
+  vectorl_ntt(&values->z_ntt);
 
-  vectork az_ntt;
-  matrix_mult(&az_ntt, &a_ntt, &z_ntt);
+  matrix_mult(&values->az_ntt, &values->a_ntt, &values->z_ntt);
 
-  vectork t1_ntt;
-  vectork_scale_power2_round(&t1_ntt, &pub->t1);
-  vectork_ntt(&t1_ntt);
+  vectork_scale_power2_round(&values->t1_ntt, &pub->t1);
+  vectork_ntt(&values->t1_ntt);
 
-  vectork ct1_ntt;
-  vectork_mult_scalar(&ct1_ntt, &t1_ntt, &c_ntt);
+  vectork_mult_scalar(&values->ct1_ntt, &values->t1_ntt, &values->c_ntt);
 
-  vectork w_approx;
-  vectork_sub(&w_approx, &az_ntt, &ct1_ntt);
-  vectork_inverse_ntt(&w_approx);
+  vectork_sub(&values->w_approx, &values->az_ntt, &values->ct1_ntt);
+  vectork_inverse_ntt(&values->w_approx);
 
-  vectork w1;
-  vectork_use_hint_vartime(&w1, &sign.h, &w_approx);
-  uint8_t w1_encoded[128 * K];
-  w1_encode(w1_encoded, &w1);
+  vectork_use_hint_vartime(&values->w1, &values->sign.h, &values->w_approx);
+  w1_encode(values->w1_encoded, &values->w1);
 
-  uint8_t c_tilde[2 * LAMBDA_BYTES];
   BORINGSSL_keccak_init(&keccak_ctx, boringssl_shake256);
   BORINGSSL_keccak_absorb(&keccak_ctx, mu, MU_BYTES);
-  BORINGSSL_keccak_absorb(&keccak_ctx, w1_encoded, 128 * K);
-  BORINGSSL_keccak_squeeze(&keccak_ctx, c_tilde, 2 * LAMBDA_BYTES);
+  BORINGSSL_keccak_absorb(&keccak_ctx, values->w1_encoded, 128 * K);
+  BORINGSSL_keccak_squeeze(&keccak_ctx, values->c_tilde, 2 * LAMBDA_BYTES);
 
-  uint32_t z_max = vectorl_max(&sign.z);
-  size_t h_ones = vectork_count_ones(&sign.h);
+  uint32_t z_max = vectorl_max(&values->sign.z);
+  size_t h_ones = vectork_count_ones(&values->sign.h);
   if (z_max < kGamma1 - BETA && h_ones <= OMEGA &&
-      OPENSSL_memcmp(c_tilde, sign.c_tilde, 2 * LAMBDA_BYTES) == 0) {
-    return 1;
+      OPENSSL_memcmp(values->c_tilde, values->sign.c_tilde, 2 * LAMBDA_BYTES) ==
+          0) {
+    ret = 1;
   }
 
-  return 0;
+err:
+  OPENSSL_free(values);
+  return ret;
 }
 
 /* Serialization of keys. */
