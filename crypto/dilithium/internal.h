@@ -31,15 +31,16 @@ extern "C" {
 // random entropy necessary to generate a signature in randomized mode.
 #define DILITHIUM_SIGNATURE_RANDOMIZER_BYTES 32
 
-OPENSSL_EXPORT void DILITHIUM_generate_key_external_entropy(
+OPENSSL_EXPORT int DILITHIUM_generate_key_external_entropy(
     uint8_t out_encoded_public_key[DILITHIUM_PUBLIC_KEY_BYTES],
     struct DILITHIUM_private_key *out_private_key,
     const uint8_t entropy[DILITHIUM_GENERATE_KEY_ENTROPY]);
 
 // DILITHIUM_sign_deterministic generates a signature for the message |msg| of
 // length |msg_len| using |private_key| following the deterministic algorithm,
-// and writes the encoded signature to |out_encoded_signature|.
-OPENSSL_EXPORT void DILITHIUM_sign_deterministic(
+// and writes the encoded signature to |out_encoded_signature|, returning 1 on
+// success or 0 if memory could not be allocated.
+OPENSSL_EXPORT int DILITHIUM_sign_deterministic(
     uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES],
     const struct DILITHIUM_private_key *private_key, const uint8_t *msg,
     size_t msg_len);
