@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b1b72e_a3b6ad14",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-13T16:52:24Z",
+      "side": 1,
+      "message": "Is this matrix fine in the key generation step?",
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58ca28ff_0c93f515",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-13T16:52:24Z",
+      "side": 1,
+      "message": "Would it be better to allocate all of these in a single malloc call?",
+      "range": {
+        "startLine": 1195,
+        "startChar": 0,
+        "endLine": 1210,
+        "endChar": 3
+      },
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c329b567_fd272c91",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-13T16:52:24Z",
+      "side": 1,
+      "message": "I assume all the other intermediate values were fine?",
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e48bdaf_c603820b",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-13T16:52:24Z",
+      "side": 1,
+      "message": "Nit: Looks like this is part of the for loop. This loop should anyway only continue at the explicit continue statements, but perhaps it\u0027d be better to move the marshaling and error handling after the loop for clarity?",
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
