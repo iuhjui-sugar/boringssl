@@ -1169,9 +1169,12 @@ static bool SpeedDilithium(const std::string &selected) {
   size_t message_len = strlen(message);
   uint8_t out_encoded_signature[DILITHIUM_SIGNATURE_BYTES];
   if (!TimeFunctionParallel(&results, [&]() -> bool {
-        DILITHIUM_sign(out_encoded_signature, &priv, (const uint8_t *)message,
-                       message_len);
-        return true;
+        if (DILITHIUM_sign(out_encoded_signature, &priv,
+                           (const uint8_t *)message, message_len)) {
+          return true;
+        }
+        fprintf(stderr, "Malloc failed in DILITHIUM_sign.\n");
+        return false;
       })) {
     fprintf(stderr, "Failed to time DILITHIUM_sign.\n");
     return false;
