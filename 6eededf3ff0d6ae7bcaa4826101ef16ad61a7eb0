@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78789e3_6d517666",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-13T21:39:37Z",
+      "side": 1,
+      "message": "and so the answer is with a picker compiler, no I do still need to move it and this all becomes fallible.",
+      "parentUuid": "c6df132c_f210e0b5",
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58ca28ff_0c93f515",
