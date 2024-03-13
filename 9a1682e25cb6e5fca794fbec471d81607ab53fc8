@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85b935e7_f66faa7f",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-13T22:13:29Z",
+      "side": 0,
+      "message": "I think this should get whatever treatment we decide to give spx before \nlanding this as in \n\nhttps://boringssl-review.googlesource.com/c/boringssl/+/66887\n\nWhile we can hopefully do some build hackery in google3 to keep people away\nfrom it by default for others such as swift, etc who are sort of sucking\nin everything they\u0027ll get the hint quicker if it\u0027s like that.",
+      "revId": "9a1682e25cb6e5fca794fbec471d81607ab53fc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
