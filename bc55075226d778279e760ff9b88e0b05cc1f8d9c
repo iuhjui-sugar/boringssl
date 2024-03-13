@@ -63,6 +63,24 @@
       "message": "Let\u0027s land https://boringssl-review.googlesource.com/c/boringssl/+/66987 first just so that we have a test in place.",
       "revId": "bc55075226d778279e760ff9b88e0b05cc1f8d9c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c440b51_998de250",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-13T15:34:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49442788_da523835",
+      "revId": "bc55075226d778279e760ff9b88e0b05cc1f8d9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
