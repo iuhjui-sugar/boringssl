@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d27fc3_c78da639",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-13T18:50:23Z",
+      "side": 1,
+      "message": "At least on my machine it appears to make it under the limit. We could move it anyway at the cost of making this fallible.",
+      "parentUuid": "56b1b72e_a3b6ad14",
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58ca28ff_0c93f515",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-13T16:52:24Z",
       "side": 1,
       "message": "Would it be better to allocate all of these in a single malloc call?",
+      "range": {
+        "startLine": 1195,
+        "startChar": 0,
+        "endLine": 1210,
+        "endChar": 3
+      },
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46db987f_d16c0a61",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-13T18:50:23Z",
+      "side": 1,
+      "message": "personally I\u0027m a fan or mallocs that do randomized allocations and possibly even guard canaries in security sensitive things, so unless we\u0027re sure malloc is a bottleneck in performance, I like the separate ones to give system malloc a chance to be defensive if it is going to do that.\n\n(If we do find it\u0027s hot we can certainly change this)",
+      "parentUuid": "58ca28ff_0c93f515",
       "range": {
         "startLine": 1195,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c3752fe_a9f4965b",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-13T18:50:23Z",
+      "side": 1,
+      "message": "At least on my attempts yes.. It might still be sizable, but it\u0027s under the limit\njust pulling out the stuff out of the loop.",
+      "parentUuid": "c329b567_fd272c91",
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e48bdaf_c603820b",
@@ -71,6 +131,24 @@
       "writtenOn": "2024-03-13T16:52:24Z",
       "side": 1,
       "message": "Nit: Looks like this is part of the for loop. This loop should anyway only continue at the explicit continue statements, but perhaps it\u0027d be better to move the marshaling and error handling after the loop for clarity?",
+      "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2c34bd5_e2536e65",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-13T18:50:23Z",
+      "side": 1,
+      "message": "that\u0027s not a nit it\u0027s awful, coffee failed me. fixed.",
+      "parentUuid": "9e48bdaf_c603820b",
       "revId": "6eededf3ff0d6ae7bcaa4826101ef16ad61a7eb0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
