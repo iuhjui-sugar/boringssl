@@ -16,6 +16,75 @@
       "message": "Of note, OpenSSL_free will zero memory, so this will be paying the cost for that\nunless we switch these to use the system malloc and free.",
       "revId": "ccdc78976286d27c29f708bebf50d9ad2707fa2b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32480fb1_b792e9db",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-14T08:48:20Z",
+      "side": 1,
+      "message": "Which is probably a good idea given that these values might be used to recover the private key in case of leak.",
+      "parentUuid": "1b518d8a_a5721b4c",
+      "revId": "ccdc78976286d27c29f708bebf50d9ad2707fa2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00123ea7_36e393db",
+        "filename": "crypto/dilithium/dilithium_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-14T08:48:20Z",
+      "side": 1,
+      "message": "Key generation is now fallible, here and in the other tests.\n\n```suggestion\n  EXPECT_TRUE(DILITHIUM_generate_key(encoded_public_key.get(), priv.get()));\n```",
+      "revId": "ccdc78976286d27c29f708bebf50d9ad2707fa2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "226f9bcf_1089e571",
+        "filename": "crypto/dilithium/dilithium_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-14T08:48:20Z",
+      "side": 1,
+      "message": "This test is about having one extra byte in the encoded signature, which is invalid formatting. The contents of this extra byte don\u0027t matter - I just picked zero by default.",
+      "revId": "ccdc78976286d27c29f708bebf50d9ad2707fa2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d80075_12f03c26",
+        "filename": "tool/speed.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-03-14T08:48:20Z",
+      "side": 1,
+      "message": "This is fallible now.",
+      "revId": "ccdc78976286d27c29f708bebf50d9ad2707fa2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
