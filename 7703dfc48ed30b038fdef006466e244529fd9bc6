@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "259dc285_0baf1c16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-16T06:56:36Z",
+      "side": 1,
+      "message": "Thanks! I think this dates to when `EVP_CIPHER` was a public structure.",
+      "revId": "7703dfc48ed30b038fdef006466e244529fd9bc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
