@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b44c907b_0d2c7e38",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-16T22:43:04Z",
+      "side": 1,
+      "message": "Yeah, changed to CERTIFICATE_INVALID.",
+      "parentUuid": "666c3ee2_1421db2e",
+      "revId": "f48b021dd7b4ed776fe4a082b018f9adfe456204",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a60445d9_9e564adc",
@@ -49,6 +67,30 @@
       "writtenOn": "2024-03-16T06:51:41Z",
       "side": 1,
       "message": "Looking at the spreadsheet, did we settle on using different errors from unknown sigalg vs bad signature?",
+      "range": {
+        "startLine": 2284,
+        "startChar": 32,
+        "endLine": 2284,
+        "endChar": 61
+      },
+      "revId": "f48b021dd7b4ed776fe4a082b018f9adfe456204",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6e55cc8_421427d9",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-16T22:43:04Z",
+      "side": 1,
+      "message": "Yeah I think we did, and sort of landed on UNSUPPORTED_SIGNATURE_ALGORITHM to make it clear it\u0027s \"our fault\" - Changed to CERTIFICATE_UNSUPPORTED_SIGNATURE_ALGORITHM",
+      "parentUuid": "a60445d9_9e564adc",
       "range": {
         "startLine": 2284,
         "startChar": 32,
