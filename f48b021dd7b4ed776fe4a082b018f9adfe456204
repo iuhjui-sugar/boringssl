@@ -16,6 +16,47 @@
       "message": "Ok @davidben@google.com and @mattm@google.com - I think this is line 6 of our little spreadsheet -  CERTIFICATE_INVALID here or CERTIFICATE_INVALID_SIGNATURE? \n\nMy last comment there based on our discussions has me leaning to changing this to CERTIFICATE_INVALID, as this cert is effectively considered broken by 5280.",
       "revId": "f48b021dd7b4ed776fe4a082b018f9adfe456204",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "666c3ee2_1421db2e",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-16T06:51:41Z",
+      "side": 1,
+      "message": "I think this just falls out of the other question.\n\nIf we think that all signature-related things are CERTIFICATE_INVALID_SIGNATURE, then I suppose this could be either CERTIFICATE_INVALID_SIGNATURE or CERTIFICATE_INVALID.\n\nIf we believe they\u0027re different (comment below), I don\u0027t think it makes any sense to call this CERTIFICATE_INVALID_SIGNATURE. So that means we either make a bespoke error (kinda pointless) or say this is a syntax error. I think syntax error makes sense, so CERTIFICATE_INVALID.",
+      "parentUuid": "405ffac7_6bc578f3",
+      "revId": "f48b021dd7b4ed776fe4a082b018f9adfe456204",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a60445d9_9e564adc",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-16T06:51:41Z",
+      "side": 1,
+      "message": "Looking at the spreadsheet, did we settle on using different errors from unknown sigalg vs bad signature?",
+      "range": {
+        "startLine": 2284,
+        "startChar": 32,
+        "endLine": 2284,
+        "endChar": 61
+      },
+      "revId": "f48b021dd7b4ed776fe4a082b018f9adfe456204",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
