@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1497aa6_dad576cf",
+        "filename": "include/openssl/experimental/spx.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-17T01:12:04Z",
+      "side": 1,
+      "message": "Hahahaha. For all its length, I dunno if this actually communicates what we want. It\u0027s not that the *API* is unstable, but the entire primitive may change. I.e. it\u0027s not that you will have to fix it yourself when we remove it, but you will have *no ability to fix it yourself* when we remove it.\n\nPerhaps:\n\n\"This header implements experimental, draft versions of not-yet-standardized primitives. When the standard is complete, these functions will be removed and replaced with the final, incompatible standard version. They are available now for short-lived experiments, but must not be deployed anywhere durable, such as a long-lived key store.\"\n\nNot sure what to name the `#define` because that\u0027s really long. 😊",
+      "revId": "d750bd38f07796398a47ea3fcc62a46f0608fe59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1cdbfb0_c4efc267",
+        "filename": "include/openssl/experimental/spx.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-17T01:12:04Z",
+      "side": 1,
+      "message": "Public APIs should be `SPX_generate_key` and friends. We put the module name in caps if public.",
+      "range": {
+        "startLine": 43,
+        "startChar": 3,
+        "endLine": 43,
+        "endChar": 19
+      },
+      "revId": "d750bd38f07796398a47ea3fcc62a46f0608fe59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
