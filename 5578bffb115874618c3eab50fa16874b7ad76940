@@ -51,6 +51,24 @@
       "parentUuid": "2842f864_2f01b9cc",
       "revId": "5578bffb115874618c3eab50fa16874b7ad76940",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1519531b_c54a3c00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-17T02:08:00Z",
+      "side": 1,
+      "message": "We ended up solving this a different way, and the conclusion so far seems to be that the build.rs API would still be a problem for us.\n\nClosing this CL.",
+      "parentUuid": "c8359e15_58ca9696",
+      "revId": "5578bffb115874618c3eab50fa16874b7ad76940",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
