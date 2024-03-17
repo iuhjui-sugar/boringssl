@@ -367,13 +367,11 @@ int EVP_PKEY_derive_set_peer(EVP_PKEY_CTX *ctx, EVP_PKEY *peer) {
     return 0;
   }
 
-  // ran@cryptocom.ru: For clarity.  The error is if parameters in peer are
-  // present (!missing) but don't match.  EVP_PKEY_cmp_parameters may return
-  // 1 (match), 0 (don't match) and -2 (comparison is not defined).  -1
-  // (different key types) is impossible here because it is checked earlier.
-  // -2 is OK for us here, as well as 1, so we can check for 0 only.
+  // |EVP_PKEY_cmp_parameters| may return a negative number on error. Such
+  // errors should be impossible if |EVP_PKEY_missing_parameters| passed, but
+  // check anyway.
   if (!EVP_PKEY_missing_parameters(peer) &&
-      !EVP_PKEY_cmp_parameters(ctx->pkey, peer)) {
+      EVP_PKEY_cmp_parameters(ctx->pkey, peer) <= 0) {
     OPENSSL_PUT_ERROR(EVP, EVP_R_DIFFERENT_PARAMETERS);
     return 0;
   }
