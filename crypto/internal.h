@@ -1172,11 +1172,28 @@ static inline uint64_t CRYPTO_rotr_u64(uint64_t value, int shift) {
 // bit. |carry| must be zero or one.
 #if OPENSSL_HAS_BUILTIN(__builtin_addc)
 
+#ifdef __cplusplus
+extern "C++" {
+static constexpr unsigned CRYPTO_GENERIC_ADDC(unsigned x, unsigned y,
+                                              unsigned carry, unsigned *out_carry){
+  return __builtin_addc(x, y, carry, out_carry);
+}
+static constexpr unsigned long CRYPTO_GENERIC_ADDC(unsigned long x, unsigned long y,
+                                              unsigned long carry, unsigned long *out_carry){
+  return __builtin_addcl(x, y, carry, out_carry);
+}
+static constexpr unsigned long long CRYPTO_GENERIC_ADDC(unsigned long long x, unsigned long long y,
+                                              unsigned long long carry, unsigned long long *out_carry){
+  return __builtin_addcll(x, y, carry, out_carry);
+}
+}
+#else
 #define CRYPTO_GENERIC_ADDC(x, y, carry, out_carry) \
   (_Generic((x),                                    \
       unsigned: __builtin_addc,                     \
       unsigned long: __builtin_addcl,               \
       unsigned long long: __builtin_addcll))((x), (y), (carry), (out_carry))
+#endif
 
 static inline uint32_t CRYPTO_addc_u32(uint32_t x, uint32_t y, uint32_t carry,
                                        uint32_t *out_carry) {
@@ -1224,11 +1241,28 @@ static inline uint64_t CRYPTO_addc_u64(uint64_t x, uint64_t y, uint64_t carry,
 // bit. |borrow| must be zero or one.
 #if OPENSSL_HAS_BUILTIN(__builtin_subc)
 
+#ifdef __cplusplus
+extern "C++" {
+static constexpr unsigned CRYPTO_GENERIC_SUBC(unsigned x, unsigned y,
+                                              unsigned borrow, unsigned *out_borrow){
+  return __builtin_subc(x, y, borrow, out_borrow);
+}
+static constexpr unsigned long CRYPTO_GENERIC_SUBC(unsigned long x, unsigned long y,
+                                              unsigned long borrow, unsigned long *out_borrow){
+  return __builtin_subcl(x, y, borrow, out_borrow);
+}
+static constexpr unsigned long long CRYPTO_GENERIC_SUBC(unsigned long long x, unsigned long long y,
+                                              unsigned long long borrow, unsigned long long *out_borrow){
+  return __builtin_subcll(x, y, borrow, out_borrow);
+}
+}
+#else
 #define CRYPTO_GENERIC_SUBC(x, y, borrow, out_borrow) \
   (_Generic((x),                                      \
       unsigned: __builtin_subc,                       \
       unsigned long: __builtin_subcl,                 \
       unsigned long long: __builtin_subcll))((x), (y), (borrow), (out_borrow))
+#endif
 
 static inline uint32_t CRYPTO_subc_u32(uint32_t x, uint32_t y, uint32_t borrow,
                                        uint32_t *out_borrow) {
