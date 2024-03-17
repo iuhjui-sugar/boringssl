@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c02f3ef0_ad30eca0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-03-17T07:24:15Z",
+      "side": 1,
+      "message": "This all looks right to me.",
+      "revId": "ff37de3743f7a6ce0a6e88d74a3bcb361443688c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a8fda9_bba8ca95",
+        "filename": "crypto/digest_extra/digest_extra.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-03-17T07:24:15Z",
+      "side": 1,
+      "message": "I agree that this is incorrect.",
+      "revId": "ff37de3743f7a6ce0a6e88d74a3bcb361443688c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
