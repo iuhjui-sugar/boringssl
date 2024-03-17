@@ -34,6 +34,24 @@
       "parentUuid": "81ea9dcf_15460b40",
       "revId": "fc1f5213b61edc1da123c36e14ed3f7a70f8bb1b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "027598a5_816b42db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-17T02:06:53Z",
+      "side": 1,
+      "message": "(We ended up resolving another way, setting resolved bit.)",
+      "parentUuid": "fadd9c46_c4cbb8f2",
+      "revId": "fc1f5213b61edc1da123c36e14ed3f7a70f8bb1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
