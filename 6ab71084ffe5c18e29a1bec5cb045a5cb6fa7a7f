@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df807d84_2d24e5c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-18T00:57:07Z",
+      "side": 1,
+      "message": "Ah, thanks! Surprised we haven\u0027t bumped into this one yet.",
+      "revId": "6ab71084ffe5c18e29a1bec5cb045a5cb6fa7a7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adc111a1_9b55e59d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-18T00:57:07Z",
+      "side": 1,
+      "message": "We generally write `#if defined(__cplusplus)`",
+      "revId": "6ab71084ffe5c18e29a1bec5cb045a5cb6fa7a7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5ee1814_7f1b03f5",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-18T00:57:07Z",
+      "side": 1,
+      "message": "Hmm, I called this all caps just because it was a macro, but given it\u0027s only a macro due to C11 quirks, maybe let\u0027s just rename these `CRYPTO_generic_addc` and `CRYPTO_generic_subc`.\n\nAlternatively, we could gate the whole thing on !__cplusplus and make the functions only exist in C, since we don\u0027t actually use them in C++. :-)",
+      "range": {
+        "startLine": 1177,
+        "startChar": 26,
+        "endLine": 1177,
+        "endChar": 45
+      },
+      "revId": "6ab71084ffe5c18e29a1bec5cb045a5cb6fa7a7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2099cde8_66e9bec6",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1189,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-18T00:57:07Z",
+      "side": 1,
+      "message": "Please follow the existing code style. We have a clang-format configuration, so you can just run that over your diff.",
+      "revId": "6ab71084ffe5c18e29a1bec5cb045a5cb6fa7a7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
