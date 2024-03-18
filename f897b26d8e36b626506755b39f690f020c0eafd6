@@ -440,6 +440,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb3f42c0_9a17f4b2",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T04:13:30Z",
+      "side": 1,
+      "message": "Refactored into FindSingleHighSeverityError",
+      "parentUuid": "9b10f600_160c5252",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0345c59_46ae9f81",
