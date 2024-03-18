@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58830b7f_056b9f73",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 3354269
+      },
+      "writtenOn": "2024-03-18T19:13:54Z",
+      "side": 1,
+      "message": "if you gated only the _Generic macros, then in C++ mode you would have an unresolved identifier in the functions below.",
+      "parentUuid": "f5ee1814_7f1b03f5",
+      "range": {
+        "startLine": 1177,
+        "startChar": 26,
+        "endLine": 1177,
+        "endChar": 45
+      },
+      "revId": "6ab71084ffe5c18e29a1bec5cb045a5cb6fa7a7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2099cde8_66e9bec6",
         "filename": "crypto/internal.h",
         "patchSetId": 1
