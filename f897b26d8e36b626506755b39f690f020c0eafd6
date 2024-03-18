@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfc87aaf_a4cebb08",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2d79f52_475c5d75",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af12e9ce_ca1bf354",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-17T05:12:33Z",
       "side": 1,
       "message": "If we have copy-assignment, we should also have a copy constructor.\n\nhttps://en.cppreference.com/w/cpp/language/rule_of_three\nhttps://engdoc.corp.google.com/eng/doc/devguide/cpp/styleguide.md?cl\u003dhead#Copyable_Movable_Types",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7b73421_ee3ee143",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af12e9ce_ca1bf354",
       "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a15fff9_f2111f8d",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Reworded slightly",
+      "parentUuid": "04e6d20d_7d6c82fa",
+      "range": {
+        "startLine": 46,
+        "startChar": 52,
+        "endLine": 47,
+        "endChar": 13
+      },
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b973aad8_970b24f2",
@@ -75,6 +135,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc8b099d_ed60ce0e",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "CERTIFICATE_INVALID is a single certificate, and effectively a single \"error\" - although nonspecific, saying this certificte is invalid and we can\u0027t use it.\n\nPATH_MULTIPLE_ERRORS means there are multiple fatal errors associated with the path.\n\nSlightly reworded.",
+      "parentUuid": "b973aad8_970b24f2",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d71ac1c_e7035dbc",
@@ -88,6 +166,30 @@
       "writtenOn": "2024-03-17T05:12:33Z",
       "side": 1,
       "message": "UNSUPPORTED",
+      "range": {
+        "startLine": 65,
+        "startChar": 19,
+        "endLine": 65,
+        "endChar": 32
+      },
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaaf25d9_a3480005",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d71ac1c_e7035dbc",
       "range": {
         "startLine": 65,
         "startChar": 19,
@@ -121,6 +223,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "696c5108_0b13cf9c",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660ebc60_80228572",
+      "range": {
+        "startLine": 69,
+        "startChar": 19,
+        "endLine": 69,
+        "endChar": 31
+      },
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bf15625_bd34971b",
@@ -134,6 +260,30 @@
       "writtenOn": "2024-03-17T05:12:33Z",
       "side": 1,
       "message": "CERTIFICATE_UNABLE_TO_CHECK_REVOCATION",
+      "range": {
+        "startLine": 80,
+        "startChar": 7,
+        "endLine": 80,
+        "endChar": 42
+      },
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19945fc0_da18378f",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bf15625_bd34971b",
       "range": {
         "startLine": 80,
         "startChar": 7,
@@ -167,6 +317,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7e7c6c8_04184216",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "757c0258_55158e19",
+      "range": {
+        "startLine": 716,
+        "startChar": 25,
+        "endLine": 716,
+        "endChar": 27
+      },
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "923f0c06_00c64dfe",
@@ -190,6 +364,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "883334b7_1d2de31a",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "923f0c06_00c64dfe",
+      "range": {
+        "startLine": 719,
+        "startChar": 68,
+        "endLine": 719,
+        "endChar": 78
+      },
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19151a80_fd7d61b1",
@@ -203,6 +401,24 @@
       "writtenOn": "2024-03-17T05:12:33Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ac216c_588631ea",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19151a80_fd7d61b1",
       "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -241,6 +457,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd94ad76_2f72089a",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0345c59_46ae9f81",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22117d99_0b10dd53",
@@ -254,6 +488,24 @@
       "writtenOn": "2024-03-17T05:12:33Z",
       "side": 1,
       "message": "`BSSL_CHECK(false)`?",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c82fdb36_df8cc6b3",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22117d99_0b10dd53",
       "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -275,6 +527,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de806a03_e66d6067",
+        "filename": "pki/verify_error.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de6b14a8_066a472f",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "278bb9fc_a80a914f",
@@ -292,6 +562,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "710e3524_99eb0a9e",
+        "filename": "pki/verify_error.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "278bb9fc_a80a914f",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "077d1cfc_4147b8e0",
@@ -305,6 +593,24 @@
       "writtenOn": "2024-03-17T05:12:33Z",
       "side": 1,
       "message": "This ends up returning a copy of the string... do we want to return a string reference?",
+      "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba1c9558_4d80e0f2",
+        "filename": "pki/verify_error.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-18T00:42:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "077d1cfc_4147b8e0",
       "revId": "f897b26d8e36b626506755b39f690f020c0eafd6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
