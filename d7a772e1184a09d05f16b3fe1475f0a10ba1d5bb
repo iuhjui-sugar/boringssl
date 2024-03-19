@@ -69,6 +69,24 @@
       "parentUuid": "5d9d48d2_aedc8b56",
       "revId": "d7a772e1184a09d05f16b3fe1475f0a10ba1d5bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfedaad5_00a94a4d",
+        "filename": "crypto/evp/p_dh_asn1.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-19T03:30:33Z",
+      "side": 1,
+      "message": "Ah yeah, we usually consider refcounting to not be modifying the object, because refcounts are thread-safety and don\u0027t mutate the logical state of the object. But C is not very good at capturing this in its type system (unlike C++ or Rust), so instead we say things like:\n\n\u003e An RSA object represents a public or private RSA key. A given object may be used concurrently on multiple threads by non-mutating functions, provided no other thread is concurrently calling a mutating function. Unless otherwise documented, functions which take a const pointer are non-mutating and functions which take a non-const pointer are mutating.\n\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/rsa.h.html#Allocation-and-destruction\n\n\u003e RSA_up_ref increments the reference count of rsa and returns one. It does not mutate rsa for thread-safety purposes and may be used concurrently.\n\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/rsa.h.html#RSA_up_ref\n\nI see we\u0027re missing that text for DH, but we can just put it in.",
+      "parentUuid": "d216a649_23831ce7",
+      "revId": "d7a772e1184a09d05f16b3fe1475f0a10ba1d5bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
