@@ -51,6 +51,24 @@
       "parentUuid": "3579d56b_e2313eaa",
       "revId": "d7a772e1184a09d05f16b3fe1475f0a10ba1d5bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d216a649_23831ce7",
+        "filename": "crypto/evp/p_dh_asn1.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-03-19T03:25:54Z",
+      "side": 1,
+      "message": "Makes sense. I guess what threw me off is that a getter modifies the object.",
+      "parentUuid": "5d9d48d2_aedc8b56",
+      "revId": "d7a772e1184a09d05f16b3fe1475f0a10ba1d5bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
