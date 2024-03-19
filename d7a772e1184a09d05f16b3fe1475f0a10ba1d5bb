@@ -33,6 +33,24 @@
       "message": "This always bothered me. Isn\u0027t there a tiny race here? Another thread could have freed dh before you attempt to grab a lock to up the refcount.",
       "revId": "d7a772e1184a09d05f16b3fe1475f0a10ba1d5bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9d48d2_aedc8b56",
+        "filename": "crypto/evp/p_dh_asn1.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-19T01:24:49Z",
+      "side": 1,
+      "message": "I don\u0027t think so. `pkey` owns a refcount to `dh`, so the only way for the last reference `dh` to be released is if `pkey` was destroyed or mutated while this function is running. But that would be a bug in the application. You cannot destroy or mutate `pkey` while you\u0027re in the middle of calling this function.",
+      "parentUuid": "3579d56b_e2313eaa",
+      "revId": "d7a772e1184a09d05f16b3fe1475f0a10ba1d5bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
