@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a810fc70_b18be0fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-03-20T00:43:12Z",
+      "side": 1,
+      "message": "But the hash has to be spiritually inside the FIPS module, i.e. the .o.",
+      "revId": "9052881e840957326891ed9b254559b74d7ab07d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
