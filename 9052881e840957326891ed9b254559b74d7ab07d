@@ -34,6 +34,24 @@
       "parentUuid": "a810fc70_b18be0fa",
       "revId": "9052881e840957326891ed9b254559b74d7ab07d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95843e7e_5dfd3757",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-20T01:06:16Z",
+      "side": 1,
+      "message": "\u003e It does, but none of our generated builds believe it\u0027s part of the FIPS module.\n\nSorry, that unclear. I mean none of our generated builds believe it\u0027s part of bcm_sources.\n\n(Really this is because we haven\u0027t separated \"bcm_delocated_sources\" from \"bcm_sources\".)",
+      "parentUuid": "6d9de4a6_11884341",
+      "revId": "9052881e840957326891ed9b254559b74d7ab07d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
