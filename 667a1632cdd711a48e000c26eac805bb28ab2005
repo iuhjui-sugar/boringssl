@@ -51,6 +51,23 @@
       "message": "Comment removed by: David Benjamin; Reason: Spam",
       "revId": "667a1632cdd711a48e000c26eac805bb28ab2005",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8806d75f_df78235a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3353470
+      },
+      "writtenOn": "2024-03-20T13:09:58Z",
+      "side": 1,
+      "message": "Comment removed by: David Benjamin; Reason: Spam",
+      "revId": "667a1632cdd711a48e000c26eac805bb28ab2005",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
