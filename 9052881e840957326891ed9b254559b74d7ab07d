@@ -16,6 +16,24 @@
       "message": "But the hash has to be spiritually inside the FIPS module, i.e. the .o.",
       "revId": "9052881e840957326891ed9b254559b74d7ab07d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d9de4a6_11884341",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-20T01:04:49Z",
+      "side": 1,
+      "message": "It does, but none of our generated builds believe it\u0027s part of the FIPS module. fips_shared_support.c is always part of crypto_sources.\n\nReally the problem is that BCM and libcrypto\u0027s split isn\u0027t particularly coherent. There\u0027s the things that are spiritually part of the FIPS module and there\u0027s the thing that is passed to delocate. I expect we\u0027ll need to fidget with it a lot, but I figure step 1 is to get all our builds to work the same way.\n\n(I\u0027ll finish looking over and upload the rest of my patch tower, which might make this make more sense. Probably can also reorder things... this ended up being less of a direct dependency of the interesting change.)",
+      "parentUuid": "a810fc70_b18be0fa",
+      "revId": "9052881e840957326891ed9b254559b74d7ab07d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
