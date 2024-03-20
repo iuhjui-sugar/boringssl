@@ -16,6 +16,41 @@
       "message": "Is this ready for review? Wasn\u0027t sure since you didn\u0027t add any reviewers.",
       "revId": "667a1632cdd711a48e000c26eac805bb28ab2005",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0cdb6fc_5659a54b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3353470
+      },
+      "writtenOn": "2024-03-20T13:09:12Z",
+      "side": 1,
+      "message": "Comment removed by: David Benjamin; Reason: Spam",
+      "parentUuid": "9f61c04f_fb47fc90",
+      "revId": "667a1632cdd711a48e000c26eac805bb28ab2005",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10ec049b_3526fc64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3353470
+      },
+      "writtenOn": "2024-03-20T13:09:12Z",
+      "side": 1,
+      "message": "Comment removed by: David Benjamin; Reason: Spam",
+      "revId": "667a1632cdd711a48e000c26eac805bb28ab2005",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
