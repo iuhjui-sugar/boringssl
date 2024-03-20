@@ -16,6 +16,24 @@
       "message": "Shouldn\u0027t you just pull these out ot a separate thing?",
       "revId": "5ac204e931812d2d0db97f7f564155c23eb31e35",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "239b1340_d316d54a",
+        "filename": "build.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-20T20:35:15Z",
+      "side": 1,
+      "message": "This framework doesn\u0027t currently have a way to say experimental_hdrs vs. regular hdrs. We could add that, but I was just trying to match generate_build_files.py\u0027s feature set for now. (The idea is this stuff will translate 1:1 with generate_build_files.py output.)\n\nI.e. this is the crypto_headers vs crypto_experimental_headers tradeoff we were talking about. I think, between the ifdef and the manual work needed to do the target split, I think defaulting to putting them together is a fine tradeoff.",
+      "parentUuid": "89a1b5dd_596d91ba",
+      "revId": "5ac204e931812d2d0db97f7f564155c23eb31e35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
