@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf7701e_4b23eb76",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "moved to the bottom, and \"for the ones above\"",
+      "parentUuid": "b263c577_babe422e",
+      "range": {
+        "startLine": 36,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f4ce0c2_d0b57711",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-21T01:58:06Z",
       "side": 1,
       "message": "Let\u0027s maybe add \"Later certificates in the chain may also exhibit the same error\".",
+      "range": {
+        "startLine": 109,
+        "startChar": 61,
+        "endLine": 109,
+        "endChar": 62
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e1cdd1c_a18932f7",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f4ce0c2_d0b57711",
       "range": {
         "startLine": 109,
         "startChar": 61,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcf48888_27c328c0",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68a0023e_c2bf90ce",
+      "range": {
+        "startLine": 114,
+        "startChar": 1,
+        "endLine": 117,
+        "endChar": 13
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "763bbbdb_61f88c87",
@@ -87,6 +159,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "114ad5a9_d6000ac2",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "763bbbdb_61f88c87",
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f206c550_232404bb",
@@ -100,6 +190,30 @@
       "writtenOn": "2024-03-21T01:58:06Z",
       "side": 1,
       "message": "`value_or` is a little confusing because it actually can\u0027t be valueless here anyway. Perhaps just:\n\n\n```suggestion\n        } else if (id_seen.value() !\u003d node.id) {\n```\n\nActually you can even write `id_seen !\u003d node.id` and it\u0027ll be sensible.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 51
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cf52e3e_e1ea6a85",
+        "filename": "pki/cert_errors.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f206c550_232404bb",
       "range": {
         "startLine": 186,
         "startChar": 0,
@@ -133,6 +247,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b15adcd_3f9e0ab8",
+        "filename": "pki/cert_errors.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbfe3bc5_63e56f2d",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 43
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbd7db70_0d64908b",
@@ -146,6 +284,24 @@
       "writtenOn": "2024-03-21T01:58:06Z",
       "side": 1,
       "message": "It is a bit confusing we have to check. (Is this a real thing or just belt and suspenders? If the latter, maybe should start doing BSSL_CHECKs.) Wanna file a bug and add a TODO? 😊",
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66bf9316_74f59469",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "crbug.com/boringssl/713 and commented.",
+      "parentUuid": "cbd7db70_0d64908b",
       "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -167,6 +323,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e908baf_2433d65e",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "792e4e1a_c90f7e6d",
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b14bb49_55944c15",
@@ -180,6 +354,30 @@
       "writtenOn": "2024-03-21T01:58:06Z",
       "side": 1,
       "message": "std::move(diagnostic) to avoid the copy",
+      "range": {
+        "startLine": 8,
+        "startChar": 48,
+        "endLine": 8,
+        "endChar": 58
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb50832b_c0eac0ab",
+        "filename": "pki/verify_error.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T02:24:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b14bb49_55944c15",
       "range": {
         "startLine": 8,
         "startChar": 48,
