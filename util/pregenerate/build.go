@@ -19,6 +19,7 @@ import (
 	"cmp"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"path"
 	"path/filepath"
 	"slices"
@@ -303,11 +304,17 @@ func soongTask(targets map[string]build.Target, dst string) Task {
 }
 
 func MakeBuildFiles(targets map[string]build.Target) []Task {
+	// Most of our builds do not care about the crypto/bcm separation.
+	withoutBCM := maps.Clone(targets)
+	withoutBCM["crypto"] = build.Merge(withoutBCM["crypto"], withoutBCM["bcm"])
+	delete(withoutBCM, "bcm")
+
 	// TODO(crbug.com/boringssl/542): Generate the build files for the other
 	// types as well.
 	return []Task{
 		buildVariablesTask(targets, "gen/sources.bzl", "#", writeBazelVariable),
 		buildVariablesTask(targets, "gen/sources.cmake", "#", writeCMakeVariable),
-		jsonTask(targets, "gen/sources.json"),
+		buildVariablesTask(withoutBCM, "gen/sources.gni", "#", writeGNVariable),
+		jsonTask(withoutBCM, "gen/sources.json"),
 	}
 }
