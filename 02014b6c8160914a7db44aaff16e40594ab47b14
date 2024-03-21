@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b263c577_babe422e",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "invalid for some reason other than the ones listed below",
+      "range": {
+        "startLine": 36,
+        "startChar": 58,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f4ce0c2_d0b57711",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "Let\u0027s maybe add \"Later certificates in the chain may also exhibit the same error\".",
+      "range": {
+        "startLine": 109,
+        "startChar": 61,
+        "endLine": 109,
+        "endChar": 62
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68a0023e_c2bf90ce",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "```suggestion\n  // verification attempt. The string aims to be useful to debugging, but it\n  // is not stable and may not be processed programmatically or asserted on\n  // in tests. The string may be empty if no diagnostic information was\n```",
+      "range": {
+        "startLine": 114,
+        "startChar": 1,
+        "endLine": 117,
+        "endChar": 13
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "763bbbdb_61f88c87",
+        "filename": "include/openssl/pki/verify_error.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f206c550_232404bb",
+        "filename": "pki/cert_errors.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "`value_or` is a little confusing because it actually can\u0027t be valueless here anyway. Perhaps just:\n\n\n```suggestion\n        } else if (id_seen.value() !\u003d node.id) {\n```\n\nActually you can even write `id_seen !\u003d node.id` and it\u0027ll be sensible.",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 51
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbfe3bc5_63e56f2d",
+        "filename": "pki/cert_errors.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "const and non-const overloads are (tragically) common in C++ so I think we can just write this and make the comment apply to both:\n\n\n```suggestion\n  CertErrors *GetOtherErrors();\n  const CertErrors *GetOtherErrors() const;\n```",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 43
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbd7db70_0d64908b",
+        "filename": "pki/path_builder.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 718,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "It is a bit confusing we have to check. (Is this a real thing or just belt and suspenders? If the latter, maybe should start doing BSSL_CHECKs.) Wanna file a bug and add a TODO? 😊",
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "792e4e1a_c90f7e6d",
+        "filename": "pki/path_builder_unittest.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "nit: 80 char s",
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b14bb49_55944c15",
+        "filename": "pki/verify_error.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:58:06Z",
+      "side": 1,
+      "message": "std::move(diagnostic) to avoid the copy",
+      "range": {
+        "startLine": 8,
+        "startChar": 48,
+        "endLine": 8,
+        "endChar": 58
+      },
+      "revId": "02014b6c8160914a7db44aaff16e40594ab47b14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
