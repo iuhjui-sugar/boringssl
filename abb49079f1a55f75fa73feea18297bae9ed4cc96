@@ -70,6 +70,24 @@
       "parentUuid": "ff0926c7_5c26c5a5",
       "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fca80d1_2596c47f",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T01:33:48Z",
+      "side": 1,
+      "message": "yeah, the alternatives are all annoying. I agree to just land it.",
+      "parentUuid": "0139c89e_6780513d",
+      "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
