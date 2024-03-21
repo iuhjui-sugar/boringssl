@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05f769d2_b52fb477",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T00:46:10Z",
+      "side": 1,
+      "message": "Nit: Doesn\u0027t make a huge difference, but it means we get a slightly more useful error message if it\u0027s wrong.\n\n```suggestion\n  EXPECT_EQ(OBJ_obj2nid(obj), NID_sha256);\n  EXPECT_EQ(ptype, V_ASN1_NULL); // OpenSSL has V_ASN1_UNDEF\n  EXPECT_EQ(pval, nullptr);\n  EXPECT_TRUE(X509_ALGOR_set_md(alg.get(), EVP_md5()));\n  X509_ALGOR_get0(\u0026obj, \u0026ptype, \u0026pval, alg.get());\n  EXPECT_EQ(OBJ_obj2nid(obj), NID_md5);\n  EXPECT_EQ(ptype, V_ASN1_NULL);\n  EXPECT_EQ(pval, nullptr);\n```",
+      "range": {
+        "startLine": 2826,
+        "startChar": 0,
+        "endLine": 2833,
+        "endChar": 28
+      },
+      "revId": "ca0fbf882e33f972cb95c52d4bc98631e81eac40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
