@@ -14,6 +14,10 @@
 
 package build
 
+import (
+	"slices"
+)
+
 // A Target is a build target for consumption by the downstream build systems.
 // All pre-generated files are baked input its source lists.
 type Target struct {
@@ -35,4 +39,19 @@ type Target struct {
 	// Data is a list of test data files that should be available when the test is
 	// run.
 	Data []string `json:"data,omitempty"`
+}
+
+func concatAndSort(out *[]string, in []string) {
+	*out = slices.Concat(*out, in)
+	slices.Sort(*out)
+}
+
+func Merge(a Target, b Target) Target {
+	concatAndSort(&a.Srcs, b.Srcs)
+	concatAndSort(&a.Hdrs, b.Hdrs)
+	concatAndSort(&a.InternalHdrs, b.InternalHdrs)
+	concatAndSort(&a.Asm, b.Asm)
+	concatAndSort(&a.Nasm, b.Nasm)
+	concatAndSort(&a.Data, b.Data)
+	return a
 }
