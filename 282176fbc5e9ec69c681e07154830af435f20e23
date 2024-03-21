@@ -16,6 +16,24 @@
       "message": "Optional: Two things have came to mind see this:\n\n1. It\u0027s probably a better pattern to put these at the top of the file, in case of transitive includes (not that there are any here)\n\n2. Moving it to the top makes it less clear which you are enabling. Suppose there are transitive includes... you might end up also enabling Kyber when you only wanted to enable SPHINCS+... should they get separate #defines? Maybe overkill. (I don\u0027t care, whichever you prefer.)",
       "revId": "282176fbc5e9ec69c681e07154830af435f20e23",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13ccd245_a316f3bc",
+        "filename": "crypto/spx/spx_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T03:07:03Z",
+      "side": 1,
+      "message": "I ended up landing on seperate defines, and right before what I am enabling. seems to still be ok with transitive includes as long as I\u0027m not very silly.",
+      "parentUuid": "3078b5ca_6a2091a1",
+      "revId": "282176fbc5e9ec69c681e07154830af435f20e23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
