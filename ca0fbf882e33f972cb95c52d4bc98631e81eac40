@@ -22,6 +22,30 @@
       },
       "revId": "ca0fbf882e33f972cb95c52d4bc98631e81eac40",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b6cdeb9_9b4d07a1",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2833,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-03-21T00:50:42Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "05f769d2_b52fb477",
+      "range": {
+        "startLine": 2826,
+        "startChar": 0,
+        "endLine": 2833,
+        "endChar": 28
+      },
+      "revId": "ca0fbf882e33f972cb95c52d4bc98631e81eac40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
