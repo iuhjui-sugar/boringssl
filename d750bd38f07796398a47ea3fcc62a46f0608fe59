@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5f9246b_f6f64c1b",
+        "filename": "include/openssl/experimental/spx.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T00:03:52Z",
+      "side": 1,
+      "message": "yeah, I liked the length till I had to use it, I realize that\u0027s half the point but it\u0027s a bit too long. Made is shorter and I like your wording on the error.",
+      "parentUuid": "f1497aa6_dad576cf",
+      "revId": "d750bd38f07796398a47ea3fcc62a46f0608fe59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1cdbfb0_c4efc267",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-03-17T01:12:04Z",
       "side": 1,
       "message": "Public APIs should be `SPX_generate_key` and friends. We put the module name in caps if public.",
+      "range": {
+        "startLine": 43,
+        "startChar": 3,
+        "endLine": 43,
+        "endChar": 19
+      },
+      "revId": "d750bd38f07796398a47ea3fcc62a46f0608fe59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f6af56_f0ae1616",
+        "filename": "include/openssl/experimental/spx.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-21T00:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1cdbfb0_c4efc267",
       "range": {
         "startLine": 43,
         "startChar": 3,
