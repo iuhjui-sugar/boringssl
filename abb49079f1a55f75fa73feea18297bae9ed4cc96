@@ -52,6 +52,24 @@
       "parentUuid": "8086f277_4806284d",
       "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0139c89e_6780513d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-21T01:31:57Z",
+      "side": 1,
+      "message": "Out-of-band chat: neither of us seems to be able to come up with something that isn\u0027t annoying for one reason or another, so let\u0027s just land this as-is.",
+      "parentUuid": "ff0926c7_5c26c5a5",
+      "revId": "abb49079f1a55f75fa73feea18297bae9ed4cc96",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
