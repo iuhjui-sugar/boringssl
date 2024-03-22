@@ -315,6 +315,8 @@ func MakeBuildFiles(targets map[string]build.Target) []Task {
 		buildVariablesTask(targets, "gen/sources.bzl", "#", writeBazelVariable),
 		buildVariablesTask(targets, "gen/sources.cmake", "#", writeCMakeVariable),
 		buildVariablesTask(withoutBCM, "gen/sources.gni", "#", writeGNVariable),
+		buildVariablesTask(withoutBCM, "gen/sources.mk", "#", writeMakeVariable),
 		jsonTask(withoutBCM, "gen/sources.json"),
+		soongTask(targets, "gen/sources.bp"),
 	}
 }
