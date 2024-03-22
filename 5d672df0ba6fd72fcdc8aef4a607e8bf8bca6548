@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bcc87e6_047ce472",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-22T03:17:49Z",
+      "side": 1,
+      "message": "Oh yeah, we never actually documented that this is okay. Let\u0027s just promise this because it\u0027s pretty convenient:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/67407",
+      "revId": "5d672df0ba6fd72fcdc8aef4a607e8bf8bca6548",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ccae9166_dbc25885",
