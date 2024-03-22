@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78650585_afd6e551",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-03-22T04:07:20Z",
+      "side": 1,
+      "message": "Maybe it\u0027s worth pointing out that OpenSSL returns -1 for NULL and 0 for empty lists?",
+      "revId": "c5b6920b1824b2f2ff1a131f54b5289f6e0637a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
