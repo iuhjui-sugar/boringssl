@@ -16,6 +16,24 @@
       "message": "OMG, is this generated?",
       "revId": "82eae0940836bafb39f273dd9c3a8fec57c60101",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd3fade7_d9719ebd",
+        "filename": "MODULE.bazel.lock",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-22T04:05:50Z",
+      "side": 1,
+      "message": "Yeah. :-(",
+      "parentUuid": "c3b8f3ee_425961b1",
+      "revId": "82eae0940836bafb39f273dd9c3a8fec57c60101",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
