@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccae9166_dbc25885",
+        "filename": "crypto/x509/x509_trs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-03-22T03:16:57Z",
+      "side": 1,
+      "message": "As mentioned in person, this is different from OpenSSL where the obj\u0027s NID is compared to both `id` and `NID_anyExtendedKeyUsage` since\nhttps://github.com/openssl/openssl/commit/0daccd4dc1f1ac62181738a91714f35472e50f3c\n\nLikewise for the `obj`s in `ax-trust` below.",
+      "revId": "5d672df0ba6fd72fcdc8aef4a607e8bf8bca6548",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
