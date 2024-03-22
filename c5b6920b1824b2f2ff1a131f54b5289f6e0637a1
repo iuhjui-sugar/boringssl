@@ -16,6 +16,24 @@
       "message": "Maybe it\u0027s worth pointing out that OpenSSL returns -1 for NULL and 0 for empty lists?",
       "revId": "c5b6920b1824b2f2ff1a131f54b5289f6e0637a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08a7bd65_6af788b9",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-22T04:10:16Z",
+      "side": 1,
+      "message": "Oh, it does? Hilarious. *shrug*\n\nNot opposed to mentioning it, but we also don\u0027t document every delta from OpenSSL, just the ones that seem important enough to call out. OpenSSL is a moving target, so if you want to know OpenSSL\u0027s behavior you ultimately need to consult their extensive, complete, and accurate documentation. 😜",
+      "parentUuid": "78650585_afd6e551",
+      "revId": "c5b6920b1824b2f2ff1a131f54b5289f6e0637a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
