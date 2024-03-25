@@ -16,6 +16,46 @@
       "message": "davidben@, bbe@: PTAL.\n\nDavid, this is what I talked yesterday.",
       "revId": "a5c5de5fc9af213c59116db446c69d2ed9457328",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40d7fba8_a13aec87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-25T21:23:26Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "a5c5de5fc9af213c59116db446c69d2ed9457328",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd6eaa6c_fa40c9cf",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-25T21:23:26Z",
+      "side": 1,
+      "message": "I noticed the docs specify this as optional, and this script seems to leave it at the default.\nhttps://github.com/rust-lang/rust/blob/master/compiler/rustc_llvm/build.rs#L376-L392\n\nDo you know what the behavior is when omitted? I can\u0027t tell from the docs. GCC\u0027s manual says:\n\n\u003e If both static and shared libraries  are  found,  the  linker  gives  preference to linking with the shared library unless the -static option is used.\n\nBut I don\u0027t know if cargo has the same behavior as gcc. (I mean, it clearly doesn\u0027t fully have the same behavior because it doesn\u0027t know to pick this up automatically!)",
+      "range": {
+        "startLine": 127,
+        "startChar": 39,
+        "endLine": 127,
+        "endChar": 45
+      },
+      "revId": "a5c5de5fc9af213c59116db446c69d2ed9457328",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
