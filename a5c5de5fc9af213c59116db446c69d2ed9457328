@@ -104,6 +104,30 @@
       },
       "revId": "a5c5de5fc9af213c59116db446c69d2ed9457328",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ecdd05e_b6384145",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-27T16:02:21Z",
+      "side": 1,
+      "message": "Yeah, given that\u0027s what Rust itself does, let\u0027s omit it. Doubt it\u0027ll matter but whatever.",
+      "parentUuid": "acf5d7eb_92146e6b",
+      "range": {
+        "startLine": 127,
+        "startChar": 39,
+        "endLine": 127,
+        "endChar": 45
+      },
+      "revId": "a5c5de5fc9af213c59116db446c69d2ed9457328",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
