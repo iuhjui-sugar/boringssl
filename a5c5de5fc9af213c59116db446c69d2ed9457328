@@ -56,6 +56,30 @@
       },
       "revId": "a5c5de5fc9af213c59116db446c69d2ed9457328",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9997289_f11e5b4b",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 14076
+      },
+      "writtenOn": "2024-03-27T06:43:44Z",
+      "side": 1,
+      "message": "Oh good to know.\n\nhttps://doc.rust-lang.org/rustc/command-line-arguments.html#option-l-link-lib says:\n\u003e If the kind is not specified in the link attribute or on the command-line, it will link a dynamic library by default, except when building a static executable.\n\nSo the behavior seems similar to GCC. Should I omit it?",
+      "parentUuid": "bd6eaa6c_fa40c9cf",
+      "range": {
+        "startLine": 127,
+        "startChar": 39,
+        "endLine": 127,
+        "endChar": 45
+      },
+      "revId": "a5c5de5fc9af213c59116db446c69d2ed9457328",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
