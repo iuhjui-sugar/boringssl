@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fb741c4_6e5c7060",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T21:56:45Z",
+      "side": 1,
+      "message": "I dunno about *good*, but save a boolean, have an accessor on the SSL, and have Chromium query it I guess? Kinda tedious.",
+      "parentUuid": "26fe6cbb_4f6ce602",
+      "revId": "e897d85bba5135db9609cb77cd3a1e51ea9385d7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcf20ad3_77fbcf38",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 8
