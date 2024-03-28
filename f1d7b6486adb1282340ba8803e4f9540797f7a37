@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2b00dab_a5f6e327",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T19:05:19Z",
+      "side": 1,
+      "message": "I *think* `Bug: chromium:40925630` still works post-buganizer, but I\u0027m not positive. We can find out I guess. 😊\n\nHopefully when BoringSSL moves to buganizer it\u0027ll be straightforward and we just write `Bug: number`.",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 48
+      },
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "986a1bb9_f06e56f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T19:05:19Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90a3f71f_8dfad00d",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T19:05:19Z",
+      "side": 1,
+      "message": "Nit: Don\u0027t need parens here anymore.",
+      "range": {
+        "startLine": 136,
+        "startChar": 31,
+        "endLine": 136,
+        "endChar": 32
+      },
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8b2d940_688c7c5c",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T19:05:19Z",
+      "side": 1,
+      "message": "Nit: Not that it matters, but let\u0027s write `size_t` here since that\u0027s what bitset returns.",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 16
+      },
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b7d2272_016b7674",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T19:05:19Z",
+      "side": 1,
+      "message": "How good is our test coverage for this? It\u0027s been a very long time and honestly I kinda forget. I think addDTLSReplayTests() are the BoGo ones? I mean, clearly our tests weren\u0027t *that* good if they weren\u0027t sensitive to the window increasing. 😊\n\nIn particular, I\u0027m a little worried that with a window size of 256, I bet our tests often don\u0027t even send enough packets to exercise this codepath.\n\nMind poking around just seeing what happens if you inject bugs around here and seeing if any tests even notice? It\u0027s not worth spending an inordinate amount of time on this, but maybe update those tests based on the higher window?\n\nI suspect we\u0027re also missing the ability test more complex things like\n\n2, 4, 6, 8, ..., 512, 1, 2, 3, 4, ..., 512\n\nThat should:\n\n- Pick up all the evens up to 512\n- Drop all the evens the second time around\n- Drop the odds that are too small\n- Pick up the odds from I guess 257 or so onwards?\n\nBut I\u0027m not sure if replayWrites and SequenceNumberMapping is even capable of expressing that. Not sure how painful that would be. Feel free to skip if it looks too annoying.",
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b3e768_d809d50c",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T19:05:19Z",
+      "side": 1,
+      "message": "When I was looking at this, I paused a bit because, as the bitset gets larger, we no longer have a particularly efficient variable shift. So I was pondering whether it\u0027d be better to keep the bit positions fixed, zero things out, and interpret them rotationally.\n\nBut bitset doesn\u0027t support that very well, and writing it by hand is tedious, and 256 bits is fiiiiine, so I think was I overthinking it. :-)",
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75e48707_90c9b560",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T19:05:19Z",
+      "side": 1,
+      "message": "I think you can just write\n```suggestion\n  std::bitset\u003c256\u003e map;\n```\n\nThe default constructor already zeros it. We need it for primitive types because they have horrible defaults in C++.",
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
