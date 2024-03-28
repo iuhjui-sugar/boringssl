@@ -2514,14 +2514,6 @@ static bool ext_supported_groups_add_clienthello(const SSL_HANDSHAKE *hs,
   return CBB_flush(out_compressible);
 }
 
-static bool ext_supported_groups_parse_serverhello(SSL_HANDSHAKE *hs,
-                                                   uint8_t *out_alert,
-                                                   CBS *contents) {
-  // This extension is not expected to be echoed by servers in TLS 1.2, but some
-  // BigIP servers send it nonetheless, so do not enforce this.
-  return true;
-}
-
 static bool parse_u16_array(const CBS *cbs, Array<uint16_t> *out) {
   CBS copy = *cbs;
   if ((CBS_len(&copy) & 1) != 0) {
@@ -3141,7 +3133,7 @@ static const struct tls_extension kExtensions[] = {
   {
     TLSEXT_TYPE_supported_groups,
     ext_supported_groups_add_clienthello,
-    ext_supported_groups_parse_serverhello,
+    forbid_parse_serverhello,
     ext_supported_groups_parse_clienthello,
     dont_add_serverhello,
   },
