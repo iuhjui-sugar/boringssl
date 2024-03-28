@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26fe6cbb_4f6ce602",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3136,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-03-28T21:45:20Z",
+      "side": 1,
+      "message": "There a good way to do *something* here to emit \"yes I got one\" in a way we can pick it up as a metric in chrome?",
+      "parentUuid": "b89a73fa_13e5fcbf",
+      "revId": "e897d85bba5135db9609cb77cd3a1e51ea9385d7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dcf20ad3_77fbcf38",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 8
