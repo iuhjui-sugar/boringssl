@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b89a73fa_13e5fcbf",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T16:45:15Z",
+      "side": 1,
+      "message": "I\u0027m a little worried about doing this completely blindly. We don\u0027t know if there are F5 servers (at least in the past, F5 deployments were notoriously bad at updating), or if there are other servers that do this.\n\nI think we\u0027d want to have some metrics on this first, even though it\u0027ll be a bit tedious. :-(",
+      "revId": "e897d85bba5135db9609cb77cd3a1e51ea9385d7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcf20ad3_77fbcf38",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 11877,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-03-28T16:45:15Z",
+      "side": 1,
+      "message": "Nit: run `go fmt` (tabs vs spaces)",
+      "revId": "e897d85bba5135db9609cb77cd3a1e51ea9385d7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
