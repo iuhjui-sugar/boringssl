@@ -2517,9 +2517,9 @@ static bool ext_supported_groups_add_clienthello(const SSL_HANDSHAKE *hs,
 static bool ext_supported_groups_parse_serverhello(SSL_HANDSHAKE *hs,
                                                    uint8_t *out_alert,
                                                    CBS *contents) {
-  // This extension is not expected to be echoed by servers in TLS 1.2, but some
-  // BigIP servers send it nonetheless, so do not enforce this.
-  return true;
+  // This extension is not expected to be echoed by servers in TLS 1.2
+  // or TLS 1.3.
+  return false;
 }
 
 static bool parse_u16_array(const CBS *cbs, Array<uint16_t> *out) {
