@@ -16,6 +16,24 @@
       "message": "Super nitpicky nitpick: indentation here is slightly inconsistent.",
       "revId": "8b2f2f61b22f51f2d7f89ff564699595b6b49605",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fe94920_18f03982",
+        "filename": "PrivacyInfo.xcprivacy",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-03-29T18:53:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3458fc6c_c37a07c1",
+      "revId": "8b2f2f61b22f51f2d7f89ff564699595b6b49605",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
