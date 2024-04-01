@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "71cd8dd5_1b68b396",
+        "filename": "crypto/fipsmodule/tls/kdf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-04-01T20:13:30Z",
+      "side": 1,
+      "message": "Crap, thank you.",
+      "parentUuid": "6e29e5c6_6a378456",
+      "revId": "78917bd837d780848d3f34191625a3a094b3313a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "82c1a3e1_164d280b",
         "filename": "crypto/fipsmodule/tls/kdf.c",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2024-03-29T18:49:07Z",
       "side": 1,
       "message": "Slightly silly considering this will only ever be called with SHA-256 and SHA-384 but ah well.",
+      "revId": "78917bd837d780848d3f34191625a3a094b3313a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aac6cc6f_5cf4ba88",
+        "filename": "crypto/fipsmodule/tls/kdf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-04-01T20:13:30Z",
+      "side": 1,
+      "message": "(But the _module_ doesn\u0027t enforce that, so I think we have to do this.)",
+      "parentUuid": "82c1a3e1_164d280b",
       "revId": "78917bd837d780848d3f34191625a3a094b3313a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
