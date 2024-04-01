@@ -16,6 +16,233 @@
       "message": "Hey, sorry about the long delay here. Thanks for the CL. We\u0027ve been a bit caught up with other work leading up to IETF. Just wanted to ACK this CL and let you know it\u0027s in our queue. The numbers you cite are quite impressive, and it\u0027s nice that you seem to have avoided the truly comical size costs of the previous attempt. :-)\n\nBob and I will be traveling, but hopefully we can pick this up after IETF. (Or perhaps in between sessions if one of us gets distracted.)",
       "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5af9c510_71558bb2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Did an initial pass over this. Thanks! The speedup looks substantial.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f2a4e0_465b5931",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "This needs to be part of the fipsmodule build and run through the whole delocate machinery. Though if you rebase, the build has changed substantially. 😊\n\nThe new setup is you add this to `build.json` and then run `go run ./util/pregenerate`. See `gen/README.md` for more details.\n\nSince it needs to be part of fipsmodule, put it in the `bcm` target. If it\u0027s just a plain asm file, not to be processed with perlasm, it goes in an `\"asm\"` key.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7102c24e_47f6b385",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "BoringSSL doesn\u0027t currently use Apache2. We might relicense later to align with upstream but, in the meantime, we use ISC for code that didn\u0027t come from OpenSSL. Could you align this with the ISC header used in our other files.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b029612_b4b94e95",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Apple platforms don\u0027t use ELF. This can just be `defined(__ELF__)`.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5cae0f1_f33d2c2d",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "I suspect, when you make this go through delocate, the gas macros here will explode horribly.\n\nSuggest either using C preprocessor macros or (🤮) perlasm.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8329a75f_30d21fc1",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure all this will explode horribly with delocate.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40169855_5db021b5",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "delocate is similarly not going to know how to rename all these macros. Ugh, this may be challenging. This is probably too complicated for the C preprocessor, and rewriting them to perlasm is kind of sad. But that\u0027s the best option I can think of right now, given the current state of our tooling. :-(",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea29019b_8f5f0dfd",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Hmm, it\u0027s been a while since I\u0027ve poked at that code. Do you have a pointer to how this comes up? Maybe we should just move the length adjustment to that layer, if that code only wants a full block to be consumed.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11dfd5db_3296d5ef",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Both the header comments and name imply that this is a boolean, but we\u0027re now changing this to a tri-state enum. If we want an enum, we should actually make it an enum.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e992815b_e3eed679",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Two layers of ternary ops gets pretty unreadable. Also same comment as above that if it\u0027s not a boolean, let\u0027s not make it a boolean.\n\nHonestly, given all these, maybe instead of a boolean, we should just make it a function pointer?",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "726b1686_ac21757a",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Nit: clang-format (80 chars)",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba8fee38_ff3303ba",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40644d77_51921d2e",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1494,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-01T20:56:21Z",
+      "side": 1,
+      "message": "Confirmed that we have at least one model (tgl) in all_tests.go which exercises these.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
