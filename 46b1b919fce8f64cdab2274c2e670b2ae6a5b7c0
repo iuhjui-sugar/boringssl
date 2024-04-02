@@ -22,6 +22,30 @@
       },
       "revId": "46b1b919fce8f64cdab2274c2e670b2ae6a5b7c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5aa5728_655f4e41",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 3377900
+      },
+      "writtenOn": "2024-04-02T21:24:13Z",
+      "side": 1,
+      "message": "I disabled \"-Wunknown-warning-option\" in an additional pragma. This builds for all platforms now.",
+      "parentUuid": "c8ffebb8_294e3716",
+      "range": {
+        "startLine": 406,
+        "startChar": 52,
+        "endLine": 406,
+        "endChar": 78
+      },
+      "revId": "46b1b919fce8f64cdab2274c2e670b2ae6a5b7c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
