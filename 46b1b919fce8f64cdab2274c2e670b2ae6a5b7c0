@@ -70,6 +70,30 @@
       },
       "revId": "46b1b919fce8f64cdab2274c2e670b2ae6a5b7c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51805865_a20f115f",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T21:30:21Z",
+      "side": 1,
+      "message": "Ah nice. Much more straightforward.",
+      "parentUuid": "24dc54fe_1592abac",
+      "range": {
+        "startLine": 406,
+        "startChar": 52,
+        "endLine": 406,
+        "endChar": 78
+      },
+      "revId": "46b1b919fce8f64cdab2274c2e670b2ae6a5b7c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
