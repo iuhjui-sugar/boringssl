@@ -1,0 +1,455 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97f46662_f3699cd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 53
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Took an initial pass over this.",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d5af139_5225d99e",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "nullptr",
+      "range": {
+        "startLine": 24,
+        "startChar": 76,
+        "endLine": 25,
+        "endChar": 11
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cc5a212_46c27bce",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "unique_ptr is already nullable, so let\u0027s just punt the optional.",
+      "range": {
+        "startLine": 26,
+        "startChar": 10,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74c74160_acc1d536",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "nullptr",
+      "range": {
+        "startLine": 30,
+        "startChar": 53,
+        "endLine": 30,
+        "endChar": 60
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89a2ec4e_ffb70a17",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da2c989a_337f680e",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "I\u0027m guessing this was meant to be private.",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9cab2e0_1314b91c",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "I think the current style is to put these at the top, with the other constructors.\n\nThe history here is that Google used to prefer a `DISALLOW_COPY_AND_ASSIGN(CertPool)` macro, that was put in the `private:` section of the class. At some point that macro fell out of fashion and some LSC expanded it all. But the LSC left them at the bottom.",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be07e91a_5d3affd5",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede0a84a_6edb1d4f",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Don\u0027t think this forward decl is doing anything,",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91fbc9f0_aaec0bad",
+        "filename": "include/openssl/pki/verify.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Now that this is just under plain namespace `bssl`, we might want to give this name more specific to certificates. Otherwise this is just `bssl::Verify` which could mean anything from X.509 to ECDSA. Ditto with many of the other names in here.",
+      "range": {
+        "startLine": 140,
+        "startChar": 40,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bba620cd_73ddfbb7",
+        "filename": "pki/testdata/verify_unittest/google-intermediate1.der",
+        "patchSetId": 53
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Need to add this to test data. Happily, with build.json, you can use a wildcard now.",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e085bba_24df140c",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Hahaha. Probably don\u0027t need to name-drop me at this point. :D",
+      "range": {
+        "startLine": 52,
+        "startChar": 59,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3361ef95_7ca6eace",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Optional\n\n```suggestion\n  auto bytes \u003d StringAsBytes(cert);\n  bssl::UniquePtr\u003cCRYPTO_BUFFER\u003e buffer(CRYPTO_BUFFER_new(\n      bytes.data(), bytes.size(), nullptr));\n```\n\nDoesn\u0027t really matter but avoids the eyesore of a cast.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 77
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0694d26a_95a1812e",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "We\u0027re in `namespace bssl` already, so `bssl::` can be deleted from the whole file.",
+      "range": {
+        "startLine": 69,
+        "startChar": 2,
+        "endLine": 69,
+        "endChar": 8
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89759b54_7e56cf76",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Don\u0027t think this does anything.",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 16
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82491c2d_dbf5d74c",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "```suggestion\n  auto trust_store \u003d std::make_unique\u003cTrustStoreInMemory\u003e();\n```",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9884e52_1ffbbc1d",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "I *think* this works:\n\n`CBS cbs \u003d StringAsBytes(der_certs);`",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8671d4fd_51aab909",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "BytesAsStringView\n\nBetter yet, make InternalParseCertificate takes a Span\u003cconst uint8_t\u003e and then StringAsBytes at the other callers.",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "133586d8_58636a44",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "```suggestion\n    auto trust_store \u003d std::make_unique\u003cTrustStoreInMemory\u003e();\n```",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ba40dbf_d80a3b74",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "```suggestion\n  auto pool \u003d std::make_unique\u003cCertPool\u003e();\n```",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20c02704_f32095f0",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "```suggestion\n        ret[0].emplace_back(BytesAsStringView(best_path-\u003ecerts[i]-\u003eder_cert()));\n```",
+      "range": {
+        "startLine": 316,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 73
+      },
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ff2d0b0_4d45e5d1",
+        "filename": "pki/verify.cc",
+        "patchSetId": 53
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "```suggestion\n        ret_path.emplace_back(BytesAsStringView(cert-\u003eder_cert()));\n```",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f37354bb_e525f022",
+        "filename": "sources.cmake",
+        "patchSetId": 53
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T20:24:17Z",
+      "side": 1,
+      "message": "Guess this wanted to be part of libpki, not the test.",
+      "revId": "cddaed81261a17b14a77d02b9da5de4c5a7bb187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
