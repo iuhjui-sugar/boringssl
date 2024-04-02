@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8ffebb8_294e3716",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-02T19:26:05Z",
+      "side": 1,
+      "message": "Well, that\u0027s fun. Apparently this doesn\u0027t work on older clangs where the older casts don\u0027t exist.\n\nProbably the thing to do is `__has_warning`, but this will be pretty tedious because you can\u0027t write `#if` inside a macro. :-(",
+      "range": {
+        "startLine": 406,
+        "startChar": 52,
+        "endLine": 406,
+        "endChar": 78
+      },
+      "revId": "46b1b919fce8f64cdab2274c2e670b2ae6a5b7c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
