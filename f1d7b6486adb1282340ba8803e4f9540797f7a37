@@ -196,6 +196,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c16ffec0_fdb1d572",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-04-03T23:08:26Z",
+      "side": 1,
+      "message": "I was able to make the DTLS-Replay-NonMonotonic bogo test fail by making dtls1_bitmap_should_discard much more aggressive at discarding. There are only 3 tests in addDTLSReplayTests() and none of them check for failures, so I\u0027m not surprised that they weren\u0027t sensitive to the window increasing.\n\nOf the 3 existing tests, DTLS-Replay-NonMonotonic seems to be the only one that would care about the size of the window. The other two have each new packet push the window to the right, and the only packets that fall in the window (or to the left of the window) are replays, so the window size doesn\u0027t matter because dtls1_bitmap_should_discard will return true regardless.\n\nI updated numbers in DTLS-Replay-LargeGaps and DTLS-Replay-NonMonotonic based on the new window size, as well as added comments to DTLS-Replay-NonMonotonic to hopefully clarify what the test is doing. Adding a test that fails because the window size is too small looks like it would be a lot of work.",
+      "parentUuid": "6d604457_e8fc586b",
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "46b3e768_d809d50c",
         "filename": "ssl/dtls_record.cc",
         "patchSetId": 1
