@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "673e2c03_52f88aef",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-04-03T23:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7673676b_617793c0",
+      "range": {
+        "startLine": 92,
+        "startChar": 48,
+        "endLine": 92,
+        "endChar": 49
+      },
+      "revId": "4cc21f305b3753afc8c363c70094bbb6d25261e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79aff021_79338a47",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd6726b0_a65b8ef8",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-04-03T23:47:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79aff021_79338a47",
+      "range": {
+        "startLine": 95,
+        "startChar": 131,
+        "endLine": 95,
+        "endChar": 141
+      },
+      "revId": "4cc21f305b3753afc8c363c70094bbb6d25261e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2f1842d_e27348d8",
@@ -60,6 +108,24 @@
       "writtenOn": "2024-03-12T16:23:16Z",
       "side": 1,
       "message": "Oh yeah, gas/aarch64 generally doesn\u0027t use `#` as a comment marker. `#` is only a comment when it\u0027s at the start of the line.\n\nThe way it works in gas is that that `/* .. */` is always a comment, and then they have a target-specific line comment character.\nhttps://sourceware.org/binutils/docs/as/Comments.html\n\nAnd then gas/aarch64 has these rules:\nhttps://sourceware.org/binutils/docs/as/AArch64_002dChars.html\n\nAs opposed to gas/x86_64 which has these rules:\nhttps://sourceware.org/binutils/docs/as/i386_002dChars.html\n\nThis is separate from the rules we get from the C preprocessor (`.S` vs `.s`), which treats `#` as special in other ways. Not sure exactly how that overlaps.",
+      "revId": "4cc21f305b3753afc8c363c70094bbb6d25261e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f6494ef_9b068402",
+        "filename": "util/fipstools/delocate/testdata/aarch64-Basic/in.s",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-04-03T23:47:38Z",
+      "side": 1,
+      "message": "(Screams in parsing.)",
+      "parentUuid": "e2f1842d_e27348d8",
       "revId": "4cc21f305b3753afc8c363c70094bbb6d25261e5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
