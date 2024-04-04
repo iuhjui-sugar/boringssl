@@ -214,6 +214,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c941c6f7_c03c85f3",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-04T18:26:59Z",
+      "side": 1,
+      "message": "Sounds good. Filed https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d718 since it sounds like, if we ever feel like it, there\u0027s some better testing to be done here.",
+      "parentUuid": "c16ffec0_fdb1d572",
+      "revId": "f1d7b6486adb1282340ba8803e4f9540797f7a37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "46b3e768_d809d50c",
         "filename": "ssl/dtls_record.cc",
         "patchSetId": 1
