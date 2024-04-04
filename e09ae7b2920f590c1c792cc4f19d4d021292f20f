@@ -52,6 +52,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfeae07c_7bf7122e",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34f2a4e0_465b5931",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7102c24e_47f6b385",
@@ -69,6 +87,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7290abce_999180b8",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7102c24e_47f6b385",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b029612_b4b94e95",
@@ -82,6 +118,30 @@
       "writtenOn": "2024-04-01T20:56:21Z",
       "side": 1,
       "message": "Apple platforms don\u0027t use ELF. This can just be `defined(__ELF__)`.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb481f1a_06094a8f",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b029612_b4b94e95",
       "range": {
         "startLine": 13,
         "startChar": 4,
@@ -127,6 +187,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d7f6214_8116dfba",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ff67e90_32e2f042",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8329a75f_30d21fc1",
@@ -144,6 +222,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f39de7ea_894f94f5",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8329a75f_30d21fc1",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40169855_5db021b5",
@@ -157,6 +253,24 @@
       "writtenOn": "2024-04-01T20:56:21Z",
       "side": 1,
       "message": "delocate is similarly not going to know how to rename all these macros. Ugh, this may be challenging. This is probably too complicated for the C preprocessor, and rewriting them to perlasm is kind of sad. But that\u0027s the best option I can think of right now, given the current state of our tooling. :-(",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2f28ab_39e9d039",
+        "filename": "crypto/fipsmodule/modes/asm/aes-gcm-avx512.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40169855_5db021b5",
       "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -180,6 +294,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb840ef8_05fa7302",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "This specifically happens in the `aead_aes_gcm_seal_scatter_impl` method (or any other usage that performs incremental encryption).\nThe `CRYPTO_gcm128_encrypt_ctr32` is called twice, once for `in`, once for `extra_in`, since the two must be treated as a consecutive chunk, the implementation requires the hw to encrypt only whole blocks, and it handles the partial block concatenation itself. This limitation is mostly because the hw implementation has no visibility when the last block is encrypted and the tag is finalized.",
+      "parentUuid": "ea29019b_8f5f0dfd",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11dfd5db_3296d5ef",
         "filename": "crypto/fipsmodule/modes/gcm.c",
         "patchSetId": 2
@@ -191,6 +323,24 @@
       "writtenOn": "2024-04-01T20:56:21Z",
       "side": 1,
       "message": "Both the header comments and name imply that this is a boolean, but we\u0027re now changing this to a tri-state enum. If we want an enum, we should actually make it an enum.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e41561a_19266c66",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11dfd5db_3296d5ef",
       "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -212,6 +362,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1650f9f7_c54caef6",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e992815b_e3eed679",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "726b1686_ac21757a",
@@ -229,6 +397,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ae7d678_fd00e30e",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "726b1686_ac21757a",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba8fee38_ff3303ba",
@@ -242,6 +428,24 @@
       "writtenOn": "2024-04-01T20:56:21Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8687696e_7c596112",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 16156
+      },
+      "writtenOn": "2024-04-04T18:05:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba8fee38_ff3303ba",
       "revId": "e09ae7b2920f590c1c792cc4f19d4d021292f20f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
