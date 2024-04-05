@@ -16,6 +16,258 @@
       "message": "Nit: might make sense to allocate both in a single `malloc` call.",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "553c8e93_bb7b33b7",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e5490432_32fc9ed9",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc977ed4_211224e0",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "e5490432_32fc9ed9",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9130da90_5f971481",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "(If we end up keeping the malloc calls separate, `OPENSSL_memdup` is malloc + memcpy.)",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab95a271_a64a2501",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Optional: It looks like every use of `vectorl_ntt` is preceeded by a memcpy. That is, although `vectorl_ntt` is in-place, nothing seems to actually want an in-place one. Perhaps we should just do...\n\n```\nstatic void vectork_ntt(vectork *out, const vectork *in) {\n  for (int i \u003d 0; i \u003c K; i++) {\n    OPENSSL_memcpy(\u0026out-\u003ev[i], \u0026in-\u003ev[i], sizeof(scalar));\n    scalar_ntt(\u0026out-\u003ev[i]);\n  }\n}\n```",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21a44891_534a3aa8",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "This is only 768 bytes. Not tiny but not that big. Surely we can keep this on the stack...",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aa40b52_30b8f551",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Likewise this is only 1024 bytes.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75713134_c19b7c99",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Would it make sense to just store s1, s2, and t0 in the private key in NTT form? We\u0027d need to do more work to marshal the key after generating it, but I imagine that\u0027s much rarer than signing. That\u0027s three fewer vectors to allocate when signing *and* three fewer NTTs.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfc4852e_a1c8a0f2",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Optional nit: Not that it matters, but might make sense to do this before the allocated bit, just to reduce the time period that we have extra heap memory in use.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15986769_57dec7df",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Optional: `y` only lives long enough to compute `y_ntt`. It can probably be easily folded into some other `vectorl` and save a chunk of memory. Maybe it can alias `cs1`?",
+      "range": {
+        "startLine": 1257,
+        "startChar": 24,
+        "endLine": 1257,
+        "endChar": 34
+      },
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15181553_9ace5cf4",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Optional: Likewise, `w` does not live very long, like a `tmp_vectork` or so. Maybe it can alias `cs2`?",
+      "range": {
+        "startLine": 1262,
+        "startChar": 17,
+        "endLine": 1262,
+        "endChar": 26
+      },
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "217485e0_ee4898d9",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "@guillaumee@google.com This code leaks which of `z_max` and `r0_max` was too high. Are `z_max` and `r0_max` public or secret?  OK to leak, or does this computation need to be done secretly?\n\nWe should probably run this through the constant-time validation and add the declassifies we need. I can give that a go.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16bc46d2_02f81bf6",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "459eb20c_5c0bd556",
+        "filename": "crypto/dilithium/dilithium_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Nit: 80 chars... probably just run clang-format over the whole file. :-)",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4085e4a3_df770fab",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-05T20:38:19Z",
+      "side": 1,
+      "message": "Given the SNAFU with the team that wanted a four-year key, I suspect this is not sufficient and we need to ACL the headers before letting google3 get at this.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
