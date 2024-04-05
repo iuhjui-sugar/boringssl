@@ -95,7 +95,7 @@
 // defines it.
 #if defined(__linux__) && !defined(__TRUSTY__) && \
     !defined(ANDROID_BAREMETAL) && !defined(OPENSSL_NANOLIBC) && \
-    !defined(CROS_EC) && !defined(CROS_ZEPHYR)
+    !defined(CROS_EC) && !defined(__ZEPHYR__)
 #define OPENSSL_LINUX
 #endif
 
@@ -148,12 +148,12 @@
 #define OPENSSL_NO_THREADS_CORRUPT_MEMORY_AND_LEAK_SECRETS_IF_THREADED
 #endif
 
-// CROS_ZEPHYR is an embedded target for ChromeOS Zephyr Embedded Controller.
+// Zephyr is an open source RTOS, optimized for embedded devices.
 // Defining this on any other platform is not supported. Other embedded
 // platforms must introduce their own defines.
 //
 // https://chromium.googlesource.com/chromiumos/platform/ec/+/HEAD/docs/zephyr/README.md
-#if defined(CROS_ZEPHYR)
+#if defined(__ZEPHYR__)
 #define OPENSSL_NO_FILESYSTEM
 #define OPENSSL_NO_POSIX_IO
 #define OPENSSL_NO_SOCK
