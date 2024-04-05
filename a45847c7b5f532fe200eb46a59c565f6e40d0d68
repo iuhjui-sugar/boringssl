@@ -16,6 +16,24 @@
       "message": "Are you confident that all current users of BoringSSL in the Zephyr context will have this define already set? (I.e. if any users are only setting the existing define then this change would break them.)",
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4bf572c_44da1c16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-05T14:00:37Z",
+      "side": 1,
+      "message": "\u003e Are you confident that all current users of BoringSSL in the Zephyr context will have this define already set?\n\nYes. [Release notes](https://docs.zephyrproject.org/latest/releases/release-notes-3.2.html) mentions that build system always defines it.\n```\ninclude/zephyr/zephyr.h no longer defines __ZEPHYR__. This definition can be used\nby third-party code to compile code conditional to Zephyr. The definition is\nalready injected by the Zephyr build system. Therefore, any third-party code\nintegrated using the Zephyr build system will require no changes. External build\nsystems will need to inject the definition by themselves, if they did not already.\n```",
+      "parentUuid": "2167f149_072a8758",
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
