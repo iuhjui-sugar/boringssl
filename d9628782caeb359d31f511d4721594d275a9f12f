@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a0039f2_c5bdb1c4",
+        "filename": "pki/parsed_certificate_unittest.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-06T00:41:06Z",
+      "side": 1,
+      "message": "Nit: Perhaps \"Non-ASCII character\". Punycode reads like it\u0027s the ASCII encoding for a DNS U-label, which actually would be allowed, I think. :-)\n\n(Also the input seems to be a 0xf6 byte, so it\u0027s actually Latin-1 and not a typical unicode encoding.)\n```suggestion\n// Non-ASCII character in locality name in subject.\n```",
+      "range": {
+        "startLine": 192,
+        "startChar": 3,
+        "endLine": 192,
+        "endChar": 11
+      },
+      "revId": "d9628782caeb359d31f511d4721594d275a9f12f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
