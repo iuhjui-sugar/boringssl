@@ -34,6 +34,29 @@
       "parentUuid": "2167f149_072a8758",
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f71203f6_31652b02",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-06T02:09:36Z",
+      "side": 1,
+      "message": "IIRC, this was because your build would define `CROS_ZEPHYR` when actually building for Linux, in some sort of not-actually-Zephyr-but-built-like-Zephyr testing mode.\n\nSince `__ZEPHYR__` comes from Zephyr itself, does that still apply, or is this no longer needed?",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
