@@ -57,6 +57,30 @@
       },
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e201e6e_e2d5fce6",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-08T08:37:44Z",
+      "side": 1,
+      "message": "Good point. It\u0027s no longer needed.",
+      "parentUuid": "f71203f6_31652b02",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
