@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4075de8f_e1444eb4",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-08T07:32:37Z",
+      "side": 1,
+      "message": "It\u0027s more that `scalar_ntt` is inherently in place. We could make it in/out by unrolling the first iteration of the loop to read from the input and then always manipulate the output, but this seemed like premature optimization to me. All the math is much slower than one copy.",
+      "parentUuid": "ab95a271_a64a2501",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21a44891_534a3aa8",
         "filename": "crypto/dilithium/dilithium.c",
         "patchSetId": 16
@@ -135,6 +153,24 @@
       "writtenOn": "2024-04-05T20:38:19Z",
       "side": 1,
       "message": "Would it make sense to just store s1, s2, and t0 in the private key in NTT form? We\u0027d need to do more work to marshal the key after generating it, but I imagine that\u0027s much rarer than signing. That\u0027s three fewer vectors to allocate when signing *and* three fewer NTTs.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc84b0ce_003f46e8",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-08T07:32:37Z",
+      "side": 1,
+      "message": "Yes, and the matrix A can also be cached in NTT form. The main drawback I saw was that the private key struct would use more memory (64 KB rather than 17 KB), but the improvement in signing speed is significant (because these NTTs take a lot of time), see go/dilithium-in-boringssl. Likewise the NTT values can be cached for the public key.\n\nI haven\u0027t included these optimizations in this first implementation due to the additional permanent memory use, but if we\u0027re fine with key objects being larger that\u0027s definitely something I can do (perhaps in a follow-up change?).",
+      "parentUuid": "75713134_c19b7c99",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -257,6 +293,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cabad675_2e19bb1e",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-08T07:32:37Z",
+      "side": 1,
+      "message": "- `z` is part of the signature so it is public (and therefore `z_max` is public too), no problem here.\n- I haven\u0027t checked whether leaking `r0` might be a concern, although in any case if the check fails the signing loop is retried which obviously is noticeable time-wise (but this is inherently part of the algorithm).",
+      "parentUuid": "7f03a861_1ecc95b3",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16bc46d2_02f81bf6",
         "filename": "crypto/dilithium/dilithium.c",
         "patchSetId": 16
@@ -268,6 +322,24 @@
       "writtenOn": "2024-04-05T20:38:19Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8c06bb8_c684faa6",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-08T07:32:37Z",
+      "side": 1,
+      "message": "- `h` is part of the signature and therefore public too.\n- And in fact, `ct0_max` is always smaller than `kGamma2` for the parameters of Dilithium3 (see the observation in https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/eLaw4fgjaMg). I\u0027ve kept it so far for consistency with the official spec, but this check could be removed altogether.",
+      "parentUuid": "16bc46d2_02f81bf6",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
