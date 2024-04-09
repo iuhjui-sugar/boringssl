@@ -46,6 +46,30 @@
       },
       "revId": "f94f3ed3965ea033001fb9ae006084eee408b861",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aa28c07_de22af99",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-09T20:45:54Z",
+      "side": 0,
+      "message": "oops, my bad I see this was already addressed in the resolved comments, and you believe it isn\u0027t needed.",
+      "parentUuid": "2811b8fd_3e1704e0",
+      "range": {
+        "startLine": 98,
+        "startChar": 45,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "f94f3ed3965ea033001fb9ae006084eee408b861",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
