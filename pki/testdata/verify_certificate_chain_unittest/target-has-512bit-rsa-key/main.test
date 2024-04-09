@@ -4,8 +4,5 @@ utc_time: DEFAULT
 key_purpose: SERVER_AUTH
 expected_errors:
 ----- Certificate i=0 (CN=Target) -----
-ERROR: RSA modulus too small
-  actual: 512
-  minimum: 1024
-ERROR: Unacceptable public key
+ERROR: Couldn't parse SubjectPublicKeyInfo
 
