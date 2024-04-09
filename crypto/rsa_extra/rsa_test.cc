@@ -1397,6 +1397,7 @@ TEST(RSATest, SmallKey) {
       0xe9, 0x79, 0x98, 0x58, 0xe3, 0x47, 0x35, 0xa7, 0xcd, 0x6a, 0x71,
       0x38, 0xb5, 0x0d, 0x02, 0x03, 0x01, 0x00, 0x01};
 
+  //  TODO:(bbe) change to 1023 and 10244 bit key
   bssl::UniquePtr<RSA> rsa(
       RSA_public_key_from_bytes(kRSA511Public, sizeof(kRSA511Public)));
   EXPECT_FALSE(rsa);
@@ -1404,9 +1405,11 @@ TEST(RSATest, SmallKey) {
   EXPECT_FALSE(rsa);
 
   rsa.reset(RSA_public_key_from_bytes(kRSA512Public, sizeof(kRSA512Public)));
-  EXPECT_TRUE(rsa);
+  // EXPECT_TRUE(rsa);
+  EXPECT_FALSE(rsa);
   rsa.reset(RSA_private_key_from_bytes(kRSA512Private, sizeof(kRSA512Private)));
-  EXPECT_TRUE(rsa);
+  // EXPECT_TRUE(rsa);
+  EXPECT_FALSE(rsa);
 }
 
 #if !defined(BORINGSSL_SHARED_LIBRARY)

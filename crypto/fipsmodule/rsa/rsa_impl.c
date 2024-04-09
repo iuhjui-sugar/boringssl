@@ -87,9 +87,9 @@ int rsa_check_public_key(const RSA *rsa) {
     return 0;
   }
 
-  // TODO(crbug.com/boringssl/607): Raise this limit. 512-bit RSA was factored
-  // in 1999.
-  if (n_bits < 512) {
+  // TODO(crbug.com/boringssl/607): Raise this limit. 1024 bit RSA is still
+  // pretty weak in 2024.
+  if (n_bits < 1024) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_KEY_SIZE_TOO_SMALL);
     return 0;
   }

@@ -1112,7 +1112,7 @@ struct RSATestVector {
 
 static const struct RSATestVector kRSATestVectors[] = {
     // RSA test cases that are not approved in any case.
-    {512, &EVP_sha1, false, FIPSStatus::NOT_APPROVED, FIPSStatus::NOT_APPROVED},
+    // {512, &EVP_sha1, false, FIPSStatus::NOT_APPROVED, FIPSStatus::NOT_APPROVED},
     // PSS with hashLen == saltLen is not possible for 512-bit modulus.
     {1024, &EVP_md5, false, FIPSStatus::NOT_APPROVED, FIPSStatus::NOT_APPROVED},
     {1536, &EVP_sha256, false, FIPSStatus::NOT_APPROVED,
