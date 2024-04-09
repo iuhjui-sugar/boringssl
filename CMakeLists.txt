@@ -204,7 +204,13 @@ endif()
 # because, on Apple platforms, it instead disables APIs we use. See compat(5)
 # and sys/cdefs.h. Reportedly, FreeBSD also breaks when this is set. See
 # https://crbug.com/boringssl/471.
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+#
+# BoringSSL also uses strdup() function. According to strdup()[1] manpage
+# _XOPEN_SOURCE >= 500 or _POSIX_C_SOURCE >= 200809L needs to be defined
+# to have this function. Define _XOPEN_SOURCE also for Zephyr.
+#
+# [1] https://man7.org/linux/man-pages/man3/strdup.3.html
+if(CMAKE_SYSTEM_NAME MATCHES "^(Linux|Zephyr)$")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_XOPEN_SOURCE=700")
 endif()
 
