@@ -22,6 +22,30 @@
       },
       "revId": "f94f3ed3965ea033001fb9ae006084eee408b861",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2811b8fd_3e1704e0",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-09T20:42:31Z",
+      "side": 0,
+      "message": "this does become particularly important for things like fork detection and entropy gathering.",
+      "parentUuid": "39a89a88_c744ad8d",
+      "range": {
+        "startLine": 98,
+        "startChar": 45,
+        "endLine": 98,
+        "endChar": 46
+      },
+      "revId": "f94f3ed3965ea033001fb9ae006084eee408b861",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
