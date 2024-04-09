@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ac2442e_ab4c5193",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-09T20:09:06Z",
+      "side": 1,
+      "message": "For several reasons, the first being we might not be using Gerrit forever, so this could get tossed, but more importantly, as we make structural changes and keep our test suite running, assuming this is being unmaintained, but referenced in your documentation, this will end up not working, and then very liketly we will be on the hook for answering someone\u0027s questions who tries to build it and test it. We are a small team and would prefer not to be doing that.\n\nIf the test is run in your *own* tests then presumably, your engineering team keeps what you want running, and does not end up with something rotting on the vine to trip someone up in the future. If is not important enough to be put in your own tests, why are you doing this?",
+      "parentUuid": "bc50c0e3_7a1f4602",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
