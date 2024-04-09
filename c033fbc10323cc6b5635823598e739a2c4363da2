@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ce38895_a8267ed1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3382795
+      },
+      "writtenOn": "2024-04-09T20:44:02Z",
+      "side": 1,
+      "message": "Understand the concerns on it getting tossed or broken by changes and we\u0027re not expecting maintenance from the boringssl team. I also didn\u0027t mean to imply that the this wasn\u0027t important enough to put in the FP tests: I was following the methods and test precedent of a previous engineer who made similar changes and tested with boringssl locally. All that said, I can discuss your concerns with the FP TL (@tomhughes, also copied on the CL) next week when he returns to the office.",
+      "parentUuid": "4ac2442e_ab4c5193",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
