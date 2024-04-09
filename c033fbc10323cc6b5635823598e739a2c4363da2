@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa5ac867_207afea0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-09T19:48:31Z",
+      "side": 1,
+      "message": "Correct me if I am wrong, is this meant to act as a \"reference\" for validating your code based upon the comment block in the code here: https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/ec/test/fpsensor_crypto.cc;l\u003d38-90;drc\u003dec0b07f4b1d938abc7e3b37eabb8661c40982e8a\n\nIf so it\u0027s probably not really appropriate to use our Gerrit as a \"reference\"\n\nWhile it isn\u0027t totally clear to me *why* you want/need this particular test vector to be tested, assuming you do it probably makes more senst to just run that test vectore through boringssl\u0027s hkdf in your own tests so you are always testing it.. Correct?",
+      "parentUuid": "0efc264d_cf693dc9",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
