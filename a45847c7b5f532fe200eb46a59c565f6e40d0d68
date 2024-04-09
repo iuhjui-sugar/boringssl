@@ -81,6 +81,30 @@
       },
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9535dcfb_00d77eb7",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-09T20:56:14Z",
+      "side": 1,
+      "message": "Of note this will mean that if you have __linux__ defined, and you also have ZEPHYR defined, prior to this change you would obtain entropy using the urandom, and related linux style system calls. you\u0027ll now use getentropy() (which as I recall I think you have,but please make sure.)\n\nAlso (and this may matter for you) Can you tell me if it is possible for ZEPHYR to do any sort of address space duplication, like clone() or fork(). \n\nIf you are positive it can never do that, we should probably indicate that with boringssl as it will prevent it from drawing entropy all the time to avoid duplicate entropy being used in a forked process.   Alternatively if you *do* fork but you have a working pthread_atfork() implementation, we can do fork detection using pthread_atfork().",
+      "parentUuid": "3e201e6e_e2d5fce6",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
