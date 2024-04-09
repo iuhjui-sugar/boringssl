@@ -593,7 +593,7 @@ endif()
 # For now we assume embedded OSes do not have threads. Additionally, the Threads
 # package does not work with Android, but Android does not require any extra
 # parameters to link pthreads.
-if(NOT CMAKE_SYSTEM_NAME MATCHES "^(Generic|Android)$")
+if(NOT CMAKE_SYSTEM_NAME MATCHES "^(Generic|Android|Zephyr)$")
   find_package(Threads REQUIRED)
   target_link_libraries(crypto Threads::Threads)
 endif()
