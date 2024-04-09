@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc50c0e3_7a1f4602",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3382795
+      },
+      "writtenOn": "2024-04-09T20:00:48Z",
+      "side": 1,
+      "message": "Correct, these test vectors are meant to validate the code and tests results pointed to. This \"reference\" CL is really intended to avoid duplicate work in the future since I spent significant time trying to understand re-create the results from years ago created by an engineer no longer with the ChromeOS team. While I\u0027m not claiming this CL is the optimal way to test, not sure I follow how/why an unmerged CL created for reference would cause issues with the boringssl gerrit?",
+      "parentUuid": "aa5ac867_207afea0",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "writtenOn": "2024-04-09T19:41:58Z",
       "side": 1,
       "message": "So you have added these test vectors to the test from RFC 5869, which they don\u0027t appear to be. So where do these test vectors come from?",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a66df2_5f09395b",
+        "filename": "crypto/hkdf/hkdf_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3382795
+      },
+      "writtenOn": "2024-04-09T20:00:48Z",
+      "side": 1,
+      "message": "As you noted in your other comment, these test vectors are meant to validate the results from the fpsensor_crytpo test run for the FPMCU on ChromeOS",
+      "parentUuid": "5df232ea_f50a8912",
       "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
