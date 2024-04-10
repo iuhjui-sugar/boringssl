@@ -88,6 +88,24 @@
       "parentUuid": "6ab8b698_f8bbf12c",
       "revId": "639ee53a0080a7115c146a20632f1e0142a95cb0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3819f053_e8885d76",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-10T17:18:57Z",
+      "side": 1,
+      "message": "yeah yeah, I\u0027m the holdout there..  It makes me cry that we have to do such utter sillyness and that glibc derivants have to have knobs that make them look\nlike they were 16 years old by default.. \n\nbut let\u0027s be pragmatic.the world is stupid. (yes david I stamped it)",
+      "parentUuid": "f509867b_729d9939",
+      "revId": "639ee53a0080a7115c146a20632f1e0142a95cb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
