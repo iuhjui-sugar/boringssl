@@ -34,6 +34,24 @@
       "parentUuid": "3e0e9270_fae7cc89",
       "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0927f8d3_f1a4cab0",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-10T17:13:38Z",
+      "side": 1,
+      "message": "I\u0027ll take a look. In my case, Zephyr provides pthread implementation and `pthread.h`. I\u0027ll check tomorrow how it works, maybe we could indicate somehow that pthread implementation is present.",
+      "parentUuid": "7c1a3e2c_5ec69d0d",
+      "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
