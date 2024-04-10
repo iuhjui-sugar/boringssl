@@ -383,6 +383,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "636ded53_41523c6e",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T19:15:58Z",
+      "side": 1,
+      "message": "BTW, you don\u0027t need all those build configs here. There\u0027s no asm, and this isn\u0027t sensitive to OPENSSL_SMALL. I have those for other code.",
+      "parentUuid": "a238a851_355b82d7",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16bc46d2_02f81bf6",
         "filename": "crypto/dilithium/dilithium.c",
         "patchSetId": 16
