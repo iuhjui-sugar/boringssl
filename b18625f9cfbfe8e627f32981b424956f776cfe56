@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "962611c8_02b6e635",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T21:03:24Z",
+      "side": 1,
+      "message": "Resolved in https://boringssl-review.googlesource.com/c/boringssl/+/67747",
+      "parentUuid": "518c3bd2_47ee1f3b",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5490432_32fc9ed9",
@@ -412,6 +430,24 @@
       "side": 1,
       "message": "BTW, you don\u0027t need all those build configs here. There\u0027s no asm, and this isn\u0027t sensitive to OPENSSL_SMALL. I have those for other code.",
       "parentUuid": "a238a851_355b82d7",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a1a307a_460d2a0b",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T21:03:24Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/67747",
+      "parentUuid": "636ded53_41523c6e",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
