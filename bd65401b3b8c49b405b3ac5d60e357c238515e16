@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e0e9270_fae7cc89",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T16:42:40Z",
+      "side": 1,
+      "message": "This comment is a little odd in context. It says we\u0027re assuming embedded OSes don\u0027t have threads, but apparently this was always wrong for you all and you do have threads.\n\nIs the issue that you all are like Android where:\n1. Threads::Threads does not work\n2. But you don\u0027t need it anyway?\n\nI never actually looked into why this doesn\u0027t work for Android, but it sure would be nice if some combination of CMake or Android/Zephyr would fix things so that FindThreads in CMake just works. I mean the whole point here is to be a platform-independent abstraction of how to get at the threads library, and now we\u0027re having to work around the abstraction not working.",
+      "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
