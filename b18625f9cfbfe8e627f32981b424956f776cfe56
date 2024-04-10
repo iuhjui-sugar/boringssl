@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "518c3bd2_47ee1f3b",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T19:43:49Z",
+      "side": 1,
+      "message": "@guillaumee@google.com FYI, I\u0027m going through making this pass constant-time validation and I suspect there is a misunderstanding here about what \"constant time\" and \"variable time\" mean here.\n\nThis function is used to compute the private keys, so both the input and output had better be secret! So running it through a \"vartime\" function is really really bad.\n\nThe reason it\u0027s fine is because this is rejection sampling. Rejection sampling is *NOT* variable time. \"Constant time\" and \"variable time\" are misnomers. They should have been named around \"secret-independent execution\".\n\nThis function is fine because the information leaked is [computationally indistinguishable from] independent of the output. But it means you need a declassify call to pass constant-time validation. This is necessary not just for testing but also for correctness, because declassify adds a value barrier.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5490432_32fc9ed9",
         "filename": "crypto/dilithium/dilithium.c",
         "patchSetId": 16
