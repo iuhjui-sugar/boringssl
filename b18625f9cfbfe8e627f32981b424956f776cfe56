@@ -106,6 +106,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f80711_7a64ed15",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T19:14:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4075de8f_e1444eb4",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21a44891_534a3aa8",
@@ -341,6 +359,24 @@
       "side": 1,
       "message": "\u003e z is part of the signature so it is public (and therefore z_max is public too), no problem here.\n\nI don\u0027t think that follows, at least not obviously.\n\n`z` isn\u0027t part of the signature that we ultimately return. I thought the reason for this sampling is that the bad `z`s were biased towards the private key. Presumably we specifically don\u0027t want to reveal those.\n\n\u003e if the check fails the signing loop is retried which obviously is noticeable time-wise (but this is inherently part of the algorithm).\n\nI think that\u0027s also irrelevant. One presumes that each attempt round the loop is independent. Telling the attacker \"I tried 5 times before I got your a signature that doesn\u0027t leak anything\" is fine. Telling the attacker \"I rejected signature with value 1234abcdef because it leaked my private key\" is clearly not fine.\n\nOne way or another, in order to pass our constant-time validation tests, this needs explicit declassify calls. It sounds like we should just make this constant-time and not worry about it.",
       "parentUuid": "cabad675_2e19bb1e",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a238a851_355b82d7",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T19:14:55Z",
+      "side": 1,
+      "message": "\u003e Yeah, if you give me some notes to try it, sure,\n\nThese are the build configurations I run it through:\n\n```\n[ConstDebug]\nCONSTANT_TIME_VALIDATION \u003d \"1\"\nCMAKE_BUILD_TYPE \u003d \"Debug\"\n\n[Const]\nCONSTANT_TIME_VALIDATION \u003d \"1\"\nCMAKE_BUILD_TYPE \u003d \"Release\"\n\n[ConstSmall]\nCONSTANT_TIME_VALIDATION \u003d \"1\"\nCMAKE_BUILD_TYPE \u003d \"Release\"\nOPENSSL_SMALL \u003d \"1\"\n\n[ConstNoAsm]\nCONSTANT_TIME_VALIDATION \u003d \"1\"\nCMAKE_BUILD_TYPE \u003d \"Release\"\nOPENSSL_NO_ASM \u003d \"1\"\n\n[ConstNoAsmClang]\nCONSTANT_TIME_VALIDATION \u003d \"1\"\nCMAKE_BUILD_TYPE \u003d \"Release\"\nOPENSSL_NO_ASM \u003d \"1\"\nCMAKE_TOOLCHAIN_FILE \u003d \"util/clang-toolchain.cmake\"\n\n[ConstClang]\nCONSTANT_TIME_VALIDATION \u003d \"1\"\nCMAKE_BUILD_TYPE \u003d \"Release\"\nCMAKE_TOOLCHAIN_FILE \u003d \"util/clang-toolchain.cmake\"\n\n[ConstClangSmall]\nCONSTANT_TIME_VALIDATION \u003d \"1\"\nCMAKE_BUILD_TYPE \u003d \"Release\"\nCMAKE_TOOLCHAIN_FILE \u003d \"util/clang-toolchain.cmake\"\nOPENSSL_SMALL \u003d \"1\"\n```\n\nThis is using https://user.git.corp.google.com/davidben/autocmake\n\nclang-toolchain.cmake is just a file I dropped in containing:\n\n```\nset(CMAKE_C_COMPILER \"/path/to/chromium/src/third_party/llvm-build/Release+Asserts/bin/clang\")\nset(CMAKE_CXX_COMPILER \"/path/to/chromium/src/third_party/llvm-build/Release+Asserts/bin/clang++\")\n```\n\nI just steal Chromium\u0027s Clang. Any other clang will do too. 😊\n\nFrom there, run the relevant tests you want under valgrind. You\u0027ll need to mark the secret key with the macros in crypto/internal.h. See how the other tests do it.\n\n\u003e Although I don\u0027t think that need hold up this landing in experimental.\n\nWe are telling people it\u0027s experimental because it might change. We\u0027re not telling people it\u0027s experimental because it fails to meet our usual security bar. If people are going to actually try to protect data with it, especially if not hybridized, it should meet our usual bar.\n\nIt also should not be too much work to make it pass. I might try this evening.",
+      "parentUuid": "57972831_863457ce",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
