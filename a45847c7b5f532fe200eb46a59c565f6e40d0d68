@@ -129,6 +129,30 @@
       },
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4c085fe_dc94755c",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T16:06:51Z",
+      "side": 1,
+      "message": "\u003e Sounds like good improvement. How can I do that?\n\nAdd something to crypto/fipsmodule/rand/fork_detect.h. (Same CL or separate CL, whichever.)",
+      "parentUuid": "1b2030bd_80efa940",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
