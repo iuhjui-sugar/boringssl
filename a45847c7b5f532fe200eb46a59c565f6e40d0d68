@@ -105,6 +105,30 @@
       },
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b2030bd_80efa940",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-10T09:19:03Z",
+      "side": 1,
+      "message": "\u003e this will mean that if you have linux defined, and you also have ZEPHYR defined, prior to this change you would obtain entropy using the urandom, and related linux style system calls.\n\nI never used `/dev/urandom`, because it doesn\u0027t exist on Zephyr. Previously `!defined(CROS_ZEPHYR)` define was used, to prevent from defining `OPENSSL_LINUX`, but now we don\u0027t need it, because `__linux__` is not defined.\n\nTo be honest, I\u0027m not sure if this was ever needed, because on Zephyr we build BoringSSL as a part of Zephyr firmware, by Zephyr build system, because I\u0027ve integrated BoringSSL CMakeLists to Zephyr. And I think `__linux__` was never defined (on Zephyr).\n\nOn CrOS EC things are different, BoringSSL build is triggered by EC Makefile, but it\u0027s built outside of that build system, so it\u0027s possible that `__linux__` was defined.\n\n\u003e you\u0027ll now use getentropy() (which as I recall I think you have,but please make sure.)\n\nYes, we provide `getentropy()`.\n\n\u003e Can you tell me if it is possible for ZEPHYR to do any sort of address space duplication, like clone() or fork().\n\nNo. It\u0027s RTOS for embedded systems -\u003e no `fork()` and no `clone()`.\n\n\u003e we should probably indicate that with boringssl as it will prevent it from drawing entropy all the time\n\nSounds like good improvement. How can I do that?",
+      "parentUuid": "9535dcfb_00d77eb7",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
