@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30e1bab1_1049d21b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T15:18:06Z",
+      "side": 1,
+      "message": "I notice you all already have a boringssl_crypto.cc in the same directory. If you need to test some inputs against BoringSSL, please use that instead.\n\nIf your goal is just to write down the provenance of a test vector, you could shell out to the OpenSSL command-line tool:\nhttps://www.openssl.org/docs/man3.0/man1/openssl-kdf.html#EXAMPLES",
+      "parentUuid": "0ce38895_a8267ed1",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
