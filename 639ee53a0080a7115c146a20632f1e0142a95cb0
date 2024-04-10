@@ -16,6 +16,24 @@
       "message": "At least if you are on linux, using glibc - this is the case, it is not most\nother places with other libc\u0027s.  \n\nis Zephyr a linux? or is it something else (see my comment on the earlier cl)\n\nwhat libc is it using?",
       "revId": "639ee53a0080a7115c146a20632f1e0142a95cb0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ac3ebfb_f4b6154a",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-10T09:24:19Z",
+      "side": 1,
+      "message": "\u003e is Zephyr a linux? or is it something else (see my comment on the earlier cl)\n\nNo. It\u0027s RTOS for embedded systems. We target small MCUs\n\n\u003e what libc is it using?\n\nWe use Newlib for now, but it could change in future (we have also idea to use llvm-libc, but it\u0027s unsupported in Zephyr now.). `strdup()` is declared here https://sourceware.org/git/?p\u003dnewlib-cygwin.git;a\u003dblob;f\u003dnewlib/libc/include/string.h;h\u003d32199c027ae0ba4a68884f458065287058193dd2;hb\u003db7f5a33200a91ee76f5364280ad40bafedfab142#l83",
+      "parentUuid": "458ad7ea_01a558c9",
+      "revId": "639ee53a0080a7115c146a20632f1e0142a95cb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
