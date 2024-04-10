@@ -22,6 +22,7 @@
 #include <openssl/experimental/dilithium.h>
 #include <cstddef>
 
+#include "../internal.h"
 #include "../test/file_test.h"
 #include "../test/test_util.h"
 #include "./internal.h"
@@ -176,11 +177,12 @@ static void DilithiumFileTest(FileTest *t) {
     ASSERT_TRUE(state);
     ASSERT_TRUE(CTR_DRBG_generate(state.get(), gen_key_entropy,
                                   DILITHIUM_GENERATE_KEY_ENTROPY, nullptr, 0));
+    CONSTTIME_SECRET(gen_key_entropy, sizeof(gen_key_entropy));
   }
 
   // Reproduce key generation.
   auto parsed_pub = std::make_unique<DILITHIUM_public_key>();
-  auto priv = std::make_unique< DILITHIUM_private_key>();
+  auto priv = std::make_unique<DILITHIUM_private_key>();
   std::unique_ptr<uint8_t[]> encoded_private_key =
       std::make_unique<uint8_t[]>(DILITHIUM_PRIVATE_KEY_BYTES);
   std::unique_ptr<uint8_t[]> encoded_public_key =
@@ -192,6 +194,7 @@ static void DilithiumFileTest(FileTest *t) {
   CBB cbb;
   CBB_init_fixed(&cbb, encoded_private_key.get(), DILITHIUM_PRIVATE_KEY_BYTES);
   ASSERT_TRUE(DILITHIUM_marshal_private_key(&cbb, priv.get()));
+  CONSTTIME_DECLASSIFY(encoded_private_key.get(), DILITHIUM_PRIVATE_KEY_BYTES);
 
   EXPECT_EQ(Bytes(encoded_public_key.get(), DILITHIUM_PUBLIC_KEY_BYTES),
             Bytes(public_key_expected));
@@ -203,7 +206,6 @@ static void DilithiumFileTest(FileTest *t) {
       std::make_unique<uint8_t[]>(DILITHIUM_SIGNATURE_BYTES);
   EXPECT_TRUE(DILITHIUM_sign_deterministic(encoded_signature.get(), priv.get(),
                                            message.data(), message.size()));
-  ;
 
   ASSERT_GE(signed_message_expected.size(), (size_t)DILITHIUM_SIGNATURE_BYTES);
   EXPECT_EQ(Bytes(encoded_signature.get(), DILITHIUM_SIGNATURE_BYTES),
