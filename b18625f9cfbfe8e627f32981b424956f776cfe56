@@ -329,6 +329,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57972831_863457ce",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T19:07:27Z",
+      "side": 1,
+      "message": "\u003e z is part of the signature so it is public (and therefore z_max is public too), no problem here.\n\nI don\u0027t think that follows, at least not obviously.\n\n`z` isn\u0027t part of the signature that we ultimately return. I thought the reason for this sampling is that the bad `z`s were biased towards the private key. Presumably we specifically don\u0027t want to reveal those.\n\n\u003e if the check fails the signing loop is retried which obviously is noticeable time-wise (but this is inherently part of the algorithm).\n\nI think that\u0027s also irrelevant. One presumes that each attempt round the loop is independent. Telling the attacker \"I tried 5 times before I got your a signature that doesn\u0027t leak anything\" is fine. Telling the attacker \"I rejected signature with value 1234abcdef because it leaked my private key\" is clearly not fine.\n\nOne way or another, in order to pass our constant-time validation tests, this needs explicit declassify calls. It sounds like we should just make this constant-time and not worry about it.",
+      "parentUuid": "cabad675_2e19bb1e",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16bc46d2_02f81bf6",
         "filename": "crypto/dilithium/dilithium.c",
         "patchSetId": 16
@@ -358,6 +376,24 @@
       "side": 1,
       "message": "- `h` is part of the signature and therefore public too.\n- And in fact, `ct0_max` is always smaller than `kGamma2` for the parameters of Dilithium3 (see the observation in https://groups.google.com/a/list.nist.gov/g/pqc-forum/c/eLaw4fgjaMg). I\u0027ve kept it so far for consistency with the official spec, but this check could be removed altogether.",
       "parentUuid": "16bc46d2_02f81bf6",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2603e2f_96c27c13",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T19:07:27Z",
+      "side": 1,
+      "message": "\u003e `h` is part of the signature and therefore public too.\n\nSee above.\n\n\u003e And in fact, ct0_max is always smaller than kGamma2 for the parameters of Dilithium3\n\nAh cool. So it sounds like that doesn\u0027t matter so much. Though we still need to deal with the constant-time aspects for our constant-time validation.\n\nHowever, this raises yet another question: is it OK to leak to the attacker which of the two rejection paths happened.",
+      "parentUuid": "b8c06bb8_c684faa6",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
