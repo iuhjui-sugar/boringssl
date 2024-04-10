@@ -46,6 +46,30 @@
       },
       "revId": "9a7a715c62af79cc5b5f8790700ade3798e97e13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a163a4f6_464c8da9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-10T17:16:28Z",
+      "side": 1,
+      "message": "Fine fine ;). I give up and get off my pedantic horse... Go ahead 😊",
+      "parentUuid": "12c5aba2_ca3a45d2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 12
+      },
+      "revId": "9a7a715c62af79cc5b5f8790700ade3798e97e13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
