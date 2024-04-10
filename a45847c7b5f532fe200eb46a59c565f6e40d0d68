@@ -153,6 +153,30 @@
       },
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "677f5bf4_d759f95e",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-10T17:02:45Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ll implement separate CL tomorrow. Let\u0027s keep this comment open until patch is implemented.",
+      "parentUuid": "b4c085fe_dc94755c",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

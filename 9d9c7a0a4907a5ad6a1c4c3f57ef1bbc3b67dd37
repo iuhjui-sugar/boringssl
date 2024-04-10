@@ -16,6 +16,24 @@
       "message": "Nit: I think we can drop Zephyr from this list now.",
       "revId": "9d9c7a0a4907a5ad6a1c4c3f57ef1bbc3b67dd37",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db556467_6d24f3b8",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-10T17:02:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "377cd0f5_431cbcfd",
+      "revId": "9d9c7a0a4907a5ad6a1c4c3f57ef1bbc3b67dd37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
