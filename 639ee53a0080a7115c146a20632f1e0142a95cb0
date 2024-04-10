@@ -52,6 +52,24 @@
       "parentUuid": "0ac3ebfb_f4b6154a",
       "revId": "639ee53a0080a7115c146a20632f1e0142a95cb0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ab8b698_f8bbf12c",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-10T16:37:16Z",
+      "side": 1,
+      "message": "Also we already can\u0027t use `strdup` anyway because we have a different `malloc`. It\u0027s really just one call site in err.c",
+      "parentUuid": "de1779cf_a17ab280",
+      "revId": "639ee53a0080a7115c146a20632f1e0142a95cb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
