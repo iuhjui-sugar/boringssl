@@ -106,6 +106,24 @@
       "parentUuid": "2810f601_0f2ce8d4",
       "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ba8368a_eec8c2e6",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-11T16:26:19Z",
+      "side": 1,
+      "message": "\u003e Perhaps that\u0027s the same issue here.\n\nNo. CMake\u0027s FindThreads is able to detect threads library in following cases:\n- Pthread implementation is provided by libc, no compiler switches needed (`_threads_check_libc` macro)\n- pthread (or pthreads) library is in separate library (`-lpthread` or `-lpthreads` switches), it must contain `pthread_create()` (`_threads_check_lib` macro)\n- Compiler accepts `-pthread` switch (`_threads_check_flag_pthread` macro).\n- It\u0027s windows\n- It\u0027s cygwin\n\nIn Zephyr, due to embedded nature, pthread implementation is a part of RTOS and is compiled with other code. So, it\u0027s not in libc, no pthread library, no `-pthread` switch.\n\nFrom CMake perspective, it\u0027s hard to detect if pthread is available, because CMake doesn\u0027t know where are the source files and how to compile them...but Zephyr knows, so I think, the best option is to provide Zephyr version of FindThreads. Also, it works when compiling Zephyr unit tests with BoringSSL. Simple and beautiful approach. And finally, no changes in BoringSSL needed 😊",
+      "parentUuid": "dec06d1a_6dbe5cbf",
+      "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
