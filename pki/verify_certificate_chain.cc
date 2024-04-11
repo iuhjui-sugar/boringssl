@@ -229,6 +229,16 @@ void VerifyExtendedKeyUsage(const ParsedCertificate &cert,
     }
   }
 
+  // apply strict only to leaf certificates in these cases.
+  if (required_key_purpose == KeyPurpose::CLIENT_AUTH_STRICT_LEAF
+      && !is_target_cert) {
+    required_key_purpose = KeyPurpose::CLIENT_AUTH;
+  }
+  if (required_key_purpose == KeyPurpose::SERVER_AUTH_STRICT_LEAF
+      && !is_target_cert) {
+    required_key_purpose = KeyPurpose::SERVER_AUTH;
+  }
+
   auto add_error_if_strict = [&](CertErrorId id) {
     if (required_key_purpose == KeyPurpose::SERVER_AUTH_STRICT ||
         required_key_purpose == KeyPurpose::CLIENT_AUTH_STRICT) {
@@ -300,6 +310,8 @@ void VerifyExtendedKeyUsage(const ParsedCertificate &cert,
 
   switch (required_key_purpose) {
     case KeyPurpose::ANY_EKU:
+    case KeyPurpose::CLIENT_AUTH_STRICT_LEAF:
+    case KeyPurpose::SERVER_AUTH_STRICT_LEAF:
       assert(0);  // NOTREACHED
       return;
     case KeyPurpose::SERVER_AUTH:
@@ -1192,6 +1204,8 @@ void VerifyTargetCertIsNotCA(const ParsedCertificate &cert,
         break;
       case KeyPurpose::SERVER_AUTH_STRICT:
       case KeyPurpose::CLIENT_AUTH_STRICT:
+      case KeyPurpose::CLIENT_AUTH_STRICT_LEAF:
+      case KeyPurpose::SERVER_AUTH_STRICT_LEAF:
         errors->AddError(cert_errors::kTargetCertShouldNotBeCa);
         break;
     }
