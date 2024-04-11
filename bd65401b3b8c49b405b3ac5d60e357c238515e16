@@ -124,6 +124,24 @@
       "parentUuid": "dec06d1a_6dbe5cbf",
       "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b1696a_7b91d264",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-11T18:25:32Z",
+      "side": 1,
+      "message": "kind of sucks that it doesn\u0027t fall into one of the detectable cases, I\u0027d almost make a stub libpthread to make it look \"normal\" - but I guess that\u0027s what this case is for.",
+      "parentUuid": "3ba8368a_eec8c2e6",
+      "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
