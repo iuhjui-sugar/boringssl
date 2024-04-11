@@ -142,6 +142,24 @@
       "parentUuid": "3ba8368a_eec8c2e6",
       "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e37f01_a676f868",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-11T18:36:19Z",
+      "side": 1,
+      "message": "Bob, I created Zephyr version of FindThreads https://github.com/zephyrproject-rtos/zephyr/pull/71393. I\u0027m keeping this open as a last resort solution if Zephyr won\u0027t accept my patch.\n\nI made this change a WIP.",
+      "parentUuid": "e2b1696a_7b91d264",
+      "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
