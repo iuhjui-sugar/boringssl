@@ -88,6 +88,24 @@
       "parentUuid": "4c7cb056_6076f150",
       "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dec06d1a_6dbe5cbf",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-11T15:35:53Z",
+      "side": 1,
+      "message": "Filed https://gitlab.kitware.com/cmake/cmake/-/issues/25886",
+      "parentUuid": "2810f601_0f2ce8d4",
+      "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
