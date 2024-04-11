@@ -70,6 +70,24 @@
       "parentUuid": "0927f8d3_f1a4cab0",
       "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2810f601_0f2ce8d4",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-11T15:28:49Z",
+      "side": 1,
+      "message": "I poked around for Android, and it looks like the issue is that Android lacks `pthread_cancel`. Perhaps that\u0027s the same issue here. I may go file a bug with CMake about that as that\u0027s pretty unhelpful.",
+      "parentUuid": "4c7cb056_6076f150",
+      "revId": "bd65401b3b8c49b405b3ac5d60e357c238515e16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
