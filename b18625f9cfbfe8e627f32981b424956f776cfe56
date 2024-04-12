@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "232ad3ca_ee99d4d5",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "Thanks David for the explanation! I didn\u0027t know about the validator (as it didn\u0027t run in CI, and I didn\u0027t see it in the [docs](https://boringssl.googlesource.com/boringssl/+/refs/heads/master/BUILDING.md)), so I used a more conservative naming (which indeed isn\u0027t really meaningful especially for functions that manipulate the private key). Glad the validator works :)",
+      "parentUuid": "962611c8_02b6e635",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5490432_32fc9ed9",
@@ -89,6 +107,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c83d6186_09736366",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc977ed4_211224e0",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9130da90_5f971481",
@@ -102,6 +138,24 @@
       "writtenOn": "2024-04-05T20:38:19Z",
       "side": 1,
       "message": "(If we end up keeping the malloc calls separate, `OPENSSL_memdup` is malloc + memcpy.)",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aa47a5d_6e45de38",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9130da90_5f971481",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -176,6 +230,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad85c509_c53b2eca",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21a44891_534a3aa8",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6aa40b52_30b8f551",
@@ -189,6 +261,24 @@
       "writtenOn": "2024-04-05T20:38:19Z",
       "side": 1,
       "message": "Likewise this is only 1024 bytes.",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "512019df_6566e398",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aa40b52_30b8f551",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -246,6 +336,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a23f6b19_a218ddae",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "Acknowledged, I will address it in another change.",
+      "parentUuid": "c2c42a71_d1ed6ff7",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bfc4852e_a1c8a0f2",
@@ -276,6 +384,30 @@
       "writtenOn": "2024-04-05T20:38:19Z",
       "side": 1,
       "message": "Optional: `y` only lives long enough to compute `y_ntt`. It can probably be easily folded into some other `vectorl` and save a chunk of memory. Maybe it can alias `cs1`?",
+      "range": {
+        "startLine": 1257,
+        "startChar": 24,
+        "endLine": 1257,
+        "endChar": 34
+      },
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8f9e933_afbc8c4f",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "I\u0027d leave the fine-grained memory usage optimizations as a follow-up, together with moving NTT precomputations in the keys, if that\u0027s fine?",
+      "parentUuid": "15986769_57dec7df",
       "range": {
         "startLine": 1257,
         "startChar": 24,
@@ -518,6 +650,24 @@
       "writtenOn": "2024-04-05T20:38:19Z",
       "side": 1,
       "message": "Nit: 80 chars... probably just run clang-format over the whole file. :-)",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b5cb512_2182bcb0",
+        "filename": "crypto/dilithium/dilithium_test.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-04-12T14:39:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "459eb20c_5c0bd556",
       "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
