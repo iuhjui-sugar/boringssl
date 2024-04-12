@@ -177,6 +177,30 @@
       },
       "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bcbdcf9_0387cc30",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2024-04-12T09:09:32Z",
+      "side": 1,
+      "message": "\u003e I\u0027ll implement separate CL tomorrow.\n\nCreated https://boringssl-review.googlesource.com/c/boringssl/+/67807",
+      "parentUuid": "677f5bf4_d759f95e",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 44
+      },
+      "revId": "a45847c7b5f532fe200eb46a59c565f6e40d0d68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
