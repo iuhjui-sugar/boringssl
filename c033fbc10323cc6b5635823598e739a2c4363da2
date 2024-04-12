@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac953380_3eb8b473",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3382795
+      },
+      "writtenOn": "2024-04-12T23:15:46Z",
+      "side": 1,
+      "message": "Yes, there is a boringssl_crypto test in the same directory and I submitted a CL to test these vectors there as well (crrev/c/5386947). The problem with this test is it feels like \"garbage in, garbage out: we run essentially the same code on the same embedded target in two different ways.\nThanks for the command line tool suggestion, will look into it.",
+      "parentUuid": "30e1bab1_1049d21b",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
