@@ -163,6 +163,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07bcce60_e594bfa2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3382795
+      },
+      "writtenOn": "2024-04-13T21:04:57Z",
+      "side": 1,
+      "message": "Thanks for the feedback, I was able to run the HKDF calculations using the command line utility you pointed to and will update our process to use the same.",
+      "parentUuid": "f01ee868_8266cf5a",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
