@@ -145,6 +145,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f01ee868_8266cf5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-13T20:49:26Z",
+      "side": 1,
+      "message": "\u003e we run essentially the same code on the same embedded target in two different ways.\n\nThis CL is only calling into BoringSSL, so it\u0027s also running essentially the same code. Unless you\u0027re concerned that the same BoringSSL code will compute different results on x86_64 and your target. This is not the way to resolve that concern. To resolve that concern, you run BoringSSL\u0027s existing tests on your target.\n\nBut also doesn\u0027t seem to be true. Your original tests are testing some `get_ikm` function which, as far as I can tell, is doing some more complex, non-BoringSSL thing. (If it is still ultimately BoringSSL under the hood, what you\u0027re doing here wouldn\u0027t be doing anything useful because it\u0027s the same code.)\n\nAdditionally, crrev.com/c/5386947 seems to still be misunderstanding the suggestion. If you\u0027re calling into BoringSSL, you can use BoringSSL\u0027s existing HKDF functions, rather than implement it yourself.\n\nRegardless, patching BoringSSL\u0027s tests is not an appropriate way to do what you\u0027re trying to do. Please fix your project\u0027s processes to do something else. I\u0027ve given you a couple suggestions already. Yet another one would be to go implement HKDF out of the `hmac` package in Python. There are plenty of reasonable ways to compute HKDF.",
+      "parentUuid": "ac953380_3eb8b473",
+      "revId": "c033fbc10323cc6b5635823598e739a2c4363da2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5df232ea_f50a8912",
         "filename": "crypto/hkdf/hkdf_test.cc",
         "patchSetId": 1
