@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf71e63c_23652132",
+        "filename": "rust/mls-rs-codec/src/iter.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-04-17T01:37:49Z",
+      "side": 1,
+      "message": "Let\u0027s start with licensing questions: some of these files have no license header, and some say \"Amazon\". We require a CLA for all contributions. (p.s. you may wish to have licensing discussions internally where we can consult counsel.)",
+      "revId": "ca543c1f16f3b8014bd9a8090a2318536c5e1dc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
