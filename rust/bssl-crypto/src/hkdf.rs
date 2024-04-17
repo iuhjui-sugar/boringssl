@@ -173,6 +173,24 @@ pub struct Prk {
 
 #[allow(clippy::let_unit_value)]
 impl Prk {
+    /// Creates a Prk using digest algorithm MD.
+    pub fn new<MD: digest::Algorithm>(prk: &[u8], prk_len: usize) -> Self {
+        assert!(prk_len <= prk.len());
+        let mut prk_array = [0; bssl_sys::EVP_MAX_MD_SIZE as usize];
+        prk_array[..prk_len].copy_from_slice(&prk);
+
+        Prk {
+            prk: prk_array,
+            len: prk_len,
+            evp_md: MD::get_md(sealed::Sealed).as_ptr(),
+        }
+    }
+
+    /// Returns the bytes of the pseudorandom key.
+    pub fn as_bytes(&self) -> &[u8] {
+        &self.prk[0..self.len]
+    }
+
     /// Derive key material for the given info parameter. Attempting
     /// to derive more than 255 bytes is a compile-time error, see `expand_into`
     /// for longer outputs.
