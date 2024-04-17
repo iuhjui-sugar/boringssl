@@ -48,12 +48,12 @@ pub const SEED_LEN: usize =
 /// The length in bytes of an Ed25519 signature.
 pub const SIGNATURE_LEN: usize = bssl_sys::ED25519_SIGNATURE_LEN as usize;
 
-// The length in bytes of an Ed25519 keypair. In BoringSSL, the private key is suffixed with the
-// public key, so the keypair length is the same as the private key length.
-const KEYPAIR_LEN: usize = bssl_sys::ED25519_PRIVATE_KEY_LEN as usize;
+/// The length in bytes of an Ed25519 keypair. In BoringSSL, the private key is suffixed with the
+/// public key, so the keypair length is the same as the private key length.
+pub const KEYPAIR_LEN: usize = bssl_sys::ED25519_PRIVATE_KEY_LEN as usize;
 
 /// An Ed25519 private key.
-pub struct PrivateKey([u8; KEYPAIR_LEN]);
+pub struct PrivateKey(pub [u8; KEYPAIR_LEN]);
 
 /// An Ed25519 public key used to verify a signature + message.
 pub struct PublicKey([u8; PUBLIC_KEY_LEN]);
