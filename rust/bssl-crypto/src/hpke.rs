@@ -219,6 +219,8 @@ impl Params {
 
 /// HPKE sender context. Callers may use `seal()` to encrypt messages for the recipient.
 pub struct SenderContext(scoped::EvpHpkeCtx);
+unsafe impl Sync for SenderContext {}
+unsafe impl Send for SenderContext {}
 
 impl SenderContext {
     /// Performs the SetupBaseS HPKE operation and returns a sender context
@@ -294,10 +296,36 @@ impl SenderContext {
             })
         }
     }
+
+    /// Export exports a secret of length `out_len` using `context` as a context string for the secret.
+    pub fn export(&mut self, context: &[u8], out_len: usize) -> Option<Vec<u8>> {
+        unsafe {
+            with_output_vec_fallible(out_len, |out_buf| {
+                // Safety: EVP_HPKE_CTX_export
+                // - is called with context created from EVP_HPKE_CTX_new,
+                // - is called with valid buffers with corresponding pointer and length, and
+                // - returns 0 on error.
+                let ret = bssl_sys::EVP_HPKE_CTX_export(
+                    self.0.as_mut_ffi_ptr(),
+                    out_buf,
+                    out_len,
+                    context.as_ffi_ptr(),
+                    context.len(),
+                );
+                if ret == 1 {
+                    Some(out_len)
+                } else {
+                    None
+                }
+            })
+        }
+    }
 }
 
 /// HPKE recipient context. Callers may use `open()` to decrypt messages from the sender.
 pub struct RecipientContext(scoped::EvpHpkeCtx);
+unsafe impl Sync for RecipientContext {}
+unsafe impl Send for RecipientContext {}
 
 impl RecipientContext {
     /// New implements the SetupBaseR HPKE operation, which decapsulates the shared secret in
@@ -385,6 +413,30 @@ impl RecipientContext {
             })
         }
     }
+
+    /// Export exports a secret of length `out_len` using `context` as a context string for the secret.
+    pub fn export(&mut self, context: &[u8], out_len: usize) -> Option<Vec<u8>> {
+        unsafe {
+            with_output_vec_fallible(out_len, |out_buf| {
+                // Safety: EVP_HPKE_CTX_export
+                // - is called with context created from EVP_HPKE_CTX_new,
+                // - is called with valid buffers with corresponding pointer and length, and
+                // - returns 0 on error.
+                let ret = bssl_sys::EVP_HPKE_CTX_export(
+                    self.0.as_mut_ffi_ptr(),
+                    out_buf,
+                    out_len,
+                    context.as_ffi_ptr(),
+                    context.len(),
+                );
+                if ret == 1 {
+                    Some(out_len)
+                } else {
+                    None
+                }
+            })
+        }
+    }
 }
 
 #[cfg(test)]
@@ -404,6 +456,8 @@ mod test {
         plaintext: [u8; 29],          // pt
         associated_data: [u8; 7],     // aad
         ciphertext: [u8; 45],         // ct
+        exporter_context: [u8; 11],
+        exported_value: [u8; 32],
     }
 
     // https://www.rfc-editor.org/rfc/rfc9180.html#appendix-A.1
@@ -420,6 +474,8 @@ mod test {
             plaintext: decode_hex("4265617574792069732074727574682c20747275746820626561757479"),
             associated_data: decode_hex("436f756e742d30"),
             ciphertext: decode_hex("f938558b5d72f1a23810b4be2ab4f84331acc02fc97babc53a52ae8218a355a96d8770ac83d07bea87e13c512a"),
+            exporter_context: decode_hex("54657374436f6e74657874"),
+            exported_value: decode_hex("e9e43065102c3836401bed8c3c3c75ae46be1639869391d62c61f1ec7af54931"),
         }
     }
 
@@ -437,6 +493,8 @@ mod test {
             plaintext: decode_hex("4265617574792069732074727574682c20747275746820626561757479"),
             associated_data: decode_hex("436f756e742d30"),
             ciphertext: decode_hex("1c5250d8034ec2b784ba2cfd69dbdb8af406cfe3ff938e131f0def8c8b60b4db21993c62ce81883d2dd1b51a28"),
+            exporter_context: decode_hex("54657374436f6e74657874"),
+            exported_value: decode_hex("5acb09211139c43b3090489a9da433e8a30ee7188ba8b0a9a1ccf0c229283e53"),
         }
     }
 
@@ -559,6 +617,38 @@ mod test {
 
             let plaintext = ctx.open(&test.ciphertext, &test.associated_data).unwrap();
             assert_eq!(&plaintext, test.plaintext.as_ref());
+        }
+    }
+
+    #[test]
+    fn export_with_vector() {
+        for test in vec![
+            x25519_hkdf_sha256_hkdf_sha256_aes_128_gcm(),
+            x25519_hkdf_sha256_hkdf_sha256_chacha20_poly1305(),
+        ] {
+            let params = Params::new_from_rfc_ids(test.kem_id, test.kdf_id, test.aead_id).unwrap();
+
+            let (mut sender_ctx, encapsulated_key) = new_sender_context_for_testing(
+                &params,
+                &test.recipient_pub_key,
+                &test.info,
+                &test.seed_for_testing,
+            );
+            assert_eq!(
+                test.exported_value.as_ref(),
+                sender_ctx.export(&test.exporter_context, test.exported_value.len()).unwrap()
+            );
+
+            let mut recipient_ctx = RecipientContext::new(
+                &params,
+                &test.recipient_priv_key,
+                &test.encapsulated_key,
+                &test.info,
+            ).unwrap();
+            assert_eq!(
+                test.exported_value.as_ref(),
+                recipient_ctx.export(&test.exporter_context, test.exported_value.len()).unwrap()
+            );
         }
     }
 
