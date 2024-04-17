@@ -1,0 +1,27 @@
+[package]
+name = "mls-rs-codec"
+version = "0.5.2"
+edition = "2021"
+description = "TLS codec and MLS specific encoding used by mls-rs"
+homepage = "https://github.com/awslabs/mls-rs"
+repository = "https://github.com/awslabs/mls-rs"
+keywords = ["mls", "mls-rs"]
+license = "Apache-2.0 OR MIT"
+
+[features]
+default = ["std", "preallocate"]
+preallocate = []
+std = ["dep:thiserror"]
+
+[dependencies]
+mls-rs-codec-derive = { version = "0.1.1", path = "../mls-rs-codec-derive" }
+thiserror = { version = "1.0.40", optional = true }
+
+[dev-dependencies]
+assert_matches = "1.5.0"
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen-test = { version = "0.3.26", default-features = false }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = { version = "0.2.79" }
