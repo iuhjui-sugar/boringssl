@@ -1,0 +1,22 @@
+[package]
+name = "mls-rs-crypto-boringssl"
+version = "0.0.1"
+publish = false
+edition = "2021"
+license = "ISC"
+
+[dependencies]
+bssl-crypto = {path = "../bssl-crypto", version = "0.2.0" }
+mls-rs-core = { path = "../mls-rs-core", version = "0.18.0" }
+mls-rs-identity-x509 = { path = "../mls-rs-identity-x509", optional = true, version = "0.11.0" }
+mls-rs-crypto-traits = { path = "../mls-rs-crypto-traits", version = "0.10.0" }
+thiserror = "1.0.40"
+zeroize = { version = "1", features = ["zeroize_derive"] }
+maybe-async = "0.2.10"
+
+[dev-dependencies]
+assert_matches = "1.5.0"
+
+[features]
+default = []
+std = []
