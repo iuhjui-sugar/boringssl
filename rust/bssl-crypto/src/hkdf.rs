@@ -403,11 +403,12 @@ mod tests {
             let mut okm2 = vec![0u8; okm.len()];
             assert!(
                 HkdfSha256::derive_into(ikm.as_slice(), salt, info.as_slice(), &mut okm2).is_ok()
-            );
+         );
             assert_eq!(okm2.as_slice(), okm.as_slice());
 
             let prk2 = Prk::new::<Sha256>(prk.as_slice()).unwrap();
             assert_eq!(prk2.as_bytes(), prk.as_slice());
+
             let mut okm3 = vec![0u8; okm.len()];
             let _ = prk2.expand_into(info.as_slice(), &mut okm3);
             assert_eq!(okm3.as_slice(), okm.as_slice());
