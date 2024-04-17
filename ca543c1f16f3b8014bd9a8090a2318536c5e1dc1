@@ -16,6 +16,24 @@
       "message": "Let\u0027s start with licensing questions: some of these files have no license header, and some say \"Amazon\". We require a CLA for all contributions. (p.s. you may wish to have licensing discussions internally where we can consult counsel.)",
       "revId": "ca543c1f16f3b8014bd9a8090a2318536c5e1dc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f7d56a4_56a7f7d6",
+        "filename": "rust/mls-rs-codec/src/iter.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-04-17T01:40:57Z",
+      "side": 1,
+      "message": "Hiya, please feel free to ignore this. These changes are ultimately aiming to land in AOSP, and this CL is a playground for my development.",
+      "parentUuid": "cf71e63c_23652132",
+      "revId": "ca543c1f16f3b8014bd9a8090a2318536c5e1dc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
