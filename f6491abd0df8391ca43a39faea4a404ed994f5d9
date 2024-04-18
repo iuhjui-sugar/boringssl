@@ -77,6 +77,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c65dfd_073df8e1",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-04-18T18:28:50Z",
+      "side": 1,
+      "message": "I guess another option, since the caller doesn\u0027t do anything with the return value than add an error, would just be to have the method return void and add the error itself. Though that would make it inconsistent with the other delegate method IsSignatureAlgorithmAcceptable which the caller does use the bool return for something other than adding the error. I dunno.",
+      "parentUuid": "3f811172_6fea7c81",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "939224cd_665b4f0a",
