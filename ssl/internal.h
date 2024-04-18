@@ -1049,8 +1049,12 @@ bool tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
                      uint8_t type, const uint8_t *in, size_t in_len);
 
 enum dtls1_use_epoch_t {
+  // For DTLS 1.2, or application data in DTLS 1.3
   dtls1_use_previous_epoch,
   dtls1_use_current_epoch,
+  // For DTLS 1.3:
+  dtls1_epoch_initial,
+  dtls1_epoch_handshake,
 };
 
 // dtls_max_seal_overhead returns the maximum overhead, in bytes, of sealing a
@@ -3023,6 +3027,11 @@ struct DTLS1_STATE {
   // save last sequence number for retransmissions
   uint64_t last_write_sequence = 0;
   UniquePtr<SSLAEADContext> last_aead_write_ctx;
+
+
+  // In DTLS 1.3, this contains the write AEAD for the initial encryption level.
+  // TODO(crbug.com/boringssl/715): Drop this when it is no longer needed.
+  UniquePtr<SSLAEADContext> initial_aead_write_ctx = SSLAEADContext::CreateNullCipher(true);
 
   // incoming_messages is a ring buffer of incoming handshake messages that have
   // yet to be processed. The front of the ring buffer is message number

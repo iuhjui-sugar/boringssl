@@ -2937,8 +2937,13 @@ int SSL_get_ivs(const SSL *ssl, const uint8_t **out_read_iv,
 
 uint64_t SSL_get_read_sequence(const SSL *ssl) {
   if (SSL_is_dtls(ssl)) {
-    // max_seq_num already includes the epoch.
-    assert(ssl->d1->r_epoch == (ssl->d1->bitmap.max_seq_num >> 48));
+    // In DTLS 1.2, the new read epoch starts in response to receiving a message
+    // from the peer at that epoch, so the max_seq_num seen from the peer must
+    // match the epoch we're reading. In DTLS 1.3, The read epoch is updated
+    // once we have new keys derived by the handshake, which occurs before we
+    // receive a message encrypted with the new keys.
+    assert((ssl->s3->have_version && ssl_protocol_version(ssl) > TLS1_2_VERSION)
+        || ssl->d1->r_epoch == (ssl->d1->bitmap.max_seq_num >> 48));
     return ssl->d1->bitmap.max_seq_num;
   }
   return ssl->s3->read_sequence;
