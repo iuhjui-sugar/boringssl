@@ -95,6 +95,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2e88b7_ccadc2ac",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-18T18:45:00Z",
+      "side": 1,
+      "message": "I\u0027m kind of ok with the caller deciding decide what error to add, and to do the\nright thing to ensure failure. \n\nI have scars on me from the OpenSSL verify callback returning false but not setting the correct error code and having silly things happen, so I think the caller deciding that false means failure and to do \"whatever is necessary to ensure a failure\" is probably right.",
+      "parentUuid": "c8c65dfd_073df8e1",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "939224cd_665b4f0a",
