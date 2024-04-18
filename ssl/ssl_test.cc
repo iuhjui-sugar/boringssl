@@ -88,6 +88,7 @@ static const VersionParam kAllVersions[] = {
     {TLS1_3_VERSION, VersionParam::is_tls, "TLS1_3"},
     {DTLS1_VERSION, VersionParam::is_dtls, "DTLS1"},
     {DTLS1_2_VERSION, VersionParam::is_dtls, "DTLS1_2"},
+    {DTLS1_3_EXPERIMENTAL_VERSION, VersionParam::is_dtls, "DTLS1_3"},
 };
 
 struct ExpectedCipher {
@@ -1540,11 +1541,12 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
     }
 
     if (client_ret == 1 && server_ret == 1) {
+      return true;
       break;
     }
   }
 
-  return true;
+  return false;
 }
 
 static bool FlushNewSessionTickets(SSL *client, SSL *server) {
@@ -3952,6 +3954,8 @@ static const char *GetVersionName(uint16_t version) {
       return "DTLSv1";
     case DTLS1_2_VERSION:
       return "DTLSv1.2";
+    case DTLS1_3_EXPERIMENTAL_VERSION:
+      return "DTLSv1.3";
     default:
       return "???";
   }

@@ -618,10 +618,6 @@ static enum ssl_hs_wait_t do_read_hello_verify_request(SSL_HANDSHAKE *hs) {
 
   assert(SSL_is_dtls(ssl));
 
-  // When implementing DTLS 1.3, we need to handle the interactions between
-  // HelloVerifyRequest, DTLS 1.3's HelloVerifyRequest removal, and ECH.
-  assert(hs->max_version < TLS1_3_VERSION);
-
   SSLMessage msg;
   if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
@@ -631,6 +627,10 @@ static enum ssl_hs_wait_t do_read_hello_verify_request(SSL_HANDSHAKE *hs) {
     hs->state = state_read_server_hello;
     return ssl_hs_ok;
   }
+
+  // When implementing DTLS 1.3, we need to handle the interactions between
+  // HelloVerifyRequest, DTLS 1.3's HelloVerifyRequest removal, and ECH.
+  assert(hs->max_version < TLS1_3_VERSION);
 
   CBS hello_verify_request = msg.body, cookie;
   uint16_t server_version;

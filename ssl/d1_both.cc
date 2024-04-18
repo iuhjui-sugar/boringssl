@@ -625,7 +625,13 @@ static enum seal_result_t seal_next_message(SSL *ssl, uint8_t *out,
   assert(msg == &ssl->d1->outgoing_messages[ssl->d1->outgoing_written]);
 
   enum dtls1_use_epoch_t use_epoch = dtls1_use_current_epoch;
-  if (ssl->d1->w_epoch >= 1 && msg->epoch == ssl->d1->w_epoch - 1) {
+  if (ssl->s3->have_version && ssl_protocol_version(ssl) > TLS1_2_VERSION && msg->epoch < 3) {
+    if (msg->epoch == 0) {
+      use_epoch = dtls1_epoch_initial;
+    } else if (msg->epoch == 2) {
+      use_epoch = dtls1_epoch_handshake;
+    }
+  } else if (ssl->d1->w_epoch >= 1 && msg->epoch == ssl->d1->w_epoch - 1) {
     use_epoch = dtls1_use_previous_epoch;
   } else if (msg->epoch != ssl->d1->w_epoch) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);

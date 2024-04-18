@@ -28,6 +28,8 @@
 
 BSSL_NAMESPACE_BEGIN
 
+static const uint16_t dtls1_3_experimental_wire_version = 0xfe25;
+
 bool ssl_protocol_version_from_wire(uint16_t *out, uint16_t version) {
   switch (version) {
     case TLS1_VERSION:
@@ -46,13 +48,18 @@ bool ssl_protocol_version_from_wire(uint16_t *out, uint16_t version) {
       *out = TLS1_2_VERSION;
       return true;
 
+    case dtls1_3_experimental_wire_version:
+    case DTLS1_3_EXPERIMENTAL_VERSION:
+      *out = TLS1_3_VERSION;
+      return true;
+
     default:
       return false;
   }
 }
 
-// The follow arrays are the supported versions for TLS and DTLS, in order of
-// decreasing preference.
+// The follow arrays are the supported wire versions for TLS and DTLS, in order
+// of decreasing preference.
 
 static const uint16_t kTLSVersions[] = {
     TLS1_3_VERSION,
@@ -62,6 +69,7 @@ static const uint16_t kTLSVersions[] = {
 };
 
 static const uint16_t kDTLSVersions[] = {
+    dtls1_3_experimental_wire_version,
     DTLS1_2_VERSION,
     DTLS1_VERSION,
 };
@@ -99,6 +107,7 @@ static const VersionInfo kVersionNames[] = {
     {TLS1_VERSION, "TLSv1"},
     {DTLS1_VERSION, "DTLSv1"},
     {DTLS1_2_VERSION, "DTLSv1.2"},
+    {DTLS1_3_EXPERIMENTAL_VERSION, "DTLSv1.3"},
 };
 
 static const char *ssl_version_to_string(uint16_t version) {
@@ -111,11 +120,17 @@ static const char *ssl_version_to_string(uint16_t version) {
 }
 
 static uint16_t wire_version_to_api(uint16_t version) {
+  if (version == dtls1_3_experimental_wire_version) {
+    return DTLS1_3_EXPERIMENTAL_VERSION;
+  }
   return version;
 }
 
 // api_version_to_wire maps |version| to some representative wire version.
 static bool api_version_to_wire(uint16_t *out, uint16_t version) {
+  if (version == DTLS1_3_EXPERIMENTAL_VERSION) {
+    version = dtls1_3_experimental_wire_version;
+  }
   // Check it is a real protocol version.
   uint16_t unused;
   if (!ssl_protocol_version_from_wire(&unused, version)) {
@@ -343,11 +358,11 @@ int SSL_CTX_set_max_proto_version(SSL_CTX *ctx, uint16_t version) {
 }
 
 uint16_t SSL_CTX_get_min_proto_version(const SSL_CTX *ctx) {
-  return ctx->conf_min_version;
+  return wire_version_to_api(ctx->conf_min_version);
 }
 
 uint16_t SSL_CTX_get_max_proto_version(const SSL_CTX *ctx) {
-  return ctx->conf_max_version;
+  return wire_version_to_api(ctx->conf_max_version);
 }
 
 int SSL_set_min_proto_version(SSL *ssl, uint16_t version) {

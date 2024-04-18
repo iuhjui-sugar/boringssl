@@ -651,6 +651,10 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
+// DTLS1_3_EXPERIMENTAL_VERSION gates experimental code for DTLS 1.3. Do not use
+// this version. It is not compatible with any other implementations, nor is it
+// compatible with other versions of BoringSSL. This version is not secure.
+#define DTLS1_3_EXPERIMENTAL_VERSION 0xfefc
 
 // SSL_CTX_set_min_proto_version sets the minimum protocol version for |ctx| to
 // |version|. If |version| is zero, the default minimum version is used. It
@@ -3588,6 +3592,8 @@ OPENSSL_EXPORT int SSL_CREDENTIAL_set1_delegated_credential(
 // ssl_encryption_level_t represents a specific QUIC encryption level used to
 // transmit handshake messages.
 enum ssl_encryption_level_t BORINGSSL_ENUM_INT {
+  // TODO: I'm reusing these values as-is as DTLS 1.3 epochs. This should be
+  // done more explicitly.
   ssl_encryption_initial = 0,
   ssl_encryption_early_data,
   ssl_encryption_handshake,
