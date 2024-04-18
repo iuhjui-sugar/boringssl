@@ -119,6 +119,10 @@ TYPED_TEST_P(VerifyCertificateChainSingleRootTest, WeakPublicKey) {
   this->RunTest("target-has-512bit-rsa-key/main.test");
 }
 
+TYPED_TEST_P(VerifyCertificateChainSingleRootTest, InvalidPublicKey) {
+  this->RunTest("intermediate-invalid-spki/main.test");
+}
+
 TYPED_TEST_P(VerifyCertificateChainSingleRootTest, TargetSignedUsingEcdsa) {
   this->RunTest("target-signed-using-ecdsa/main.test");
 }
@@ -322,7 +326,7 @@ REGISTER_TYPED_TEST_SUITE_P(VerifyCertificateChainSingleRootTest, Simple,
                             BasicConstraintsCa, BasicConstraintsPathlen,
                             UnknownExtension, MSApplicationPolicies,
                             WeakSignature, WrongSignature,
-                            LastCertificateNotTrusted, WeakPublicKey,
+                            LastCertificateNotTrusted, WeakPublicKey, InvalidPublicKey,
                             TargetSignedUsingEcdsa, Expired, TargetNotEndEntity,
                             KeyUsage, ExtendedKeyUsage,
                             IssuerAndSubjectNotByteForByteEqual,
