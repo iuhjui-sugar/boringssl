@@ -16,6 +16,24 @@
       "message": "Let\u0027s put this with the existing comment in verify_certificate_chain.h.",
       "revId": "41533b866a95a7f1932cf11b1d83c8cbb25799f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6267d0_5e7d7c18",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-18T18:55:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf23cded_1b50a5d9",
+      "revId": "41533b866a95a7f1932cf11b1d83c8cbb25799f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
