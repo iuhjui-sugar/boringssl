@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b6d3e06_b0f6c6a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T15:29:01Z",
+      "side": 1,
+      "message": "Just leaving some comments on how to setup the experimental version.\n\nUgh the juggling of 3 versions was so annoying. We really should have written a comment defining these.",
+      "revId": "ee0908a867c128f8368182fbf8cff987b5a64693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d00a7d5_c16c560f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T15:29:01Z",
+      "side": 1,
+      "message": "Minor suggested tweak, just to capture that we are still working on this.\n\n```suggestion\n// DTLS1_3_EXPERIMENTAL_VERSION gates experimental, in-progress code for\n// DTLS 1.3.\n//\n// WARNING: Do not use this value. BoringSSL\u0027s DTLS 1.3 implementation is\n// still under development. The protocol currently enabled by this value\n// is neither stable nor secure. It is also incompatible with other\n// implementations, nor future or past revisions of BoringSSL. When the DTLS 1.3\n// implementation is complete, this symbol will be replaced.\n```\n\n(The doc generator parses \"WARNING: ...\" paragraphs special now.)",
+      "range": {
+        "startLine": 654,
+        "startChar": 0,
+        "endLine": 656,
+        "endChar": 75
+      },
+      "revId": "ee0908a867c128f8368182fbf8cff987b5a64693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0e05284_d7e86802",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T15:29:01Z",
+      "side": 1,
+      "message": "This is amusing because this is actually just the real `DTLS1_3_VERSION`. It\u0027s called `EXPERIMENTAL` not because it\u0027s the wrong value but because we don\u0027t actually want people using it yet.\n\nNot a comment to change anything, just amusing. 😊 I suspect, yeah, they way we\u0027ve set things up, putting the wire version in here will cause all kinds of chaos...",
+      "revId": "ee0908a867c128f8368182fbf8cff987b5a64693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "215faeb9_e129963f",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T15:29:01Z",
+      "side": 1,
+      "message": "Do we actually need `DTLS",
+      "revId": "ee0908a867c128f8368182fbf8cff987b5a64693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b951eae_b151ef6c",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T15:29:01Z",
+      "side": 1,
+      "message": "Do we actually want to put `DTLS1_3_EXPERIMENTAL_VERSION` in here? I think that will cause us to read the real DTLS 1.3 as our funny one, whereas we actually want to treat it as unrecognized.\n\nI *think* the current model is that we don\u0027t believe 0xfefc is a real wire version yet.",
+      "revId": "ee0908a867c128f8368182fbf8cff987b5a64693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e7b6f3_944cb161",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T15:29:01Z",
+      "side": 1,
+      "message": "I *think* we don\u0027t need these calls because `conf_min_version` and `conf_max_version` should be API versions rather than wire versions. I.e. they should just be the values that the caller put in, after we validate them.",
+      "revId": "ee0908a867c128f8368182fbf8cff987b5a64693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
