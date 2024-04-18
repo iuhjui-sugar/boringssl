@@ -22,6 +22,40 @@
       },
       "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "663162b5_28584396",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T14:41:48Z",
+      "side": 1,
+      "message": "Hmm. The goal of the change makes sense, but reading just this method on its own, it\u0027s suuuuuper confusing that things which should decidedly be fatal are called with `AddWarning`. I.e. without global context, this CL reads like a bug.\n\nI\u0027m actually curious what @mattm@google.com\u0027s take on this is. The documentation currently says:\n\n```\n  // Implementations should return true if |public_key| is acceptable. This is\n  // called for each certificate in the chain, including the target certificate.\n  // When returning false implementations can optionally add high-severity\n  // errors to |errors| with details on why it was rejected.\n```\n\nThis isn\u0027t *inconsistent*, but it does add to our general headache where functions that return both `bool` and add to `CertErrors` are super confused.\n\nThe call site just unconditionally adds an error, so in principle the `CertErrors` output isn\u0027t needed. It was just, at one point, helpful for adding extra errors.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/pki/verify_certificate_chain.cc;drc\u003d9e110c64fee9c391021dc81944912f906e6ba5d5;l\u003d1451\n\nBut now extra errors are bad because we\u0027re trying to get a better handle on what we return out of the public API. That means that actually we *never* want this method to add a high-severity error.\n\nWhich means we could just remove the `CertErrors` mailbox entirely. Except the debug information is kinda nice... does that mean the only remaining use for this is to add to the debug information? Do we have an internal convention for a function that wants to return success/failure and optionally add debug info somewhere?",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "939224cd_665b4f0a",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-18T14:41:48Z",
+      "side": 1,
+      "message": "While we ponder all of the above, another option is just to map kRsaModulusTooSmall and kUnacceptableCurveForEcdsa to the same public error as kUnacceptablePublicKey. 😊",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
