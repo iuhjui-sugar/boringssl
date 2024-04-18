@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "70224590_8e2f513d",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-18T15:01:18Z",
+      "side": 1,
+      "message": "Well I definately pondered \"Are these even useful\"- because basically it just adds some goo.  I think they sort of are for two reasons:\n\n1) it exposes the configured minium in the RSA case in the diagnostic, so if someone looks at the diagnostic string, they can tell why. \n\n2) it adds useful information to the diagnostic that is also not \"predictable\" making the adage of \"don\u0027t parse the diagnostic use the error codes\" more effective. \n\nTBH, I think this is resolvable by adding a comment that a false return always adds a high severity error to the top of the function.",
+      "parentUuid": "663162b5_28584396",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
@@ -54,6 +72,24 @@
       "writtenOn": "2024-04-18T14:41:48Z",
       "side": 1,
       "message": "While we ponder all of the above, another option is just to map kRsaModulusTooSmall and kUnacceptableCurveForEcdsa to the same public error as kUnacceptablePublicKey. 😊",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00cb5648_23174e0e",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-18T15:01:18Z",
+      "side": 1,
+      "message": "No, I don\u0027t think so, that\u0027s effectively like removing them.  \"Warning\" in our sense has effectively become \"add some diagnostic\".",
+      "parentUuid": "939224cd_665b4f0a",
       "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
