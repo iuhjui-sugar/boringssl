@@ -16,6 +16,24 @@
       "message": "See this comment.",
       "revId": "aa311daa46b02ad05e00db9e13d107bc7c6dc31d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ede5fa6d_9886b888",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 14951
+      },
+      "writtenOn": "2024-04-19T01:05:15Z",
+      "side": 1,
+      "message": "Just add the if judgment to support build, does not affect overall testing.\nIf you need to test the machine, we can also provide it.",
+      "parentUuid": "46acf731_69afc978",
+      "revId": "aa311daa46b02ad05e00db9e13d107bc7c6dc31d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
