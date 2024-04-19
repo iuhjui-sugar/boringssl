@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aeeab24_b0f17d38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-19T16:57:05Z",
+      "side": 1,
+      "message": "This was, incidentally, inspired by remembering NGINX used this API to work around OpenSSL\u0027s lack of a QUIC API. 😊 Doesn\u0027t matter for us because we have a QUIC API (and I bet they didn\u0027t do it in constant time), but made me realize that we shouldn\u0027t be the source of the side channel leak.",
+      "revId": "0523dfc416ed0b2711c9ea6af11b149249972639",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
