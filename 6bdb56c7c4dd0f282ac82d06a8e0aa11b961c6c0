@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ff8d710_e00e439c",
+        "filename": "pki/verify_certificate_chain.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-19T23:50:35Z",
+      "side": 1,
+      "message": "Signature errors and spki unparsable results in this, as the check below has changed from cert_errors to errors.  Comment just needs a slight update.",
+      "range": {
+        "startLine": 1582,
+        "startChar": 0,
+        "endLine": 1584,
+        "endChar": 20
+      },
+      "revId": "6bdb56c7c4dd0f282ac82d06a8e0aa11b961c6c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
