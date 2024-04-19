@@ -22,6 +22,30 @@
       },
       "revId": "ec5d617647ee01a58c407f50ab407e1ac9351fc7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c1bb642_a538eaa7",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-19T16:55:50Z",
+      "side": 1,
+      "message": "Rephrased comment and also expanded on the docs. WDYT?",
+      "parentUuid": "d6043ce7_295991c3",
+      "range": {
+        "startLine": 317,
+        "startChar": 65,
+        "endLine": 318,
+        "endChar": 15
+      },
+      "revId": "ec5d617647ee01a58c407f50ab407e1ac9351fc7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
