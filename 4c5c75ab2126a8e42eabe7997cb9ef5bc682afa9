@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f8a51d9_7f67063f",
+        "filename": "pki/verify_certificate_chain.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-22T15:24:33Z",
+      "side": 1,
+      "message": "```suggestion\n  // Apply strict only to leaf certificates in these cases.\n```",
+      "revId": "4c5c75ab2126a8e42eabe7997cb9ef5bc682afa9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
