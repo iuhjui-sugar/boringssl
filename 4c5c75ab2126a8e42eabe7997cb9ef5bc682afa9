@@ -16,6 +16,24 @@
       "message": "```suggestion\n  // Apply strict only to leaf certificates in these cases.\n```",
       "revId": "4c5c75ab2126a8e42eabe7997cb9ef5bc682afa9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca286d6_95de5850",
+        "filename": "pki/verify_certificate_chain.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-22T15:31:14Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "0f8a51d9_7f67063f",
+      "revId": "4c5c75ab2126a8e42eabe7997cb9ef5bc682afa9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
