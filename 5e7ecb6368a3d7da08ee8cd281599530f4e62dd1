@@ -16,6 +16,24 @@
       "message": "Fair enough. TBH, at that point the public key may as well just be some random string rather than grabbing ecdsaP256Certificate\u0027s key weirdly. 😊",
       "revId": "5e7ecb6368a3d7da08ee8cd281599530f4e62dd1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c673ed60_eb54c668",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 18008,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-04-22T18:09:26Z",
+      "side": 1,
+      "message": "Good point, done.",
+      "parentUuid": "c06700b1_e47a322d",
+      "revId": "5e7ecb6368a3d7da08ee8cd281599530f4e62dd1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
