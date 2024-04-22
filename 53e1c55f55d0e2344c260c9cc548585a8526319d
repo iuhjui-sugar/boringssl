@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b94f9e_daf1881e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 18005,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-22T18:25:34Z",
+      "side": 1,
+      "message": "(CQ is sad because of the now unused variable.)",
+      "revId": "53e1c55f55d0e2344c260c9cc548585a8526319d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
