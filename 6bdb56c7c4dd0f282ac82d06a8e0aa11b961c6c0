@@ -22,6 +22,30 @@
       },
       "revId": "6bdb56c7c4dd0f282ac82d06a8e0aa11b961c6c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "529592a3_22118e4b",
+        "filename": "pki/verify_certificate_chain.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1584,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-23T02:18:18Z",
+      "side": 1,
+      "message": "I see it\u0027s fixed. so this is done. Matt I am pretty sure we have you set up to be able to submit this yourself.  Can you try? if not I\u0027ll push the button and we\u0027ll figure out what we missed this time.",
+      "parentUuid": "5ff8d710_e00e439c",
+      "range": {
+        "startLine": 1582,
+        "startChar": 0,
+        "endLine": 1584,
+        "endChar": 20
+      },
+      "revId": "6bdb56c7c4dd0f282ac82d06a8e0aa11b961c6c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
