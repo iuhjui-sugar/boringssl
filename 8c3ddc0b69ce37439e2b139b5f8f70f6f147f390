@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de11e58d_e4b0bf8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-04-24T01:22:14Z",
+      "side": 1,
+      "message": "Allows for interoperability with `mls-rs`\u0027 [KDF trait definition](https://github.com/awslabs/mls-rs/blob/c38cdefdf89c272831533920bcee8d6e53700701/mls-rs-crypto-traits/src/kdf.rs#L25).",
+      "revId": "8c3ddc0b69ce37439e2b139b5f8f70f6f147f390",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
