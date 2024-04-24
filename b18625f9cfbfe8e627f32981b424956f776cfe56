@@ -420,6 +420,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e3343ae_076044c7",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-24T17:22:42Z",
+      "side": 1,
+      "message": "SGTM. Though if we plan on making some changes, maybe leave some TODOs?",
+      "parentUuid": "f8f9e933_afbc8c4f",
+      "range": {
+        "startLine": 1257,
+        "startChar": 24,
+        "endLine": 1257,
+        "endChar": 34
+      },
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15181553_9ace5cf4",
         "filename": "crypto/dilithium/dilithium.c",
         "patchSetId": 16
