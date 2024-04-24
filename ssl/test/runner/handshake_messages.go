@@ -1176,6 +1176,31 @@ func decodeClientHelloInner(config *Config, encoded []byte, helloOuter *clientHe
 		return nil, errors.New("tls: error parsing reconstructed ClientHello")
 	}
 
+	if len(ret.pskBinders) != len(helloOuter.pskBinders) {
+		return nil, errors.New("tls: inner and outer hellos have mismatching number of PSK binders")
+	}
+	if len(ret.pskIdentities) != len(helloOuter.pskIdentities) {
+		return nil, errors.New("tls: inner and outer hellos have mismatching number of PSK identities")
+	}
+	var innerPSKBinders map[string]bool
+	for _, innerBinder := range ret.pskBinders {
+		innerPSKBinders[string(innerBinder)] = true
+	}
+	for _, outerBinder := range helloOuter.pskBinders {
+		if innerPSKBinders[string(outerBinder)] {
+			return nil, errors.New("tls: outer hello contained an unmasked PSK binder from the inner hello")
+		}
+	}
+	var innerPSKIdentities map[string]bool
+	for _, innerIdentity := range ret.pskIdentities {
+		innerPSKIdentities[string(innerIdentity.ticket)] = true
+	}
+	for _, innerIdentity := range helloOuter.pskIdentities {
+		if innerPSKBinders[string(innerIdentity.ticket)] {
+			return nil, errors.New("tls: outer hello contained an unmasked PSK identity from the inner hello")
+		}
+	}
+
 	return ret, nil
 }
 
