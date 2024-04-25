@@ -371,6 +371,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05643c31_e8f28dc7",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-25T19:10:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfc4852e_a1c8a0f2",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15986769_57dec7df",
@@ -442,6 +460,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa6182b_93a1fb23",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-25T19:10:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e3343ae_076044c7",
+      "range": {
+        "startLine": 1257,
+        "startChar": 24,
+        "endLine": 1257,
+        "endChar": 34
+      },
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15181553_9ace5cf4",
@@ -455,6 +497,30 @@
       "writtenOn": "2024-04-05T20:38:19Z",
       "side": 1,
       "message": "Optional: Likewise, `w` does not live very long, like a `tmp_vectork` or so. Maybe it can alias `cs2`?",
+      "range": {
+        "startLine": 1262,
+        "startChar": 17,
+        "endLine": 1262,
+        "endChar": 26
+      },
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52a25260_bf3469e4",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-25T19:10:12Z",
+      "side": 1,
+      "message": "Added a todo to address in followon.",
+      "parentUuid": "15181553_9ace5cf4",
       "range": {
         "startLine": 1262,
         "startChar": 17,
