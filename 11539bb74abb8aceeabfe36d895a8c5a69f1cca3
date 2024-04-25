@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6976db89_e61b9f99",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T18:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ddafeac0_7423a2dd",
+      "range": {
+        "startLine": 82,
+        "startChar": 63,
+        "endLine": 82,
+        "endChar": 73
+      },
+      "revId": "11539bb74abb8aceeabfe36d895a8c5a69f1cca3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "302d6805_5e616e6a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-25T18:16:29Z",
       "side": 1,
       "message": "drop, I think.",
+      "range": {
+        "startLine": 84,
+        "startChar": 74,
+        "endLine": 84,
+        "endChar": 75
+      },
+      "revId": "11539bb74abb8aceeabfe36d895a8c5a69f1cca3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dedf510_6ded7220",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T18:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "302d6805_5e616e6a",
       "range": {
         "startLine": 84,
         "startChar": 74,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a83e192f_af78e913",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T18:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b09d65a5_c5fae2f6",
+      "range": {
+        "startLine": 92,
+        "startChar": 63,
+        "endLine": 92,
+        "endChar": 64
+      },
+      "revId": "11539bb74abb8aceeabfe36d895a8c5a69f1cca3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8877a48_0c9dbf2b",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-04-25T18:16:29Z",
       "side": 1,
       "message": "FfiSlice",
+      "range": {
+        "startLine": 98,
+        "startChar": 33,
+        "endLine": 98,
+        "endChar": 39
+      },
+      "revId": "11539bb74abb8aceeabfe36d895a8c5a69f1cca3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd410f55_21cf9669",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T18:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8877a48_0c9dbf2b",
       "range": {
         "startLine": 98,
         "startChar": 33,
@@ -116,6 +212,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb01204_6a2a961f",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T18:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f61db66_d8c41fa2",
+      "range": {
+        "startLine": 123,
+        "startChar": 45,
+        "endLine": 123,
+        "endChar": 46
+      },
+      "revId": "11539bb74abb8aceeabfe36d895a8c5a69f1cca3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4d49a50_749e44b2",
@@ -129,6 +249,30 @@
       "writtenOn": "2024-04-25T18:16:29Z",
       "side": 1,
       "message": "\"thus\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 62,
+        "endLine": 125,
+        "endChar": 63
+      },
+      "revId": "11539bb74abb8aceeabfe36d895a8c5a69f1cca3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83ad4e55_146c3815",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T18:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4d49a50_749e44b2",
       "range": {
         "startLine": 125,
         "startChar": 62,
