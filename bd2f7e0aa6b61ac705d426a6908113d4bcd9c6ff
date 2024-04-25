@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d8f01ac_70af3f21",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2024-04-25T22:36:42Z",
+      "side": 1,
+      "message": "See https://docs.google.com/document/d/1GYiOGV8bUoeZH7M7ahf7a4k6I1Yi9O3hlmbARUJMhoI/edit?resourcekey\u003d0-x043dmiWMmmpE_EobBVZiw\u0026tab\u003dt.0 for the detailed argument. The short argument is that, independently of the value of c, s1, or s2, the rejection probability is beta/gamma1 for each coefficient of z and beta/gamma2 for each coefficient of r0. Since this probability does not depend on c, knowing c does not help the attacker.\n\nNote that w1 and r0 *have* to be kept secret in case a rejection happens. Knowing c and w1 does leak parts of the secret in the rejection case.",
+      "range": {
+        "startLine": 783,
+        "startChar": 4,
+        "endLine": 788,
+        "endChar": 52
+      },
+      "revId": "bd2f7e0aa6b61ac705d426a6908113d4bcd9c6ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
