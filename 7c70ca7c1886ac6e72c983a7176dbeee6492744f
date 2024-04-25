@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4beeed1a_2841f75c",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-25T19:23:48Z",
+      "side": 1,
+      "message": "```suggestion\nnamed like `RSA_free`. When an object allocated by the library does not have a corresponding free function, they must be released with `OPENSSL_free`. Like C\u0027s `free` and C++\u0027s `delete`, all free functions\n```",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 24
+      },
+      "revId": "7c70ca7c1886ac6e72c983a7176dbeee6492744f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73dacfa8_60909f79",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-25T19:23:48Z",
+      "side": 1,
+      "message": "While you are at it, this is a little too wishy washy.\n\n```suggestion\ninternally check for `NULL`. Consumers should not check for `NULL` before\ncalling.\n```",
+      "range": {
+        "startLine": 153,
+        "startChar": 39,
+        "endLine": 153,
+        "endChar": 58
+      },
+      "revId": "7c70ca7c1886ac6e72c983a7176dbeee6492744f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
