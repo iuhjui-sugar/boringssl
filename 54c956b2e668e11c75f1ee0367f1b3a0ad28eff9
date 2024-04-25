@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ff3d697_a6808cee",
+        "filename": "ssl/dtls_method.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-04-25T00:37:36Z",
+      "side": 0,
+      "message": "In DTLS 1.2 (and prior), dtls1_set_read_state is called on receipt of a message in a new epoch. After dtls1_set_read_state is called, dtls1_bitmap_record will be called which will set the values in bitmap to appropriate values. (Specifically, dtls1_bitmap_record is called with a seq_num in the new epoch, so max_seq_num will be set and the shift from a seq_num in the old epoch to a new epoch will be much larger than the window size, so dtls1_bitmap_record will reset bitmap-\u003emap. The state that bitmap is tracking doesn\u0027t suddenly get invalidated by being in a new epoch.)\n\nIn DTLS 1.3, dtls1_set_read_state is called when the keys for that epoch are derived during the handshake, which is before that endpoint has received a message from its peer in the new epoch. Zeroing the bitmap here results in at least breakage of the `SSL_get_read_sequence` API (and WithVersion/SSLVersionTest.SequenceNumber/DTLS1_3 test case).",
+      "revId": "54c956b2e668e11c75f1ee0367f1b3a0ad28eff9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

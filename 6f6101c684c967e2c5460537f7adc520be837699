@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab4ac421_fa92bab0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-04-25T00:37:36Z",
+      "side": 1,
+      "message": "The RecordCallback test expects the first byte of the record version to match the first byte of the version, so if this doesn\u0027t start with `0xfe` then that test fails.",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
