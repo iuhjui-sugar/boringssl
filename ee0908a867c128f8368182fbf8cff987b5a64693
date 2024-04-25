@@ -36,6 +36,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f6ce0a8_70f1183c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-04-25T00:38:19Z",
+      "side": 1,
+      "message": "This CL has been replaced by https://boringssl-review.googlesource.com/c/boringssl/+/68027",
+      "revId": "ee0908a867c128f8368182fbf8cff987b5a64693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d00a7d5_c16c560f",
