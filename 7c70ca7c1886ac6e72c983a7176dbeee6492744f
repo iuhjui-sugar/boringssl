@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c90ba9c6_3a4e1180",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T20:11:57Z",
+      "side": 1,
+      "message": "I\u0027m not sure that ever happens. If there\u0027s a type, we want give it a free function, even if it doesn\u0027t have any child objects to free yet. `OPENSSL_free` only comes up for buffers, in which case there isn\u0027t really a type and the API docs will say \"you should free this with OPENSSL_free\".",
+      "parentUuid": "4beeed1a_2841f75c",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 24
+      },
+      "revId": "7c70ca7c1886ac6e72c983a7176dbeee6492744f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73dacfa8_60909f79",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-25T19:23:48Z",
       "side": 1,
       "message": "While you are at it, this is a little too wishy washy.\n\n```suggestion\ninternally check for `NULL`. Consumers should not check for `NULL` before\ncalling.\n```",
+      "range": {
+        "startLine": 153,
+        "startChar": 39,
+        "endLine": 153,
+        "endChar": 58
+      },
+      "revId": "7c70ca7c1886ac6e72c983a7176dbeee6492744f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20bc3ecf_d25a10dc",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-25T20:11:57Z",
+      "side": 1,
+      "message": "I mean, there\u0027s nothing *wrong* with checking for NULL. It\u0027s just pointless. But if you\u0027re trying to support OpenSSL 1.0.1, you probably need to check. But I\u0027ll rephrase it to be a hair stronger.",
+      "parentUuid": "73dacfa8_60909f79",
       "range": {
         "startLine": 153,
         "startChar": 39,
