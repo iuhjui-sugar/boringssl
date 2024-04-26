@@ -16,6 +16,160 @@
       "message": "The RecordCallback test expects the first byte of the record version to match the first byte of the version, so if this doesn\u0027t start with `0xfe` then that test fails.",
       "revId": "6f6101c684c967e2c5460537f7adc520be837699",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffbc1635_e72493f7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "Ah, I see. The `0xfe` is harmless, but given that the record version meant to be locked anyway, perhaps we should replace that line with:\n\n```\nEXPECT_EQ(record_version \u003e\u003e 8, is_dtls() ? 0xfe : 0x03);\n```\n\nAlso, I suspect we\u0027ll need to rework that test even more extensibly when it comes time to do the new record header. :)",
+      "parentUuid": "ab4ac421_fa92bab0",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f45cf645_a0037c2e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "Haha, clever. 😊",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60b1c45f_93913b1c",
+        "filename": "ssl/dtls_method.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "Seems this won\u0027t work with KeyUpdate. No need to solve that now, but probably worth a TODO.",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "826b9f45_f32c0238",
+        "filename": "ssl/dtls_method.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "(The future KeyUpdate version of this will need an overflow check. We only don\u0027t need one now because there are only two epochs without renego.)",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24dd5934_b568a040",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "This assert is actually reachable now. :-) OK to leave this as-is, but probably we should upgrade it to a TODO comment in that case. Alternatively, we could just implement the semantics we expect for 1.3.\n\nI\u0027m not sure what the correct behavior is... so there\u0027s a version field here, but it\u0027s actually ignored:\n\n\u003e   The server_version field has the same syntax as in TLS.  However, in\n\u003e   order to avoid the requirement to do version negotiation in the\n\u003e   initial handshake, DTLS 1.2 server implementations SHOULD use DTLS\n\u003e   version 1.0 regardless of the version of TLS that is expected to be\n\u003e   negotiated.  DTLS 1.2 and 1.0 clients MUST use the version solely to\n\u003e   indicate packet formatting (which is the same in both DTLS 1.2 and\n\u003e   1.0) and not as part of version negotiation.  In particular, DTLS 1.2\n\u003e   clients MUST NOT assume that because the server uses version 1.0 in\n\u003e   the HelloVerifyRequest that the server is not DTLS 1.2 or that it\n\u003e   will eventually negotiate DTLS 1.0 rather than DTLS 1.2.\n\nThat means we do not yet know whether we\u0027re speaking DTLS 1.3 yet. So that then begs the question... how is the client expected to react if it sees HelloVerifyRequest followed by a DTLS 1.3 ServerHello?\n\nSeems our choices are:\n- Just be okay with it even though servers should never do this\n- Keep track of whether we\u0027ve seen HVR and error on 1.3\n\nNSS seems to just be OK with it, but I\u0027m not positive. I couldn\u0027t find any answer on this in the spec. Preferences?",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "548dcbe8_6a56bae4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "I\u0027ve forgotten too much of this code to know if this is a good design or not / how much of a pain it is, but given that DTLS 1.3 will generally keep more epochs around, I wonder if we should just pass in the epoch number and then have the functions internally look up the corresponding state, or say \"nope, can\u0027t do that\".\n\nThoughts?",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74cabada_eadf5394",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2944,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "Oh wow, this is quite a mess. I think this assert is simply wrong, if we\u0027ve gotten CCS but not Finished. We could fix this by making it instead say\n\n```\n// max_seq_num already includes the epoch. However, the current epoch may\n// be one ahead of the highest record received, immediately after a key\n// change.\nassert(ssl-\u003ed1-\u003er_epoch \u003e\u003d ssl-\u003ed1-\u003ebitmap.max_seq_num \u003e\u003e 48);\n```\n\nBut also if we return the previous epoch, `SSL_get_read_sequence`\u0027s API docs are wrong because they promise to return the current epoch.\n\nExcept this really begs the question, what even is the \"current\" epoch? In DTLS 1.3, when we\u0027ve processed a KeyUpdate, we go ahead and install the new epoch, but we may receive messages from the old epoch for some time because the ACK might have been lost.\n\nI was going to suggest we just not support this API over DTLS, but I think it\u0027s actually used. See b/193109117. (That code is going to need to be reworked for DTLS 1.3. And allow for the fact that we may be mid KeyUpdate 😮) Moreover, it assumes that the epoch returned in there matches what `SSL_get_traffic_secrets` returns. But right now it doesn\u0027t.\n\nOh also the docs are wrong if we haven\u0027t received a packet at all yet, because `max_seq_num` may be zero but we haven\u0027t received record zero. (Though if we incorrectly tell handoff code that we\u0027ve received record zero and haven\u0027t, it\u0027ll just look like packet loss, so it\u0027s no big deal.)\n\nSo, uh... this is a mess. We might need to add new APIs before that thing can use 1.3. At the least we probably need a TODO here because KeyUpdate will make this case actually possible. In DTLS 1.2 it\u0027s mostly theoretical if you don\u0027t call this before the handshake.",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd69f8f1_c8390c7b",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2946,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: Is that actually what clang-format does?",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38acaa47_40009ecc",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2791,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:12:53Z",
+      "side": 1,
+      "message": "Huh. Why still reading at the handshake? We\u0027ve completed the handshake already.\n\nEdit: Ah, I see why now. This whole area is confusing but maybe worth a comment explaining this better. (That it\u0027s because the last record received was still handshake.) Or maybe we just skip this whole test in DTLS 1.3 until we\u0027re ready to tackle that question, since it doesn\u0027t match the returned traffic secrets.",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
