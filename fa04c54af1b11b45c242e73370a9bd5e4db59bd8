@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2a591e1_de7bec78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-04-26T18:33:27Z",
+      "side": 1,
+      "message": "LGTM, though resetting it isn\u0027t needed at all (see comment on https://boringssl-review.googlesource.com/c/boringssl/+/68027)",
+      "revId": "fa04c54af1b11b45c242e73370a9bd5e4db59bd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24efa271_dcd5d7bc",
