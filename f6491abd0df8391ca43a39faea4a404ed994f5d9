@@ -247,6 +247,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5573cd10_758f6606",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T20:54:23Z",
+      "side": 1,
+      "message": "to be clear, the state o the world right now is that if 3p code adds a private cert_error (which is really just a string constant) as a warning, the string is added as a \"warning\" which will show up as a diagnostic string in the public error interface. \n\nif such a cert:error gets added as an error, it will show up in the diagnostic \nas well as having the public error be either CERTIFICATE_INVALID if it was added as an error to a particular certificate, or VERIFICATION_FAILURE if it was not certificate specific - which I think is basically \"fine\" since we have really no visibilty into what a custom 3p error code might be about.",
+      "parentUuid": "39293a31_1cc8f665",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
