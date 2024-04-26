@@ -157,6 +157,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52d4f40d_30b3a07f",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T19:28:30Z",
+      "side": 1,
+      "message": "I don\u0027t understand.  Warnings are not errors - we don\u0027t need to map them to anything. they can just exist and be private to whatever has decided to toss them on there. We don\u0027t need to map these to anything.",
+      "parentUuid": "ee67886b_da7d8f5c",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
