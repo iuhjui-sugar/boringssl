@@ -211,6 +211,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "588cf4f6_0b06962a",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:39:28Z",
+      "side": 1,
+      "message": "\u003e Oh I meant that we could either turn the warnings into errors, or we could keep them as errors and just map them to the same thing.\n\nTypo. Let me try that again.\n\nOh I meant that we could either turn the errors into warnings (what this CL does), or we could keep them as errors and just map the extra errors to the same thing as the main one.",
+      "parentUuid": "c7776a9c_358eecd0",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
