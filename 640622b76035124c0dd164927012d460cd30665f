@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "551c3a6e_266a2027",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:24:49Z",
+      "side": 1,
+      "message": "```suggestion\n  // certificate signing, false otherwise. When false is returned, the caller\n```",
+      "revId": "640622b76035124c0dd164927012d460cd30665f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5815f2d7_a5d28d51",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:24:49Z",
+      "side": 1,
+      "message": "```suggestion\n  // |errors|. When returning false, implementations can optionally add warnings\n```",
+      "revId": "640622b76035124c0dd164927012d460cd30665f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aedc836b_7f83c533",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:24:49Z",
+      "side": 1,
+      "message": "```suggestion\n  // severity error of kUnacceptablePublicKey to |errors|. When returning false,\n```",
+      "revId": "640622b76035124c0dd164927012d460cd30665f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

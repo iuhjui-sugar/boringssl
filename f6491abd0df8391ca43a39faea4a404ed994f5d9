@@ -139,6 +139,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee67886b_da7d8f5c",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:24:49Z",
+      "side": 1,
+      "message": "The nuisance is that we\u0027d need the error to be mapped to `CERTIFICATE_UNSUPPORTED_KEY` and these errors are private to SimplePathBuilderDelegate.\n\nAlthough... can we just make them not private to it? Like move them into the more general set and then add the mappings we want? Then we don\u0027t have the weirdness of an error being called a warning. (I mean, we\u0027ll need to overhaul this whole thing and anyway, but this way it\u0027s a bit more analogous to how we\u0027ve been doing everything else thus far.)",
+      "parentUuid": "cf2e88b7_ccadc2ac",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
