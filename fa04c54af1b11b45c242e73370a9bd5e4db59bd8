@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d082c7af_5728cb7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:16:51Z",
+      "side": 1,
+      "message": "Yeah... what a mess. I\u0027ve updated the CL description to cite those. I think given the amount of mess to solve in the SSL_get_read_sequence API, I\u0027m inclined now to go ahead and land this now because this problem is reachable for all connections, but yeah I suspect we won\u0027t do the reset by the end.",
+      "parentUuid": "f2a591e1_de7bec78",
+      "revId": "fa04c54af1b11b45c242e73370a9bd5e4db59bd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24efa271_dcd5d7bc",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-26T18:32:53Z",
       "side": 1,
       "message": "Oh, I uploaded this before I realized that your CL just removes the memset altogether. TBH that reset seems just questionable all around, given the assert and all. Your call if you think this makes sense to land now.",
+      "revId": "fa04c54af1b11b45c242e73370a9bd5e4db59bd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56af1ad_1e380c5a",
+        "filename": "ssl/dtls_method.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:16:51Z",
+      "side": 1,
+      "message": "(See other thread.)",
+      "parentUuid": "24efa271_dcd5d7bc",
       "revId": "fa04c54af1b11b45c242e73370a9bd5e4db59bd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
