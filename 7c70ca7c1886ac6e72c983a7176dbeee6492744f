@@ -93,6 +93,30 @@
       },
       "revId": "7c70ca7c1886ac6e72c983a7176dbeee6492744f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a0b967_5ca0bfce",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T19:24:43Z",
+      "side": 1,
+      "message": "My objection to it when it\u0027s unnecessary is from watching unnecessary checks infecting static analizers with \"you checked for NULL here but not here\" type warnings that then start having people tip the scale the other way by adding the checks to make it shut up instead of the other way around.",
+      "parentUuid": "20bc3ecf_d25a10dc",
+      "range": {
+        "startLine": 153,
+        "startChar": 39,
+        "endLine": 153,
+        "endChar": 58
+      },
+      "revId": "7c70ca7c1886ac6e72c983a7176dbeee6492744f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
