@@ -175,6 +175,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34d5a567_a43881bf",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T19:30:57Z",
+      "side": 1,
+      "message": "as far as the \"weirdness\" of an error being called a warning - that is how the internal system is today - all the things can be added as either an error or a warning.  there is no such thing that is \"just an error\" or \"just a warning\" - they are a thing, and we choose to add them as either. \n\n(and at least at the moment I am not trying to boil that ocean, just make the external view of this consistent)",
+      "parentUuid": "52d4f40d_30b3a07f",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
