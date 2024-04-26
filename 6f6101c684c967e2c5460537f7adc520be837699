@@ -123,6 +123,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2378026_65c68c67",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3034,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T21:04:55Z",
+      "side": 1,
+      "message": "Oh, one more horrible thing: the `\u003d whatever` pattern doesn\u0027t quite handle when malloc fails and we haven\u0027t yet decided to stop caring about that. (We really should...)\n\n:-(",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74cabada_eadf5394",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
