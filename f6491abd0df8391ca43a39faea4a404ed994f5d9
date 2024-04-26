@@ -193,6 +193,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7776a9c_358eecd0",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-04-26T19:38:39Z",
+      "side": 1,
+      "message": "Oh I meant that we could either turn the warnings into errors, or we could keep them as errors and just map them to the same thing. (Since two internal errors that map to the same external error still works smoothly.)\n\nBut yeah, either option is fine with me. Really what I want is to unwind this whole mess and remove the notion of warnings. 😊",
+      "parentUuid": "34d5a567_a43881bf",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
