@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "350f8aed_33a02d35",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T19:29:09Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "551c3a6e_266a2027",
+      "revId": "640622b76035124c0dd164927012d460cd30665f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5815f2d7_a5d28d51",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb0973d_6bdad542",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T19:29:09Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "5815f2d7_a5d28d51",
+      "revId": "640622b76035124c0dd164927012d460cd30665f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aedc836b_7f83c533",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-04-26T19:24:49Z",
       "side": 1,
       "message": "```suggestion\n  // severity error of kUnacceptablePublicKey to |errors|. When returning false,\n```",
+      "revId": "640622b76035124c0dd164927012d460cd30665f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17585fae_884126f7",
+        "filename": "pki/verify_certificate_chain.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T19:29:09Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "aedc836b_7f83c533",
       "revId": "640622b76035124c0dd164927012d460cd30665f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
