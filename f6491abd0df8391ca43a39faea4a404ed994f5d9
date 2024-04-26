@@ -229,6 +229,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "39293a31_1cc8f665",
+        "filename": "pki/simple_path_builder_delegate.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-04-26T20:37:37Z",
+      "side": 1,
+      "message": "Yesh, I don\u0027t think the latter is really viable.  Most of these appear to be\ninformational, so would best be dealt with like this, (or changed to some other\nway for external code to add a diagnostic rather than defining a custom \"error\")\n\nThere are a few cases where external code really wants to add an actual error, \nand this would mean We would also potentially end up adding \"things\" for things the path builder is *not* doing which were sort of called \"path builder errors\". I\u0027d rather just push those things to be handled separately rather than mapped to something that appears to be something from path building when it is not.",
+      "parentUuid": "588cf4f6_0b06962a",
+      "revId": "f6491abd0df8391ca43a39faea4a404ed994f5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "939224cd_665b4f0a",
         "filename": "pki/simple_path_builder_delegate.cc",
         "patchSetId": 1
