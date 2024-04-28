@@ -383,6 +383,7 @@ set(
   crypto/kyber/kyber.c
   crypto/lhash/lhash.c
   crypto/mem.c
+  crypto/mlkem/mlkem.c
   crypto/obj/obj.c
   crypto/obj/obj_xref.c
   crypto/pem/pem_all.c
@@ -559,6 +560,7 @@ set(
   include/openssl/md4.h
   include/openssl/md5.h
   include/openssl/mem.h
+  include/openssl/mlkem.h
   include/openssl/nid.h
   include/openssl/obj.h
   include/openssl/obj_mac.h
@@ -663,6 +665,17 @@ set(
   third_party/fiat/p256_32.h
   third_party/fiat/p256_64.h
   third_party/fiat/p256_64_msvc.h
+  third_party/libcrux/eurydice_glue.h
+  third_party/libcrux/internal/libcrux_core.h
+  third_party/libcrux/intrinsics/libcrux_intrinsics_avx2.h
+  third_party/libcrux/karamel/lowstar_endianness.h
+  third_party/libcrux/karamel/target.h
+  third_party/libcrux/libcrux_core.h
+  third_party/libcrux/libcrux_mlkem768_avx2.h
+  third_party/libcrux/libcrux_mlkem768_portable.h
+  third_party/libcrux/libcrux_mlkem_portable.h
+  third_party/libcrux/libcrux_sha3_avx2.h
+  third_party/libcrux/libcrux_sha3_portable.h
 )
 
 set(
@@ -751,6 +764,7 @@ set(
   crypto/keccak/keccak_test.cc
   crypto/kyber/kyber_test.cc
   crypto/lhash/lhash_test.cc
+  crypto/mlkem/mlkem_test.cc
   crypto/obj/obj_test.cc
   crypto/pem/pem_test.cc
   crypto/pkcs7/pkcs7_test.cc
