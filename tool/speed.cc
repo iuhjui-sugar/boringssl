@@ -42,6 +42,7 @@
 #include <openssl/experimental/dilithium.h>
 #define OPENSSL_UNSTABLE_EXPERIMENTAL_KYBER
 #include <openssl/experimental/kyber.h>
+#include <openssl/mlkem.h>
 #define OPENSSL_UNSTABLE_EXPERIMENTAL_SPX
 #include <openssl/experimental/spx.h>
 #include <openssl/hrss.h>
@@ -1132,6 +1133,53 @@ static bool SpeedKyber(const std::string &selected) {
   return true;
 }
 
+static bool SpeedMLKEM(const std::string &selected) {
+  if (!selected.empty() && selected != "MLKEM") {
+    return true;
+  }
+
+  TimeResults results;
+
+  uint8_t ciphertext[MLKEM768_CIPHERTEXTBYTES];
+  // This ciphertext is nonsense, but MLKEM decap is constant-time so, for the
+  // purposes of timing, it's fine.
+  memset(ciphertext, 42, sizeof(ciphertext));
+  if (!TimeFunctionParallel(&results, [&]() -> bool {
+        uint8_t priv[MLKEM768_SECRETKEYBYTES];
+        uint8_t encoded_public_key[MLKEM768_PUBLICKEYBYTES];
+        uint8_t randomness[64];
+        RAND_bytes(randomness, 64);
+        Mlkem768_GenerateKeyPair(encoded_public_key, priv, randomness);
+        uint8_t shared_secret[MLKEM768_SHAREDSECRETBYTES];
+        Mlkem768_Decapsulate(shared_secret, &ciphertext, &priv);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time Mlkem768_GenerateKeyPair + Mlkem768_Decapsulate.\n");
+    return false;
+  }
+
+  results.Print("ML-KEM-768 generate + decap");
+
+  uint8_t priv[MLKEM768_SECRETKEYBYTES];
+  uint8_t encoded_public_key[MLKEM768_PUBLICKEYBYTES];
+  uint8_t randomness[64];
+  RAND_bytes(randomness, 64);
+  Mlkem768_GenerateKeyPair(encoded_public_key, priv, randomness);
+  
+  if (!TimeFunctionParallel(&results, [&]() -> bool {
+        uint8_t shared_secret[MLKEM768_SHAREDSECRETBYTES];
+        Mlkem768_Encapsulate(ciphertext, shared_secret, &encoded_public_key, randomness);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time Mlkem768_Encapsulate.\n");
+    return false;
+  }
+
+  results.Print("ML-KEM parse + encap");
+
+  return true;
+}
+
 static bool SpeedDilithium(const std::string &selected) {
   if (!selected.empty() && selected != "Dilithium") {
     return true;
@@ -1777,6 +1825,7 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedRSAKeyGen(selected) ||   //
       !SpeedHRSS(selected) ||        //
       !SpeedKyber(selected) ||       //
+      !SpeedMLKEM(selected) ||       //
       !SpeedDilithium(selected) ||   //
       !SpeedSpx(selected) ||         //
       !SpeedHashToCurve(selected) || //
