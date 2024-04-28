@@ -1,0 +1,13 @@
+name: "libcrux"
+description: "Libcrux. The formally verified crypto library for Rust."
+
+third_party {
+  url {
+    type: GIT
+    value: "https://github.com/cryspen/libcrux/"
+  }
+  version: "cab8aad997a68bfca77f7aab127a120d363de5c3"
+  last_upgrade_date { year: 2024 month: 6 day: 14 }
+
+  local_modifications: "Initial import"
+}
