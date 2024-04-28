@@ -1,0 +1,11 @@
+Name: Libcrux. The formally verified crypto library for Rust.
+Short Name: libcrux
+URL: https://github.com/cryspen/libcrux
+Version: git (see METADATA)
+License: Apache2.0
+License File: LICENSE
+Security Critical: yes
+Shipped: no
+
+Description:
+See README.md and METADATA.
