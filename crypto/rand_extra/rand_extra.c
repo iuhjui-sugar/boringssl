@@ -12,10 +12,22 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#include <openssl/rand.h>
-
 #include <limits.h>
 
+#include <openssl/rand.h>
+
+#include "../fipsmodule/bcm_interface.h"
+#include "../bcm_support.h"
+
+
+int RAND_bytes(uint8_t *buf, size_t len) {
+  BCM_RAND_bytes(buf, len);
+  return 1;
+}
+
+int RAND_pseudo_bytes(uint8_t *buf, size_t len) {
+  return RAND_bytes(buf, len);
+}
 
 void RAND_seed(const void *buf, int num) {
   // OpenSSH calls |RAND_seed| before jailing on the assumption that any needed
@@ -72,3 +84,10 @@ const RAND_METHOD *RAND_get_rand_method(void) { return RAND_SSLeay(); }
 int RAND_set_rand_method(const RAND_METHOD *method) { return 1; }
 
 void RAND_cleanup(void) {}
+
+void RAND_get_system_entropy_for_custom_prng(uint8_t *buf, size_t len) {
+  if (len > 256) {
+    abort();
+  }
+  CRYPTO_sysrand_for_seed(buf, len);
+}
