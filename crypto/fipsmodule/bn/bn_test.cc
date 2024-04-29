@@ -85,10 +85,10 @@
 #include <openssl/crypto.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
-#include <openssl/rand.h>
 
 #include "./internal.h"
 #include "./rsaz_exp.h"
+#include "../bcm_interface.h"
 #include "../../internal.h"
 #include "../../test/abi_test.h"
 #include "../../test/file_test.h"
@@ -2459,7 +2459,7 @@ TEST_F(BNTest, NumBitsWord) {
   for (unsigned i = 1; i < 100; i++) {
     // Generate a random value of a random length.
     uint8_t buf[1 + sizeof(BN_ULONG)];
-    RAND_bytes(buf, sizeof(buf));
+    BCM_RAND_bytes(buf, sizeof(buf));
 
     BN_ULONG w;
     memcpy(&w, &buf[1], sizeof(w));
@@ -2714,7 +2714,7 @@ TEST_F(BNTest, CountLowZeroBits) {
       BN_ULONG word = ((BN_ULONG)1) << i;
       if (set_high_bits) {
         BN_ULONG junk;
-        RAND_bytes(reinterpret_cast<uint8_t *>(&junk), sizeof(junk));
+        BCM_RAND_bytes(reinterpret_cast<uint8_t *>(&junk), sizeof(junk));
         word |= junk & ~(word - 1);
       }
       SCOPED_TRACE(word);
