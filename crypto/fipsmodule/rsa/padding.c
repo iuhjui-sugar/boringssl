@@ -369,7 +369,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(const RSA *rsa, unsigned char *EM,
     if (!salt) {
       goto err;
     }
-    if (!RAND_bytes(salt, sLen)) {
+    if (!BCM_SUCCESS(BCM_RAND_bytes(salt, sLen))) {
       goto err;
     }
   }
