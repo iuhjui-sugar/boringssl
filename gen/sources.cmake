@@ -87,7 +87,6 @@ set(
   crypto/fipsmodule/rand/ctrdrbg.c
   crypto/fipsmodule/rand/fork_detect.c
   crypto/fipsmodule/rand/rand.c
-  crypto/fipsmodule/rand/urandom.c
   crypto/fipsmodule/rsa/blinding.c
   crypto/fipsmodule/rsa/padding.c
   crypto/fipsmodule/rsa/rsa.c
@@ -406,6 +405,7 @@ set(
   crypto/rand_extra/passive.c
   crypto/rand_extra/rand_extra.c
   crypto/rand_extra/trusty.c
+  crypto/rand_extra/urandom.c
   crypto/rand_extra/windows.c
   crypto/rc4/rc4.c
   crypto/refcount.c
@@ -2724,5 +2724,5 @@ set(
 set(
   URANDOM_TEST_SOURCES
 
-  crypto/fipsmodule/rand/urandom_test.cc
+  crypto/rand_extra/urandom_test.cc
 )

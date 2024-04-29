@@ -28,6 +28,7 @@
 
 #include "internal.h"
 #include "fork_detect.h"
+#include "../../bcm_interface.h"
 #include "../../internal.h"
 #include "../delocate.h"
 
