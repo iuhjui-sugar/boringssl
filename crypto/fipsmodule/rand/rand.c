@@ -28,6 +28,8 @@
 
 #include "internal.h"
 #include "fork_detect.h"
+#include "../bcm_interface.h"
+#include "../../bcm_support.h"
 #include "../../internal.h"
 #include "../delocate.h"
 
@@ -99,7 +101,7 @@ static void rand_thread_state_clear_all(void) {
     CTR_DRBG_clear(&cur->drbg);
   }
   // The locks are deliberately left locked so that any threads that are still
-  // running will hang if they try to call |RAND_bytes|. It also ensures
+  // running will hang if they try to call |BCM_RAND_bytes|. It also ensures
   // |rand_thread_state_free| cannot free any thread state while we've taken the
   // lock.
 }
@@ -170,17 +172,20 @@ static int rdrand(uint8_t *buf, size_t len) {
 
 #endif
 
-#if defined(BORINGSSL_FIPS)
-
-void CRYPTO_get_seed_entropy(uint8_t *out_entropy, size_t out_entropy_len,
-                             int *out_want_additional_input) {
-  *out_want_additional_input = 0;
-  if (have_rdrand() && rdrand(out_entropy, out_entropy_len)) {
-    *out_want_additional_input = 1;
-  } else {
-    CRYPTO_sysrand_for_seed(out_entropy, out_entropy_len);
+bcm_status BCM_RAND_bytes_hwrng(uint8_t *buf, const size_t len, int fast) {
+  if (fast && !have_fast_rdrand()) {
+    return BCM_STATUS_FAILURE;
   }
+  else if (!have_rdrand())  {
+    return BCM_STATUS_FAILURE;
+  }
+  if (rdrand(buf, len)) {
+    return BCM_STATUS_NOT_APPROVED;
+  }
+  return BCM_STATUS_FAILURE;
 }
+
+#if defined(BORINGSSL_FIPS)
 
 // In passive entropy mode, entropy is supplied from outside of the module via
 // |RAND_load_entropy| and is stored in global instance of the following
@@ -330,7 +335,7 @@ static void rand_get_seed(struct rand_thread_state *state,
 
 #endif
 
-void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
+void BCM_RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
                                      const uint8_t user_additional_data[32]) {
   if (out_len == 0) {
     return;
@@ -475,19 +480,8 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
 #endif
 }
 
-int RAND_bytes(uint8_t *out, size_t out_len) {
+bcm_status BCM_RAND_bytes(uint8_t *out, size_t out_len) {
   static const uint8_t kZeroAdditionalData[32] = {0};
-  RAND_bytes_with_additional_data(out, out_len, kZeroAdditionalData);
+  BCM_RAND_bytes_with_additional_data(out, out_len, kZeroAdditionalData);
   return 1;
-}
-
-int RAND_pseudo_bytes(uint8_t *buf, size_t len) {
-  return RAND_bytes(buf, len);
-}
-
-void RAND_get_system_entropy_for_custom_prng(uint8_t *buf, size_t len) {
-  if (len > 256) {
-    abort();
-  }
-  CRYPTO_sysrand_for_seed(buf, len);
 }
