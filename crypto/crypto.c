@@ -18,6 +18,7 @@
 
 #include "fipsmodule/rand/fork_detect.h"
 #include "fipsmodule/rand/internal.h"
+#include "rand_extra/internal.h"
 #include "internal.h"
 
 
