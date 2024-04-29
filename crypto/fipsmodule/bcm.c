@@ -94,7 +94,6 @@
 #include "rand/ctrdrbg.c"
 #include "rand/fork_detect.c"
 #include "rand/rand.c"
-#include "rand/urandom.c"
 #include "rsa/blinding.c"
 #include "rsa/padding.c"
 #include "rsa/rsa.c"

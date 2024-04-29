@@ -14,7 +14,7 @@
 
 #include <openssl/rand.h>
 
-#include "../fipsmodule/rand/internal.h"
+#include "../bcm_interface.h"
 
 #if defined(OPENSSL_RAND_WINDOWS)
 
