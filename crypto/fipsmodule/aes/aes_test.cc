@@ -26,6 +26,7 @@
 #include <openssl/rand.h>
 
 #include "internal.h"
+#include "../../bcm_interface.h"
 #include "../../internal.h"
 #include "../../test/abi_test.h"
 #include "../../test/file_test.h"
@@ -566,7 +567,7 @@ TEST(AESTest, VPAESToBSAESConvert) {
   const int kNumIterations = 1000;
   for (int i = 0; i < kNumIterations; i++) {
     uint8_t key[256 / 8];
-    RAND_bytes(key, sizeof(key));
+    BCM_RAND_bytes(key, sizeof(key));
     SCOPED_TRACE(Bytes(key));
     for (unsigned bits : {128u, 192u, 256u}) {
       SCOPED_TRACE(bits);
