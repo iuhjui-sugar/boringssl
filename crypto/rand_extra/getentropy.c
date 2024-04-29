@@ -18,7 +18,7 @@
 
 #include <openssl/rand.h>
 
-#include "../fipsmodule/rand/internal.h"
+#include "os.h"
 
 #if defined(OPENSSL_RAND_GETENTROPY)
 

@@ -18,7 +18,7 @@
 
 #include <openssl/rand.h>
 
-#include "internal.h"
+#include "os.h"
 
 #if defined(OPENSSL_RAND_URANDOM)
 
@@ -62,8 +62,7 @@
 #include <openssl/mem.h>
 
 #include "getrandom_fillin.h"
-#include "../delocate.h"
-#include "../../internal.h"
+#include "../internal.h"
 
 
 #if defined(USE_NR_getrandom)
