@@ -14,10 +14,27 @@
 
 #include <openssl/ctrdrbg.h>
 
-#include "../fipsmodule/rand/internal.h"
+#include "../fipsmodule/bcm_interface.h"
+#include "../bcm_support.h"
 #include "../internal.h"
 
 #if defined(BORINGSSL_FIPS)
+
+// passive_get_seed_entropy writes |out_entropy_len| bytes of entropy, suitable
+// for seeding a DRBG, to |out_entropy|. It sets |*out_used_cpu| to one if the
+// entropy came directly from the CPU and zero if it came from the OS. It
+// actively obtains entropy from the CPU/OS
+static void passive_get_seed_entropy(uint8_t *out_entropy,
+                                     size_t out_entropy_len,
+                                     int *out_want_additional_input) {
+  *out_want_additional_input = 0;
+  if (BCM_SUCCESS(BCM_RAND_bytes_hwrng(out_entropy, out_entropy_len,
+                                       /*fast=*/0))) {
+    *out_want_additional_input = 1;
+  } else {
+    CRYPTO_sysrand_for_seed(out_entropy, out_entropy_len);
+  }
+}
 
 #define ENTROPY_READ_LEN \
   (/* last_block size */ 16 + CTR_DRBG_ENTROPY_LEN * BORINGSSL_FIPS_OVERREAD)
@@ -143,7 +160,7 @@ void RAND_need_entropy(size_t bytes_needed) {
   if (get_seed_from_daemon(buf, todo)) {
     want_additional_input = 1;
   } else {
-    CRYPTO_get_seed_entropy(buf, todo, &want_additional_input);
+    passive_get_seed_entropy(buf, todo, &want_additional_input);
   }
 
   if (boringssl_fips_break_test("CRNG")) {
