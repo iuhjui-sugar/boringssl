@@ -94,7 +94,6 @@
 #include "rand/ctrdrbg.c"
 #include "rand/fork_detect.c"
 #include "rand/rand.c"
-#include "rand/urandom.c"
 #include "rsa/blinding.c"
 #include "rsa/padding.c"
 #include "rsa/rsa.c"
@@ -195,7 +194,7 @@ int BORINGSSL_integrity_test(void) {
 
   assert_within(start, AES_encrypt, end);
   assert_within(start, RSA_sign, end);
-  assert_within(start, RAND_bytes, end);
+  assert_within(start, BCM_RAND_bytes, end);
   assert_within(start, EC_GROUP_cmp, end);
   assert_within(start, SHA256_Update, end);
   assert_within(start, ECDSA_do_verify, end);
