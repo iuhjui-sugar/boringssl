@@ -65,6 +65,8 @@
 #include <openssl/rand.h>
 
 #include "../ec/internal.h"
+#include "../bcm_interface.h"
+#include "../../bcm_support.h"
 #include "../../test/file_test.h"
 #include "../../test/test_util.h"
 
@@ -180,9 +182,9 @@ static void TestTamperedSig(API api, const uint8_t *digest,
 TEST(ECDSATest, BuiltinCurves) {
   // Fill digest values with some random data.
   uint8_t digest[20], wrong_digest[20];
-  ASSERT_TRUE(RAND_bytes(digest, 20));
+  ASSERT_TRUE(BCM_SUCCESS(BCM_RAND_bytes(digest, 20)));
   CONSTTIME_DECLASSIFY(digest, 20);
-  ASSERT_TRUE(RAND_bytes(wrong_digest, 20));
+  ASSERT_TRUE(BCM_SUCCESS(BCM_RAND_bytes(wrong_digest, 20)));
   CONSTTIME_DECLASSIFY(wrong_digest, 20);
 
   static const struct {
