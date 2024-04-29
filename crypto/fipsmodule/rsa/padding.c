@@ -63,11 +63,11 @@
 #include <openssl/digest.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
-#include <openssl/rand.h>
 #include <openssl/sha.h>
 
 #include "internal.h"
 #include "../service_indicator/internal.h"
+#include "../bcm_interface.h"
 #include "../../internal.h"
 
 
@@ -369,7 +369,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(const RSA *rsa, unsigned char *EM,
     if (!salt) {
       goto err;
     }
-    if (!RAND_bytes(salt, sLen)) {
+    if (!BCM_SUCCESS(BCM_RAND_bytes(salt, sLen))) {
       goto err;
     }
   }
