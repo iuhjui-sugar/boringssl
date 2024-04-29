@@ -83,7 +83,6 @@ bcm_internal_headers = [
   "crypto/fipsmodule/rand/ctrdrbg.c",
   "crypto/fipsmodule/rand/fork_detect.c",
   "crypto/fipsmodule/rand/rand.c",
-  "crypto/fipsmodule/rand/urandom.c",
   "crypto/fipsmodule/rsa/blinding.c",
   "crypto/fipsmodule/rsa/padding.c",
   "crypto/fipsmodule/rsa/rsa.c",
@@ -392,6 +391,7 @@ crypto_sources = [
   "crypto/rand_extra/passive.c",
   "crypto/rand_extra/rand_extra.c",
   "crypto/rand_extra/trusty.c",
+  "crypto/rand_extra/urandom.c",
   "crypto/rand_extra/windows.c",
   "crypto/rc4/rc4.c",
   "crypto/refcount.c",
@@ -2664,5 +2664,5 @@ test_support_sources_nasm = [
 ]
 
 urandom_test_sources = [
-  "crypto/fipsmodule/rand/urandom_test.cc",
+  "crypto/rand_extra/urandom_test.cc",
 ]
