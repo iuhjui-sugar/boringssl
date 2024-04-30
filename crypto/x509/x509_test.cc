@@ -8545,3 +8545,29 @@ TEST(X509Test, DuplicateName) {
     }
   }
 }
+
+TEST(X509Test, IpFromAsc) {
+  static const struct {
+    const char *asc;
+    std::vector<uint8_t> ip;
+    int len;
+  } kTests[] = {
+      {"127.0.0.1", {0x7f, 0x00, 0x00, 0x01}, 4},
+      {"127.0.0", {}, 0},
+      {"1.2.3.4 ", {0x01, 0x02, 0x03, 0x04}, 4},
+      {" 1.2.3.4", {0x01, 0x02, 0x03, 0x04}, 4},
+      {" 1.2.3.4 ", {0x01, 0x02, 0x03, 0x04}, 4},
+      {"1.2.3.4.example.test", {}, 0},
+  };
+
+  for (const auto &test : kTests) {
+    const ASN1_OCTET_STRING *out = a2i_IPADDRESS(test.asc);
+    if (test.len == 0) {
+      EXPECT_EQ(out, nullptr);
+    } else {
+      EXPECT_EQ(ASN1_STRING_length(out), test.len);
+      EXPECT_EQ(Bytes(ASN1_STRING_get0_data(out), ASN1_STRING_length(out)),
+                Bytes(test.ip));
+    }
+  }
+}
