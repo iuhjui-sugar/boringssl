@@ -16,6 +16,41 @@
       "message": "Hey David, could you PTAL? Note the CL description, as there are some minor changes in the NDK package being pulled. There are some Chromium-local changes to the binutils included in the toolchain, but I\u0027m not sure if they are relevant for BoringSSL. Namely, these two changes:\n\nhttps://chromium.googlesource.com/android_ndk/+/9644104c8cf85bf1bdce5b1c0691e9778572c3f8\n\nhttps://chromium.googlesource.com/android_ndk/+/8388a2be5421311dc75c5f937aae13d821a27f3d",
       "revId": "05d06aa8186b7a5ad4490c11cdea7b381aff5845",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eb66212_54e47b3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-01T18:44:43Z",
+      "side": 1,
+      "message": "LGTM. Yeah, I don\u0027t think we care about either of those!",
+      "parentUuid": "a1a06208_868fdfbf",
+      "revId": "05d06aa8186b7a5ad4490c11cdea7b381aff5845",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da9a11b8_b676d093",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-01T18:44:43Z",
+      "side": 1,
+      "message": "Thinking about this again, this was silly. We already have a goofy `OPENSSL_NO_SSE2_FOR_TESTING` option. I can just add that and not care.",
+      "revId": "05d06aa8186b7a5ad4490c11cdea7b381aff5845",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
