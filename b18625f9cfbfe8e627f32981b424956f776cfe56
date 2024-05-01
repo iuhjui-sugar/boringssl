@@ -747,6 +747,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82f94859_681dc673",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2024-05-01T22:36:19Z",
+      "side": 1,
+      "message": "See https://docs.google.com/document/d/1GYiOGV8bUoeZH7M7ahf7a4k6I1Yi9O3hlmbARUJMhoI/edit?resourcekey\u003d0-x043dmiWMmmpE_EobBVZiw\u0026tab\u003dt.0 for full discussion.\n\nThere are basically two steps, rejecting if z or r are not in the correct range, and rejecting when public key compression messed up. The arguments why it is okay to leak stuff differ for each of them. For z/r it\u0027s a Fiat-Shamir argument, the simulator is still able to simulate the ZKP if the value of c is known in aborted protocols, so we can leak the value of c and which coefficient of z/r violated it, as long as we are not leaking z/r/w.\nFor the public key compression step the logic is even simpler: This isn\u0027t part of the security relevant portion of the scheme, and t_0 can be leaked fully, making ct_0 okay to leak in its entirety as well. Similar for h, we are only rejecting because the compression scheme failed, and a simulator who knows t_0 (because we leaked it) would be able to simulate this rejection if we want to.",
+      "parentUuid": "f2603e2f_96c27c13",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "459eb20c_5c0bd556",
         "filename": "crypto/dilithium/dilithium_test.cc",
         "patchSetId": 16
