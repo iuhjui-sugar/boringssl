@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "447e8d00_c425e720",
+        "filename": "crypto/bcm_interface.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-01T22:28:07Z",
+      "side": 1,
+      "message": "Currently all the asm for this lives in BCM, and the only consumer outside is passive.c - so I elected to do this.\n\nThat could change if we decide it should be the other way around and pull the \nasm outside of bcm, and have libcrypto provide the information for use by rand.c\ninside bcm.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 10
+      },
+      "revId": "b6c405de44796ec5e56b88284b2b89a2f6501291",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
