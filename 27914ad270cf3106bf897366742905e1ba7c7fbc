@@ -16,6 +16,29 @@
       "message": "Please check the diff from PS 1 to PS 2. Since I\u0027ve uploaded to this CL, I\u0027ve just excluded myself from reviewing so +David.",
       "revId": "27914ad270cf3106bf897366742905e1ba7c7fbc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c3db055_ffbe2679",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-02T19:46:34Z",
+      "side": 1,
+      "message": "If we\u0027re unwrapping it anyway, does it work to just write...\n\n```suggestion\n        // `self.len` must be less than the length of `self.prk` thus this is\n        // always in bounds.\n        \u0026self.prk[..self.len]\n```",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 42
+      },
+      "revId": "27914ad270cf3106bf897366742905e1ba7c7fbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
