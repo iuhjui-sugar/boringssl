@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "080ea49a_ea70cf7b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-02T17:06:43Z",
+      "side": 1,
+      "message": "Please check the diff from PS 1 to PS 2. Since I\u0027ve uploaded to this CL, I\u0027ve just excluded myself from reviewing so +David.",
+      "revId": "27914ad270cf3106bf897366742905e1ba7c7fbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
