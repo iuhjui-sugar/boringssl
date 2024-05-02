@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97aa93a0_46a49d2d",
+        "filename": "crypto/rand_extra/sysrand.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-02T16:01:00Z",
+      "side": 1,
+      "message": "Probably need to go update the docs warning folks what they need to do for a new platform to point to wherever this ends up landing.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 63
+      },
+      "revId": "5629bb63b3d2a8b9f45b57cdfe4c0bdf580e7752",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
