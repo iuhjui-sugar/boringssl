@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "392a6f76_820467f8",
+        "filename": "crypto/bcm_interface.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-02T16:11:47Z",
+      "side": 1,
+      "message": "I need to split this into bcm_support.h which is outside and keeps the below\nand move the above as bcm_internface.h which moves *inside* bcm and defines the bcm interface.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 75
+      },
+      "revId": "5629bb63b3d2a8b9f45b57cdfe4c0bdf580e7752",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97aa93a0_46a49d2d",
         "filename": "crypto/rand_extra/sysrand.h",
         "patchSetId": 11
