@@ -39,6 +39,30 @@
       },
       "revId": "27914ad270cf3106bf897366742905e1ba7c7fbc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa95c27_7c3b2e9c",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-03T14:08:19Z",
+      "side": 1,
+      "message": "Thanks, good point. Done.",
+      "parentUuid": "3c3db055_ffbe2679",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 214,
+        "endChar": 42
+      },
+      "revId": "27914ad270cf3106bf897366742905e1ba7c7fbc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
