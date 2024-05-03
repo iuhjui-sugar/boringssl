@@ -763,6 +763,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc97037_f9cafc42",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 1300,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-03T15:19:07Z",
+      "side": 1,
+      "message": "So sounds like this is resolved, and I think we are ok here. \n\nOn a related front, the CL for access restricting experimental by default is landing in google3, so between that and the other conversations with potential users of expermental, I think it\u0027s probably ok to land this now.\n\nTo that end this is now merged together with the un-revert and should be landable.",
+      "parentUuid": "82f94859_681dc673",
+      "revId": "b18625f9cfbfe8e627f32981b424956f776cfe56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "459eb20c_5c0bd556",
