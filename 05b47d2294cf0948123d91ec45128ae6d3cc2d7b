@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "679fedbd_7f28f23a",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-03T20:33:08Z",
+      "side": 1,
+      "message": "Nice catch! Thanks for the fix.\n\nWe really ought to have a test for this. Would you be willing to add some? (No worries if not. I can put something together.)",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d2fadcd_67696a75",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-03T20:33:08Z",
+      "side": 1,
+      "message": "Nit: We like to declare variables close to where they\u0027re used, so this line can be removed and the line below replaced with `const char *p \u003d in + n`.",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4217ef5f_f62febc3",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-03T20:33:08Z",
+      "side": 1,
+      "message": "Accepting whitespace here is interesting. It\u0027s not like `1.2.3.4   ` is an IP address either. Or `1.2.3.4 nope` But I suppose `sscanf` itself skips over leading whitespace, so it is consistent. Whether *that* is desirable, I dunno.\n\nI\u0027ll go look over the callers to see what\u0027s up, but was there a particular reason you write this to accept trailing data?",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
