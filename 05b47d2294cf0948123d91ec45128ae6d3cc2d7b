@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "203e86c6_b303d37b",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3420632
+      },
+      "writtenOn": "2024-05-04T17:02:43Z",
+      "side": 1,
+      "message": "thanks for your review. should i add it to `crypto/x509/x509_test.cc`?\nis it okay if i add a separate test for it? something like `TEST(X509Test, A2IAddress)`",
+      "parentUuid": "679fedbd_7f28f23a",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d2fadcd_67696a75",
         "filename": "crypto/x509/v3_utl.c",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2024-05-03T20:33:08Z",
       "side": 1,
       "message": "Accepting whitespace here is interesting. It\u0027s not like `1.2.3.4   ` is an IP address either. Or `1.2.3.4 nope` But I suppose `sscanf` itself skips over leading whitespace, so it is consistent. Whether *that* is desirable, I dunno.\n\nI\u0027ll go look over the callers to see what\u0027s up, but was there a particular reason you write this to accept trailing data?",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73605e3e_cdfa92d3",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 3420632
+      },
+      "writtenOn": "2024-05-04T17:02:43Z",
+      "side": 1,
+      "message": "i believe it\u0027s a bug and there\u0027s no reason to accept trailing data. actually i sent a similar patch to openssl:\nhttps://github.com/openssl/openssl/commit/8b9a13b43ba3d71e441fca47a52e800ce79b3d2b",
+      "parentUuid": "4217ef5f_f62febc3",
       "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
