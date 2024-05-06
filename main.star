@@ -435,6 +435,24 @@ both_builders(
         },
     },
 )
+both_builders(
+    "android_riscv64",
+    LINUX_HOST,
+    category = "android|riscv64",
+    short_name = "rel",
+    cq_compile_only = LINUX_HOST,
+    properties = {
+        "android": True,
+        "cmake_args": {
+            "ANDROID_ABI": "riscv64",
+            "ANDROID_PLATFORM": "android-35",
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+        "gclient_vars": {
+            "android_ndk_revision": "wC8sJjVPRDPTbaZFlki_qXTC1lWJNbJi8glUO0woJ1MC"
+        },
+    },
+)
 
 both_builders("docs", LINUX_HOST, recipe = "boringssl_docs", short_name = "doc")
 
