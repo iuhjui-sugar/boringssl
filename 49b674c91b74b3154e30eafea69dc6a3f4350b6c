@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffb46870_6a3cbf82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-05-06T05:08:36Z",
+      "side": 1,
+      "message": "As discussed per mail (also I\u0027m not davidben, but someone else needs to confirm that).",
+      "revId": "49b674c91b74b3154e30eafea69dc6a3f4350b6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
