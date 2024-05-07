@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3db60c1a_02d7ff43",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-07T00:40:04Z",
+      "side": 1,
+      "message": "Yup, separate test in x509_test.cc sounds good!",
+      "parentUuid": "203e86c6_b303d37b",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d2fadcd_67696a75",
         "filename": "crypto/x509/v3_utl.c",
         "patchSetId": 1
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "i believe it\u0027s a bug and there\u0027s no reason to accept trailing data. actually i sent a similar patch to openssl:\nhttps://github.com/openssl/openssl/commit/8b9a13b43ba3d71e441fca47a52e800ce79b3d2b",
       "parentUuid": "4217ef5f_f62febc3",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260ebf06_2b73e8aa",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-07T00:40:04Z",
+      "side": 1,
+      "message": "Oh I meant why is whitespace allowed? Looks like the OpenSSL patch also accepts it.\n\nFor that matter, it looks like, even with the fix, the function will think that `1.   2.   3.   4` is an IP address:\nhttps://godbolt.org/z/r5sTE9Y9c\n\nAlso stray plus signs:\nhttps://godbolt.org/z/c13z3jr3b\n\nI\u0027ll see how our internal tests fare against a stricter version of this, that specifically requires digits, dots, and nothing else. At that point, it\u0027s probably not worth using `sscanf`.",
+      "parentUuid": "73605e3e_cdfa92d3",
       "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
