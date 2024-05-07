@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9740bcb9_60debb9e",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-07T00:49:44Z",
+      "side": 1,
+      "message": "This will make the CQ configuration compile-only, while the CI configuration actually runs tests, and then CI will fail because LINUX_HOST doesn\u0027t have an Android device, much less an Android RISC-V device.\n\nInstead of this, just set `run_unit_tests` and `run_ssl_tests` to False directly. I\u0027d also name the bot `android_riscv64_compile` just so it\u0027s clear from the name this is a compile-only bot.",
+      "revId": "9a05b6d546d4874a6dce67943413411f6fe2119e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9c397e7_8b6efc10",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-07T00:49:44Z",
+      "side": 1,
+      "message": "How hard would it be for this revision to be maintained in `DEPS`? Not sure if gclient has enough tools to do this... it\u0027d just be so that, when we go to update all the tooling, we can keep this updated alongside everything else.",
+      "revId": "9a05b6d546d4874a6dce67943413411f6fe2119e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
