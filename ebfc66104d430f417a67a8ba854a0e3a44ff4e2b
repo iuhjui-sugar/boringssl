@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5511e6ef_e1b14301",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 17301
+      },
+      "writtenOn": "2024-05-08T06:38:06Z",
+      "side": 1,
+      "message": "Similar to https://boringssl-review.googlesource.com/c/boringssl/+/67987, this allows for interoperability with `mls-rs`\u0027 [HPKE trait definition](https://github.com/awslabs/mls-rs/blob/c38cdefdf89c272831533920bcee8d6e53700701/mls-rs-core/src/crypto.rs#L152).",
+      "revId": "ebfc66104d430f417a67a8ba854a0e3a44ff4e2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
