@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91568c15_8bd7f987",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-08T17:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9740bcb9_60debb9e",
+      "revId": "9a05b6d546d4874a6dce67943413411f6fe2119e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9c397e7_8b6efc10",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-05-07T00:49:44Z",
       "side": 1,
       "message": "How hard would it be for this revision to be maintained in `DEPS`? Not sure if gclient has enough tools to do this... it\u0027d just be so that, when we go to update all the tooling, we can keep this updated alongside everything else.",
+      "revId": "9a05b6d546d4874a6dce67943413411f6fe2119e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f5bbf3b_2861ada8",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-08T17:15:09Z",
+      "side": 1,
+      "message": "We could probably make that work, albeit with some less graceful solutions (e.g. custom Python scripts). However, \"when we go to update all the tooling\" should mean \"when everyone uses the same stable tooling.\" At that point, there\u0027d be no reason for this particular builder to need to override the android_ndk_revision, and this bit can just be removed entirely.",
+      "parentUuid": "e9c397e7_8b6efc10",
       "revId": "9a05b6d546d4874a6dce67943413411f6fe2119e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
