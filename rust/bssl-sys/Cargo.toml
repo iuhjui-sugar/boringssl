@@ -9,3 +9,4 @@ license = "ISC"
 # This exists to workaround a limitation in cargo:
 # https://github.com/rust-lang/cargo/issues/3544
 links = "bssl"
+
