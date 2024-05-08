@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94f65583_1fb9b6b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-08T23:03:44Z",
+      "side": 1,
+      "message": "Here are the boringssl changes that I\u0027d previously sent to AOSP/external (minus the changes to Android.bp). I\u0027ve also followed your suggestion of re-exporting the new Rust wrappers for `CBS_init` and `CBS_len`. Thanks!",
+      "revId": "b771d2dfd487a5e1088bfe2f52845cdbdb365ca9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
