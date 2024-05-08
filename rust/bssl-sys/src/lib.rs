@@ -13,7 +13,7 @@ mod bindgen {
     // variables like other Rust build systems too. However, it does support
     // some hardcoded behavior with the OUT_DIR variable.
     #[cfg(soong)]
-    include!(concat!(env!("OUT_DIR"), "/bssl_sys_bindings.rs"));
+    include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 }
 pub use bindgen::*;
 
@@ -64,6 +64,13 @@ pub fn ERR_GET_FUNC(packed_error: u32) -> i32 {
     // Safety: This is safe for all inputs. bindgen conservatively marks everything unsafe.
     unsafe { ERR_GET_FUNC_RUST(packed_error) }
 }
+
+// re-export, since these functions remain unsafe
+#[cfg(unsupported_inline_wrappers)]
+pub use CBS_init_RUST as CBS_init;
+
+#[cfg(unsupported_inline_wrappers)]
+pub use CBS_len_RUST as CBS_len;
 
 pub fn init() {
     // Safety: `CRYPTO_library_init` may be called multiple times and concurrently.
