@@ -33,6 +33,24 @@
       "message": "? Does this even build?",
       "revId": "b771d2dfd487a5e1088bfe2f52845cdbdb365ca9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505d0599_b4ce3736",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-08T23:09:57Z",
+      "side": 1,
+      "message": "Ah thanks I was just fixing this; it\u0027s an artifact from my git merging from the AOSP branch where I was testing the build, and my first attempt where I thought I could turn all these wrapper functions into `use` exports. Sorry about this.",
+      "parentUuid": "0f2730a9_0363d7e4",
+      "revId": "b771d2dfd487a5e1088bfe2f52845cdbdb365ca9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
