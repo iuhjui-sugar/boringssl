@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "731f217a_193c4a11",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 16056
+      },
+      "writtenOn": "2024-05-08T16:49:14Z",
+      "side": 1,
+      "message": "TLS-ECH-Client-Reject-ResumeInnerSession-TLS12, `didResume is false, but we expected the opposite`.\n\nAt the time I assumed it was because of use of an unsupported cipher across the resumption, but now that I think about it again I\u0027m not entirely sure 🤷.",
+      "parentUuid": "60aee7fc_50249032",
+      "revId": "bcbce24b0eb8aac21408b9b83f8ec8390c060d76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b4cbb015_881c2a7f",
