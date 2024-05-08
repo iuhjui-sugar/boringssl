@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fd267b6_127f4d13",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T22:17:17Z",
+      "side": 1,
+      "message": "Thanks! Added a link to this since it\u0027s a bit long. 😊",
+      "parentUuid": "8d8f01ac_70af3f21",
+      "range": {
+        "startLine": 783,
+        "startChar": 4,
+        "endLine": 788,
+        "endChar": 52
+      },
+      "revId": "bd2f7e0aa6b61ac705d426a6908113d4bcd9c6ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2bbab0fa_d241d35a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-25T22:42:02Z",
       "side": 1,
       "message": "The reason is btw the same as with leaking c: Aborting probability is always beta/gamma1 for each coefficient of z and beta/gamma2 for each coefficient of r0. That means you can have a zero knowledge with aborts simulator, that will either output a valid transcript or output abort together with a valid c, and you can prove that this simulator makes the protocol zero knowledge, i.e. is information theoretically indistinguishable from a real protocol. The Fiat-Shamir with aborts transform then turns the whole thing into a signature scheme.",
+      "range": {
+        "startLine": 1314,
+        "startChar": 6,
+        "endLine": 1314,
+        "endChar": 32
+      },
+      "revId": "bd2f7e0aa6b61ac705d426a6908113d4bcd9c6ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77b2d06f_2a3508fb",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T22:17:17Z",
+      "side": 1,
+      "message": "Thanks! Added a link to this since it\u0027s a bit long. 😊",
+      "parentUuid": "2bbab0fa_d241d35a",
       "range": {
         "startLine": 1314,
         "startChar": 6,
