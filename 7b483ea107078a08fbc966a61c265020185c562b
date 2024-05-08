@@ -16,6 +16,29 @@
       "message": "Is it expected that everything in CQ dry run fails? I noticed that the last few changes have all landed without checks being ran.",
       "revId": "7b483ea107078a08fbc966a61c265020185c562b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6264a6ed_337e06ef",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-08T17:40:42Z",
+      "side": 1,
+      "message": "Ah, and I wanted to clarify this as well. I\u0027m not clear what this short_name is.",
+      "range": {
+        "startLine": 442,
+        "startChar": 4,
+        "endLine": 442,
+        "endChar": 23
+      },
+      "revId": "7b483ea107078a08fbc966a61c265020185c562b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
