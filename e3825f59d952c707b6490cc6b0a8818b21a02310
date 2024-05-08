@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b0338a1_d37d71d3",
+        "filename": "pki/verify.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-08T22:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "103b0876_f252a5e7",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 77
+      },
+      "revId": "e3825f59d952c707b6490cc6b0a8818b21a02310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0b64de2_87bb4aba",
@@ -41,6 +65,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58bd6a40_6da71d51",
+        "filename": "pki/verify.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-08T22:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0b64de2_87bb4aba",
+      "revId": "e3825f59d952c707b6490cc6b0a8818b21a02310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84057b37_300feb10",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-05-08T16:38:06Z",
       "side": 1,
       "message": "Let\u0027s maybe use our own test data for this one. 😊",
+      "revId": "e3825f59d952c707b6490cc6b0a8818b21a02310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "379d3a30_0329b30d",
+        "filename": "pki/verify_unittest.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-08T22:02:30Z",
+      "side": 1,
+      "message": "yeah, this really just repeats what was already tested.. let\u0027s just delete it.",
+      "parentUuid": "84057b37_300feb10",
       "revId": "e3825f59d952c707b6490cc6b0a8818b21a02310",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
