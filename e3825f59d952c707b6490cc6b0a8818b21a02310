@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "103b0876_f252a5e7",
+        "filename": "pki/verify.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T16:38:06Z",
+      "side": 1,
+      "message": "Cast no longer needed.\n\n```suggestion\n\n  UniquePtr\u003cCRYPTO_BUFFER\u003e buffer(CRYPTO_BUFFER_new(\n      cert.data(), cert.size(), nullptr));\n```",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 77
+      },
+      "revId": "e3825f59d952c707b6490cc6b0a8818b21a02310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0b64de2_87bb4aba",
+        "filename": "pki/verify.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T16:38:06Z",
+      "side": 1,
+      "message": "Nit: rerun clang-format",
+      "revId": "e3825f59d952c707b6490cc6b0a8818b21a02310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84057b37_300feb10",
+        "filename": "pki/verify_unittest.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T16:38:06Z",
+      "side": 1,
+      "message": "Let\u0027s maybe use our own test data for this one. 😊",
+      "revId": "e3825f59d952c707b6490cc6b0a8818b21a02310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
