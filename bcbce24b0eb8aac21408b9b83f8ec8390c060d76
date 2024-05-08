@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "aaa1f3dc_fb2ab3bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T21:58:56Z",
+      "side": 1,
+      "message": "Aha, figured it out. It\u0027s dumb. It\u0027s just because AcceptAnySession hardcodes TLS_RSA_WITH_AES_128_CBC_SHA. Honestly, AcceptAnySession is a case where runner\u0027s design really falls over and we should be writing down the messages we want to send, but ah well.",
+      "parentUuid": "731f217a_193c4a11",
+      "revId": "bcbce24b0eb8aac21408b9b83f8ec8390c060d76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b4cbb015_881c2a7f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
