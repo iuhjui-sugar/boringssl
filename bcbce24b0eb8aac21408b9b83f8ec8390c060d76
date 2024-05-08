@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60aee7fc_50249032",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T16:43:57Z",
+      "side": 1,
+      "message": "Huh, really? Which one? That\u0027s a little bizarre.",
+      "revId": "bcbce24b0eb8aac21408b9b83f8ec8390c060d76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4cbb015_881c2a7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T16:43:57Z",
+      "side": 1,
+      "message": "Sorry, this got buried in my inbox somehow.",
+      "revId": "bcbce24b0eb8aac21408b9b83f8ec8390c060d76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
