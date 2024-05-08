@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "249381e2_edc7d43c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-08T17:16:18Z",
+      "side": 1,
+      "message": "Is it expected that everything in CQ dry run fails? I noticed that the last few changes have all landed without checks being ran.",
+      "revId": "7b483ea107078a08fbc966a61c265020185c562b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
