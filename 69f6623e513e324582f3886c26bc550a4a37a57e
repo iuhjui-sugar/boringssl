@@ -22,6 +22,30 @@
       },
       "revId": "69f6623e513e324582f3886c26bc550a4a37a57e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0645580a_c841fb4c",
+        "filename": "crypto/conf/conf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-08T14:07:22Z",
+      "side": 1,
+      "message": "I waffled a bit, but I think this is characters that can appear in value and section names, so I renamed it all to \"name\".",
+      "parentUuid": "0ff69553_70e9be4f",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 43
+      },
+      "revId": "69f6623e513e324582f3886c26bc550a4a37a57e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
