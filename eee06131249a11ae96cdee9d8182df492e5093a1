@@ -39,6 +39,24 @@
       "message": "Should we do the reexport for these, actually? Although these functions are *actually* safe, since we want people to use the automatic thing, the end state will be that they\u0027re unsafe. Which means we may as well just make the unsupported mode match the supported mode.",
       "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2056545e_9bf1d2d8",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 15541
+      },
+      "writtenOn": "2024-05-09T00:37:16Z",
+      "side": 1,
+      "message": "We could. I just went through the openssl crate, and it looks like after they switched to using bindgen instead of handmade bindings, they have put `unsafe` blocks around all calls to these, so *everything* could be a `pub use` block instead. We could collapse this whole thing into\n\n```\n#[cfg(unsupported_inline_wrappers)]\npub use {ERR_GET_LIB_RUST as ERR_GET_LIB, ERR_GET_REASON_RUST as ERR_GET_REASON, ERR_GET_FUNC_RUST as ERR_GET_FUNC, CBS_init_RUST as CBS_init, CBS_len_RUST as CBS_len};\n```",
+      "parentUuid": "d5d3748c_e2c70656",
+      "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
