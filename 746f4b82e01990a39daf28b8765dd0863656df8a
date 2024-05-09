@@ -51,6 +51,24 @@
       "parentUuid": "1a17e3a7_b2287f0d",
       "revId": "746f4b82e01990a39daf28b8765dd0863656df8a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddf1f887_290bba58",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-09T16:48:12Z",
+      "side": 1,
+      "message": "Yep, please make this infallible as a Rust API (i.e. returning `Vec\u003cu8\u003e`) and assert that the BoringSSL function doesn\u0027t fail.",
+      "parentUuid": "c935fe5e_909d6fdb",
+      "revId": "746f4b82e01990a39daf28b8765dd0863656df8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
