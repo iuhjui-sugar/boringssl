@@ -52,5 +52,8 @@
   {
     "cmd": ["pki_test"],
     "shard": true
+  },
+  {
+    "cmd": ["mlkem_test"]
   }
 ]
