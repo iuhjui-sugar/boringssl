@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6068bb34_c620d53b",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-09T00:25:04Z",
+      "side": 1,
+      "message": "Looks like this can be customized with `source_stem` and would help avoid collisions. So I think the more specific name is probably better here?\n\nhttps://source.android.com/docs/setup/build/rust/building-rust-modules/source-code-generators/bindgen-modules#source-stem",
+      "range": {
+        "startLine": 16,
+        "startChar": 40,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5d3748c_e2c70656",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-09T00:25:04Z",
+      "side": 1,
+      "message": "Should we do the reexport for these, actually? Although these functions are *actually* safe, since we want people to use the automatic thing, the end state will be that they\u0027re unsafe. Which means we may as well just make the unsupported mode match the supported mode.",
+      "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
