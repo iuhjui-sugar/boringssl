@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c79d3f3e_fc5348b4",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-09T16:12:38Z",
+      "side": 1,
+      "message": "Can these be asserted to be equal?",
+      "revId": "746f4b82e01990a39daf28b8765dd0863656df8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a17e3a7_b2287f0d",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-09T16:12:38Z",
+      "side": 1,
+      "message": "I think this only fails if out of memory, which isn\u0027t something that we try to handle in these Rust bindings. Let me check with David, but I suspect the return value of this function should be simply `Vec\u003cu8\u003e`.",
+      "revId": "746f4b82e01990a39daf28b8765dd0863656df8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
