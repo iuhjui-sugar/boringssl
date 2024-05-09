@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36cf9629_35b724e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-09T16:51:20Z",
+      "side": 1,
+      "message": "Thanks for the comments!",
+      "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6068bb34_c620d53b",
@@ -14,6 +31,30 @@
       "writtenOn": "2024-05-09T00:25:04Z",
       "side": 1,
       "message": "Looks like this can be customized with `source_stem` and would help avoid collisions. So I think the more specific name is probably better here?\n\nhttps://source.android.com/docs/setup/build/rust/building-rust-modules/source-code-generators/bindgen-modules#source-stem",
+      "range": {
+        "startLine": 16,
+        "startChar": 40,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f4f2eab_6376bbb4",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-09T16:51:20Z",
+      "side": 1,
+      "message": "Yeah, good idea! Done. (main discussion in the AOSP CL)",
+      "parentUuid": "6068bb34_c620d53b",
       "range": {
         "startLine": 16,
         "startChar": 40,
@@ -55,6 +96,24 @@
       "side": 1,
       "message": "We could. I just went through the openssl crate, and it looks like after they switched to using bindgen instead of handmade bindings, they have put `unsafe` blocks around all calls to these, so *everything* could be a `pub use` block instead. We could collapse this whole thing into\n\n```\n#[cfg(unsupported_inline_wrappers)]\npub use {ERR_GET_LIB_RUST as ERR_GET_LIB, ERR_GET_REASON_RUST as ERR_GET_REASON, ERR_GET_FUNC_RUST as ERR_GET_FUNC, CBS_init_RUST as CBS_init, CBS_len_RUST as CBS_len};\n```",
       "parentUuid": "d5d3748c_e2c70656",
+      "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8303143a_831d418a",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-09T16:51:20Z",
+      "side": 1,
+      "message": "Good idea, that\u0027s clean.",
+      "parentUuid": "2056545e_9bf1d2d8",
       "revId": "eee06131249a11ae96cdee9d8182df492e5093a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
