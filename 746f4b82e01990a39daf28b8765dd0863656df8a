@@ -33,6 +33,24 @@
       "message": "I think this only fails if out of memory, which isn\u0027t something that we try to handle in these Rust bindings. Let me check with David, but I suspect the return value of this function should be simply `Vec\u003cu8\u003e`.",
       "revId": "746f4b82e01990a39daf28b8765dd0863656df8a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c935fe5e_909d6fdb",
+        "filename": "rust/bssl-crypto/src/hpke.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-09T16:33:48Z",
+      "side": 1,
+      "message": "Normally if a memory fallible function would fail in BorinSSL we would just expect Rust to assert and die.",
+      "parentUuid": "1a17e3a7_b2287f0d",
+      "revId": "746f4b82e01990a39daf28b8765dd0863656df8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
