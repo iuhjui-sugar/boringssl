@@ -773,3 +773,18 @@ if(INSTALL_ENABLED)
           DESTINATION lib/cmake/OpenSSL)
   install(FILES cmake/OpenSSLConfig.cmake DESTINATION lib/cmake/OpenSSL)
 endif()
+
+file(GLOB_RECURSE libcrux_sources third_party/libcrux/src/*.c)
+add_library(libcrux ${libcrux_sources})
+target_include_directories(libcrux PUBLIC
+    third_party/libcrux/include
+    third_party/libcrux/include/internal
+    third_party/libcrux/karamel/include
+    third_party/libcrux/karamel/krmllib/dist/minimal
+)
+target_compile_options(libcrux PRIVATE -D_DEFAULT_SOURCE -Wno-error)
+
+add_executable(mlkem_test crypto/test/gtest_main.cc third_party/libcrux/src/ml-kem-test.cc)
+target_link_libraries(mlkem_test test_support_lib boringssl_gtest libcrux)
+add_dependencies(mlkem_test libcrux)
+add_dependencies(all_tests mlkem_test)
