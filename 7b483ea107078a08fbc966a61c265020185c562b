@@ -39,6 +39,30 @@
       },
       "revId": "7b483ea107078a08fbc966a61c265020185c562b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8d882eb_0ea68f08",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-09T00:30:26Z",
+      "side": 1,
+      "message": "It\u0027s the name that shows up in the column in green, in the table view here.\nhttps://ci.chromium.org/p/boringssl/g/main/console\n\nSo this would add a \"riscv64\" sibling to \"aarch64\" in the \"android\" category, and one column in there titled \"rel\".\n\nWhich... I think that\u0027s fine? I mean, it\u0027s compile-only but ah well.",
+      "parentUuid": "6264a6ed_337e06ef",
+      "range": {
+        "startLine": 442,
+        "startChar": 4,
+        "endLine": 442,
+        "endChar": 23
+      },
+      "revId": "7b483ea107078a08fbc966a61c265020185c562b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

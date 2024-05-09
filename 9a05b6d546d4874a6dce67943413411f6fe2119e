@@ -69,6 +69,24 @@
       "parentUuid": "e9c397e7_8b6efc10",
       "revId": "9a05b6d546d4874a6dce67943413411f6fe2119e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c44e343a_ccbb5b23",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-09T00:30:26Z",
+      "side": 1,
+      "message": "Fair enough. Maybe we should add a comment linking to the other bug explaining that we\u0027re overriding the version until everyone can update.\n\n\u003e when we go to update all the tooling\n\nWell presumably we\u0027ll want to keep the RISC-V toolchain up-to-date and the non-NEON toolchain frozen at old one, until we\u0027re able to deal with it. But the RISC-V toolchain needs to get updated from a different file.",
+      "parentUuid": "0f5bbf3b_2861ada8",
+      "revId": "9a05b6d546d4874a6dce67943413411f6fe2119e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
