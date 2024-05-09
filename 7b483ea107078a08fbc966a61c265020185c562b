@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a20faa13_1a439611",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-09T00:30:52Z",
+      "side": 1,
+      "message": "Oh, this should say `b:334961878`. The default bug namespace is still crbug.com/boringssl because we\u0027re not buganizer yet.",
+      "revId": "7b483ea107078a08fbc966a61c265020185c562b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "249381e2_edc7d43c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
