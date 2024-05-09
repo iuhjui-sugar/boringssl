@@ -68,6 +68,23 @@
       "message": "Comment removed by: David Benjamin; Reason: Spam",
       "revId": "667a1632cdd711a48e000c26eac805bb28ab2005",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f5c507_0364258d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-09T05:43:59Z",
+      "side": 1,
+      "message": "Guessing you no longer have cycles to drive this (no worries!), so I\u0027ve gone ahead and made a copy of the CL at https://boringssl-review.googlesource.com/c/boringssl/+/68347 and tweaked it slightly, to move it forward.",
+      "revId": "667a1632cdd711a48e000c26eac805bb28ab2005",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
