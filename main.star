@@ -435,6 +435,27 @@ both_builders(
         },
     },
 )
+both_builders(
+    "android_riscv64_compile_only",
+    LINUX_HOST,
+    category = "android|riscv64",
+    short_name = "rel",
+    properties = {
+        "android": True,
+        "cmake_args": {
+            "ANDROID_ABI": "riscv64",
+            "ANDROID_PLATFORM": "android-35",
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+        # The default Android NDK cannot be updated until https://crbug.com/boringssl/454 is fixed.
+        # Meanwhile, RISC-V support requires a newer NDK, thus we override for this builder.
+        "gclient_vars": {
+            "android_ndk_revision": "wC8sJjVPRDPTbaZFlki_qXTC1lWJNbJi8glUO0woJ1MC"
+        },
+        "run_unit_tests": False,
+        "run_ssl_tests": False,
+    },
+)
 
 both_builders("docs", LINUX_HOST, recipe = "boringssl_docs", short_name = "doc")
 
