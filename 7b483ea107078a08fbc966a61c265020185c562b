@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57907a71_af725968",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-13T17:01:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a20faa13_1a439611",
+      "revId": "7b483ea107078a08fbc966a61c265020185c562b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "249381e2_edc7d43c",
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "It\u0027s the name that shows up in the column in green, in the table view here.\nhttps://ci.chromium.org/p/boringssl/g/main/console\n\nSo this would add a \"riscv64\" sibling to \"aarch64\" in the \"android\" category, and one column in there titled \"rel\".\n\nWhich... I think that\u0027s fine? I mean, it\u0027s compile-only but ah well.",
       "parentUuid": "6264a6ed_337e06ef",
+      "range": {
+        "startLine": 442,
+        "startChar": 4,
+        "endLine": 442,
+        "endChar": 23
+      },
+      "revId": "7b483ea107078a08fbc966a61c265020185c562b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66056334_b9c39927",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-13T17:01:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e8d882eb_0ea68f08",
       "range": {
         "startLine": 442,
         "startChar": 4,
