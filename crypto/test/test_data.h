@@ -23,6 +23,10 @@
 // the BORINGSSL_TEST_DATA_ROOT environment variable, or the current working
 // directory if unset.
 //
+// On supported platforms, if the BORINGSSL_TEST_DATA_FROM_EXECUTABLE_PATH
+// environment variable is set, BORINGSSL_TEST_DATA_ROOT will be interpreted
+// relative to the directory containing the executable.
+//
 // Callers with more complex needs can build with
 // BORINGSSL_CUSTOM_GET_TEST_DATA and then link in an alternate implementation
 // of this function.
