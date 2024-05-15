@@ -33,6 +33,23 @@
       "message": "tb is not davidben",
       "revId": "49b674c91b74b3154e30eafea69dc6a3f4350b6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "533f62c9_1280397a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2024-05-15T19:18:12Z",
+      "side": 1,
+      "message": "I guess I should have selected autosubmit. Probably someone needs to push a knob since I do not have authorization.",
+      "revId": "49b674c91b74b3154e30eafea69dc6a3f4350b6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
