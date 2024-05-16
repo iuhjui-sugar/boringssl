@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "944d579f_cfe94952",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-16T21:01:17Z",
+      "side": 1,
+      "message": "Windows bots have been tied up for hours, so bypassing CQ",
+      "revId": "2de095c8e7123d8dac21b60f11677dc638ac4858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
