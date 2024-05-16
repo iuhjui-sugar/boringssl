@@ -16,6 +16,23 @@
       "message": "(Whoops, didn\u0027t mean to rebase it. My checkout was confused. Ah well.)",
       "revId": "7b9df6e83fc1b8780706d3b53906358979efbe0e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52e65730_8ca06089",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-16T21:00:44Z",
+      "side": 1,
+      "message": "The Windows bots have been tied up for hours, so I\u0027m just going bypass the CQ.",
+      "revId": "7b9df6e83fc1b8780706d3b53906358979efbe0e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
