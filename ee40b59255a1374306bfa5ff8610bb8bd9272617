@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "085c9ec8_6d1f7f3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-16T19:27:20Z",
+      "side": 1,
+      "message": "Thanks! Looks like that worked, and delocate is happy.",
+      "revId": "ee40b59255a1374306bfa5ff8610bb8bd9272617",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
