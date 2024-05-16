@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e62e1e47_b84d2d6d",
+        "filename": "third_party/fiat/asm/fiat_p256_adx_mul.S",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-16T18:07:50Z",
+      "side": 1,
+      "message": "Nit: Mostly cosmetic, but I think hex would also be a bit more readable here, if that\u0027s easy.",
+      "range": {
+        "startLine": 123,
+        "startChar": 6,
+        "endLine": 123,
+        "endChar": 26
+      },
+      "revId": "3c342162fb25fbab564b742093fb6a0dc7b0e2a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d91e771f_75466902",
         "filename": "third_party/fiat/asm/fiat_p256_adx_sqr.S",
         "patchSetId": 1
