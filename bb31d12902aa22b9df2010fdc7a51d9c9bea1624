@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7dc12740_1798e9c1",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-17T16:06:10Z",
+      "side": 1,
+      "message": "seems odd to call this `ret` when it\u0027s not the return value. Maybe call it `out` and name the argument `out_byte`?",
+      "range": {
+        "startLine": 1179,
+        "startChar": 11,
+        "endLine": 1179,
+        "endChar": 14
+      },
+      "revId": "bb31d12902aa22b9df2010fdc7a51d9c9bea1624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fce7f42_a8e9729a",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-17T16:06:10Z",
+      "side": 1,
+      "message": "If this check where at L1200, could it just be `if (ret \u003d\u003d 0)` and thus not need to track `first`?",
+      "revId": "bb31d12902aa22b9df2010fdc7a51d9c9bea1624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0412f462_ca75bec9",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-05-17T16:06:10Z",
+      "side": 1,
+      "message": "seems more coherent if this line were at L1196.",
+      "revId": "bb31d12902aa22b9df2010fdc7a51d9c9bea1624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
