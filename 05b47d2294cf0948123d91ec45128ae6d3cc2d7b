@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e7c22d8_5977b3ba",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3420632
+      },
+      "writtenOn": "2024-05-17T11:09:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3db60c1a_02d7ff43",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d2fadcd_67696a75",
@@ -67,6 +85,24 @@
       "writtenOn": "2024-05-03T20:33:08Z",
       "side": 1,
       "message": "Nit: We like to declare variables close to where they\u0027re used, so this line can be removed and the line below replaced with `const char *p \u003d in + n`.",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41b03699_13af80e0",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 3420632
+      },
+      "writtenOn": "2024-05-17T11:09:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d2fadcd_67696a75",
       "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -120,6 +156,24 @@
       "side": 1,
       "message": "Oh I meant why is whitespace allowed? Looks like the OpenSSL patch also accepts it.\n\nFor that matter, it looks like, even with the fix, the function will think that `1.   2.   3.   4` is an IP address:\nhttps://godbolt.org/z/r5sTE9Y9c\n\nAlso stray plus signs:\nhttps://godbolt.org/z/c13z3jr3b\n\nI\u0027ll see how our internal tests fare against a stricter version of this, that specifically requires digits, dots, and nothing else. At that point, it\u0027s probably not worth using `sscanf`.",
       "parentUuid": "73605e3e_cdfa92d3",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f77236_558be743",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 3420632
+      },
+      "writtenOn": "2024-05-17T11:09:51Z",
+      "side": 1,
+      "message": "oh i see your point. plus signs are definitely bugs and should not be allowed.",
+      "parentUuid": "260ebf06_2b73e8aa",
       "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
