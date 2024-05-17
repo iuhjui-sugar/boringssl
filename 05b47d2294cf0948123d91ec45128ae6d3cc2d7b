@@ -212,6 +212,24 @@
       "parentUuid": "d6f352a1_f106f0d3",
       "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b7d4e7_83df176b",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T15:43:49Z",
+      "side": 1,
+      "message": "Here\u0027s a much stricter parser and a battery of tests for it:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/68567",
+      "parentUuid": "d871f3f1_95846aea",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
