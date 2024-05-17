@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61d5b54_a1df9f87",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T18:40:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7dc12740_1798e9c1",
+      "range": {
+        "startLine": 1179,
+        "startChar": 11,
+        "endLine": 1179,
+        "endChar": 14
+      },
+      "revId": "bb31d12902aa22b9df2010fdc7a51d9c9bea1624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fce7f42_a8e9729a",
@@ -41,6 +65,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd79ebe3_b5df4c73",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T18:40:48Z",
+      "side": 1,
+      "message": "Oh yeah that\u0027s much better. Done.",
+      "parentUuid": "8fce7f42_a8e9729a",
+      "revId": "bb31d12902aa22b9df2010fdc7a51d9c9bea1624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0412f462_ca75bec9",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-05-17T16:06:10Z",
       "side": 1,
       "message": "seems more coherent if this line were at L1196.",
+      "revId": "bb31d12902aa22b9df2010fdc7a51d9c9bea1624",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "293a504c_0fd5ac3d",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T18:40:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0412f462_ca75bec9",
       "revId": "bb31d12902aa22b9df2010fdc7a51d9c9bea1624",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
