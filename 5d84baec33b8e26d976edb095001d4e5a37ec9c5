@@ -1,0 +1,602 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45b5a62c_16d2dab2",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "```suggestion\n// Provided by libcrypto, called from BCM\n```",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 2
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3465205_583f28c1",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Guessing you meant to do something about this before uploading?\n\nBut, I dunno, I think it\u0027s OK for this header to contain inline functions that depend on random other headers.",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 11
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e68fffcc_e404ff91",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "This is a libcrypto -\u003e BCM API, rather than the other way around.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "690f9b14_e5966913",
+        "filename": "crypto/fipsmodule/aes/aes_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Oh, that\u0027s fun. I don\u0027t think we\u0027d ever discussed how test support functions, and general BCM -\u003e libcrypto dependencies work for unit tests.\n\nI\u0027m inclined to say that, for sanity, we should treat all unit tests as part of libcrypto and not BCM. BCM\u0027s behavior only matters in so far as how it impacts the libcrypto public API.\n\nThat means we don\u0027t actually need to rewrite this to BCM_RAND_bytes. (Ditto for all the other test files.)\n\nIt also means we probably should just pull all the tests outside of crypto/fipsmodule en masse.\n\nSome tests do reach into internal functions, and they may well need to reach into BCM internal functions, but I think that\u0027s fine.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74707baa_da35e6b7",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Since this isn\u0027t quite ready yet, maybe this should say something like...\n\n```suggestion\n// This header will eventually become the interface between BCM and the\n// rest of libcrypto. More cleanly separating the two is still a work in\n// progress (see https://crbug.com/boringssl/722) so, at the moment, we\n// consider this no different from any other header in BCM.\n//\n// Over time, calls from libcrypto to BCM will all move to this header\n// and the separation will become more meaningful.\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5972c7c4_36984ff1",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "```suggestion\nenum bcm_status_t {\n```",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 1
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd94df4f_fcb16d46",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Looks like this sentence wasn\u0027t finished.\n\nWe probably also need to say something about the relationship between this enum return and counter for the service indicator.\n\n(I think the thing to say for now is that, like the above, the official service indicator remains the counter. Over time, it might internally be derived from this enum, but that\u0027s an implementation detail. Then we finish the transition, we\u0027ll flip it once.)",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48966a4_d29528d3",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "We\u0027ve usually made the enum values lowercase. (I think I asked Adam what style he preferred way back and we stuck with that.)",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de0c75d_590083d7",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "So far, we\u0027ve usually just written out `enum bcm_status_t`, for better or worse.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb2dd99f_a9a05b08",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Nit: It\u0027s a bit weird that this is written like a macro, but is actually an inline function.",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 30
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b8c65de_d631bdb1",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Looks like this is used to size a stack buffer in `RAND_need_entropy`, as part of a complex calculation. Maybe we just call this `BCM_ENTROPY_READ_LEN`, have this be the actual number, and then just `static_assert` in `rand.c` that it matches the expression?\n\nOr heck, we can also just make a stack buffer of like 512 and not worry about it too hard. If BCM asks for more entropy, it\u0027ll just loop around and call it a couple times. Maybe stick an `assert` if we want to remind ourselves to make it bigger if it changes.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f379831c_98fd816a",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "This line is probably not needed now that this whole header is stuff provided by BCM.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d7605e9_70bf351a",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Can this function actually fail? We\u0027ve been pretty fussy about making RAND_bytes infallible because no one (including callers in this CL) remembers to check it.\n\nThat\u0027s... a bit of a headache. bcm_status isn\u0027t a great return value for infallible functions, because the type system doesn\u0027t capture the infallibility. Normally we\u0027d return `void` but we want to return the ridiculous service indicator.\n\nWDYT about having two enums, bcm_status for the fallible ones and another one for the infallible ones? Not sure what to call the other one.",
+      "range": {
+        "startLine": 49,
+        "startChar": 44,
+        "endLine": 49,
+        "endChar": 72
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad72e877_e354c1b9",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Idle thought: `BCM_rand_bytes` or `BCM_RAND_bytes`? Do we want to just treat `BCM` as a single flat namespace, or keep subdividing it?",
+      "range": {
+        "startLine": 50,
+        "startChar": 26,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17b30868_abf7d2a5",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "I think we don\u0027t need any of these to be OPENSSL_EXPORT. That\u0027s for shared library boundaries.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d242629e_0571802e",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "I suspect we won\u0027t actually list out all the possible failure cases as we start getting into more complex functions that may return different codes.\n\nPerhaps the documentation convention should simply be: \"It returns a success status on success and a failure status otherwise\".",
+      "range": {
+        "startLine": 54,
+        "startChar": 76,
+        "endLine": 56,
+        "endChar": 13
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "629e921e_a58405f5",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "A little surprised this builds. I remember there being some Windows headaches. `const` on the parameters themselves (rather than what they point to) mostly doesn\u0027t do anything useful.",
+      "range": {
+        "startLine": 57,
+        "startChar": 46,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58dc89f2_cf8529da",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Nit: Rewrap comment, here and below",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40cde9f9_5fbd4c1c",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Really, that we need to do this is an artifact of not doing the BCM_foo thing in dependency order. It\u0027s because it calls into AES code, which in turn uses the global counter for the service indicator.\n\nBut hopefully later we can unwind that.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "166f1316_903c622c",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Should this be part of bcm_support.h?",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d32baf_f7bed77c",
+        "filename": "crypto/rand_extra/getentropy.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Ah that\u0027s interesting. I guess this means that every C file that implements functions for `bcm_support.h` needs to include this header. That might get a little interesting as the set of functions in `bcm_support.h` shift over time.\n\nSomething to discuss and think about.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56cdeeb_accae5ce",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "If the passive entropy is moved out, what does it mean",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb690d40_2e27c8de",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Not for this CL, but maybe we should get rid of the `_extra` suffix on everything.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93acd1c6_df032d63",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Nit: internal includes come after C includes.\n\nIt was roughly generalized from this guidance:\nhttps://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177a86bf_87192a94",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "Nit: Two blank lines between includes and code.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4697a2fc_c6f26ff0",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "newline",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eecf949c_d6a3ed97",
+        "filename": "crypto/rand_extra/sysrand.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "To match the other stuff, I think this wants to be `crypto/rand_extra/internal.h`.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f74ab21_dcd37970",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "```suggestion\nstatic int urandom_fd;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a3e9eaf_e58b90dc",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "```suggestion\nstatic int getrandom_ready;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2791c3a9_4efdeba9",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "```suggestion\nstatic int extra_getrandom_flags_for_seed;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5dd9b55_275b7592",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "```suggestion\nstatic CRYPTO_once_t rand_once \u003d CRYPTO_ONCE_INIT;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d912b171_1e6c31c7",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-17T20:28:36Z",
+      "side": 1,
+      "message": "```suggestion\nstatic CRYPTO_once_t wait_for_entropy_once \u003d CRYPTO_ONCE_INIT;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
