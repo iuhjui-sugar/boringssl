@@ -230,6 +230,24 @@
       "parentUuid": "d871f3f1_95846aea",
       "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f38e9ed_9ab576e8",
+        "filename": "crypto/x509/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 3420632
+      },
+      "writtenOn": "2024-05-17T17:25:39Z",
+      "side": 1,
+      "message": "nice catches! gonna take a look at your patch. thanks for your helps :)",
+      "parentUuid": "99b7d4e7_83df176b",
+      "revId": "05b47d2294cf0948123d91ec45128ae6d3cc2d7b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
