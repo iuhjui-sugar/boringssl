@@ -272,4 +272,8 @@ void BORINGSSL_FIPS_abort(void) {
   }
 }
 
+const uint8_t* FIPS_module_hash(void) {
+  return BORINGSSL_bcm_text_hash;
+}
+
 #endif  // BORINGSSL_FIPS
