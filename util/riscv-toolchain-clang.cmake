@@ -1,0 +1,11 @@
+set(CMAKE_C_COMPILER "/usr/bin/clang")
+set(CMAKE_CXX_COMPILER "/usr/bin/clang")
+set(CMAKE_SYSTEM_NAME Linux)
+set(CMAKE_SYSTEM_VERSION 1)
+set(CMAKE_SYSTEM_PROCESSOR "riscv64")
+set(CMAKE_SYSROOT "/usr/riscv64-linux-gnu/")
+
+# Old flags, for use with clang (I think...)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --target=riscv64 -march=rv64gc -rtlib=compiler-rt" CACHE STRING "c++ flags")
+set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} --target=riscv64 -march=rv64gc -rtlib=compiler-rt" CACHE STRING "c flags")
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} --target=riscv64 -march=rv64gc -rtlib=compiler-rt" CACHE STRING "asm flags")
