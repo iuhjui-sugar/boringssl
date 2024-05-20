@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc7340de_b65e8ba0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-20T19:40:04Z",
+      "side": 1,
+      "message": "Submitting manually because the new Android RISC-V bot doesn\u0027t work on this branch, and our infra config isn\u0027t branched with the rest of the code. (It really should be...)",
+      "revId": "b70e21b5e4b7432f39ab8a9fc95119f110f22343",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
