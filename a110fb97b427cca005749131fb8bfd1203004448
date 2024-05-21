@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b4d4090_1a2a607e",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-21T16:59:36Z",
+      "side": 0,
+      "message": ".seh_startproc no longer needed because this is now a leaf function and leaf functions don\u0027t need SEH annotations.",
+      "revId": "a110fb97b427cca005749131fb8bfd1203004448",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "539771ff_9d310d92",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-21T16:59:36Z",
+      "side": 0,
+      "message": "Removed because we no longer need to align the stack.",
+      "revId": "a110fb97b427cca005749131fb8bfd1203004448",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d26abf34_b55d8ae4",
+        "filename": "crypto/fipsmodule/aes/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-21T16:59:36Z",
+      "side": 0,
+      "message": "(This doesn\u0027t do anything.)",
+      "range": {
+        "startLine": 123,
+        "startChar": 44,
+        "endLine": 123,
+        "endChar": 49
+      },
+      "revId": "a110fb97b427cca005749131fb8bfd1203004448",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
