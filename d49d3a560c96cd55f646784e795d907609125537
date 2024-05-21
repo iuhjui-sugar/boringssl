@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b820ed_0801e20d",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-21T16:57:32Z",
+      "side": 1,
+      "message": "This is slightly silly. We don\u0027t actually use the stack space. I think this function only does it because it needs to call another function (will be removed later...), and thus needs to 16-byte-align the stack.",
+      "revId": "d49d3a560c96cd55f646784e795d907609125537",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
