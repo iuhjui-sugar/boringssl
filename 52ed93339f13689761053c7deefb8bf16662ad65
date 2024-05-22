@@ -33,6 +33,24 @@
       "message": "```suggestion\n                                   constant_time_lt_w(OMEGA, h_ones))) {\n```\n\nNot sure why we don\u0027t have the full gamut. Probably would be handy.",
       "revId": "52ed93339f13689761053c7deefb8bf16662ad65",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92a014b0_08b92b38",
+        "filename": "crypto/dilithium/dilithium.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1337,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-05-22T08:36:34Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "6c3b9f93_6ed87fe6",
+      "revId": "52ed93339f13689761053c7deefb8bf16662ad65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
