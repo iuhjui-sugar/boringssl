@@ -272,6 +272,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "353b963d_53336a6e",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-23T20:26:42Z",
+      "side": 1,
+      "message": "hmm. I mean we could have a bcm_status and a bcm_status_infallble, and then probably set defined values to the enum bits so we could compatibly compare the ridiculous service indicator from each one. i.e. so they were always 1 and 2 or something. That what you\u0027re thinking?\n\n(otherwise I\u0027m not fond of the thought of doubling the number of ridiculous service indicators)",
+      "parentUuid": "3d7605e9_70bf351a",
+      "range": {
+        "startLine": 49,
+        "startChar": 44,
+        "endLine": 49,
+        "endChar": 72
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad72e877_e354c1b9",
         "filename": "crypto/fipsmodule/bcm_interface.h",
         "patchSetId": 18
