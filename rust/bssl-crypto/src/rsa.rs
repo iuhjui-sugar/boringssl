@@ -66,6 +66,12 @@ use core::ptr::null_mut;
 /// An RSA public key.
 pub struct PublicKey(*mut bssl_sys::RSA);
 
+impl std::fmt::Debug for PublicKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "RSA PublicKey")
+    }
+}
+
 impl PublicKey {
     /// Parse a DER-encoded RSAPublicKey structure (from RFC 8017).
     pub fn from_der_rsa_public_key(der: &[u8]) -> Option<Self> {
