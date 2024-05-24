@@ -64,6 +64,7 @@ use alloc::vec::Vec;
 use core::ptr::null_mut;
 
 /// An RSA public key.
+#[derive(Debug)]
 pub struct PublicKey(*mut bssl_sys::RSA);
 
 impl PublicKey {
