@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc1c300e_0467447b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-24T00:16:35Z",
+      "side": 1,
+      "message": "This is a WIP; it adds functionality in order to allow the migration of the rust openssl hashing algorithm use over to boringssl.\nSpecifically: this change allows the migration of the use as shown in this CL: https://android-review.git.corp.google.com/q/I4517aa6370b7515b8a326a46d98ef5e94d24c10a\n\nLet me know what you think / let\u0027s iterate on the design of these changes, thanks!",
+      "revId": "8d3d4674019a0c506f54ad9d4fab4d46299f6472",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
