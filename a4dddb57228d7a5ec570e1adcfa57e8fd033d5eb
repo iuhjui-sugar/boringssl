@@ -22,6 +22,30 @@
       },
       "revId": "a4dddb57228d7a5ec570e1adcfa57e8fd033d5eb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a865464_457abea1",
+        "filename": "crypto/crypto_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-24T20:08:36Z",
+      "side": 1,
+      "message": "Eh, we\u0027re already implicitly 0-basing the counter throughout. None of this code works right at all if the min isn\u0027t 0.",
+      "parentUuid": "b95e1d8a_5d5e0368",
+      "range": {
+        "startLine": 50,
+        "startChar": 21,
+        "endLine": 50,
+        "endChar": 23
+      },
+      "revId": "a4dddb57228d7a5ec570e1adcfa57e8fd033d5eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
