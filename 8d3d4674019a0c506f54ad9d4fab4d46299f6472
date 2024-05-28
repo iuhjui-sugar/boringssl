@@ -16,6 +16,23 @@
       "message": "This is a WIP; it adds functionality in order to allow the migration of the rust openssl hashing algorithm use over to boringssl.\nSpecifically: this change allows the migration of the use as shown in this CL: https://android-review.git.corp.google.com/q/I4517aa6370b7515b8a326a46d98ef5e94d24c10a\n\nLet me know what you think / let\u0027s iterate on the design of these changes, thanks!",
       "revId": "8d3d4674019a0c506f54ad9d4fab4d46299f6472",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "983fdf62_ae2f7719",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 15541
+      },
+      "writtenOn": "2024-05-28T20:02:25Z",
+      "side": 1,
+      "message": "This is a bit off. You should either be using `Box` from `alloc` or getting it from the prelude. Additionally, you don\u0027t use box in this module, so why are you importing it?",
+      "revId": "8d3d4674019a0c506f54ad9d4fab4d46299f6472",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
