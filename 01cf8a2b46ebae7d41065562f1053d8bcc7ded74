@@ -16,6 +16,24 @@
       "message": "Is the right place to do this here, or at the top of `ssl_key_share.cc` in libssl? This means that any part of BoringSSL that includes `crypto/kyber/internal.h` automatically pulls in the Kyber functions.\n\nThen again it\u0027s an internal header, so maybe it doesn\u0027t matter much. I dunno, thoughts?",
       "revId": "01cf8a2b46ebae7d41065562f1053d8bcc7ded74",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1f4bae5_45e4a77f",
+        "filename": "crypto/kyber/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T23:16:02Z",
+      "side": 1,
+      "message": "Yeah, this on is unneceessary.. whoever should be using this already has it defined.   Removed.",
+      "parentUuid": "0e94a628_560a81f3",
+      "revId": "01cf8a2b46ebae7d41065562f1053d8bcc7ded74",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
