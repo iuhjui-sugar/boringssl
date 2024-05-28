@@ -50,6 +50,24 @@
       "message": "Guessing you meant to delete this one.",
       "revId": "60cbe916550d430c06ef0462b50b7c1f12766a43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2b9696e_403f3a98",
+        "filename": "crypto/ecdsa_extra/ecdsa_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T19:56:13Z",
+      "side": 1,
+      "message": "yeah, I\u0027m nuking it in follow on, just noticed myself.",
+      "parentUuid": "f820c8af_36efbd87",
+      "revId": "60cbe916550d430c06ef0462b50b7c1f12766a43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
