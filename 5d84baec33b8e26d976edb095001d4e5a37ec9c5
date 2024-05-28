@@ -911,6 +911,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf887cf4_067ce351",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T23:53:16Z",
+      "side": 1,
+      "message": ".. and looking at the recent build changes, I guess, yes, this is indeed something they want to test.",
+      "parentUuid": "a18e8f6e_ab9e885a",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb690d40_2e27c8de",
         "filename": "crypto/rand_extra/rand_extra.c",
         "patchSetId": 18
