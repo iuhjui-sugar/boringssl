@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8a537ab_11b8652e",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45b5a62c_16d2dab2",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 2
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3465205_583f28c1",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b44b25a5_5d03d4d9",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Yeah it was a throwback from when it was in the other file, removed.",
+      "parentUuid": "e3465205_583f28c1",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 11
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e68fffcc_e404ff91",
@@ -60,6 +108,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "This is a libcrypto -\u003e BCM API, rather than the other way around.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e3b388b_873408cd",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "moved to the other file.",
+      "parentUuid": "e68fffcc_e404ff91",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -116,6 +182,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f49dff43_9bf59296",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74707baa_da35e6b7",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5972c7c4_36984ff1",
@@ -129,6 +213,30 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "```suggestion\nenum bcm_status_t {\n```",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 1
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a65742c_69bc6bb4",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5972c7c4_36984ff1",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -156,6 +264,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2b840d5_309b416b",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd94df4f_fcb16d46",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e48966a4_d29528d3",
@@ -173,6 +299,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdd07b3f_49e20071",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e48966a4_d29528d3",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1de0c75d_590083d7",
@@ -186,6 +330,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "So far, we\u0027ve usually just written out `enum bcm_status_t`, for better or worse.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21bf7159_1bdbba52",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Must admit I prefer the typedef for this.",
+      "parentUuid": "1de0c75d_590083d7",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -213,6 +375,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f644ad70_40e86ff6",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb2dd99f_a9a05b08",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 30
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b8c65de_d631bdb1",
@@ -230,6 +416,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd874aa0_39eacdd3",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "At the moment, since this involves some more extensive fiddling with stuff inside bcm, I\u0027d rather not change it in *this* CL.",
+      "parentUuid": "7b8c65de_d631bdb1",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f379831c_98fd816a",
@@ -243,6 +447,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "This line is probably not needed now that this whole header is stuff provided by BCM.",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf48c6f2_3e9904e8",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f379831c_98fd816a",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -284,6 +506,30 @@
       "side": 1,
       "message": "hmm. I mean we could have a bcm_status and a bcm_status_infallble, and then probably set defined values to the enum bits so we could compatibly compare the ridiculous service indicator from each one. i.e. so they were always 1 and 2 or something. That what you\u0027re thinking?\n\n(otherwise I\u0027m not fond of the thought of doubling the number of ridiculous service indicators)",
       "parentUuid": "3d7605e9_70bf351a",
+      "range": {
+        "startLine": 49,
+        "startChar": 44,
+        "endLine": 49,
+        "endChar": 72
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ddfa3b6_b8359cf0",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "353b963d_53336a6e",
       "range": {
         "startLine": 49,
         "startChar": 44,
@@ -340,6 +586,54 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfb82b1a_f46e5ae2",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17b30868_abf7d2a5",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3815a4db_e945cdc1",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "I dunno, but I think I like BCM_RAND_bytes and RAND_bytes for my brain better than BCM_rand_bytes and RAND_bytes....",
+      "parentUuid": "ad72e877_e354c1b9",
+      "range": {
+        "startLine": 50,
+        "startChar": 26,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d242629e_0571802e",
@@ -353,6 +647,30 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "I suspect we won\u0027t actually list out all the possible failure cases as we start getting into more complex functions that may return different codes.\n\nPerhaps the documentation convention should simply be: \"It returns a success status on success and a failure status otherwise\".",
+      "range": {
+        "startLine": 54,
+        "startChar": 76,
+        "endLine": 56,
+        "endChar": 13
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3a7c37f_931405e5",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "I kinda think the docs should still say which success status is returned. modified.",
+      "parentUuid": "d242629e_0571802e",
       "range": {
         "startLine": 54,
         "startChar": 76,
@@ -386,6 +704,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9861e133_ecbb9615",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "629e921e_a58405f5",
+      "range": {
+        "startLine": 57,
+        "startChar": 46,
+        "endLine": 57,
+        "endChar": 51
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58dc89f2_cf8529da",
@@ -399,6 +741,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "Nit: Rewrap comment, here and below",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ccffb64_9b6a8c19",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58dc89f2_cf8529da",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -433,6 +793,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "Should this be part of bcm_support.h?",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b6c1cd7_2d14b96b",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "166f1316_903c622c",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -488,6 +866,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5355de86_b2ea2798",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fb690d40_2e27c8de",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93acd1c6_df032d63",
@@ -501,6 +897,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "Nit: internal includes come after C includes.\n\nIt was roughly generalized from this guidance:\nhttps://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76cff56f_91c1278b",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93acd1c6_df032d63",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -522,6 +936,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb7bf982_16015e40",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "177a86bf_87192a94",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4697a2fc_c6f26ff0",
@@ -535,6 +967,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "newline",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e2fd8d_530601d5",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4697a2fc_c6f26ff0",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -556,6 +1006,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1dcc1f4_b620c569",
+        "filename": "crypto/rand_extra/sysrand.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eecf949c_d6a3ed97",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f74ab21_dcd37970",
@@ -569,6 +1037,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "```suggestion\nstatic int urandom_fd;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8f90a3e_c7542aa2",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f74ab21_dcd37970",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -590,6 +1076,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91ad80b1_636c60e1",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a3e9eaf_e58b90dc",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2791c3a9_4efdeba9",
@@ -603,6 +1107,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "```suggestion\nstatic int extra_getrandom_flags_for_seed;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaf61e33_c424c357",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2791c3a9_4efdeba9",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -624,6 +1146,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c90fb055_0acf732e",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5dd9b55_275b7592",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d912b171_1e6c31c7",
@@ -637,6 +1177,24 @@
       "writtenOn": "2024-05-17T20:28:36Z",
       "side": 1,
       "message": "```suggestion\nstatic CRYPTO_once_t wait_for_entropy_once \u003d CRYPTO_ONCE_INIT;\n```",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d27aed5d_fceccd53",
+        "filename": "crypto/rand_extra/urandom.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T22:59:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d912b171_1e6c31c7",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
