@@ -652,6 +652,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd86ee3b_4e83a251",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-28T23:51:05Z",
+      "side": 1,
+      "message": "And undone - because of service indicator test.",
+      "parentUuid": "bfb82b1a_f46e5ae2",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d242629e_0571802e",
