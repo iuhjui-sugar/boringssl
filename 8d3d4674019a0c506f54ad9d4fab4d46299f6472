@@ -33,6 +33,24 @@
       "message": "This is a bit off. You should either be using `Box` from `alloc` or getting it from the prelude. Additionally, you don\u0027t use box in this module, so why are you importing it?",
       "revId": "8d3d4674019a0c506f54ad9d4fab4d46299f6472",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c31ffef_40be1b80",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-28T21:10:41Z",
+      "side": 1,
+      "message": "Ah, good catch! I forgot to delete this unused import.",
+      "parentUuid": "983fdf62_ae2f7719",
+      "revId": "8d3d4674019a0c506f54ad9d4fab4d46299f6472",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
