@@ -876,6 +876,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c2c484b_20ba0ff6",
+        "filename": "crypto/rand_extra/getentropy.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-29T14:51:46Z",
+      "side": 1,
+      "message": "While yes, that\u0027s true, it should be only for things that implement an interface to be provided to BCM that is not already public. \n\nAs it turns out this one is not needed. I had initially prototyped CRYPTO_sysrand in sysrand.h, but you decided you wanted that moved to \"internal.h\" to follow the convention that I\u0027m not super fond of (because we end up with a million internal.h files instead of a header indicating what\u0027s in it) but this is fine for now, although I think \"internal.h\" for a file that\u0027s sharing an interface between rand_extra and bcm isn\u0027t really internal, and, well, maybe what is currently in what used to be sysrand.h and now is in rand_extra/internal.h should just be in bcm_support.h? \n\nWDYT?",
+      "parentUuid": "05d32baf_f7bed77c",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d56cdeeb_accae5ce",
         "filename": "crypto/rand_extra/passive.c",
         "patchSetId": 18
