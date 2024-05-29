@@ -892,6 +892,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab9d2d2b_5514ac8e",
+        "filename": "crypto/rand_extra/getentropy.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-29T22:34:58Z",
+      "side": 1,
+      "message": "So now it is needed, and basically I rolled the sysrand stuff into bcm_support as we discussed in chat. heading to one big header.",
+      "parentUuid": "4c2c484b_20ba0ff6",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d56cdeeb_accae5ce",
