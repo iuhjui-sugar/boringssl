@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2389bdbb_3a00bd38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-29T17:11:41Z",
+      "side": 1,
+      "message": "LGTM although perhaps let\u0027s get the downstream `#define`s added to users in google3 before landing this, just so the roll is less turbulent. 😜",
+      "revId": "81252fddbecd7ffa077eaaa624a28abd5379b21f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
