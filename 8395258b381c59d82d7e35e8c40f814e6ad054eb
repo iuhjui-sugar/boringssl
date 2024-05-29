@@ -16,6 +16,24 @@
       "message": "Think you have to update build.json and then rerun the tool. 😊",
       "revId": "8395258b381c59d82d7e35e8c40f814e6ad054eb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbe38be7_237e4c89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-05-29T15:47:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e086a6a7_7329b1c4",
+      "revId": "8395258b381c59d82d7e35e8c40f814e6ad054eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
