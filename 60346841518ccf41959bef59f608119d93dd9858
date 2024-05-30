@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1828e0b1_d178b964",
+        "filename": "util/all_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-30T22:33:57Z",
+      "side": 1,
+      "message": "I think the split here is mostly because, testing locally, you probably have your tools in $PATH. But then on CI, we needed to pass an explicit path, because they\u0027d be installed as a user. And so the flags were separate and all.\n\nFor QEMU, I guess you need to specify which qemu-user variant you\u0027re running? Merging the flag and maybe saying that we\u0027ll resolve via $PATH or something seems reasonable enough.",
+      "parentUuid": "a9789a42_ee89f562",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 109
+      },
+      "revId": "60346841518ccf41959bef59f608119d93dd9858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3c25a66_894b7849",
         "filename": "util/all_tests.go",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2024-05-30T22:25:42Z",
       "side": 1,
       "message": "I was wondering if there\u0027s a more clever way to infer this information? If we know the toolchain root used for the build, I think we could theoretically find the linker and libraries. Perhaps we don\u0027t have access to that info, or perhaps that would be attempting to be a bit too clever. Let me know what you think!",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "60346841518ccf41959bef59f608119d93dd9858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "368d89b1_30a305e9",
+        "filename": "util/all_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-05-30T22:33:57Z",
+      "side": 1,
+      "message": "Hmm, can we not make a statically-linked binary, and then this doesn\u0027t matter?\n\nWe already have the `USE_CUSTOM_LIBCXX` option to statically link our own libc++, used by the sanitizers. There\u0027s still the libc, but we\u0027ll already need to solve that problem because I don\u0027t think we can just install Debian packages on our CI machines.\n\nI was envisioning that we\u0027d make a CIPD package that builds a Clang-based RISC-V toolchain, with a statically linkable libc... no strong feelings which, but whichever is easiest to build. musl didn\u0027t look too bad.\n\nBeyond that, this script doesn\u0027t have very good visibility into the build right now, for better or worse. But we also mostly don\u0027t run it directly anymore and instead run it through CI or the `run_tests` CMake target.",
+      "parentUuid": "b3c25a66_894b7849",
       "range": {
         "startLine": 53,
         "startChar": 1,
