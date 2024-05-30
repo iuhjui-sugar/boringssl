@@ -48,6 +48,10 @@ var (
 	mallocTest      = flag.Int64("malloc-test", -1, "If non-negative, run each test with each malloc in turn failing from the given number onwards.")
 	mallocTestDebug = flag.Bool("malloc-test-debug", false, "If true, ask each test to abort rather than fail a malloc. This can be used with a specific value for --malloc-test to identity the malloc failing that is causing problems.")
 	simulateARMCPUs = flag.Bool("simulate-arm-cpus", simulateARMCPUsDefault(), "If true, runs tests simulating different ARM CPUs.")
+	useQemu			= flag.Bool("qemu", false, "If true, run tests using QEMU user emulation. Requires qemu-runtime.")
+	qemuBinary		= flag.String("qemu-binary", "", "Absolute path to the binary location for QEMU runtime. Requires the qemu flag to be set.")
+	dynamicLinker	= flag.String("qemu-linker", "", "Absolute path to the dynamic linker binary, used for additional context to the QEMU runtime. Requires the qemu flag to be set.")
+	sharedLibsPath	= flag.String("qemu-library-path", "", "Absolute path to the toolchain library path, used for additional context to the QEMU runtime. Requires the qemu flag to be set.")
 )
 
 func simulateARMCPUsDefault() bool {
@@ -163,6 +167,18 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 		// detected.
 		args = append(args, "--no_unwind_tests")
 	}
+	if *useQemu {
+		// The QEMU binary becomes the program to run, and the previous test program
+		// to run instead becomes an additional argument to the QEMU binary.
+		origProg := prog
+		prog = *qemuBinary
+		args = append([]string{origProg}, args...)
+
+		if *dynamicLinker != "" {
+			args = append([]string{*dynamicLinker, "--library-path", *sharedLibsPath}, args...)
+		}
+	}
+
 	var cmd *exec.Cmd
 	if *useValgrind {
 		cmd = valgrindOf(false, prog, args...)
@@ -324,8 +340,35 @@ func (t test) getGTestShards() ([]test, error) {
 	return shards, nil
 }
 
+func areFlagsValid() bool {
+	allArgsValid := true
+
+	if *useQemu {
+		hasQemuBinary := *qemuBinary != ""
+		hasDynamicLinker := *dynamicLinker != ""
+		hasSharedLibsPath := *sharedLibsPath != ""
+		// The binary path must be set, and the presence of dynamic linker and shared libs
+		// must be consistent; either both set, or both unset.
+		hasValidQemuOptions := hasQemuBinary && (hasDynamicLinker == hasSharedLibsPath)
+		if !hasValidQemuOptions {
+			fmt.Println("Invalid QEMU invocation. If using QEMU, we require a QEMU binary. " +
+			"Additionally, we require that both the dynamic linker and shared libs path are " +
+			"set together. These args muse either both be set, or both unset.")
+		}
+		allArgsValid = allArgsValid && hasValidQemuOptions
+	}
+
+	return allArgsValid
+}
+
 func main() {
 	flag.Parse()
+
+	if !areFlagsValid() {
+		fmt.Printf("Invalid flags passed, please correct and try again.")
+		os.Exit(1)
+	}
+
 	setWorkingDirectory()
 
 	testCases, err := testconfig.ParseTestConfig("util/all_tests.json")
