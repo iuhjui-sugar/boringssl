@@ -48,6 +48,7 @@ var (
 	mallocTest      = flag.Int64("malloc-test", -1, "If non-negative, run each test with each malloc in turn failing from the given number onwards.")
 	mallocTestDebug = flag.Bool("malloc-test-debug", false, "If true, ask each test to abort rather than fail a malloc. This can be used with a specific value for --malloc-test to identity the malloc failing that is causing problems.")
 	simulateARMCPUs = flag.Bool("simulate-arm-cpus", simulateARMCPUsDefault(), "If true, runs tests simulating different ARM CPUs.")
+	qemuBinary		= flag.String("qemu", "", "Optional, absolute path to a binary location for QEMU runtime.")
 )
 
 func simulateARMCPUsDefault() bool {
@@ -163,6 +164,14 @@ func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
 		// detected.
 		args = append(args, "--no_unwind_tests")
 	}
+	if *qemuBinary != "" {
+		// The QEMU binary becomes the program to run, and the previous test program
+		// to run instead becomes an additional argument to the QEMU binary.
+		origProg := prog
+		prog = *qemuBinary
+		args = append([]string{origProg}, args...)
+	}
+
 	var cmd *exec.Cmd
 	if *useValgrind {
 		cmd = valgrindOf(false, prog, args...)
