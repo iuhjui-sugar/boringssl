@@ -153,8 +153,12 @@ var (
 )
 
 func runTestOnce(test test, mallocNumToFail int64) (passed bool, err error) {
-	prog := path.Join(*buildDir, test.Cmd[0])
-	args := append([]string{}, test.Cmd[1:]...)
+	prog_original := path.Join("build", test.Cmd[0])
+	// prog = "/usr/local/google/home/aknobloch/Downloads/qemu-build/usr/bin/qemu-riscv64 /usr/riscv64-linux-gnu/lib/ld-linux-riscv64-lp64d.so.1 --library-path /usr/riscv64-linux-gnu/lib/ " + prog
+	prog := "/usr/local/google/home/aknobloch/Downloads/qemu-build/usr/bin/qemu-riscv64"
+	args := append([]string{"/usr/riscv64-linux-gnu/lib/ld-linux-riscv64-lp64d.so.1", "--library-path", "/usr/riscv64-linux-gnu/lib/", prog_original}, test.Cmd[1:]...)
+	// args := append([]string{}, test.Cmd[1:]...)
+	// fmt.Printf("%s %s\n", prog, args)
 	if *simulateARMCPUs && test.cpu != "" {
 		args = append(args, "--cpu="+test.cpu)
 	}
@@ -346,6 +350,7 @@ func main() {
 	go func() {
 		for _, baseTest := range testCases {
 			test := test{Test: baseTest}
+
 			if *useSDE {
 				if test.SkipSDE {
 					continue
