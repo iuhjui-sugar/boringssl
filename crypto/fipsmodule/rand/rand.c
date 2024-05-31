@@ -25,7 +25,6 @@
 #include <openssl/mem.h>
 
 #include "internal.h"
-#include "fork_detect.h"
 #include "../bcm_interface.h"
 #include "../../bcm_support.h"
 #include "../delocate.h"
