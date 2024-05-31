@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2c0370f_9d6d6b9c",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 15541
+      },
+      "writtenOn": "2024-05-31T20:57:22Z",
+      "side": 1,
+      "message": "? This isn\u0027t going to be meaningful, it\u0027s going to be a pointer value. Why did we add this?",
+      "revId": "8472e5f566c135422cf16cba078bdccba5b16892",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
