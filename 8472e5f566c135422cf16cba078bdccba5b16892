@@ -52,6 +52,24 @@
       "parentUuid": "e14a5dac_80576e1d",
       "revId": "8472e5f566c135422cf16cba078bdccba5b16892",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93d7bf04_3d28d5e2",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-05-31T21:20:08Z",
+      "side": 1,
+      "message": "Ah! Oops, that makes sense -- I\u0027ve make Debug just print that it\u0027s an RSA public key :)",
+      "parentUuid": "1e78b545_eb481926",
+      "revId": "8472e5f566c135422cf16cba078bdccba5b16892",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
