@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e06183d_b6955d35",
+        "filename": "util/all_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-31T21:38:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1828e0b1_d178b964",
+      "range": {
+        "startLine": 51,
+        "startChar": 13,
+        "endLine": 51,
+        "endChar": 109
+      },
+      "revId": "60346841518ccf41959bef59f608119d93dd9858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3c25a66_894b7849",
@@ -95,6 +119,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f29bd56_176808f0",
+        "filename": "util/all_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-31T21:38:27Z",
+      "side": 1,
+      "message": "Ah, yeah this makes sense. Done.",
+      "parentUuid": "368d89b1_30a305e9",
+      "range": {
+        "startLine": 53,
+        "startChar": 1,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "60346841518ccf41959bef59f608119d93dd9858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84db7d6c_e329ecf5",
@@ -108,6 +156,30 @@
       "writtenOn": "2024-05-30T22:25:42Z",
       "side": 1,
       "message": "If we feel this is useful, I\u0027m happy to follow up in another CL with more validations. For instance, I don\u0027t believe the combination of useSDE and simulateARMCPUs is valid, nor the combination of useValgrind / useCallgrind. There are a number of places in this script which do some of this validation. I think it\u0027d be beneficial to consolidate and make that validation be front-loaded and explicit. Lmk what you think!\n\nIf this isn\u0027t useful, I\u0027ll scrap this bit and do the validation elsewhere.",
+      "range": {
+        "startLine": 343,
+        "startChar": 5,
+        "endLine": 343,
+        "endChar": 18
+      },
+      "revId": "60346841518ccf41959bef59f608119d93dd9858",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a944045_9c5ced4d",
+        "filename": "util/all_tests.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-05-31T21:38:27Z",
+      "side": 1,
+      "message": "Irrelevant with the switch to statically linked binaries.",
+      "parentUuid": "84db7d6c_e329ecf5",
       "range": {
         "startLine": 343,
         "startChar": 5,
