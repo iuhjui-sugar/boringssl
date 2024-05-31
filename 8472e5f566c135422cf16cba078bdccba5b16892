@@ -34,6 +34,24 @@
       "parentUuid": "b2c0370f_9d6d6b9c",
       "revId": "8472e5f566c135422cf16cba078bdccba5b16892",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e78b545_eb481926",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 15541
+      },
+      "writtenOn": "2024-05-31T21:05:50Z",
+      "side": 1,
+      "message": "https://docs.rs/openssl/latest/src/openssl/pkey.rs.html#382-400\n\nThe previous crate prints which algorithm the key was for. If you want similar functionality, Debug should print something that says this is an RSA public key, and nothing more.\n\nSince this is restricted to public keys (`PKey` in `openssl` could also hold private keys), you could also choose to print the contents of the key.\n\nYou can\u0027t actually `impl Debug` for `PublicKey` outside this crate, so if you need to do it, it needs to be done here, it\u0027s just a matter of what is being printed - printing a pointer is one of a very small number of wrong answers :P",
+      "parentUuid": "e14a5dac_80576e1d",
+      "revId": "8472e5f566c135422cf16cba078bdccba5b16892",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
