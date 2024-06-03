@@ -16,6 +16,114 @@
       "message": "+ reviewers",
       "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41b4e343_d5f81b57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T19:18:35Z",
+      "side": 1,
+      "message": "Please fix the line breaks in the commit message.\n\n(Apart from `new`, this is already possible via existing trait impls, although I can see the argument that the names aren\u0027t as ideal.)",
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62572c74_4d60e6f2",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T19:18:35Z",
+      "side": 1,
+      "message": "The output size is often not a multiple of the block len and the concrete values used below are wrong. Did you want the block length? If so, comment and name are incorrect.",
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9f06447_12fa880c",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T19:18:35Z",
+      "side": 1,
+      "message": "Are you in a non-std context? (The hash functions already implement `Write` if `std` is available, although I don\u0027t have a particular problem with also implementing `update` here.",
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51da77ce_64a4f265",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T19:18:35Z",
+      "side": 1,
+      "message": "`new` should come above `update`. (Here and in `macros.rs`.)",
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae3079e_83c0909c",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T19:18:35Z",
+      "side": 1,
+      "message": "`ArraySizedAlgorithm` is a weird name. `WithOutputLength`?\n\n(Also, this duplicates the `From` impl. Although I can see that `digest` is a clearer name than `into`.)",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee83131_1dd3608f",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T19:18:35Z",
+      "side": 1,
+      "message": "unrelated?",
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
