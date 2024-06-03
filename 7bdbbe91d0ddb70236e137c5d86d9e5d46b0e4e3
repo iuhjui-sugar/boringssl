@@ -16,6 +16,40 @@
       "message": "Moved the Debug implementation for RSA PublicKey into its own CL.",
       "revId": "7bdbbe91d0ddb70236e137c5d86d9e5d46b0e4e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4c510b_aa317ad4",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T23:25:17Z",
+      "side": 1,
+      "message": "Needs:\n\n```rust\n#[cfg(feature \u003d \"std\")]\n```",
+      "revId": "7bdbbe91d0ddb70236e137c5d86d9e5d46b0e4e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d9b8aa7_601b1fad",
+        "filename": "rust/bssl-crypto/src/rsa.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T23:25:17Z",
+      "side": 1,
+      "message": "nit: Debug impl should be somewhere in here, with the other trait impls.",
+      "revId": "7bdbbe91d0ddb70236e137c5d86d9e5d46b0e4e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
