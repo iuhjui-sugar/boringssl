@@ -132,6 +132,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "534c5a2b_a787fa4d",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Think you may have forgotten to move it. 😊",
+      "parentUuid": "1e3b388b_873408cd",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "690f9b14_e5966913",
         "filename": "crypto/fipsmodule/aes/aes_test.cc",
         "patchSetId": 18
@@ -454,6 +472,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37d04863_5d6ab48c",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Maybe we add a TODO in the meantime?",
+      "parentUuid": "dd874aa0_39eacdd3",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f379831c_98fd816a",
         "filename": "crypto/fipsmodule/bcm_interface.h",
         "patchSetId": 18
@@ -671,6 +707,30 @@
         "startChar": 0,
         "endLine": 50,
         "endChar": 14
+      },
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2706e9_bb1cd636",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Well, it\u0027s a little interesting because our APIs may not correspond to BCM APIs directly. This stuff will correspond, as will hashes, but RSA, ECDSA, and cipher stuff will diverge a lot.\n\nI think the reason this is throwing me off is that `FOO_BAR_baz` usually is a \"method\" of type `FOO_BAR` and then `FOO_baz` usually is a random free function in module `FOO`. 😊\n\n*shrug*",
+      "parentUuid": "3815a4db_e945cdc1",
+      "range": {
+        "startLine": 50,
+        "startChar": 26,
+        "endLine": 50,
+        "endChar": 40
       },
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"

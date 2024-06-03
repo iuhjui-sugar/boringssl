@@ -1,0 +1,312 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c1ded9_6d060b4a",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "It does make me a little sad we have to pull all this into bcm_support.h, but I don\u0027t have a great alternative answer.\n\nThinking aloud:\n* BCM doesn\u0027t need to call `CRYPTO_init_sysrand`. That\u0027s purely to support callers that want to run `CRYPTO_pre_sandbox_init`.\n* Beyond that, the only reason we need these in the header is to decide whether `CRYPTO_sysrand_if_available` is an inline wrapper over `CRYPTO_sysrand` or not.\n\nFor the latter, we could just decide to *not* make it an inline wrapper, and instead put, in `rand_extra.c`, something like\n\n```\n#if !defined(OPENSSL_RAND_URANDOM)\nint CRYPTO_sysrand_if_available(uint8_t *buf, size_t len) {\n  CRYPTO_sysrand(buf, len);\n  return 1;\n}\n#endif\n```\n\nWe could even just add that to all the individual `CRYPTO_sysrand` definitions if we really wanted to.\n\nDunno, is that worth it, to trim this header a bit?",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f70a5c2_3ef99866",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Do we actually need these constants? `bcm_success` will never be passed a `bcm_infallible_t` because it\u0027s always true.",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb07be14_25501721",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "indicator",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b036691f_551298a4",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "indicator",
+      "range": {
+        "startLine": 35,
+        "startChar": 63,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae10c0f_c3708d70",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "How are you envisioning this pre-transition state looking? We don\u0027t have any example \"approved\" functions yet here (hashes might have been a better starting point), so I\u0027m not sure what the plan is.\n\nIs the idea that we\u0027d just always write these in pairs:\n```\n  FIPS_service_indicator_update_state();\n  return bcm_status_approved;\n```\n\nAnd then later we\u0027d delete the `FIPS_service_indicator_update_state()` calls? Or do we need a helper that turns `bcm_status_approved` into a call to `FIPS_service_indicator_update_state`?",
+      "range": {
+        "startLine": 36,
+        "startChar": 42,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d9b23e5_7fe77a33",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "`bcm_status_failure` is kind of weird. We\u0027re ultimately going to have to map these to things in the error queue, at least for the vast majority of functions. (Though we don\u0027t have any examples of these right now... possibly we should have picked a more interesting function to start with.)\n\nBut since it\u0027s all one enum, it\u0027s hard to see how we could do useful things with `bcm_status_failure` in the generic mapping function.",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e83c5a5b_4e7aabac",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "A thought: what if the failure values were all negative and the success values were \u003e\u003d 0. And then `bcm_success` can be `\u003e\u003d 0` and generate pretty tight code.",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fc049a7_3cc34262",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Similar comment as before, I think we don\u0027t really want to have to replicate in the header and implementation whether a function returns approved or not. Since *every* function will return one of these enums, I think we simply document these enums once and then let the type system capture this.\n\n(Is this actually approved? The code suggests no.)",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1663841_2d2732d9",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "I can\u0027t find any callers in this CL which set `fast` to 1. Is that option actually used?",
+      "range": {
+        "startLine": 69,
+        "startChar": 67,
+        "endLine": 69,
+        "endChar": 71
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d106b35_21e8a667",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Extra D here. Also see above.\n\n(Is this actually approved? The code suggests no.)",
+      "range": {
+        "startLine": 71,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "548f9603_9901d786",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "BCM_RAND_bytes_with_additional_data",
+      "range": {
+        "startLine": 75,
+        "startChar": 3,
+        "endLine": 75,
+        "endChar": 34
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2556fb_e5898fd9",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Nit: not alphabetized (clang-format)",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b40cbeae_df48d2bf",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Nit: not alphabetized (clang-format)",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18bbbff0_ac801bad",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "clang-format, or just delete the `else`.",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e829476_3e8b011a",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "Nit: alphabetize",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e63da2d_782d07b3",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-03T21:38:50Z",
+      "side": 1,
+      "message": "We should probably talk in our next 1:1 about whether this would be better to move out right away, or to stage inside and move later. This may be a bit of a challenge.",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
