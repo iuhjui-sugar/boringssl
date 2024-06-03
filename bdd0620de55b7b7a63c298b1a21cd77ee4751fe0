@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad968fe1_df01fa13",
+        "filename": "util/all_tests.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-06-03T22:56:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68c6d2c0_55647f15",
+      "revId": "bdd0620de55b7b7a63c298b1a21cd77ee4751fe0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecc12b3a_1b84e641",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-03T22:27:49Z",
       "side": 1,
       "message": "Is there a reason this is different from how the others work? I guess the others don\u0027t let you combine multiple modifiers. Wasn\u0027t sure if you were intending to.",
+      "revId": "bdd0620de55b7b7a63c298b1a21cd77ee4751fe0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b4997c2_5012a5c0",
+        "filename": "util/all_tests.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-06-03T22:56:10Z",
+      "side": 1,
+      "message": "I think you\u0027re asking about the slice appending logic. The invocation order for this needs to be QEMU binary, the test binary to run, and then any additional args.\n\nUp until this point in the code, the prog to run is the test binary, and the args is a slice containing any additional args. So this bit of logic first sets the prog as the QEMU binary, and then the args as the test binary plus whatever other args were already being passed in addition to that. Since we need to prepend the test binary to the existing args, we first pack it into a slice (as the first arg to append()) and then we need to give 1...N items to append() to that slice. Which are the existing args, unpacked so that the append() function is happy with them.\n\nDoes that answer your question? Sorry if I\u0027m over / under explaining!",
+      "parentUuid": "ecc12b3a_1b84e641",
       "revId": "bdd0620de55b7b7a63c298b1a21cd77ee4751fe0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
