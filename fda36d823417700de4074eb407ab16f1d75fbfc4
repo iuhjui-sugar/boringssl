@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "646f3ca6_0426109d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T23:22:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0e87f7e5_c7a9d9da",
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62572c74_4d60e6f2",
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "Oh, no I\u0027m not in a non-std context (I didn\u0027t realize this)! I think it would be good to have `update` here though, to be able to more closely match the hashing algorithm usage in rust-openssl. \n\nAlso, eventually we plan to support running this on baremetal so I think it would be good to not rely on std.",
       "parentUuid": "f9f06447_12fa880c",
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbe0ae54_fd461e0d",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T23:22:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8a346570_ed35bb7d",
       "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -195,6 +231,30 @@
       "side": 1,
       "message": "Ah thanks, that is a much better name. \nAlso -- that\u0027s true about `into` and `digest` being the same. I wanted to have this method be called `digest` to keep it more consistent with the `Algorithm` `digest_to_vec`; we could alternatively call it `finish` (and `finish_to_vec`) to match the corresponding method in the rust-openssl `Hasher`. \nDo you think it\u0027s ok to keep both `into` and `digest`?",
       "parentUuid": "dae3079e_83c0909c",
+      "range": {
+        "startLine": 71,
+        "startChar": 10,
+        "endLine": 71,
+        "endChar": 29
+      },
+      "revId": "fda36d823417700de4074eb407ab16f1d75fbfc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba2aec1_bd5425c7",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 4
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-03T23:22:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "af6c6492_8ac69a14",
       "range": {
         "startLine": 71,
         "startChar": 10,
