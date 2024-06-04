@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc91a033_70c92101",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-04T23:16:21Z",
+      "side": 1,
+      "message": "Ugh, I didn\u0027t think of this downside to the traits 😞",
+      "revId": "9fcf1739d12af756fad995a5a2e7061010bfc5e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
