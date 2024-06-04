@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9a0edc4_87374907",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 35
+      },
+      "lineNbr": 2371,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T23:17:26Z",
+      "side": 0,
+      "message": "RAND_bytes was approved before here. so presumably BCM_rand_bytes should therefore be approved.",
+      "revId": "c8100f0f0d05c5185d58113e12a867ae0771a6c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -317,6 +317,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db2ed73f_ad409485",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T23:17:26Z",
+      "side": 1,
+      "message": "Actually, I lied, I think it is approved.  the service indicator test always tested that RAND_bytes was approved.",
+      "parentUuid": "27d62fc8_5a670a47",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1663841_2d2732d9",
