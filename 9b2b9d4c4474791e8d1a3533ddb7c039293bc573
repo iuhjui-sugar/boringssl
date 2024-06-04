@@ -46,6 +46,30 @@
       },
       "revId": "9b2b9d4c4474791e8d1a3533ddb7c039293bc573",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40fa9e69_b59acee5",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-04T18:18:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5a39450b_bf82c2f0",
+      "range": {
+        "startLine": 69,
+        "startChar": 22,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "9b2b9d4c4474791e8d1a3533ddb7c039293bc573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
