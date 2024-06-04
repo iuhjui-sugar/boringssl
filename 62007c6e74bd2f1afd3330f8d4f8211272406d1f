@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fde66f5_666ee3f3",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "I think if we just make all of the sysrand implementations provide all of the functions unconditionally it cleans this up a lot and we don\u0027t need as much\n#ifdef soup in here. \n\nThis now stashes that stuff away in sysrand_internal.h, and expects all the \nsysrand providers to give you all the functions. That pulls it out of here. \n\n(more of this will go away when fork detection is extracted)",
+      "parentUuid": "12c1ded9_6d060b4a",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f70a5c2_3ef99866",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-03T21:38:50Z",
       "side": 1,
       "message": "Do we actually need these constants? `bcm_success` will never be passed a `bcm_infallible_t` because it\u0027s always true.",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "100f7d09_b84c4df4",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "If in the end we want to test and differentiate them on an infallible, we will.",
+      "parentUuid": "3f70a5c2_3ef99866",
       "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -81,6 +117,54 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c797476f_7ccc18ae",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b036691f_551298a4",
+      "range": {
+        "startLine": 35,
+        "startChar": 63,
+        "endLine": 35,
+        "endChar": 73
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "581c170a_b4617d5b",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb07be14_25501721",
+      "range": {
+        "startLine": 35,
+        "startChar": 16,
+        "endLine": 35,
+        "endChar": 24
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ae10c0f_c3708d70",
@@ -94,6 +178,30 @@
       "writtenOn": "2024-06-03T21:38:50Z",
       "side": 1,
       "message": "How are you envisioning this pre-transition state looking? We don\u0027t have any example \"approved\" functions yet here (hashes might have been a better starting point), so I\u0027m not sure what the plan is.\n\nIs the idea that we\u0027d just always write these in pairs:\n```\n  FIPS_service_indicator_update_state();\n  return bcm_status_approved;\n```\n\nAnd then later we\u0027d delete the `FIPS_service_indicator_update_state()` calls? Or do we need a helper that turns `bcm_status_approved` into a call to `FIPS_service_indicator_update_state`?",
+      "range": {
+        "startLine": 36,
+        "startChar": 42,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de8765ea_cf6acbb4",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "We can certainly turn bcm_success() into such a helper if we decide we need it as it sits today, that\u0027s what I was thinking of to do this (It presupposes we call bcm_success on the infallible functions too)",
+      "parentUuid": "7ae10c0f_c3708d70",
       "range": {
         "startLine": 36,
         "startChar": 42,
@@ -138,6 +246,42 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7841b588_56c53651",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "I don\u0027t think we do anything useful with bcm_status_failure in the generic mapping funciton, it\u0027s basically \"the library has failed\". It *currently* is used only in a place where the library generically failed before (without setting anything like an error code) - in our case, when we want bytes from hardware random, and don\u0027t have rdrand.\n\nI would envision future ones a-la malloc_failed, etc. etc. that would map to pushing something on the error stack.",
+      "parentUuid": "1d9b23e5_7fe77a33",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7faa861_622def09",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e83c5a5b_4e7aabac",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7fc049a7_3cc34262",
@@ -155,6 +299,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27d62fc8_5a670a47",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Hmm it appears to *not* be approved, my bad. changing it around.",
+      "parentUuid": "7fc049a7_3cc34262",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1663841_2d2732d9",
@@ -168,6 +330,30 @@
       "writtenOn": "2024-06-03T21:38:50Z",
       "side": 1,
       "message": "I can\u0027t find any callers in this CL which set `fast` to 1. Is that option actually used?",
+      "range": {
+        "startLine": 69,
+        "startChar": 67,
+        "endLine": 69,
+        "endChar": 71
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9488704_b6638356",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "indeed there isn\u0027t.. changed.",
+      "parentUuid": "a1663841_2d2732d9",
       "range": {
         "startLine": 69,
         "startChar": 67,
@@ -201,6 +387,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46b47c73_ea9774fe",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d106b35_21e8a667",
+      "range": {
+        "startLine": 71,
+        "startChar": 3,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "548f9603_9901d786",
@@ -214,6 +424,30 @@
       "writtenOn": "2024-06-03T21:38:50Z",
       "side": 1,
       "message": "BCM_RAND_bytes_with_additional_data",
+      "range": {
+        "startLine": 75,
+        "startChar": 3,
+        "endLine": 75,
+        "endChar": 34
+      },
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5f0012_816a22e6",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 32
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "548f9603_9901d786",
       "range": {
         "startLine": 75,
         "startChar": 3,
@@ -258,6 +492,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9faee038_b06efff0",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b40cbeae_df48d2bf",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18bbbff0_ac801bad",
@@ -275,6 +527,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "261d7816_a508b8a5",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18bbbff0_ac801bad",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e829476_3e8b011a",
@@ -288,6 +558,24 @@
       "writtenOn": "2024-06-03T21:38:50Z",
       "side": 1,
       "message": "Nit: alphabetize",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa4a4fbb_58e973a6",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e829476_3e8b011a",
       "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },

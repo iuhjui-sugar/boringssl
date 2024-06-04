@@ -148,6 +148,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e530aab8_c8cf6878",
+        "filename": "crypto/bcm_support.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "534c5a2b_a787fa4d",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "690f9b14_e5966913",
@@ -484,6 +502,24 @@
       "side": 1,
       "message": "Maybe we add a TODO in the meantime?",
       "parentUuid": "dd874aa0_39eacdd3",
+      "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a86b95c2_aa575cf3",
+        "filename": "crypto/fipsmodule/bcm_interface.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-04T22:50:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37d04863_5d6ab48c",
       "revId": "5d84baec33b8e26d976edb095001d4e5a37ec9c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
