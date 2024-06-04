@@ -22,6 +22,30 @@
       },
       "revId": "9b2b9d4c4474791e8d1a3533ddb7c039293bc573",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a39450b_bf82c2f0",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2024-06-04T18:17:13Z",
+      "side": 1,
+      "message": "Looks like that one is needed, without it I see:\n\n```\nerror[E0596]: cannot borrow `self.ctx` as mutable, as it is not declared as mutable\n  --\u003e src/macros.rs:74:52\n   |\n69 |               fn digest(self) -\u003e [u8; OUTPUT_LEN] {\n   |                         ---- help: consider changing this to be mutable: `mut self`\n...\n74 |                           bssl_sys::$final_func(out, \u0026mut self.ctx);\n   |                                                      ^^^^^^^^^^^^^ cannot borrow as mutable\n```",
+      "parentUuid": "1c80adc0_d9466efb",
+      "range": {
+        "startLine": 69,
+        "startChar": 22,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "9b2b9d4c4474791e8d1a3533ddb7c039293bc573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
