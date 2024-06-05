@@ -2369,7 +2369,7 @@ TEST(ServiceIndicatorTest, DRBG) {
 
   ASSERT_TRUE(CALL_SERVICE_AND_CHECK_APPROVED(
       approved, RAND_bytes(output, sizeof(output))));
-  EXPECT_EQ(approved, FIPSStatus::APPROVED);
+  EXPECT_EQ(approved, FIPSStatus::NOT_APPROVED);
 }
 
 #else  // !BORINGSSL_FIPS
