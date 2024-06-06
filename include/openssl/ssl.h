@@ -4612,6 +4612,10 @@ enum ssl_select_cert_result_t BORINGSSL_ENUM_INT {
   // ssl_select_cert_error indicates that a fatal error occured and the
   // handshake should be terminated.
   ssl_select_cert_error = -1,
+  // ssl_select_cert_disable_ech indicates that a fatal error occured while
+  // hanadshaking with ClientHelloInner and the handshake should instead be
+  // completed with ClientHelloOuter without sending retry_configs.
+  ssl_select_cert_disable_ech = -2,
 };
 
 // SSL_early_callback_ctx_extension_get searches the extensions in

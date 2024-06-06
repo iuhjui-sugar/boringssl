@@ -45,6 +45,7 @@ struct TestState {
   bssl::UniquePtr<SSL_SESSION> session;
   bssl::UniquePtr<SSL_SESSION> pending_session;
   bool early_callback_called = false;
+  bool ech_rewind_done = false;
   bool handshake_done = false;
   // private_key is the underlying private key used when testing custom keys.
   bssl::UniquePtr<EVP_PKEY> private_key;
