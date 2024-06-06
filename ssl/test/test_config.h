@@ -118,6 +118,7 @@ struct TestConfig {
   bool implicit_handshake = false;
   bool use_early_callback = false;
   bool fail_early_callback = false;
+  bool fail_early_callback_ech_rewind = false;
   bool install_ddos_callback = false;
   bool fail_ddos_callback = false;
   bool fail_cert_callback = false;
