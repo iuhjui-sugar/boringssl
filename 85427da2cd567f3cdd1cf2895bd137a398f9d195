@@ -16,6 +16,29 @@
       "message": "Some of the files I touched weren\u0027t fully formatted, if desired I can format them in this diff. If you prefer to handle that separately, that\u0027s fine too",
       "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83d27780_bfa507a9",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-06T18:31:13Z",
+      "side": 1,
+      "message": "You seem to be immediately selecting 1.2 here and just moving forward. I\u0027m not sure that\u0027s always correct in this case?",
+      "range": {
+        "startLine": 731,
+        "startChar": 7,
+        "endLine": 731,
+        "endChar": 46
+      },
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
