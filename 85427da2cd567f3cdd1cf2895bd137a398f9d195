@@ -39,6 +39,30 @@
       },
       "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd3bd278_128f7c2e",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-06T18:32:43Z",
+      "side": 1,
+      "message": "Haven\u0027t looked at the rest of the CL, but that\u0027s fine. This isn\u0027t selecting TLS 1.2. It\u0027s just that the outer state machine is the TLS 1.2 one, so all the states are called 12.",
+      "parentUuid": "83d27780_bfa507a9",
+      "range": {
+        "startLine": 731,
+        "startChar": 7,
+        "endLine": 731,
+        "endChar": 46
+      },
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
