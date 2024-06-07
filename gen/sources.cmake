@@ -414,6 +414,7 @@ set(
   crypto/refcount.c
   crypto/rsa_extra/rsa_asn1.c
   crypto/rsa_extra/rsa_crypt.c
+  crypto/rsa_extra/rsa_extra.c
   crypto/rsa_extra/rsa_print.c
   crypto/siphash/siphash.c
   crypto/spx/address.c
