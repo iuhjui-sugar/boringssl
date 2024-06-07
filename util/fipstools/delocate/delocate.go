@@ -1601,6 +1601,7 @@ func parseInputs(inputs []inputFile, cppCommand []string) error {
 		asm := Asm{Buffer: contents, Pretty: true}
 		asm.Init()
 		if err := asm.Parse(); err != nil {
+			fmt.Fprintf(os.Stderr, "\n\n----BEGIN INPUT----\n%s\n----END INPUT----\n\n", contents)
 			return fmt.Errorf("error while parsing %q: %s", input.path, err)
 		}
 		ast := asm.AST()
