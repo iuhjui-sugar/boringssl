@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22a02b51_daf62903",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-07T19:03:54Z",
+      "side": 1,
+      "message": "It is important that LocalLabelRef comes before Offset, otherwise we will greedily parse digits as offsets and fail to backtrack. PEGs are weird.",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 53,
+        "endChar": 27
+      },
+      "revId": "730385b51ac930509d121709a40fecf92e333f7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
