@@ -255,6 +255,8 @@ if(MSAN)
     message(FATAL_ERROR "ASAN and MSAN are mutually exclusive")
   endif()
 
+  # MSan requires position-independent code.
+  set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
   set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
