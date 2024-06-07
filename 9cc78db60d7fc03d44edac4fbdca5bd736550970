@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1087c4d_b0cc902d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-07T18:17:42Z",
+      "side": 1,
+      "message": "Bug: 345521547",
+      "revId": "9cc78db60d7fc03d44edac4fbdca5bd736550970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
