@@ -284,7 +284,7 @@ WALLEYE_HOST = {
 }
 
 # SDE tests take longer to run.
-SDE_TIMEOUT = 60 * time.minute
+SDE_TIMEOUT = 3 * 60 * time.minute
 
 # TODO(davidben): Switch the BoringSSL recipe to specify most flags in
 # properties rather than parsing names. Then we can add new configurations
