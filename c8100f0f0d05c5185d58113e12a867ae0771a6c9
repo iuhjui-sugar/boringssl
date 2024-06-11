@@ -16,6 +16,24 @@
       "message": "This seems to have broken some downstream code. I\u0027ll go fix it, but it reveals a pretty serious evolvability flaw in Rust. Moving a method from the type to a trait is not a backwards-compatible operation: \nhttps://ci.chromium.org/ui/p/chromium/builders/try/linux-rel/1846970/overview",
       "revId": "c8100f0f0d05c5185d58113e12a867ae0771a6c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa08b8de_1f97d5ce",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-11T22:21:11Z",
+      "side": 0,
+      "message": "Putting digest() on WithOutputLength also means that no one can call digest() without importing the WithOutputLength trait. I don\u0027t think that\u0027s a good API. I think we revert for now and, I guess, going forward, we need to be much more stringent about traits in Rust APIs because the language is not set up for it very well.",
+      "parentUuid": "5aa37f50_b5ebbaa7",
+      "revId": "c8100f0f0d05c5185d58113e12a867ae0771a6c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
