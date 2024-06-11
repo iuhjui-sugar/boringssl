@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aa37f50_b5ebbaa7",
+        "filename": "rust/bssl-crypto/src/macros.rs",
+        "patchSetId": 7
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-11T22:10:54Z",
+      "side": 0,
+      "message": "This seems to have broken some downstream code. I\u0027ll go fix it, but it reveals a pretty serious evolvability flaw in Rust. Moving a method from the type to a trait is not a backwards-compatible operation: \nhttps://ci.chromium.org/ui/p/chromium/builders/try/linux-rel/1846970/overview",
+      "revId": "c8100f0f0d05c5185d58113e12a867ae0771a6c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
