@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8df3439_2d8dbe24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2024-06-11T23:01:58Z",
+      "side": 1,
+      "message": "\u003e  If you move a method from a type to a trait, this is a backwards-incompatible change that is visible to the caller. That is, Rust does not allow introducing abstractions in a backwars-compatible way!\n\nFirst, there is a tool called cargo-semver-check that can help detect many of the (subtle) API breakages during CI.\n\nSecondly, instead of moving an inherent method to a trait, you can copy the method to the trait, optionally mark the inherent method deprecated, and (somewhat optionally) change the implementation of the inherent method to delegate to the trait implementation. Rust has mostly reasonable rules for collisions between names of inherent methods and in-scope trait implementations.",
+      "revId": "fff36415cce19c97bd4cce186c81bd9c863d4da1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
