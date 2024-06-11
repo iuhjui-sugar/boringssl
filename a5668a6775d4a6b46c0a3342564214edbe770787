@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55cff4ec_81f08050",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11611
+      },
+      "writtenOn": "2024-06-11T23:46:35Z",
+      "side": 1,
+      "message": "This works but isn\u0027t quite finished yet, at the very least because I\u0027ve disregarded Windows and FIPS for now.  Adding reviewers now in case anyone wants to took a look anyway.\n\nCompared to the alternative implementation from @vlad@cloudflare.com (https://boringssl-review.googlesource.com/c/boringssl/+/65987), this implementation is a bit faster on long messages and supports both 256-bit and 512-bit vectors.",
+      "revId": "a5668a6775d4a6b46c0a3342564214edbe770787",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
