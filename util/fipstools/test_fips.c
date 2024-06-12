@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
   printf("Module: '%s', version: %" PRIu32 " hash:\n", FIPS_module_name(),
          module_version);
 
-#if !defined(OPENSSL_ASAN)
+#if !defined(OPENSSL_ASAN) && defined(BORINGSSL_FIPS)
   hexdump(FIPS_module_hash(), SHA256_DIGEST_LENGTH);
 #else
   printf("(not available when compiled for ASAN)");
