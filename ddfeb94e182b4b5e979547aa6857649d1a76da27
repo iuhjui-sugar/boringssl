@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5827e002_0764d0b3",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-12T21:36:21Z",
+      "side": 1,
+      "message": "Think you meant to only have one copy of this line. 😊\n\nWe\u0027ve definitely seen no end of false positives in `-Wstringop-overflow` before, but I\u0027m actually not triggering this in GCC 13.2.0. How are you building it?",
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e05eb744_ae31ada8",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-12T21:36:21Z",
+      "side": 1,
+      "message": "```suggestion\n#if defined(__GNUC__) \u0026\u0026 !defined(__clang__)\n```",
+      "range": {
+        "startLine": 563,
+        "startChar": 34,
+        "endLine": 563,
+        "endChar": 43
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73c8faf7_729befc2",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-12T21:36:21Z",
+      "side": 1,
+      "message": "Probably worth a comment around here for what we\u0027re up to. 😊",
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a5ecd58_b5cfc81f",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-12T21:36:21Z",
+      "side": 1,
+      "message": "Amazing. I\u0027ve never seen these before. Was surprised to find they do indeed build on random platforms in godbolt!",
+      "range": {
+        "startLine": 564,
+        "startChar": 39,
+        "endLine": 564,
+        "endChar": 50
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c19a4659_c4f7d8be",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-12T21:36:21Z",
+      "side": 1,
+      "message": "Nit: Just for the sake of not making assumptions about `ULL`, let\u0027s write this as something like:\n\n```\nsize_t n_vec \u003d n \u0026 ~((size_t)31);\nfor (size_t i \u003d 0; i \u003c n_vec; i +\u003d 32) {\n  ...\n}\nout +\u003d n_vec;\nn -\u003d n_vec;\n```",
+      "range": {
+        "startLine": 566,
+        "startChar": 25,
+        "endLine": 566,
+        "endChar": 35
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a703442c_4c0d6471",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-12T21:36:21Z",
+      "side": 1,
+      "message": "Trying to remind myself, so this value barrier is needed because, without it, the compiler knows that `mask` is a 1-bit value, and recognizes it can replace this code with:\n\n```\nif (mask) {\n  for (size_t i \u003d 0; i \u003c n; i++) {\n    out[i] ^\u003d in[i];\n  }\n}\n```\n\nAnd so we place a barrier to destroy that reasoning. But, importantly, we use a non-volatile asm block, so the compiler is already allowed to do:\n\n```\nmask \u003d value_barrier_w(mask);\nfor (size_t i \u003d 0; i \u003c n; i++) {\n  out[i] ^\u003d mask \u0026 in[i];\n}\n```\n\nWhich is why, from there, Clang is able to vectorize and generally optimize things. But, for some reason, the barrier is frustrating GCC. Is that right?\n\nWhat if, instead of this, we helped GCC out a bit and do the first step for them. I.e. we simply write the loop with the barrier hoisted out of the loop. Now the compiler does know that, when `mask` is zero, the loop can be skipped, but a priori the mask may be any bit pattern, so the compiler isn\u0027t likely to speculatively insert a `mask \u003d\u003d 0` branch. (If it is, I think we already lose because the value barriers permit this transform.)",
+      "range": {
+        "startLine": 573,
+        "startChar": 13,
+        "endLine": 573,
+        "endChar": 35
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
