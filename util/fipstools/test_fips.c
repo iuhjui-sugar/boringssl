@@ -37,6 +37,14 @@
 #include "../../crypto/fipsmodule/tls/internal.h"
 #include "../../crypto/internal.h"
 
+// Allow this code to compile and link when compiled without FIPS.
+#if !defined(BORINGSSL_FIPS)
+#define PRINT_MODULE_HASH {abort();}
+#elif defined(OPENSSL_ASAN)
+#define PRINT_MODULE_HASH {printf("(not available when compiled for ASAN)");}
+#else
+#define PRINT_MODULE_HASH {hexdump(FIPS_module_hash(), SHA256_DIGEST_LENGTH);}
+#endif
 
 static void hexdump(const void *a, size_t len) {
   const unsigned char *in = (const unsigned char *)a;
@@ -58,12 +66,8 @@ int main(int argc, char **argv) {
   printf("Module: '%s', version: %" PRIu32 " hash:\n", FIPS_module_name(),
          module_version);
 
-#if !defined(OPENSSL_ASAN)
-  hexdump(FIPS_module_hash(), SHA256_DIGEST_LENGTH);
-#else
-  printf("(not available when compiled for ASAN)");
-#endif
-  printf("\n");
+  PRINT_MODULE_HASH;
+
 
   static const uint8_t kAESKey[16] = "BoringCrypto Key";
   static const uint8_t kPlaintext[64] =
