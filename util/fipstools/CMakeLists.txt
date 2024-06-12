@@ -1,4 +1,4 @@
-if(FIPS)
+if(NOT MSVC)
   add_executable(
     test_fips
 
