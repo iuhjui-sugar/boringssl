@@ -759,7 +759,7 @@ static int check_mod_inverse(int *out_ok, const BIGNUM *a, const BIGNUM *ainv,
                              const BIGNUM *m, unsigned m_min_bits,
                              BN_CTX *ctx) {
   if (BN_is_negative(ainv) ||
-      constant_time_declassify_int(BN_cmp(ainv, m) >= 0)) {
+      boringssl_declassify_int(BN_cmp(ainv, m) >= 0)) {
     *out_ok = 0;
     return 1;
   }
@@ -773,7 +773,7 @@ static int check_mod_inverse(int *out_ok, const BIGNUM *a, const BIGNUM *ainv,
             bn_mul_consttime(tmp, a, ainv, ctx) &&
             bn_div_consttime(NULL, tmp, tmp, m, m_min_bits, ctx);
   if (ret) {
-    *out_ok = constant_time_declassify_int(BN_is_one(tmp));
+    *out_ok = boringssl_declassify_int(BN_is_one(tmp));
   }
   BN_CTX_end(ctx);
   return ret;
@@ -833,9 +833,9 @@ int RSA_check_key(const RSA *key) {
   // n was bound by |rsa_check_public_key|. This also implicitly checks p and q
   // are odd, which is a necessary condition for Montgomery reduction.
   if (BN_is_negative(key->p) ||
-      constant_time_declassify_int(BN_cmp(key->p, key->n) >= 0) ||
+      boringssl_declassify_int(BN_cmp(key->p, key->n) >= 0) ||
       BN_is_negative(key->q) ||
-      constant_time_declassify_int(BN_cmp(key->q, key->n) >= 0)) {
+      boringssl_declassify_int(BN_cmp(key->q, key->n) >= 0)) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_N_NOT_EQUAL_P_Q);
     goto out;
   }
@@ -866,8 +866,8 @@ int RSA_check_key(const RSA *key) {
     goto out;
   }
 
-  if (constant_time_declassify_int(!BN_is_one(&tmp)) ||
-      constant_time_declassify_int(!BN_is_one(&de))) {
+  if (boringssl_declassify_int(!BN_is_one(&tmp)) ||
+      boringssl_declassify_int(!BN_is_one(&de))) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_D_E_NOT_CONGRUENT_TO_1);
     goto out;
   }

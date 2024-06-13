@@ -330,7 +330,7 @@ int BN_mod_inverse_blinded(BIGNUM *out, int *out_no_inverse, const BIGNUM *a,
   // |a| is secret, but it is required to be in range, so these comparisons may
   // be leaked.
   if (BN_is_negative(a) ||
-      constant_time_declassify_int(BN_cmp(a, &mont->N) >= 0)) {
+      boringssl_declassify_int(BN_cmp(a, &mont->N) >= 0)) {
     OPENSSL_PUT_ERROR(BN, BN_R_INPUT_NOT_REDUCED);
     return 0;
   }

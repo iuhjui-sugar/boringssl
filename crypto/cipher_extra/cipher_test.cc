@@ -582,7 +582,7 @@ TEST(CipherTest, SHA1WithSecretSuffix) {
   uint8_t buf[SHA_CBLOCK * 4];
   RAND_bytes(buf, sizeof(buf));
   // Hashing should run in time independent of the bytes.
-  CONSTTIME_SECRET(buf, sizeof(buf));
+  BORINGSSL_SECRET(buf, sizeof(buf));
 
   // Exhaustively testing interesting cases in this function is cubic in the
   // block size, so we test in 3-byte increments.
@@ -605,11 +605,11 @@ TEST(CipherTest, SHA1WithSecretSuffix) {
 
         uint8_t expected[SHA_DIGEST_LENGTH];
         SHA1(buf, prefix + len, expected);
-        CONSTTIME_DECLASSIFY(expected, sizeof(expected));
+        BORINGSSL_DECLASSIFY(expected, sizeof(expected));
 
         // Make a copy of the secret length to avoid interfering with the loop.
         size_t secret_len = len;
-        CONSTTIME_SECRET(&secret_len, sizeof(secret_len));
+        BORINGSSL_SECRET(&secret_len, sizeof(secret_len));
 
         SHA_CTX ctx;
         SHA1_Init(&ctx);
@@ -618,7 +618,7 @@ TEST(CipherTest, SHA1WithSecretSuffix) {
         ASSERT_TRUE(EVP_sha1_final_with_secret_suffix(
             &ctx, computed, buf + prefix, secret_len, max_len));
 
-        CONSTTIME_DECLASSIFY(computed, sizeof(computed));
+        BORINGSSL_DECLASSIFY(computed, sizeof(computed));
         EXPECT_EQ(Bytes(expected), Bytes(computed));
       }
     }
@@ -629,7 +629,7 @@ TEST(CipherTest, SHA256WithSecretSuffix) {
   uint8_t buf[SHA256_CBLOCK * 4];
   RAND_bytes(buf, sizeof(buf));
   // Hashing should run in time independent of the bytes.
-  CONSTTIME_SECRET(buf, sizeof(buf));
+  BORINGSSL_SECRET(buf, sizeof(buf));
 
   // Exhaustively testing interesting cases in this function is cubic in the
   // block size, so we test in 3-byte increments.
@@ -652,11 +652,11 @@ TEST(CipherTest, SHA256WithSecretSuffix) {
 
         uint8_t expected[SHA256_DIGEST_LENGTH];
         SHA256(buf, prefix + len, expected);
-        CONSTTIME_DECLASSIFY(expected, sizeof(expected));
+        BORINGSSL_DECLASSIFY(expected, sizeof(expected));
 
         // Make a copy of the secret length to avoid interfering with the loop.
         size_t secret_len = len;
-        CONSTTIME_SECRET(&secret_len, sizeof(secret_len));
+        BORINGSSL_SECRET(&secret_len, sizeof(secret_len));
 
         SHA256_CTX ctx;
         SHA256_Init(&ctx);
@@ -665,7 +665,7 @@ TEST(CipherTest, SHA256WithSecretSuffix) {
         ASSERT_TRUE(EVP_sha256_final_with_secret_suffix(
             &ctx, computed, buf + prefix, secret_len, max_len));
 
-        CONSTTIME_DECLASSIFY(computed, sizeof(computed));
+        BORINGSSL_DECLASSIFY(computed, sizeof(computed));
         EXPECT_EQ(Bytes(expected), Bytes(computed));
       }
     }

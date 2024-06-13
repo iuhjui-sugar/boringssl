@@ -1907,7 +1907,7 @@ int ED25519_sign(uint8_t out_sig[64], const uint8_t *message,
   sc_muladd(out_sig + 32, hram, az, nonce);
 
   // The signature is computed from the private key, but is public.
-  CONSTTIME_DECLASSIFY(out_sig, 64);
+  BORINGSSL_DECLASSIFY(out_sig, 64);
   return 1;
 }
 
@@ -1986,7 +1986,7 @@ void ED25519_keypair_from_seed(uint8_t out_public_key[32],
   x25519_ge_scalarmult_base(&A, az);
   ge_p3_tobytes(out_public_key, &A);
   // The public key is derived from the private key, but it is public.
-  CONSTTIME_DECLASSIFY(out_public_key, 32);
+  BORINGSSL_DECLASSIFY(out_public_key, 32);
 
   OPENSSL_memcpy(out_private_key, seed, 32);
   OPENSSL_memcpy(out_private_key + 32, out_public_key, 32);
@@ -2121,7 +2121,7 @@ int X25519(uint8_t out_shared_key[32], const uint8_t private_key[32],
   static const uint8_t kZeros[32] = {0};
   x25519_scalar_mult(out_shared_key, private_key, peer_public_value);
   // The all-zero output results when the input is a point of small order.
-  return constant_time_declassify_int(
+  return boringssl_declassify_int(
              CRYPTO_memcmp(kZeros, out_shared_key, 32)) != 0;
 }
 
@@ -2153,5 +2153,5 @@ void X25519_public_from_private(uint8_t out_public_value[32],
   fe_loose_invert(&zminusy_inv, &zminusy);
   fe_mul_tlt(&zminusy_inv, &zplusy, &zminusy_inv);
   fe_tobytes(out_public_value, &zminusy_inv);
-  CONSTTIME_DECLASSIFY(out_public_value, 32);
+  BORINGSSL_DECLASSIFY(out_public_value, 32);
 }

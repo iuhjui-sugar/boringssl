@@ -272,15 +272,15 @@ int bn_copy_words(BN_ULONG *out, size_t num, const BIGNUM *bn);
 void bn_assert_fits_in_bytes(const BIGNUM *bn, size_t num);
 
 // bn_secret marks |bn|'s contents, but not its width or sign, as secret. See
-// |CONSTTIME_SECRET| for details.
+// |BORINGSSL_SECRET| for details.
 OPENSSL_INLINE void bn_secret(BIGNUM *bn) {
-  CONSTTIME_SECRET(bn->d, bn->width * sizeof(BN_ULONG));
+  BORINGSSL_SECRET(bn->d, bn->width * sizeof(BN_ULONG));
 }
 
-// bn_declassify marks |bn|'s value as public. See |CONSTTIME_DECLASSIFY| for
+// bn_declassify marks |bn|'s value as public. See |BORINGSSL_DECLASSIFY| for
 // details.
 OPENSSL_INLINE void bn_declassify(BIGNUM *bn) {
-  CONSTTIME_DECLASSIFY(bn->d, bn->width * sizeof(BN_ULONG));
+  BORINGSSL_DECLASSIFY(bn->d, bn->width * sizeof(BN_ULONG));
 }
 
 // bn_mul_add_words multiples |ap| by |w|, adds the result to |rp|, and places

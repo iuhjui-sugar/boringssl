@@ -27,7 +27,7 @@ int ec_bignum_to_scalar(const EC_GROUP *group, EC_SCALAR *out,
   // that are not will be discarded, so leaking the result of the comparison is
   // safe.
   if (!bn_copy_words(out->words, group->order.N.width, in) ||
-      !constant_time_declassify_int(bn_less_than_words(
+      !boringssl_declassify_int(bn_less_than_words(
           out->words, group->order.N.d, group->order.N.width))) {
     OPENSSL_PUT_ERROR(EC, EC_R_INVALID_SCALAR);
     return 0;

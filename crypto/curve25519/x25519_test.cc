@@ -38,16 +38,16 @@ static inline int ctwrapX25519(uint8_t out_shared_key[32],
   OPENSSL_memcpy(point, peer_public_value, sizeof(point));
 
   // X25519 should not leak the private key.
-  CONSTTIME_SECRET(scalar, sizeof(scalar));
+  BORINGSSL_SECRET(scalar, sizeof(scalar));
   // All other inputs are also marked as secret. This is not to support any
   // particular use case for calling X25519 with a secret *point*, but
   // rather to ensure that the choice of the point cannot influence whether
   // the scalar is leaked or not. Same for the initial contents of the
   // output buffer. This conservative choice may be revised in the future.
-  CONSTTIME_SECRET(point, sizeof(point));
-  CONSTTIME_SECRET(out_shared_key, 32);
+  BORINGSSL_SECRET(point, sizeof(point));
+  BORINGSSL_SECRET(out_shared_key, 32);
   int r = X25519(out_shared_key, scalar, point);
-  CONSTTIME_DECLASSIFY(out_shared_key, 32);
+  BORINGSSL_DECLASSIFY(out_shared_key, 32);
   return r;
 }
 
@@ -119,15 +119,15 @@ TEST(X25519Test, TestVector) {
   };
 
   OPENSSL_memcpy(secret, kPrivateA, sizeof(secret));
-  CONSTTIME_SECRET(secret, sizeof(secret));
+  BORINGSSL_SECRET(secret, sizeof(secret));
   X25519_public_from_private(out, secret);
-  CONSTTIME_DECLASSIFY(out, sizeof(out));
+  BORINGSSL_DECLASSIFY(out, sizeof(out));
   EXPECT_EQ(Bytes(out), Bytes(kPublicA));
 
   OPENSSL_memcpy(secret, kPrivateB, sizeof(secret));
-  CONSTTIME_SECRET(secret, sizeof(secret));
+  BORINGSSL_SECRET(secret, sizeof(secret));
   X25519_public_from_private(out, secret);
-  CONSTTIME_DECLASSIFY(out, sizeof(out));
+  BORINGSSL_DECLASSIFY(out, sizeof(out));
   EXPECT_EQ(Bytes(out), Bytes(kPublicB));
 
   ctwrapX25519(out, kPrivateA, kPublicB);

@@ -118,8 +118,8 @@ int dsa_check_key(const DSA *dsa) {
     // The private key is a non-zero element of the scalar field, determined by
     // |q|.
     if (BN_is_negative(dsa->priv_key) ||
-        constant_time_declassify_int(BN_is_zero(dsa->priv_key)) ||
-        constant_time_declassify_int(BN_cmp(dsa->priv_key, dsa->q) >= 0)) {
+        boringssl_declassify_int(BN_is_zero(dsa->priv_key)) ||
+        boringssl_declassify_int(BN_cmp(dsa->priv_key, dsa->q) >= 0)) {
       OPENSSL_PUT_ERROR(DSA, DSA_R_INVALID_PARAMETERS);
       return 0;
     }

@@ -681,7 +681,7 @@ static int scalar_decode_signed(scalar *out, const uint8_t *in, int bits,
     // is okay to leak the value. This function is also called with secret
     // input during signing, in |scalar_sample_mask|. However, in that case
     // (and in any case when |max| is a power of two), this case is impossible.
-    if (constant_time_declassify_int(element > 2 * max)) {
+    if (boringssl_declassify_int(element > 2 * max)) {
       return 0;
     }
     out->c[i] = reduce_once(kPrime + max - element);
@@ -743,10 +743,10 @@ static void scalar_uniform_eta_4(scalar *out,
       // Individual bytes of the SHAKE-256 stream are (indistiguishable from)
       // independent of each other and the original seed, so leaking information
       // about the rejected bytes does not reveal the input or output.
-      if (constant_time_declassify_int(t0 < 9)) {
+      if (boringssl_declassify_int(t0 < 9)) {
         out->c[done++] = reduce_once(kPrime + ETA - t0);
       }
-      if (done < DEGREE && constant_time_declassify_int(t1 < 9)) {
+      if (done < DEGREE && boringssl_declassify_int(t1 < 9)) {
         out->c[done++] = reduce_once(kPrime + ETA - t1);
       }
     }
@@ -784,7 +784,7 @@ static void scalar_sample_in_ball_vartime(scalar *out, const uint8_t *seed,
   // where the zeros are by memory access pattern. Although this leak happens
   // before bad signatures are rejected, this is safe. See
   // https://boringssl-review.googlesource.com/c/boringssl/+/67747/comment/8d8f01ac_70af3f21/
-  CONSTTIME_DECLASSIFY(block + offset, sizeof(block) - offset);
+  BORINGSSL_DECLASSIFY(block + offset, sizeof(block) - offset);
 
   OPENSSL_memset(out, 0, sizeof(*out));
   for (size_t i = DEGREE - TAU; i < DEGREE; i++) {
@@ -793,7 +793,7 @@ static void scalar_sample_in_ball_vartime(scalar *out, const uint8_t *seed,
       if (offset == 136) {
         BORINGSSL_keccak_squeeze(&keccak_ctx, block, sizeof(block));
         // See above.
-        CONSTTIME_DECLASSIFY(block, sizeof(block));
+        BORINGSSL_DECLASSIFY(block, sizeof(block));
         offset = 0;
       }
 
@@ -1179,7 +1179,7 @@ int DILITHIUM_generate_key_external_entropy(
   const uint8_t *const sigma = expanded_seed + RHO_BYTES;
   const uint8_t *const k = expanded_seed + RHO_BYTES + SIGMA_BYTES;
   // rho is public.
-  CONSTTIME_DECLASSIFY(rho, RHO_BYTES);
+  BORINGSSL_DECLASSIFY(rho, RHO_BYTES);
   OPENSSL_memcpy(values->pub.rho, rho, sizeof(values->pub.rho));
   OPENSSL_memcpy(priv->rho, rho, sizeof(priv->rho));
   OPENSSL_memcpy(priv->k, k, sizeof(priv->k));
@@ -1196,7 +1196,7 @@ int DILITHIUM_generate_key_external_entropy(
 
   vectork_power2_round(&values->pub.t1, &priv->t0, &values->t);
   // t1 is public.
-  CONSTTIME_DECLASSIFY(&values->pub.t1, sizeof(values->pub.t1));
+  BORINGSSL_DECLASSIFY(&values->pub.t1, sizeof(values->pub.t1));
 
   CBB cbb;
   CBB_init_fixed(&cbb, out_encoded_public_key, DILITHIUM_PUBLIC_KEY_BYTES);
@@ -1320,7 +1320,7 @@ static int dilithium_sign_with_randomizer(
     // https://boringssl-review.googlesource.com/c/boringssl/+/67747/comment/2bbab0fa_d241d35a/
     uint32_t z_max = vectorl_max(&values->sign.z);
     uint32_t r0_max = vectork_max_signed(&values->r0);
-    if (constant_time_declassify_w(
+    if (boringssl_declassify_w(
             constant_time_ge_w(z_max, kGamma1 - BETA) |
             constant_time_ge_w(r0_max, kGamma2 - BETA))) {
       continue;
@@ -1333,15 +1333,15 @@ static int dilithium_sign_with_randomizer(
     // See above.
     uint32_t ct0_max = vectork_max(&values->ct0);
     size_t h_ones = vectork_count_ones(&values->sign.h);
-    if (constant_time_declassify_w(constant_time_ge_w(ct0_max, kGamma2) |
+    if (boringssl_declassify_w(constant_time_ge_w(ct0_max, kGamma2) |
                                    constant_time_lt_w(OMEGA, h_ones))) {
       continue;
     }
 
     // Although computed with the private key, the signature is public.
-    CONSTTIME_DECLASSIFY(values->sign.c_tilde, sizeof(values->sign.c_tilde));
-    CONSTTIME_DECLASSIFY(&values->sign.z, sizeof(values->sign.z));
-    CONSTTIME_DECLASSIFY(&values->sign.h, sizeof(values->sign.h));
+    BORINGSSL_DECLASSIFY(values->sign.c_tilde, sizeof(values->sign.c_tilde));
+    BORINGSSL_DECLASSIFY(&values->sign.z, sizeof(values->sign.z));
+    BORINGSSL_DECLASSIFY(&values->sign.h, sizeof(values->sign.h));
 
     CBB cbb;
     CBB_init_fixed(&cbb, out_encoded_signature, DILITHIUM_SIGNATURE_BYTES);

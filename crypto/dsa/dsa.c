@@ -280,7 +280,7 @@ int DSA_generate_parameters_ex(DSA *dsa, unsigned bits, const uint8_t *seed_in,
           goto err;
         }
         // DSA parameters are public.
-        CONSTTIME_DECLASSIFY(seed, qsize);
+        BORINGSSL_DECLASSIFY(seed, qsize);
       } else {
         // If we come back through, use random seed next time.
         seed_in = NULL;

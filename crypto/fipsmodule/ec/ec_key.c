@@ -244,7 +244,7 @@ int EC_KEY_set_private_key(EC_KEY *key, const BIGNUM *priv_key) {
   if (!ec_bignum_to_scalar(key->group, &scalar->scalar, priv_key) ||
       // Zero is not a valid private key, so it is safe to leak the result of
       // this comparison.
-      constant_time_declassify_int(
+      boringssl_declassify_int(
           ec_scalar_is_zero(key->group, &scalar->scalar))) {
     OPENSSL_PUT_ERROR(EC, EC_R_INVALID_PRIVATE_KEY);
     ec_wrapped_scalar_free(scalar);
@@ -319,7 +319,7 @@ int EC_KEY_check_key(const EC_KEY *eckey) {
     }
     // Leaking this comparison only leaks whether |eckey|'s public key was
     // correct.
-    if (!constant_time_declassify_int(ec_GFp_simple_points_equal(
+    if (!boringssl_declassify_int(ec_GFp_simple_points_equal(
             eckey->group, &point, &eckey->pub_key->raw))) {
       OPENSSL_PUT_ERROR(EC, EC_R_INVALID_PRIVATE_KEY);
       return 0;
@@ -511,7 +511,7 @@ int EC_KEY_generate_key(EC_KEY *key) {
   // represents a public point, it is still in Jacobian form and the exact
   // Jacobian representation is secret. We need to make it affine first. See
   // discussion in the bug.
-  CONSTTIME_DECLASSIFY(&pub_key->raw, sizeof(pub_key->raw));
+  BORINGSSL_DECLASSIFY(&pub_key->raw, sizeof(pub_key->raw));
 
   ec_wrapped_scalar_free(key->priv_key);
   key->priv_key = priv_key;

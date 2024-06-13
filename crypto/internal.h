@@ -567,25 +567,25 @@ static inline void constant_time_conditional_memxor(void *dst, const void *src,
 
 #if defined(BORINGSSL_CONSTANT_TIME_VALIDATION)
 
-// CONSTTIME_SECRET takes a pointer and a number of bytes and marks that region
+// BORINGSSL_SECRET takes a pointer and a number of bytes and marks that region
 // of memory as secret. Secret data is tracked as it flows to registers and
 // other parts of a memory. If secret data is used as a condition for a branch,
 // or as a memory index, it will trigger warnings in valgrind.
-#define CONSTTIME_SECRET(ptr, len) VALGRIND_MAKE_MEM_UNDEFINED(ptr, len)
+#define BORINGSSL_SECRET(ptr, len) VALGRIND_MAKE_MEM_UNDEFINED(ptr, len)
 
-// CONSTTIME_DECLASSIFY takes a pointer and a number of bytes and marks that
+// BORINGSSL_DECLASSIFY takes a pointer and a number of bytes and marks that
 // region of memory as public. Public data is not subject to constant-time
 // rules.
-#define CONSTTIME_DECLASSIFY(ptr, len) VALGRIND_MAKE_MEM_DEFINED(ptr, len)
+#define BORINGSSL_DECLASSIFY(ptr, len) VALGRIND_MAKE_MEM_DEFINED(ptr, len)
 
 #else
 
-#define CONSTTIME_SECRET(ptr, len)
-#define CONSTTIME_DECLASSIFY(ptr, len)
+#define BORINGSSL_SECRET(ptr, len)
+#define BORINGSSL_DECLASSIFY(ptr, len)
 
 #endif  // BORINGSSL_CONSTANT_TIME_VALIDATION
 
-static inline crypto_word_t constant_time_declassify_w(crypto_word_t v) {
+static inline crypto_word_t boringssl_declassify_w(crypto_word_t v) {
   // Return |v| through a value barrier to be safe. Valgrind-based constant-time
   // validation is partly to check the compiler has not undone any constant-time
   // work. Any place |BORINGSSL_CONSTANT_TIME_VALIDATION| influences
@@ -597,15 +597,15 @@ static inline crypto_word_t constant_time_declassify_w(crypto_word_t v) {
   //
   // Thus, to be safe, stick a value barrier, in hopes of comparably inhibiting
   // compiler analysis.
-  CONSTTIME_DECLASSIFY(&v, sizeof(v));
+  BORINGSSL_DECLASSIFY(&v, sizeof(v));
   return value_barrier_w(v);
 }
 
-static inline int constant_time_declassify_int(int v) {
+static inline int boringssl_declassify_int(int v) {
   static_assert(sizeof(uint32_t) == sizeof(int),
                 "int is not the same size as uint32_t");
   // See comment above.
-  CONSTTIME_DECLASSIFY(&v, sizeof(v));
+  BORINGSSL_DECLASSIFY(&v, sizeof(v));
   return value_barrier_u32(v);
 }
 
@@ -613,7 +613,7 @@ static inline int constant_time_declassify_int(int v) {
 // evaluating |expr|. This allows the assertion to branch on the (presumably
 // public) result, but still ensures that values leading up to the computation
 // were secret.
-#define declassify_assert(expr) assert(constant_time_declassify_int(expr))
+#define declassify_assert(expr) assert(boringssl_declassify_int(expr))
 
 
 // Thread-safe initialisation.

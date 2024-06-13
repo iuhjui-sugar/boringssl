@@ -175,7 +175,7 @@ void bn_assert_fits_in_bytes(const BIGNUM *bn, size_t num) {
   const uint8_t *bytes = (const uint8_t *)bn->d;
   size_t tot_bytes = bn->width * sizeof(BN_ULONG);
   if (tot_bytes > num) {
-    CONSTTIME_DECLASSIFY(bytes + num, tot_bytes - num);
+    BORINGSSL_DECLASSIFY(bytes + num, tot_bytes - num);
     for (size_t i = num; i < tot_bytes; i++) {
       assert(bytes[i] == 0);
     }

@@ -190,14 +190,14 @@ TEST(ConstantTimeTest, MemCmov) {
       OPENSSL_memcpy(ref_out, in, sizeof(in));
     }
 
-    CONSTTIME_SECRET(out, sizeof(out));
-    CONSTTIME_SECRET(in, sizeof(in));
-    CONSTTIME_SECRET(&b, 1);
+    BORINGSSL_SECRET(out, sizeof(out));
+    BORINGSSL_SECRET(in, sizeof(in));
+    BORINGSSL_SECRET(&b, 1);
 
     constant_time_conditional_memcpy(out, in, sizeof(out), b);
 
-    CONSTTIME_DECLASSIFY(&in, sizeof(in));
-    CONSTTIME_DECLASSIFY(&out, sizeof(out));
+    BORINGSSL_DECLASSIFY(&in, sizeof(in));
+    BORINGSSL_DECLASSIFY(&out, sizeof(out));
 
     EXPECT_EQ(Bytes(in), Bytes(ref_in));
     EXPECT_EQ(Bytes(out), Bytes(ref_out));
@@ -225,14 +225,14 @@ TEST(ConstantTimeTest, MemCxor) {
       }
     }
 
-    CONSTTIME_SECRET(out, sizeof(out));
-    CONSTTIME_SECRET(in, sizeof(in));
-    CONSTTIME_SECRET(&b, 1);
+    BORINGSSL_SECRET(out, sizeof(out));
+    BORINGSSL_SECRET(in, sizeof(in));
+    BORINGSSL_SECRET(&b, 1);
 
     constant_time_conditional_memxor(out, in, sizeof(out), b);
 
-    CONSTTIME_DECLASSIFY(&in, sizeof(in));
-    CONSTTIME_DECLASSIFY(&out, sizeof(out));
+    BORINGSSL_DECLASSIFY(&in, sizeof(in));
+    BORINGSSL_DECLASSIFY(&out, sizeof(out));
 
     EXPECT_EQ(Bytes(in), Bytes(ref_in));
     EXPECT_EQ(Bytes(out), Bytes(ref_out));

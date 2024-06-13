@@ -208,7 +208,7 @@ static int freeze_private_key(RSA *rsa, BN_CTX *ctx) {
   }
 
   if (rsa->e != NULL && rsa->p != NULL && rsa->q != NULL) {
-    // TODO: p and q are also CONSTTIME_SECRET but not yet marked as such
+    // TODO: p and q are also BORINGSSL_SECRET but not yet marked as such
     // because the Montgomery code does things like test whether or not values
     // are zero. So the secret marking probably needs to happen inside that
     // code.
@@ -472,7 +472,7 @@ int rsa_default_sign_raw(RSA *rsa, size_t *out_len, uint8_t *out,
     goto err;
   }
 
-  CONSTTIME_DECLASSIFY(out, rsa_size);
+  BORINGSSL_DECLASSIFY(out, rsa_size);
   *out_len = rsa_size;
   ret = 1;
 
@@ -623,7 +623,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
 
   // The input to the RSA private transform may be secret, but padding is
   // expected to construct a value within range, so we can leak this comparison.
-  if (constant_time_declassify_int(BN_ucmp(f, rsa->n) >= 0)) {
+  if (boringssl_declassify_int(BN_ucmp(f, rsa->n) >= 0)) {
     // Usually the padding functions would catch this.
     OPENSSL_PUT_ERROR(RSA, RSA_R_DATA_TOO_LARGE_FOR_MODULUS);
     goto err;
@@ -691,7 +691,7 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
     BIGNUM *vrfy = BN_CTX_get(ctx);
     if (vrfy == NULL ||
         !BN_mod_exp_mont(vrfy, result, rsa->e, rsa->n, ctx, rsa->mont_n) ||
-        !constant_time_declassify_int(BN_equal_consttime(vrfy, f))) {
+        !boringssl_declassify_int(BN_equal_consttime(vrfy, f))) {
       OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
       goto err;
     }
@@ -1006,7 +1006,7 @@ static int generate_prime(BIGNUM *out, int bits, const BIGNUM *e,
     //
     // Values over the threshold are discarded, so it is safe to leak this
     // comparison.
-    if (constant_time_declassify_int(BN_cmp(out, sqrt2) <= 0)) {
+    if (boringssl_declassify_int(BN_cmp(out, sqrt2) <= 0)) {
       continue;
     }
 
@@ -1021,7 +1021,7 @@ static int generate_prime(BIGNUM *out, int bits, const BIGNUM *e,
           !bn_is_relatively_prime(&relatively_prime, tmp, e, ctx)) {
         goto err;
       }
-      if (constant_time_declassify_int(relatively_prime)) {
+      if (boringssl_declassify_int(relatively_prime)) {
         // Test |out| for primality (steps 4.5.1 and 5.6.1).
         int is_probable_prime;
         if (!BN_primality_test(&is_probable_prime, out,
@@ -1181,7 +1181,7 @@ static int rsa_generate_key_impl(RSA *rsa, int bits, const BIGNUM *e_value,
     // Retry if |rsa->d| <= 2^|prime_bits|. See appendix B.3.1's guidance on
     // values for d. When we retry, p and q are discarded, so it is safe to leak
     // this comparison.
-  } while (constant_time_declassify_int(BN_cmp(rsa->d, pow2_prime_bits) <= 0));
+  } while (boringssl_declassify_int(BN_cmp(rsa->d, pow2_prime_bits) <= 0));
 
   assert(BN_num_bits(pm1) == (unsigned)prime_bits);
   assert(BN_num_bits(qm1) == (unsigned)prime_bits);

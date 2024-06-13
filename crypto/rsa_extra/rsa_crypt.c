@@ -77,7 +77,7 @@ static void rand_nonzero(uint8_t *out, size_t len) {
   for (size_t i = 0; i < len; i++) {
     // Zero values are replaced, and the distribution of zero and non-zero bytes
     // is public, so leaking this is safe.
-    while (constant_time_declassify_int(out[i] == 0)) {
+    while (boringssl_declassify_int(out[i] == 0)) {
       RAND_bytes(out + i, 1);
     }
   }
@@ -226,14 +226,14 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
   bad |= looking_for_one_byte;
 
   // Whether the overall padding was valid or not in OAEP is public.
-  if (constant_time_declassify_w(bad)) {
+  if (boringssl_declassify_w(bad)) {
     goto decoding_err;
   }
 
   // Once the padding is known to be valid, the output length is also public.
   static_assert(sizeof(size_t) <= sizeof(crypto_word_t),
                 "size_t does not fit in crypto_word_t");
-  one_index = constant_time_declassify_w(one_index);
+  one_index = boringssl_declassify_w(one_index);
 
   one_index++;
   size_t mlen = dblen - one_index;
@@ -325,8 +325,8 @@ static int rsa_padding_check_PKCS1_type_2(uint8_t *out, size_t *out_len,
   // impossible to completely avoid Bleichenbacher's attack. Consumers should
   // use |RSA_PADDING_NONE| and perform the padding check in constant-time
   // combined with a swap to a random session key or other mitigation.
-  CONSTTIME_DECLASSIFY(&valid_index, sizeof(valid_index));
-  CONSTTIME_DECLASSIFY(&zero_index, sizeof(zero_index));
+  BORINGSSL_DECLASSIFY(&valid_index, sizeof(valid_index));
+  BORINGSSL_DECLASSIFY(&zero_index, sizeof(zero_index));
 
   if (!valid_index) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_PKCS_DECODING_ERROR);
@@ -517,11 +517,11 @@ static int rsa_default_decrypt(RSA *rsa, size_t *out_len, uint8_t *out,
       goto err;
   }
 
-  CONSTTIME_DECLASSIFY(&ret, sizeof(ret));
+  BORINGSSL_DECLASSIFY(&ret, sizeof(ret));
   if (!ret) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_PADDING_CHECK_FAILED);
   } else {
-    CONSTTIME_DECLASSIFY(out, *out_len);
+    BORINGSSL_DECLASSIFY(out, *out_len);
   }
 
 err:
