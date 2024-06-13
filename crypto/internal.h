@@ -565,6 +565,17 @@ static inline void constant_time_conditional_memxor(void *dst, const void *src,
   }
 }
 
+// Definition of CONSTTIME_SECRET and CONSTTIME_DECLASSIFY: these
+// depend on whether we are compiling with
+// BORINGSSL_CONSTANT_TIME_VALIDATION (uses Valgrind) or with
+// BORINGSSL_DFSAN_DECLASSIFY.
+#if defined(BORINGSSL_CONSTANT_TIME_VALIDATION)
+#if defined(BORINGSSL_DFSAN_DECLASSIFY)
+// It would not be too hard to support both, but the code would be unused
+#error Cannot use BORINGSSL_CONSTANT_TIME_VALIDATION with BORINGSSL_DFSAN_DECLASSIFY
+#endif
+#endif
+
 #if defined(BORINGSSL_CONSTANT_TIME_VALIDATION)
 
 // CONSTTIME_SECRET takes a pointer and a number of bytes and marks that region
@@ -577,6 +588,30 @@ static inline void constant_time_conditional_memxor(void *dst, const void *src,
 // region of memory as public. Public data is not subject to constant-time
 // rules.
 #define CONSTTIME_DECLASSIFY(ptr, len) VALGRIND_MAKE_MEM_DEFINED(ptr, len)
+
+#elif defined(BORINGSSL_DFSAN_DECLASSIFY)
+
+// If BORINGSSL_DFSAN_DECLASSIFY is set, BoringSSL clears the DFSAN
+// label of a value x if all three of the following are true:
+//  1) x is obtained from a value s which needs to be kept secret in
+//     standard cryptographic applications from the adversary
+//  2) x does not need to be kept secret and is usually provided to
+//     the adversary in cryptographic proofs
+//  3) the user of BoringSSL cannot clear the label themselves.
+// In addition, BoringSSL may declassify other values at its own
+// discretion (note that parts of BoringSSL may be implemented in
+// assembly anyhow in which case DFSan label propagation will not
+// work).
+//
+// In this application, we ignore CONSTTIME_SECRET, and assume the
+// user sets the labels themselves
+//
+// The user needs to ensure that dfsan is enabled and the symbol dfsan_set_label
+// is defined.
+extern void dfsan_set_label(uint8_t label, void* addr, size_t size);
+// We cast to (void*) to get rid of const.
+#define CONSTTIME_SECRET(ptr, len)
+#define CONSTTIME_DECLASSIFY(ptr, len) dfsan_set_label(0, (void*)ptr, len)
 
 #else
 
