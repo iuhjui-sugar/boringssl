@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "05c6d917_b21e834d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-13T16:45:18Z",
+      "side": 1,
+      "message": "Are there other use cases for DFSan beyond what you\u0027re doing? It seems this will cause us to clear *all* DFSan labels, which might interfere with those use cases, current or future.",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eac6e9a2_f208d57b",
         "filename": "crypto/internal.h",
         "patchSetId": 1
