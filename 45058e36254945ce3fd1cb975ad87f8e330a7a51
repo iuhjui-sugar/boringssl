@@ -16,6 +16,24 @@
       "message": "This macro a little rude in that it doesn\u0027t actually consume the semicolon. I guess `do { ... } while (0)` is the standard pattern.\n\nBetter yet, these are all single expressions, so they can just expand to the one function call.\n\nBetter yet, this doesn\u0027t need to be a macro. It can just be a normal function.\n\nEven better, this is used in only one place. We can just inline it and write:\n\n```\n#if !defined(BORINGSSL_FIPS)\n  // |module_version| will be zero, so the non-FIPS build will never get\n  // this far.\n  abort();\n#elif defined(OPENSSL_ASAN)\n  printf(\"(not available when compiled for ASAN)\");\n#else\n  hexdump(FIPS_module_hash(), SHA256_DIGEST_LENGTH);\n#endif\n```",
       "revId": "45058e36254945ce3fd1cb975ad87f8e330a7a51",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e3d2ec_5ef811c1",
+        "filename": "util/fipstools/test_fips.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-13T19:05:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cc8976e_770dbb00",
+      "revId": "45058e36254945ce3fd1cb975ad87f8e330a7a51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
