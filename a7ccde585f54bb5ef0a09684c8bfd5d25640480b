@@ -16,6 +16,40 @@
       "message": "I *think* we need this?",
       "revId": "a7ccde585f54bb5ef0a09684c8bfd5d25640480b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd95ef0_5261c5c9",
+        "filename": "util/fipstools/test_fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-13T17:08:05Z",
+      "side": 1,
+      "message": "Since this is basically trying to make test_fips build in non-FIPS builds (no objections to that), let\u0027s remove the `if(FIPS)` condition in the CMake file so that we test it in standalone CI.",
+      "revId": "a7ccde585f54bb5ef0a09684c8bfd5d25640480b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef1941b2_43b2085a",
+        "filename": "util/fipstools/test_fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-13T17:08:05Z",
+      "side": 1,
+      "message": "This message probably needs updating. Maybe we need two different messages, I dunno.",
+      "revId": "a7ccde585f54bb5ef0a09684c8bfd5d25640480b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
