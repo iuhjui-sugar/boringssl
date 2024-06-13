@@ -211,6 +211,9 @@
 #if __has_feature(hwaddress_sanitizer)
 #define OPENSSL_HWASAN
 #endif
+#if __has_feature(dataflow_sanitizer)
+#define OPENSSL_DFSAN
+#endif
 #endif
 
 // Disable 32-bit Arm assembly on Apple platforms. The last iOS version that

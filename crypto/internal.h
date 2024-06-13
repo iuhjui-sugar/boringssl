@@ -565,6 +565,17 @@ static inline void constant_time_conditional_memxor(void *dst, const void *src,
   }
 }
 
+// Definition of CONSTTIME_SECRET and CONSTTIME_DECLASSIFY: these
+// depend on whether we are compiling with
+// BORINGSSL_CONSTANT_TIME_VALIDATION (uses Valgrind) or with Dataflow
+// Sanitizer (DFSan).
+#if defined(BORINGSSL_CONSTANT_TIME_VALIDATION)
+#if defined(OPENSSL_DFSAN)
+// It would not be too hard to support both, but the code would be unused
+#error Cannot use BORINGSSL_CONSTANT_TIME_VALIDATION when compiling with DFSan
+#endif
+#endif
+
 #if defined(BORINGSSL_CONSTANT_TIME_VALIDATION)
 
 // CONSTTIME_SECRET takes a pointer and a number of bytes and marks that region
@@ -577,6 +588,23 @@ static inline void constant_time_conditional_memxor(void *dst, const void *src,
 // region of memory as public. Public data is not subject to constant-time
 // rules.
 #define CONSTTIME_DECLASSIFY(ptr, len) VALGRIND_MAKE_MEM_DEFINED(ptr, len)
+
+#elif defined(OPENSSL_DFSAN)
+
+// If OPENSSL_DFSAN is set, we clear the dfsan label each time
+// CONSTTIME_DECLASSIFY is called. Since CONSTTIME_DECLASSIFY is
+// used to unmark data which is no longer secret, users can use this to track
+// secrets without getting distracted by public parts of previous secrets.
+//
+// We currently ignore CONSTTIME_SECRET, and assume the user sets the
+// labels themselves.
+//
+// The user needs to ensure that dfsan is enabled and the symbol dfsan_set_label
+// is defined.
+extern void dfsan_set_label(uint8_t label, void* addr, size_t size);
+// We cast to (void*) to get rid of const.
+#define CONSTTIME_SECRET(ptr, len)
+#define CONSTTIME_DECLASSIFY(ptr, len) dfsan_set_label(0, (void*)ptr, len)
 
 #else
 
