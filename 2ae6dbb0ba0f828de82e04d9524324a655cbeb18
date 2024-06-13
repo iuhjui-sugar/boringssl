@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eac6e9a2_f208d57b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-13T16:43:35Z",
+      "side": 1,
+      "message": "This doesn\u0027t make any sense.\n\nFirst, user annotation will miss stuff. We\u0027re currently not very good about making everything as `CONSTTIME_SECRET`, but the long run, we\u0027ll be marking all PRNG output as secret, as that\u0027s necessary to capture things like ECDSA nonces. There\u0027s no way for the user to capture that one. See https://issues.chromium.org/issues/42290551. (Perhaps you might be interested in helping out with that one?)\n\nSecond, user annotation may overannotate, which will cause a problem. Saying that the user sets the labels is not acceptable without documenting the expectations. If some user\u0027s settings are an overestimate (e.g. doing it on every `OPENSSL_malloc` call), that user will want patches to `CONSTTIME_DECLASSIFY` basically every BoringSSL function. We would not accept patches for this, nor would we accept patches for an alternate annotation that allows for such an overestimate because it would be too burdensome.\n\nInstead, the semantics need to be clearly defined, and should align with the existing `CONSTTIME_SECRET` semantics as much as possible. (Patches to declassify things that should have been `CONSTTIME_SECRET` but aren\u0027t yet are fine. Though we\u0027d expect it to be testable standalone, so we\u0027d probably request that it come with a fix for the `CONSTTIME_SECRET` part alongside it.)",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
