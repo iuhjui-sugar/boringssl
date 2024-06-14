@@ -45,6 +45,8 @@ unsafe impl ForeignTypeRef for MdRef {
 pub trait Algorithm {
     /// The size of the resulting digest.
     const OUTPUT_LEN: usize;
+    /// The block length (in bytes).
+    const BLOCK_LEN: usize;
 
     /// Gets a reference to a message digest algorithm to be used by the HKDF implementation.
     #[doc(hidden)]
@@ -67,6 +69,7 @@ pub struct InsecureSha1 {
 unsafe_iuf_algo!(
     InsecureSha1,
     20,
+    64,
     EVP_sha1,
     SHA1,
     SHA1_Init,
@@ -83,6 +86,7 @@ pub struct Sha256 {
 unsafe_iuf_algo!(
     Sha256,
     32,
+    64,
     EVP_sha256,
     SHA256,
     SHA256_Init,
@@ -99,6 +103,7 @@ pub struct Sha384 {
 unsafe_iuf_algo!(
     Sha384,
     48,
+    128,
     EVP_sha384,
     SHA384,
     SHA384_Init,
@@ -115,6 +120,7 @@ pub struct Sha512 {
 unsafe_iuf_algo!(
     Sha512,
     64,
+    128,
     EVP_sha512,
     SHA512,
     SHA512_Init,
@@ -131,6 +137,7 @@ pub struct Sha512_256 {
 unsafe_iuf_algo!(
     Sha512_256,
     32,
+    128,
     EVP_sha512_256,
     SHA512_256,
     SHA512_256_Init,
