@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df29d607_fc53ab6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3482740
+      },
+      "writtenOn": "2024-06-14T08:25:35Z",
+      "side": 1,
+      "message": "Potentially, yes. But I find it hard to predict the future, and in my experience I often have an easier time to extend things to what I need if I didn\u0027t overengineer things before.\n\nStill, if we want to make it more \"conceptually sensible\" we could do the following:\n\n1) Define two weak symbols \n * void BORINGSSL_mark_secret(void*, size_t);\n * void BORINGSSL_unclassify_secret(void*, size_t);\n\n2) Add a define \"BORINGSSL_CLASSIFY_SECRETS\".\n\n3) Call BORINGSSL_mark_secret in the macros in case BORINGSSL_CLASSIFY_SECRETS is marked.\n\nThen the user has full control and can just mark and unmark things in dfsan themselves if they want to.\n\nOne thing I want to mention: suppose we add a DFSan label in CONSTTIME_SECRET (e.g. with such a weak symbol approach). After this, we change things and call CONSTTIME_SECRET in RAND_bytes. This is the exact point where things might fail in TAP in Google3 unexpectedly. For example, suppose I have a test such as the test in cl/642578928 -- where I test that encrypt doesn\u0027t leak. Suppose I further only clear the label on the ciphertext but not the IV (which in this test would suffice and probably would be cleaner). Since the IV in Tink is chosen using RAND_bytes now suddenly the test will say that tainted data lands in memory which can be dumped in cores, and the test breaks.\n\nOf course, as you say if we can have clear semantics this probability can be reduced (and also would make it clear where the bug is, which is already useful in practice). I would then suggest the following semantics:\n\n * CONSTTIME_SECRET is called whenever giving the data in it to the adversary leads to a security problem. (Hence, it shouldn\u0027t be called in RAND_bytes but by the caller of RAND_bytes, and the bug would be in adding CONSTTIME_SECRET to RAND_bytes).\n * CONSTTIME_DECLASSIFY is guaranteed to be called whenever data is guaranteed to be leakable to the adversary without security problem *and* the user cannot access the memory itself. (For example, the ciphertext after encryption doesn\u0027t need to be declassified by BoringSSL). It is allowed to be called by BoringSSL in cases where the user can access the data. \n \nLet me know what you think. I think the advantage of the current approach is that since it declassifies it actually reduces the probability of having lots of maintenance work later on -- it typically is clear where you want to declassify and tests typically just say \"test that nothing is classified\" -- so if you declassify you don\u0027t typically break brittle tests.\n\n(Having such a mechanism to mark within BoringSSL would actually be useful to me too, as users asked to test core dump protection of code where new keys are generated in BoringSSL)",
+      "parentUuid": "05c6d917_b21e834d",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eac6e9a2_f208d57b",
         "filename": "crypto/internal.h",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-13T16:43:35Z",
       "side": 1,
       "message": "This doesn\u0027t make any sense.\n\nFirst, user annotation will miss stuff. We\u0027re currently not very good about making everything as `CONSTTIME_SECRET`, but the long run, we\u0027ll be marking all PRNG output as secret, as that\u0027s necessary to capture things like ECDSA nonces. There\u0027s no way for the user to capture that one. See https://issues.chromium.org/issues/42290551. (Perhaps you might be interested in helping out with that one?)\n\nSecond, user annotation may overannotate, which will cause a problem. Saying that the user sets the labels is not acceptable without documenting the expectations. If some user\u0027s settings are an overestimate (e.g. doing it on every `OPENSSL_malloc` call), that user will want patches to `CONSTTIME_DECLASSIFY` basically every BoringSSL function. We would not accept patches for this, nor would we accept patches for an alternate annotation that allows for such an overestimate because it would be too burdensome.\n\nInstead, the semantics need to be clearly defined, and should align with the existing `CONSTTIME_SECRET` semantics as much as possible. (Patches to declassify things that should have been `CONSTTIME_SECRET` but aren\u0027t yet are fine. Though we\u0027d expect it to be testable standalone, so we\u0027d probably request that it come with a fix for the `CONSTTIME_SECRET` part alongside it.)",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b151d3b7_13128f58",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 3482740
+      },
+      "writtenOn": "2024-06-14T08:25:35Z",
+      "side": 1,
+      "message": "It does make sense in the sense that it does solve my immediate problem with minimal amount of work. I understand why you say it doesn\u0027t make sense though -- it has some problems with the API. I will discuss more in the other comment though -- they are really related.\n\nHowever, I don\u0027t really understand some of your points. My thinking is that users have some data which they want to protected (this is what they typically already know). In this case, they can just add a DFSan label to this data, which works perfectly fine.",
+      "parentUuid": "eac6e9a2_f208d57b",
       "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
