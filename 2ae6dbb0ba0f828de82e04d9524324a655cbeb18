@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d73370a_d2b91f6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-14T15:31:00Z",
+      "side": 1,
+      "message": "I\u0027m not sure how the callback solves anything. I was simply saying that *if* DFSan is a more general tool than your use case (and it seems like it is), then it would make sense for the DFSan hooks to be gated on an ifdef. That way we do not interfere with other projects\u0027 existing DFSan-based analysis that was previously working.\n\nWithout an ifdef, a weak pointer or callback strategy is definitely a nonstarter. This code is performance-sensitive, and we cannot inject a custom callback in there. If I recall, the malloc instrumentation we added for this project caused a ton of performance regressions, so we need to be quite careful with any more patches we accept.\n\nWith an ifdef, the only reason to go to a callback would be to generalize to other analyses that need to monitor CONSTTIME_SECRET and CONSTTIME_DECLASSIFY. No such uses exist, so it\u0027s premature to generalize it.\n\n\u003e After this, we change things and call CONSTTIME_SECRET in RAND_bytes.\n\nI think you misunderstood the linked bug. Keep in mind the constant-time validation mechanism was only designed to be used within our own tests.\n\nYou\u0027re proposing to change this, which would mean we\u0027d declassify it when it escapes to the user.\n\n\u003e CONSTTIME_SECRET is called whenever giving the data in it to the adversary leads to a security problem. (Hence, it shouldn\u0027t be called in RAND_bytes but by the caller of RAND_bytes, and the bug would be in adding CONSTTIME_SECRET to RAND_bytes).\n\nThis does not work. Constant-time and data leakage is a whole-program property, and `RAND_bytes` does work internally. If we declassify and then reclassify something, we have a gap in testing coverage where the compiler might leak data in between. This becomes especially clear when you imagine what language support for constant-time will look like: it\u0027s really a property of the type, and casting back and forth is telling the compiler that the intermediate value is public.\n\nAnd so the right way to do this, though we haven\u0027t yet, will be to classify the PRNG data as early as possible (really the output of `getentropy`), and then to declassify it where necessary, such as when it escapes the public API. I expect this will mean that, internally, we\u0027ll have APIs for \"random bytes and keep it secret\" vs \"random bytes and declassify it\". Possibly we\u0027ll just mirror OpenSSL\u0027s `RAND_bytes` and `RAND_priv_bytes`, I\u0027m not sure.\n\n\u003e CONSTTIME_DECLASSIFY is guaranteed to be called whenever data is guaranteed to be leakable to the adversary without security problem and the user cannot access the memory itself. (For example, the ciphertext after encryption doesn\u0027t need to be declassified by BoringSSL). It is allowed to be called by BoringSSL in cases where the user can access the data.\n\nThis also does not work and will lead to the same sorts of brittle tests you mention with the RAND_bytes misunderstanding. If data leaves the API boundary, we have to declassify it. Also ciphertext is usually written to the network, etc., so the whole point is the result is public.\n\nAgain, keep in mind that constant-time secrecy is a type-level property. Everything we\u0027re doing here is working around the lack of language support.",
+      "parentUuid": "df29d607_fc53ab6d",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eac6e9a2_f208d57b",
         "filename": "crypto/internal.h",
         "patchSetId": 1
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "It does make sense in the sense that it does solve my immediate problem with minimal amount of work. I understand why you say it doesn\u0027t make sense though -- it has some problems with the API. I will discuss more in the other comment though -- they are really related.\n\nHowever, I don\u0027t really understand some of your points. My thinking is that users have some data which they want to protected (this is what they typically already know). In this case, they can just add a DFSan label to this data, which works perfectly fine.",
       "parentUuid": "eac6e9a2_f208d57b",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7883e15b_29338f63",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-14T15:31:00Z",
+      "side": 1,
+      "message": "Any time something like this leaks to the public API, in any library, the requirement is that there be an articulable API contract. Simply working for your use case isn\u0027t an API contract. In this case, the API contract needs to tell us when we do and don\u0027t need to call `CONSTTIME_DECLASSIFY` somewhere.\n\nFrom there, we (BoringSSL folks) evaluate whether this API contract is acceptable, or whether we think it will conflict with the library\u0027s evolution.\n\nFor example, consider code like the following:\n\n```\nint RSA_verify(int hash_nid, const uint8_t *digest, size_t digest_len,\n               const uint8_t *sig, size_t sig_len, RSA *rsa) {\n  if (sig_len !\u003d RSA_size(rsa)) {\n    return 0;\n  }\n  ...\n}\n```\n\nDo we need a `CONSTTIME_DECLASSIFY` on `sig_len`? Simply saying \"the user gets to decide what is secret\" implies that absolutely every public input from the user needs to be preemptively declassified. This is unnacceptable both for maintenance burden and will even be a performance regression! `CONSTTIME_DECLASSIFY` is not quite a no-op in production (necessarily so). See the comment there for why we need a value barrier.\n\nThe internal API contract today is that `CONSTTIME_DECLASSIFY` need only consider the things which _our_ tests end up marking `CONSTTIME_SECRET`. To extend that contract to something across projects, more work is needed here.",
+      "parentUuid": "b151d3b7_13128f58",
       "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
