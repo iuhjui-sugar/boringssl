@@ -22,9 +22,10 @@
 // Safety: see the "Safety" sections within about the requirements for the
 // functions named in the macro parameters.
 macro_rules! unsafe_iuf_algo {
-    ($name:ident, $output_len:expr, $evp_md:ident, $one_shot:ident, $init:ident, $update:ident, $final_func:ident) => {
+    ($name:ident, $output_len:expr, $block_len:expr, $evp_md:ident, $one_shot:ident, $init:ident, $update:ident, $final_func:ident) => {
         impl Algorithm for $name {
             const OUTPUT_LEN: usize = $output_len as usize;
+            const BLOCK_LEN: usize = $block_len as usize;
 
             fn get_md(_: sealed::Sealed) -> &'static MdRef {
                 // Safety:
@@ -34,6 +35,32 @@ macro_rules! unsafe_iuf_algo {
 
             fn hash_to_vec(input: &[u8]) -> Vec<u8> {
                 Self::hash(input).as_slice().to_vec()
+            }
+
+            /// Create a new context for incremental hashing.
+            fn new() -> Self {
+                unsafe {
+                    Self {
+                        ctx: crate::initialized_struct(|ctx| {
+                            // Safety: type checking will ensure that `ctx` is the
+                            // correct type for `$init` to write into.
+                            bssl_sys::$init(ctx);
+                        }),
+                    }
+                }
+            }
+
+            /// Hash the contents of `input`.
+            fn update(&mut self, input: &[u8]) {
+                // Safety: arguments point to a valid buffer.
+                unsafe {
+                    bssl_sys::$update(&mut self.ctx, input.as_ffi_void_ptr(), input.len());
+                }
+            }
+
+            /// Finish the hashing and return the digest.
+            fn digest_to_vec(mut self) -> alloc::vec::Vec<u8> {
+                self.digest().to_vec()
             }
         }
 
@@ -49,27 +76,6 @@ macro_rules! unsafe_iuf_algo {
                 }
             }
 
-            /// Create a new context for incremental hashing.
-            pub fn new() -> Self {
-                unsafe {
-                    Self {
-                        ctx: crate::initialized_struct(|ctx| {
-                            // Safety: type checking will ensure that `ctx` is the
-                            // correct type for `$init` to write into.
-                            bssl_sys::$init(ctx);
-                        }),
-                    }
-                }
-            }
-
-            /// Hash the contents of `input`.
-            pub fn update(&mut self, input: &[u8]) {
-                // Safety: arguments point to a valid buffer.
-                unsafe {
-                    bssl_sys::$update(&mut self.ctx, input.as_ffi_void_ptr(), input.len());
-                }
-            }
-
             /// Finish the hashing and return the digest.
             pub fn digest(mut self) -> [u8; $output_len] {
                 // Safety: it is assumed that `$final_func` indeed writes
@@ -79,6 +85,16 @@ macro_rules! unsafe_iuf_algo {
                         bssl_sys::$final_func(out, &mut self.ctx);
                     })
                 }
+            }
+
+            // we also have some inherent functions that just call
+            // trait functions, to avoid having to explicitly import the trait
+            pub fn new() -> Self {
+                $name::new()
+            }
+
+            pub fn update(&mut self, input: &[u8]) {
+                self.update(input);
             }
         }
 
@@ -90,7 +106,7 @@ macro_rules! unsafe_iuf_algo {
 
         impl From<$name> for alloc::vec::Vec<u8> {
             fn from(ctx: $name) -> alloc::vec::Vec<u8> {
-                ctx.digest().into()
+                ctx.digest_to_vec()
             }
         }
 
