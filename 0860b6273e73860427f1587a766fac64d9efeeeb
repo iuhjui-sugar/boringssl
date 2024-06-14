@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a62e59fa_5dec91fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-06-14T20:52:44Z",
+      "side": 1,
+      "message": "Trying to re-land the changes in https://boringssl-review.googlesource.com/c/boringssl/+/68748 , with a modification that allows the methods in `Algorithm` and `WithOutputLength` to be used without explicit import of these traits.",
+      "revId": "0860b6273e73860427f1587a766fac64d9efeeeb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
