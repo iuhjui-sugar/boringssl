@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08d169dd_93d3405a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3482740
+      },
+      "writtenOn": "2024-06-17T08:21:19Z",
+      "side": 1,
+      "message": "As mention in the other comment, I think we should switch to Solution 2. However, I do want to note that compiling with DFSan has a significant overhead (I think 3x CPU and 2x in memory) so we don\u0027t expect it to be that performance sensitive if DFSan is enabled.\n\nAnyhow, if (against my expectation) you still want to go the path in this PR, I will definitely add an ifdef.",
+      "parentUuid": "2d73370a_d2b91f6b",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eac6e9a2_f208d57b",
         "filename": "crypto/internal.h",
         "patchSetId": 1
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "Any time something like this leaks to the public API, in any library, the requirement is that there be an articulable API contract. Simply working for your use case isn\u0027t an API contract. In this case, the API contract needs to tell us when we do and don\u0027t need to call `CONSTTIME_DECLASSIFY` somewhere.\n\nFrom there, we (BoringSSL folks) evaluate whether this API contract is acceptable, or whether we think it will conflict with the library\u0027s evolution.\n\nFor example, consider code like the following:\n\n```\nint RSA_verify(int hash_nid, const uint8_t *digest, size_t digest_len,\n               const uint8_t *sig, size_t sig_len, RSA *rsa) {\n  if (sig_len !\u003d RSA_size(rsa)) {\n    return 0;\n  }\n  ...\n}\n```\n\nDo we need a `CONSTTIME_DECLASSIFY` on `sig_len`? Simply saying \"the user gets to decide what is secret\" implies that absolutely every public input from the user needs to be preemptively declassified. This is unnacceptable both for maintenance burden and will even be a performance regression! `CONSTTIME_DECLASSIFY` is not quite a no-op in production (necessarily so). See the comment there for why we need a value barrier.\n\nThe internal API contract today is that `CONSTTIME_DECLASSIFY` need only consider the things which _our_ tests end up marking `CONSTTIME_SECRET`. To extend that contract to something across projects, more work is needed here.",
       "parentUuid": "b151d3b7_13128f58",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e96519f_e02247ca",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 3482740
+      },
+      "writtenOn": "2024-06-17T08:21:19Z",
+      "side": 1,
+      "message": "I don\u0027t see why you would need to declassify sig_len.\n\nThe user is not necessarily interested in constant time classification. The user simply wants to know data dependencies in their binary, and marks origins of these data dependencies with dfsan.\n\nI think I didn\u0027t explain well why I believe that such (relatively strong) declassification is actually fine, I added a section to the part of solution 1 in go/boringssl-dfsan-declassify.\n\nBut I think in general, these comments mean that you don\u0027t want to go with Solution 1. I think this is fine, but in this case I actually would recommend to go with Solution 2 where the contract is much clearer. WDYT?",
+      "parentUuid": "7883e15b_29338f63",
       "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
