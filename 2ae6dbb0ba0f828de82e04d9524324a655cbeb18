@@ -141,6 +141,24 @@
       "parentUuid": "7883e15b_29338f63",
       "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3907f2c_1bf4f62d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-17T20:49:02Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t see why you would need to declassify sig_len.\n\nI mean, it is indeed safe to leak sig_len. 😊 Do we need to declassify everything which it is safe to leak? It\u0027s a question of what is the API contract here?\n\nToday, the API contract is that we declassify things which are safe to leak AND are tagged secret by CONSTTIME_SECRET. Nothing else needs to be declassified.\n\nThis CL proposes to repurpose declassification for something user-exported. But the original API contract for declassification depended on an internal marker (CONSTTIME_SECRET), which, in this CL, doesn\u0027t participate in the system. Instead this CL proposes that the \"secret\" things are \"anything the user asked to make secret\". But there are no bounds on that, so without saying anything, we would need to declassify every single thing that we got from the user because, for all we know, the user tagged sig_len. That\u0027s too high of a maintenance burden.\n\nSolution 2 suffers from the exact same problem here. I left a comment on the doc.\n\nThe request is simply that we define the API contract more coherently. \"The user gets to decide\" is not sufficient. Once we\u0027ve defined that contract, we can evaluate whether it makes sense to reuse CONSTTIME_DECLASSIFY or to make a separate thing. (Though a separate thing is high maintenance burden, so it would need to meet a higher bar to be accepted.)",
+      "parentUuid": "2e96519f_e02247ca",
+      "revId": "2ae6dbb0ba0f828de82e04d9524324a655cbeb18",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
