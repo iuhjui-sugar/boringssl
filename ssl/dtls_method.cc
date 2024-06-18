@@ -88,8 +88,12 @@ static bool dtls1_set_read_state(SSL *ssl, ssl_encryption_level_t level,
     return false;
   }
 
-  ssl->d1->r_epoch++;
-  ssl->d1->bitmap = DTLS1_BITMAP();
+  if (ssl_protocol_version(ssl) > TLS1_2_VERSION) {
+    ssl->d1->r_epoch = level;
+  } else {
+    ssl->d1->r_epoch++;
+    ssl->d1->bitmap = DTLS1_BITMAP();
+  }
   ssl->s3->read_sequence = 0;
 
   ssl->s3->aead_read_ctx = std::move(aead_ctx);
@@ -106,6 +110,9 @@ static bool dtls1_set_write_state(SSL *ssl, ssl_encryption_level_t level,
   ssl->d1->last_write_sequence = ssl->s3->write_sequence;
   ssl->s3->write_sequence = 0;
 
+  if (ssl_protocol_version(ssl) > TLS1_2_VERSION) {
+    ssl->d1->w_epoch = level;
+  }
   ssl->d1->last_aead_write_ctx = std::move(ssl->s3->aead_write_ctx);
   ssl->s3->aead_write_ctx = std::move(aead_ctx);
   ssl->s3->write_level = level;
