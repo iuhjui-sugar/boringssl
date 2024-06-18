@@ -624,13 +624,7 @@ static enum seal_result_t seal_next_message(SSL *ssl, uint8_t *out,
   assert(ssl->d1->outgoing_written < ssl->d1->outgoing_messages_len);
   assert(msg == &ssl->d1->outgoing_messages[ssl->d1->outgoing_written]);
 
-  uint16_t use_epoch = ssl->d1->w_epoch;
-  if (use_epoch >= 1 && msg->epoch == use_epoch - 1) {
-    use_epoch--;
-  } else if (msg->epoch != ssl->d1->w_epoch) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    return seal_error;
-  }
+  uint16_t use_epoch = msg->epoch;
 
   size_t overhead = dtls_max_seal_overhead(ssl, use_epoch);
   size_t prefix = dtls_seal_prefix_len(ssl, use_epoch);
