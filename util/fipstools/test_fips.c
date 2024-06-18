@@ -48,8 +48,6 @@ static void hexdump(const void *a, size_t len) {
 }
 
 int main(int argc, char **argv) {
-  CRYPTO_library_init();
-
   const uint32_t module_version = FIPS_version();
   if (module_version == 0) {
     printf("No module version set\n");
