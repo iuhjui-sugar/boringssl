@@ -95,6 +95,11 @@ bool dtls1_new(SSL *ssl) {
     return false;
   }
 
+  d1->initial_aead_write_ctx = SSLAEADContext::CreateNullCipher(true);
+  if (!d1->initial_aead_write_ctx) {
+    return false;
+  }
+
   ssl->d1 = d1.release();
 
   // Set the version to the highest supported version.

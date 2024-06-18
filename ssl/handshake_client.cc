@@ -372,9 +372,13 @@ bool ssl_add_client_hello(SSL_HANDSHAKE *hs) {
 static bool parse_server_version(const SSL_HANDSHAKE *hs, uint16_t *out_version,
                                  uint8_t *out_alert,
                                  const ParsedServerHello &server_hello) {
+  uint16_t legacy_version = TLS1_2_VERSION;
+  if (SSL_is_dtls(hs->ssl)) {
+    legacy_version = DTLS1_2_VERSION;
+  }
   // If the outer version is not TLS 1.2, use it.
   // TODO(davidben): This function doesn't quite match the RFC8446 formulation.
-  if (server_hello.legacy_version != TLS1_2_VERSION) {
+  if (server_hello.legacy_version != legacy_version) {
     *out_version = server_hello.legacy_version;
     return true;
   }
@@ -618,10 +622,6 @@ static enum ssl_hs_wait_t do_read_hello_verify_request(SSL_HANDSHAKE *hs) {
 
   assert(SSL_is_dtls(ssl));
 
-  // When implementing DTLS 1.3, we need to handle the interactions between
-  // HelloVerifyRequest, DTLS 1.3's HelloVerifyRequest removal, and ECH.
-  assert(hs->max_version < TLS1_3_VERSION);
-
   SSLMessage msg;
   if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
@@ -631,6 +631,12 @@ static enum ssl_hs_wait_t do_read_hello_verify_request(SSL_HANDSHAKE *hs) {
     hs->state = state_read_server_hello;
     return ssl_hs_ok;
   }
+
+  // TODO(crbug.com/boringssl/715): At the point when we read an HVR, we don't
+  // know whether the connection is DTLS 1.2 (or earlier) or DTLS 1.3 - that's
+  // determined when we read the supported_versions in the ServerHello. If we
+  // receive HVR and then the ServerHello selects DTLS 1.3, that is an error and
+  // we should close the connection.
 
   CBS hello_verify_request = msg.body, cookie;
   uint16_t server_version;
@@ -712,6 +718,14 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
 
   if (!ssl_supports_version(hs, server_version)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_PROTOCOL_VERSION);
+    return ssl_hs_error;
+  }
+
+  if (hs->dtls_cookie.size() && server_version > TLS1_2_VERSION) {
+    // TODO(crbug.com/boringssl/715): Add a runner test for this case where the
+    // server first sends HVR and then negotiates DTLS 1.3.
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_MESSAGE);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_PROTOCOL_VERSION);
     return ssl_hs_error;
   }
