@@ -33,6 +33,23 @@
       "message": "Thank you for you time,\n\nSven",
       "revId": "2e6d87ffa29aa058fb4b6e8669b32155d3059460",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56722f85_5ba462fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-06-19T21:19:30Z",
+      "side": 1,
+      "message": "We\u0027ll likely flesh this out with tests etc once we support FIPS Ed25519 in BoringSSL. But this seems reasonable.",
+      "revId": "2e6d87ffa29aa058fb4b6e8669b32155d3059460",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
