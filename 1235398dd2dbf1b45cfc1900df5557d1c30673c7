@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c2f5b36_6207dae7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T23:53:16Z",
+      "side": 1,
+      "message": "This came from a suggestion on https://boringssl-review.googlesource.com/c/boringssl/+/68027. It greatly cleans up the handling of epochs in DTLS 1.3. The downside I see in this change is that it\u0027s less obvious that the code is correct - with the old code you have current and previous epoch enums matching current and last aeads; now it\u0027s number comparisons and asserts to check that the numbers are correct. The DTLS 1.25 CL removes some of those asserts. (Maybe it\u0027s not a problem because this is the write path?)",
+      "revId": "1235398dd2dbf1b45cfc1900df5557d1c30673c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
