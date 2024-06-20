@@ -624,9 +624,9 @@ static enum seal_result_t seal_next_message(SSL *ssl, uint8_t *out,
   assert(ssl->d1->outgoing_written < ssl->d1->outgoing_messages_len);
   assert(msg == &ssl->d1->outgoing_messages[ssl->d1->outgoing_written]);
 
-  enum dtls1_use_epoch_t use_epoch = dtls1_use_current_epoch;
-  if (ssl->d1->w_epoch >= 1 && msg->epoch == ssl->d1->w_epoch - 1) {
-    use_epoch = dtls1_use_previous_epoch;
+  uint16_t use_epoch = ssl->d1->w_epoch;
+  if (use_epoch >= 1 && msg->epoch == use_epoch - 1) {
+    use_epoch--;
   } else if (msg->epoch != ssl->d1->w_epoch) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return seal_error;
