@@ -193,6 +193,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c16e69_0d72c4a2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T23:56:09Z",
+      "side": 1,
+      "message": "Updated to pass around absolute instead of relative epochs. https://boringssl-review.googlesource.com/c/boringssl/+/69527",
+      "parentUuid": "995ac5ae_d4d16f88",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2378026_65c68c67",
