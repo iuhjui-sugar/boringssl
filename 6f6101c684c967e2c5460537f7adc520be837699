@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8815c40d_d3ff2813",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "I replaced the check with that line. Since that results in it only checking the record version (instead of checking the actual version against the record version), I changed this codepoint back to one that doesn\u0027t start with `0xfe`, and the test still passes.",
+      "parentUuid": "ffbc1635_e72493f7",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f45cf645_a0037c2e",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "writtenOn": "2024-04-26T19:12:53Z",
       "side": 1,
       "message": "Seems this won\u0027t work with KeyUpdate. No need to solve that now, but probably worth a TODO.",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "581d1932_b47d5c2b",
+        "filename": "ssl/dtls_method.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "Added a TODO. This takes an `ssl_encryption_level_t`, so at minimum the type needs to change. (I need to review whether the existing current/previous epoch logic is reusable as-is for key update or if it needs to be changed.)",
+      "parentUuid": "60b1c45f_93913b1c",
       "revId": "6f6101c684c967e2c5460537f7adc520be837699",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -104,6 +140,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2eed371_009ac856",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "RFC 9147 section 5.3 states:\n\n\u003e DTLS 1.3 furthermore deprecates the HelloVerifyRequest message originally defined in DTLS 1.0. DTLS 1.3-compliant implementations MUST NOT use the HelloVerifyRequest to execute a return-routability check.\n\nSection 12:\n\n\u003e HelloRetryRequest of TLS 1.3 used instead of HelloVerifyRequest.\n\nI interpret those to mean the HVR in DTLS 1.3 is an error, and we can send an alert to close the connection if DTLS 1.3 is negotiated after an HVR. If we do DTLS 1.3 after HVR, it means we\u0027re in some weird state between the 1.2 and 1.3 state machines. From a practical perspective, doing that is _probably_ safe and whatever formal analysis of HRR can be easily modified to put HVR in its place. OTOH, I doubt such formal analysis has been done, and if an implementation does send HVR and negotiate DTLS 1.3, its internal state machine might be confused as to which protocol it\u0027s doing. I\u0027d prefer to close the connection if we get HVR and 1.3.\n\nThe existing comment here mentions implications of ECH. Does ECH actually change anything w.r.t. \"if HVR and 1.3, error\"?\n\nI added code to check for HVR and 1.3 in `do_read_server_hello`. I\u0027m using a non-zero length cookie as an indicator that we\u0027ve seen HVR. (I suppose a server could send an HVR with a zero length cookie, but that seems like a silly thing to do.) I\u0027m using protocol_version as the alert error, which matches with RFC 8446\u0027s use of it when on a TLS 1.2 connection the renegotiation ServerHello selects TLS 1.3. The other alert I was considering is unexpected_message, but it seems odd to send that a round trip after receiving the unexpected message (the HVR).",
+      "parentUuid": "24dd5934_b568a040",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "548dcbe8_6a56bae4",
@@ -117,6 +171,24 @@
       "writtenOn": "2024-04-26T19:12:53Z",
       "side": 1,
       "message": "I\u0027ve forgotten too much of this code to know if this is a good design or not / how much of a pain it is, but given that DTLS 1.3 will generally keep more epochs around, I wonder if we should just pass in the epoch number and then have the functions internally look up the corresponding state, or say \"nope, can\u0027t do that\".\n\nThoughts?",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "995ac5ae_d4d16f88",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "I\u0027m going to explore passing around epoch numbers instead of current/previous.",
+      "parentUuid": "548dcbe8_6a56bae4",
       "revId": "6f6101c684c967e2c5460537f7adc520be837699",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -138,6 +210,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b1474d_00457327",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3034,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "Changed this to initialize in `dtls1_new` and handle the malloc failure.",
+      "parentUuid": "e2378026_65c68c67",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74cabada_eadf5394",
@@ -151,6 +241,24 @@
       "writtenOn": "2024-04-26T19:12:53Z",
       "side": 1,
       "message": "Oh wow, this is quite a mess. I think this assert is simply wrong, if we\u0027ve gotten CCS but not Finished. We could fix this by making it instead say\n\n```\n// max_seq_num already includes the epoch. However, the current epoch may\n// be one ahead of the highest record received, immediately after a key\n// change.\nassert(ssl-\u003ed1-\u003er_epoch \u003e\u003d ssl-\u003ed1-\u003ebitmap.max_seq_num \u003e\u003e 48);\n```\n\nBut also if we return the previous epoch, `SSL_get_read_sequence`\u0027s API docs are wrong because they promise to return the current epoch.\n\nExcept this really begs the question, what even is the \"current\" epoch? In DTLS 1.3, when we\u0027ve processed a KeyUpdate, we go ahead and install the new epoch, but we may receive messages from the old epoch for some time because the ACK might have been lost.\n\nI was going to suggest we just not support this API over DTLS, but I think it\u0027s actually used. See b/193109117. (That code is going to need to be reworked for DTLS 1.3. And allow for the fact that we may be mid KeyUpdate 😮) Moreover, it assumes that the epoch returned in there matches what `SSL_get_traffic_secrets` returns. But right now it doesn\u0027t.\n\nOh also the docs are wrong if we haven\u0027t received a packet at all yet, because `max_seq_num` may be zero but we haven\u0027t received record zero. (Though if we incorrectly tell handoff code that we\u0027ve received record zero and haven\u0027t, it\u0027ll just look like packet loss, so it\u0027s no big deal.)\n\nSo, uh... this is a mess. We might need to add new APIs before that thing can use 1.3. At the least we probably need a TODO here because KeyUpdate will make this case actually possible. In DTLS 1.2 it\u0027s mostly theoretical if you don\u0027t call this before the handshake.",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d91b60e6_6e83b01e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2944,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "Added a TODO about what we want out of this API, and changed the assert.",
+      "parentUuid": "74cabada_eadf5394",
       "revId": "6f6101c684c967e2c5460537f7adc520be837699",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -172,6 +280,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0d65dbc_bff9b637",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2946,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "I think so, but I\u0027ve changed the assert to be one line so it\u0027s moot.",
+      "parentUuid": "dd69f8f1_c8390c7b",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38acaa47_40009ecc",
@@ -185,6 +311,24 @@
       "writtenOn": "2024-04-26T19:12:53Z",
       "side": 1,
       "message": "Huh. Why still reading at the handshake? We\u0027ve completed the handshake already.\n\nEdit: Ah, I see why now. This whole area is confusing but maybe worth a comment explaining this better. (That it\u0027s because the last record received was still handshake.) Or maybe we just skip this whole test in DTLS 1.3 until we\u0027re ready to tackle that question, since it doesn\u0027t match the returned traffic secrets.",
+      "revId": "6f6101c684c967e2c5460537f7adc520be837699",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06f61147_f40a4c60",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2791,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-20T20:17:48Z",
+      "side": 1,
+      "message": "I removed the read epoch check and added a TODO about the SSL_get_read_sequence API.",
+      "parentUuid": "38acaa47_40009ecc",
       "revId": "6f6101c684c967e2c5460537f7adc520be837699",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
