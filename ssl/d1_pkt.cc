@@ -208,7 +208,7 @@ int dtls1_write_app_data(SSL *ssl, bool *out_needs_handshake,
   }
 
   int ret = dtls1_write_record(ssl, SSL3_RT_APPLICATION_DATA, in,
-                               dtls1_use_current_epoch);
+                               ssl->d1->w_epoch);
   if (ret <= 0) {
     return ret;
   }
@@ -217,7 +217,7 @@ int dtls1_write_app_data(SSL *ssl, bool *out_needs_handshake,
 }
 
 int dtls1_write_record(SSL *ssl, int type, Span<const uint8_t> in,
-                       enum dtls1_use_epoch_t use_epoch) {
+                       uint16_t use_epoch) {
   SSLBuffer *buf = &ssl->s3->write_buffer;
   assert(in.size() <= SSL3_RT_MAX_PLAIN_LENGTH);
   // There should never be a pending write buffer in DTLS. One can't write half
@@ -250,7 +250,7 @@ int dtls1_write_record(SSL *ssl, int type, Span<const uint8_t> in,
 
 int dtls1_dispatch_alert(SSL *ssl) {
   int ret = dtls1_write_record(ssl, SSL3_RT_ALERT, ssl->s3->send_alert,
-                               dtls1_use_current_epoch);
+                               ssl->d1->w_epoch);
   if (ret <= 0) {
     return ret;
   }

@@ -258,28 +258,29 @@ enum ssl_open_record_t dtls_open_record(SSL *ssl, uint8_t *out_type,
 }
 
 static const SSLAEADContext *get_write_aead(const SSL *ssl,
-                                            enum dtls1_use_epoch_t use_epoch) {
-  if (use_epoch == dtls1_use_previous_epoch) {
-    assert(ssl->d1->w_epoch >= 1);
+                                            uint16_t use_epoch) {
+  if (use_epoch < ssl->d1->w_epoch) {
+    assert(use_epoch + 1 == ssl->d1->w_epoch);
     return ssl->d1->last_aead_write_ctx.get();
   }
 
+  assert(use_epoch == ssl->d1->w_epoch);
   return ssl->s3->aead_write_ctx.get();
 }
 
 size_t dtls_max_seal_overhead(const SSL *ssl,
-                              enum dtls1_use_epoch_t use_epoch) {
+                              uint16_t use_epoch) {
   return DTLS1_RT_HEADER_LENGTH + get_write_aead(ssl, use_epoch)->MaxOverhead();
 }
 
-size_t dtls_seal_prefix_len(const SSL *ssl, enum dtls1_use_epoch_t use_epoch) {
+size_t dtls_seal_prefix_len(const SSL *ssl, uint16_t use_epoch) {
   return DTLS1_RT_HEADER_LENGTH +
          get_write_aead(ssl, use_epoch)->ExplicitNonceLen();
 }
 
 bool dtls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
                       uint8_t type, const uint8_t *in, size_t in_len,
-                      enum dtls1_use_epoch_t use_epoch) {
+                      uint16_t use_epoch) {
   const size_t prefix = dtls_seal_prefix_len(ssl, use_epoch);
   if (buffers_alias(in, in_len, out, max_out) &&
       (max_out < prefix || out + prefix != in)) {
@@ -288,14 +289,15 @@ bool dtls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
   }
 
   // Determine the parameters for the current epoch.
-  uint16_t epoch = ssl->d1->w_epoch;
+  uint16_t epoch = use_epoch;
   SSLAEADContext *aead = ssl->s3->aead_write_ctx.get();
   uint64_t *seq = &ssl->s3->write_sequence;
-  if (use_epoch == dtls1_use_previous_epoch) {
-    assert(ssl->d1->w_epoch >= 1);
-    epoch = ssl->d1->w_epoch - 1;
+  if (use_epoch < ssl->d1->w_epoch) {
+    assert(use_epoch + 1 == ssl->d1->w_epoch);
     aead = ssl->d1->last_aead_write_ctx.get();
     seq = &ssl->d1->last_write_sequence;
+  } else {
+    assert(use_epoch == ssl->d1->w_epoch);
   }
 
   if (max_out < DTLS1_RT_HEADER_LENGTH) {
