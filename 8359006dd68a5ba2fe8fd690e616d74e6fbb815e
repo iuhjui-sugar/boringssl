@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b13edf59_b9774bbc",
+        "filename": "ssl/d1_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-21T16:16:35Z",
+      "side": 1,
+      "message": "`use_epoch` is exactly the same as `msg-\u003eepoch`. The extra variable before was because we kept having to convert back and forth between the two reprs. Now that we don\u0027t, I think we can just `s/use_epoch/msg-\u003eepoch/` throughout the function, and then replace this with a check that the epoch is one we can send:\n\n```\nif (msg-\u003eepoch !\u003d ssl-\u003ed1-\u003ew_epoch \u0026\u0026\n    (ssl-\u003ed1-\u003ew_epoch \u003d\u003d 0 || msg-\u003eepoch !\u003d ssl-\u003ed1-\u003ew_epoch - 1)) {\n  ... internal error ...\n}\n```\n\nWe could also move this check into `dtls_seal_record` (which currently does it via an `assert`), since that\u0027s the code that *actually* assumes there are only two live epochs. (Maybe? Haven\u0027t thought too hard about the implications of all that.)",
+      "revId": "8359006dd68a5ba2fe8fd690e616d74e6fbb815e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6a07733_b21bdffa",
+        "filename": "ssl/d1_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-21T16:16:35Z",
+      "side": 1,
+      "message": "Nit: I think we can just call this plain `epoch` now, now that we don\u0027t have a \"use epoch\" enum. Ditto throughput.",
+      "range": {
+        "startLine": 220,
+        "startChar": 32,
+        "endLine": 220,
+        "endChar": 41
+      },
+      "revId": "8359006dd68a5ba2fe8fd690e616d74e6fbb815e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb74e006_5ff4312c",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-21T16:16:35Z",
+      "side": 1,
+      "message": "Seems this is exactly the same as `use_epoch`. May as well just call the parameter `epoch`. :-)",
+      "revId": "8359006dd68a5ba2fe8fd690e616d74e6fbb815e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
