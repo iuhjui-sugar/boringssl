@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "969ca5e8_af257b71",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-21T19:42:32Z",
+      "side": 1,
+      "message": "`rm -rf build-gcc3 \u0026\u0026 env CC\u003dgcc CXX\u003dg++ CFLAGS\u003d-march\u003dnative cmake -GNinja -B build-gcc3 -DCMAKE_BUILD_TYPE\u003dRelease \u0026\u0026 ninja -C build-gcc3 CMakeFiles/crypto.dir/crypto/bytestring/cbs.c.o`\n\nOmitting `-march\u003dnative` makes the build pass.",
+      "parentUuid": "5827e002_0764d0b3",
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e05eb744_ae31ada8",
@@ -54,6 +72,48 @@
       "writtenOn": "2024-06-12T21:36:21Z",
       "side": 1,
       "message": "Probably worth a comment around here for what we\u0027re up to. 😊",
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24f8332d_8c48d507",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-21T19:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05eb744_ae31ada8",
+      "range": {
+        "startLine": 563,
+        "startChar": 34,
+        "endLine": 563,
+        "endChar": 43
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c20edb59_0ef34499",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-21T19:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73c8faf7_729befc2",
       "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -104,6 +164,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d58fd78_2eda102b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-21T19:42:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c19a4659_c4f7d8be",
+      "range": {
+        "startLine": 566,
+        "startChar": 25,
+        "endLine": 566,
+        "endChar": 35
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a703442c_4c0d6471",
@@ -117,6 +201,30 @@
       "writtenOn": "2024-06-12T21:36:21Z",
       "side": 1,
       "message": "Trying to remind myself, so this value barrier is needed because, without it, the compiler knows that `mask` is a 1-bit value, and recognizes it can replace this code with:\n\n```\nif (mask) {\n  for (size_t i \u003d 0; i \u003c n; i++) {\n    out[i] ^\u003d in[i];\n  }\n}\n```\n\nAnd so we place a barrier to destroy that reasoning. But, importantly, we use a non-volatile asm block, so the compiler is already allowed to do:\n\n```\nmask \u003d value_barrier_w(mask);\nfor (size_t i \u003d 0; i \u003c n; i++) {\n  out[i] ^\u003d mask \u0026 in[i];\n}\n```\n\nWhich is why, from there, Clang is able to vectorize and generally optimize things. But, for some reason, the barrier is frustrating GCC. Is that right?\n\nWhat if, instead of this, we helped GCC out a bit and do the first step for them. I.e. we simply write the loop with the barrier hoisted out of the loop. Now the compiler does know that, when `mask` is zero, the loop can be skipped, but a priori the mask may be any bit pattern, so the compiler isn\u0027t likely to speculatively insert a `mask \u003d\u003d 0` branch. (If it is, I think we already lose because the value barriers permit this transform.)",
+      "range": {
+        "startLine": 573,
+        "startChar": 13,
+        "endLine": 573,
+        "endChar": 35
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "042844dc_30d3dc89",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-21T19:42:32Z",
+      "side": 1,
+      "message": "Hoisting the barrier and removing the manual vectorization results in a 2x slowdown. My hypothesis has been that gcc just fails to vectorize this loop, barrier or no barrier.",
+      "parentUuid": "a703442c_4c0d6471",
       "range": {
         "startLine": 573,
         "startChar": 13,
