@@ -509,7 +509,15 @@ int CBS_get_asn1_int64(CBS *cbs, int64_t *out) {
   uint8_t sign_extend[sizeof(int64_t)];
   memset(sign_extend, is_negative ? 0xff : 0, sizeof(sign_extend));
   for (size_t i = 0; i < len; i++) {
+// GCC 13.2.0 -march=native is confused and considers i=8, but i < len <= 8
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstringop-overflow"
+#endif
     sign_extend[i] = data[len - i - 1];
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
   }
   memcpy(out, sign_extend, sizeof(sign_extend));
   return 1;
