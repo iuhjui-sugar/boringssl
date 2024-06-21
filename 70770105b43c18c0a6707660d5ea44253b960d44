@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20943529_b1d1023d",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-21T21:10:35Z",
+      "side": 1,
+      "message": "When I had two copies of line 517, the build did not fail. This might mean that I am doing something wrong with `diagnostic pop` and `-Wstringop-overflow` is active for the rest of the file?",
+      "revId": "70770105b43c18c0a6707660d5ea44253b960d44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
