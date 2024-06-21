@@ -21,7 +21,9 @@ import os
 import os.path
 import tarfile
 import shutil
+import subprocess
 import sys
+import tempfile
 import zipfile
 
 
@@ -78,20 +80,22 @@ def IterateTar(path, compression):
         yield FileEntry(info.name, info.mode, tar_file.extractfile(info))
       else:
         raise ValueError('Unknown entry type "%s"' % (info.name, ))
+      
+def IterateDeb(filepath):
+  """
+  IterateDeb attempts to open the debian file at path, locates the data archive, and then process it.
+  Returns a generator of entry objects for each file in it.
+  """
+  temp_dir = tempfile.mkdtemp()
+  subprocess.run(['ar', 'xf', filepath, '--output', temp_dir], check=True)
+  data_archive = os.path.join(temp_dir, "data.tar.xz")
 
+  if not os.path.exists(data_archive):
+    raise FileNotFoundError("data.tar.xz not found in the provided debian package.")
+  
+  return IterateTar(data_archive, 'xz')
 
-def main(args):
-  parser = optparse.OptionParser(usage='Usage: %prog ARCHIVE OUTPUT')
-  parser.add_option('--no-prefix', dest='no_prefix', action='store_true',
-                    help='Do not remove a prefix from paths in the archive.')
-  options, args = parser.parse_args(args)
-
-  if len(args) != 2:
-    parser.print_help()
-    return 1
-
-  archive, output = args
-
+def extract(archive, output, no_prefix=False, expected_sha256=""):
   if not os.path.exists(archive):
     # Skip archives that weren't downloaded.
     return 0
@@ -104,6 +108,9 @@ def main(args):
         break
       sha256.update(chunk)
     digest = sha256.hexdigest()
+
+  if expected_sha256 != "" and expected_sha256 != digest:
+    raise ValueError("Expected SHA value does not match contents!")
 
   stamp_path = os.path.join(output, ".boringssl_archive_digest")
   if os.path.exists(stamp_path):
@@ -120,6 +127,8 @@ def main(args):
     entries = IterateTar(archive, 'bz2')
   elif archive.endswith('.tar.xz'):
     entries = IterateTar(archive, 'xz')
+  elif archive.endswith('.deb'):
+    entries = IterateDeb(archive)
   else:
     raise ValueError(archive)
 
@@ -136,7 +145,7 @@ def main(args):
       if '\\' in entry.path or entry.path.startswith('/'):
         raise ValueError(entry.path)
 
-      if not options.no_prefix:
+      if not no_prefix:
         new_prefix, rest = entry.path.split('/', 1)
 
         # Ensure the archive is consistent.
@@ -177,6 +186,21 @@ def main(args):
 
   print("Done. Extracted %d files." % (num_extracted,))
   return 0
+
+def main(args):
+  parser = optparse.OptionParser(usage='Usage: %prog ARCHIVE OUTPUT')
+  parser.add_option('--no-prefix', dest='no_prefix', action='store_true',
+                    help='Do not remove a prefix from paths in the archive.')
+  parser.add_option("--validate-sha256", dest="expected_sha256",
+                  help="Compare the downloaded SHA with the given SHA.")
+  options, args = parser.parse_args(args)
+
+  if len(args) != 2:
+    parser.print_help()
+    return 1
+
+  archive, output = args
+  return extract(archive, output, options.no_prefix, expected_sha256)
 
 
 if __name__ == '__main__':

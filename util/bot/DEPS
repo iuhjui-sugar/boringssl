@@ -14,12 +14,14 @@
 
 vars = {
   'chromium_git': 'https://chromium.googlesource.com',
+  'debian_host': 'http://http.us.debian.org/debian/pool/main/',
 
   'checkout_clang': False,
   'checkout_fuzzer': False,
   'checkout_sde': False,
   'checkout_nasm': False,
   'checkout_libcxx': False,
+  'checkout_qemu': True,
   'vs_version': '2019',
 
   # Run the following command to see the latest builds in CIPD:
@@ -43,6 +45,12 @@ vars = {
   # The Android NDK cannot be updated until https://crbug.com/boringssl/454 is fixed.
   # We rely on an older NDK to test building without NEON instructions as the baseline.
   'android_ndk_revision': 'U0e8L6l52ySjBrUBB82Vdyhsg60vVMqH0ItTW3TRHAQC',
+
+  # Update the following from
+  # https://packages.debian.org/experimental/amd64/qemu-user-static/download
+  'qemu_version': 'qemu-user-static_9.0.0~rc2+ds-1_amd64',
+  # TODO: validate digest in extraction
+  'qemu_sha256': '26b61fda8294088a6daa59689733e13a8a55b9211f0133e8f9f8b66e30e5425e'
 }
 
 deps = {
@@ -109,7 +117,7 @@ deps = {
       'version': Var('ninja_version'),
     }],
     'dep_type': 'cipd',
-  }
+  },
 }
 
 recursedeps = [
@@ -186,6 +194,18 @@ hooks = [
                 'boringssl/util/bot/extract.py',
                 'boringssl/util/bot/sde-win32.tar.xz',
                 'boringssl/util/bot/sde-win32/',
+    ],
+  },
+  {
+    # TODO: configure to extract tar (see the one right above this)
+    'name': 'qemu_download',
+    'pattern': '.',
+    'condition': 'checkout_qemu',
+    'action': [ 'python3',
+                'boringssl/util/bot/download_deb.py',
+                Var('debian_host') + 'q/qemu/' + Var('qemu_version') + '.deb',
+                Var('qemu_sha256'),
+                'boringssl/util/bot/qemu-user-static',
     ],
   },
 ]
