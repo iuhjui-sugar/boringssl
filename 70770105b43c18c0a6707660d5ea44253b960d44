@@ -34,6 +34,24 @@
       "parentUuid": "20943529_b1d1023d",
       "revId": "70770105b43c18c0a6707660d5ea44253b960d44",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c89f132a_298bf89c",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-21T22:37:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f09f920d_ccd3765a",
+      "revId": "70770105b43c18c0a6707660d5ea44253b960d44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
