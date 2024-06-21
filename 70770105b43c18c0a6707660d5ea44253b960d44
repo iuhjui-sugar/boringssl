@@ -16,6 +16,24 @@
       "message": "When I had two copies of line 517, the build did not fail. This might mean that I am doing something wrong with `diagnostic pop` and `-Wstringop-overflow` is active for the rest of the file?",
       "revId": "70770105b43c18c0a6707660d5ea44253b960d44",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09f920d_ccd3765a",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-21T22:37:22Z",
+      "side": 1,
+      "message": "Weird. Dunno what\u0027s up, but I just worked around it a different way with https://boringssl-review.googlesource.com/c/boringssl/+/69547 😊\n\nhttps://boringssl-review.googlesource.com/c/boringssl/+/69567 also suggests the warning is just incredibly broken so I dunno.",
+      "parentUuid": "20943529_b1d1023d",
+      "revId": "70770105b43c18c0a6707660d5ea44253b960d44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
