@@ -1,0 +1,86 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2d2222d_4005a588",
+        "filename": "util/bot/extract.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-06-21T23:43:36Z",
+      "side": 1,
+      "message": "This should be available on host machines. We could alternatively try to install (or even extract) via dpkg. I\u0027m not sure if installation is the best bet, though. At least this method would keep the deps management layout consistent.",
+      "range": {
+        "startLine": 90,
+        "startChar": 19,
+        "endLine": 90,
+        "endChar": 21
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f11d5ebf_819425e2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "util/bot/extract.py",
+              "range": {
+                "startLine": 90,
+                "startChar": 0,
+                "endLine": 91,
+                "endChar": 0
+              },
+              "replacement": "  subprocess.run([\u0027ar\u0027, \u0027xf\u0027, filepath, \u0027--output\u0027, temp_dir], check\u003dTrue,\n                 env\u003d{\u0027PATH\u0027: \u0027/usr/bin:/bin\u0027})\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4e7923c9e10e7a0a542ca2b72a5c6232e55475e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40ad1b78_d91900f1",
+        "filename": "util/bot/extract.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-06-21T23:43:36Z",
+      "side": 1,
+      "message": "Maybe the download_deb should be the one verifying checksum? But since this script already does the digest, figured I might as well consolidate. Others might find it useful down the road, too.",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 57
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "828ec369_4c2b79ec",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "util/bot/extract.py",
+              "range": {
+                "startLine": 112,
+                "startChar": 0,
+                "endLine": 113,
+                "endChar": 0
+              },
+              "replacement": "  if expected_sha256 and expected_sha256 !\u003d digest:\n"
+            }
+          ]
+        }
+      ],
+      "revId": "4e7923c9e10e7a0a542ca2b72a5c6232e55475e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
