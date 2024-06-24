@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e81d02df_9fb7a30f",
+        "filename": "ssl/d1_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-24T18:44:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b13edf59_b9774bbc",
+      "revId": "8359006dd68a5ba2fe8fd690e616d74e6fbb815e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6a07733_b21bdffa",
@@ -41,6 +59,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "703defa1_07145347",
+        "filename": "ssl/d1_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-24T18:44:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6a07733_b21bdffa",
+      "range": {
+        "startLine": 220,
+        "startChar": 32,
+        "endLine": 220,
+        "endChar": 41
+      },
+      "revId": "8359006dd68a5ba2fe8fd690e616d74e6fbb815e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb74e006_5ff4312c",
@@ -54,6 +96,24 @@
       "writtenOn": "2024-06-21T16:16:35Z",
       "side": 1,
       "message": "Seems this is exactly the same as `use_epoch`. May as well just call the parameter `epoch`. :-)",
+      "revId": "8359006dd68a5ba2fe8fd690e616d74e6fbb815e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d115d833_d11453fc",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-24T18:44:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb74e006_5ff4312c",
       "revId": "8359006dd68a5ba2fe8fd690e616d74e6fbb815e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
