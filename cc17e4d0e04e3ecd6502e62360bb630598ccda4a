@@ -16,6 +16,24 @@
       "message": "We\u0027ve now gotten 3 copies of this, so a `goto err` abstraction seems useful. Also we now have ifdefs have span curly braces, which is pretty confusing. What if the `#endif` at the bottom just included the `err:` block, and then all of these remain as `goto err`?",
       "revId": "cc17e4d0e04e3ecd6502e62360bb630598ccda4a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8aaa461_a89c792d",
+        "filename": "util/fipstools/test_fips.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-24T23:05:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79642026_c33f3d17",
+      "revId": "cc17e4d0e04e3ecd6502e62360bb630598ccda4a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
