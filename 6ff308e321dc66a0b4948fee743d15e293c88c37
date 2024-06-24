@@ -16,6 +16,24 @@
       "message": "I think Nick reset his auto-submit and wants you to look at this again david ;)",
       "revId": "6ff308e321dc66a0b4948fee743d15e293c88c37",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14a0cc60_49648497",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-06-24T22:47:04Z",
+      "side": 1,
+      "message": "I didn\u0027t reset my auto-submit - I forgot to set it before your CR+2. (I can only AS+1 and CQ+1.)",
+      "parentUuid": "f32c9796_1454a113",
+      "revId": "6ff308e321dc66a0b4948fee743d15e293c88c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
