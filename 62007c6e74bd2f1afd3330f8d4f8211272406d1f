@@ -631,6 +631,24 @@
       "message": "We should probably talk in our next 1:1 about whether this would be better to move out right away, or to stage inside and move later. This may be a bit of a challenge.",
       "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8ec1523_9ccad849",
+        "filename": "crypto/rand_extra/rand_extra.c",
+        "patchSetId": 32
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-06-25T17:08:00Z",
+      "side": 1,
+      "message": "OK, I\u0027m now poking you again on this now that we have a different google3 situation.  Presumably we only move this forward at an appropriate time now.",
+      "parentUuid": "2e63da2d_782d07b3",
+      "revId": "62007c6e74bd2f1afd3330f8d4f8211272406d1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
