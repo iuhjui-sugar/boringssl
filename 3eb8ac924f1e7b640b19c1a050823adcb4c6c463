@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d98e58a_a3b1f50a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "This is coming along nicely. The boringssl-libcrux interface concept looks good to me. I left some detail suggestions comments inline as I read, but they are small stuff.\n\nPlease also take a look at the build failures (though the one that I checked was just a stack-usage limit).",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd652d5e_9b2f27ed",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "I\u0027d probably drop `Libcrux` from this API, say in case we one day want to dispatch to a different underlying implementation on some platform.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4932c2cf_b41fb61f",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "I think it would be nice to make the difference between inputs and outputs very visible here, see e.g. https://github.com/google/boringssl/blob/12f0f4bec2a6db53a53748dd6001d1aacaae26ba/include/openssl/curve25519.h#L57-L58",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b5a008f_50542043",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "`return` here to avoid duplicating the portable path?",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66809873_a28abe7b",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "What do the different parameter declarations here signify?",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce93a182_ba5b98d9",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "Indeed, please do one of these.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0619d994_8c881ee8",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "I am inclined to not expose this unless required by a pressing use case.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5651688d_1afd97ad",
+        "filename": "crypto/mlkem/mlkem768_nistkats.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "Please make this link to a specific commit.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb7e171_63754a94",
+        "filename": "crypto/mlkem/mlkem_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "Please add post-compilation constant-time validation here, `CONSTTIME_SECRET` and so on. See https://boringssl-review.googlesource.com/c/boringssl/+/60186 for an example.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13235901_71ae1d0a",
+        "filename": "third_party/libcrux/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "Should `karamel/target.h` also be on this list?",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf1e119_d3dfeed1",
+        "filename": "third_party/libcrux/code_gen.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "🕳️",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e37570a_0bf394a3",
+        "filename": "third_party/libcrux/eurydice_glue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "Please add a comment.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e3c96b8_df70d0a9",
+        "filename": "third_party/libcrux/eurydice_glue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "Please say how empty slices are represented.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f12f7e79_ee9fbde0",
+        "filename": "third_party/libcrux/karamel/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "A lot of these seem to be unused and conceptually unnecessary in BoringSSL. What is the flow that brings them here?",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aeaad3a_b5238934",
+        "filename": "third_party/libcrux/karamel/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "Do we really want these macros? (How much do these macros win over naive, factored, and pragma-unroll loops?)",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a96bea4_367a0da6",
+        "filename": "third_party/libcrux/libcrux_core.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2024-06-25T22:39:38Z",
+      "side": 1,
+      "message": "How will verification apply to this case -- are you proving that it won\u0027t happen?",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
