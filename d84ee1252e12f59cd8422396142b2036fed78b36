@@ -16,6 +16,24 @@
       "message": "I was away last week, but I think the initial version of this bounced for some reason. David probably knows why.",
       "revId": "d84ee1252e12f59cd8422396142b2036fed78b36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6657af25_e41e021a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3414872
+      },
+      "writtenOn": "2024-06-26T23:56:19Z",
+      "side": 1,
+      "message": "Yes, it broke some downstream code because it removed some functions from the specific algorithms, so that they could only be used if the `Algorithm` trait was imported. This implementation should solve that problem because now there is an inherent implementation of these functions on each algorithm, to avoid having to explicitly import `Algorithm`.",
+      "parentUuid": "95d785de_c616ffaa",
+      "revId": "d84ee1252e12f59cd8422396142b2036fed78b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
