@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc4bbf7_61cc8f0d",
+        "filename": "util/all_tests.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T17:34:11Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: I think we don\u0027t need the extra variable.\n\n```suggestion\n\targs \u003d append([]string{path}, args...)\n```",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 43
+      },
+      "revId": "e8e270249524ab33812df9b330e41ddeb707a455",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
