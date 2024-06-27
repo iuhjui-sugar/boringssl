@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "87317c49_8b4a2050",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "Add `Bug: 42290593` to the commit message here to associate it with the bug. (New numbers because they also migrated us to a new bugtracker.)",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4e9f7246_9aa0b3cc",
@@ -14,6 +31,114 @@
       "writtenOn": "2024-06-06T17:11:30Z",
       "side": 1,
       "message": "Some of the files I touched weren\u0027t fully formatted, if desired I can format them in this diff. If you prefer to handle that separately, that\u0027s fine too",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14554ca5_2e8fc1b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "Sorry about the late response! Apparently Gerrit got confused by my early comment and took me out of the attention set.\n\nThis generally looks good. I\u0027m glad it was pretty straightforward.",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae4c964f_6beae1a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "Sorry about the late response! Apparently Gerrit got confused by my early comment and took me out of the attention set.\n\nThis generally looks good! A few comments below. (Also running the CQ.)",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37356802_2b491de4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4616,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "handshaking",
+      "range": {
+        "startLine": 4616,
+        "startChar": 5,
+        "endLine": 4616,
+        "endChar": 17
+      },
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ccac6dc_07fc0c85",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4617,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "Nit: I might phrase this slightly differently. We haven\u0027t actually gotten far enough to handshake with ClientHelloInner, so it\u0027s not quite right to say that we\u0027ve hit a fatal error. The callback just knows that it won\u0027t be able to handshake with ClientHelloInner, because ClientHelloInner is not meant to have ECH enabled, and wants to rewind *before* we get that far.\n\nIt\u0027s probably also useful to say explicitly that we\u0027ll call the callback again.\n\nHow about:\n\n\u003e ssl_select_cert_disable_ech indicates that, although an encrypted ClientHelloInner was decrypted, it should be discarded. The certificate selection callback will then be called again, passing in the ClientHelloOuter instead. From there, the handshake will proceed without retry_configs, to signal to the client to disable ECH.\n\u003e\n\u003e This value may only be returned when |SSL_ech_accepted| returns one. It may be useful if the ClientHelloInner indicated a service which does not support ECH, e.g. if it is a TLS-1.2-only service.",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c3cb5f8_f11ef3d3",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "I *think* it works if you just let it run since you\u0027ve cleared the ECH keys, but I\u0027m OK with adding a check. 😊",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67d2b52_717a5c10",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "Oh hmm, this is a subtle nuisance. Suppose ClientHelloOuter contains no SNI but ClientHelloInner has one. The first time around, we\u0027ll save the ClientHelloInner\u0027s SNI and also set `should_ack_sni`. The second time around, we\u0027ll bail early and leave it alone, because there\u0027s no SNI extension at all. Then subsequent code will get confused.\n\nI think to fix, we need to clear that state, either in the rewind or in the \"no extension\" case of `extract_sni`. And then I guess also add a test somewhere for it.",
       "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -61,6 +186,23 @@
         "endLine": 731,
         "endChar": 46
       },
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a50e2d6_aa3dc0a5",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-06-27T15:38:47Z",
+      "side": 1,
+      "message": "Probably worth an `assert(SSL_ech_accepted(ssl))` or something, since this shouldn\u0027t be called outside that state. And, correspondingly, a `assert(!SSL_ech_accepted(ssl))` in the other case.\n\nAlternatively, we probably don\u0027t really need `ech_rewind_done` and can instead just use `SSL_ech_accepted(ssl)` to tell which of the two we\u0027re in.",
       "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
