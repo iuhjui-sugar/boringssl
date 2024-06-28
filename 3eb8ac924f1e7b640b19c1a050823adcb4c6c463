@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2eb94cb3_d418e771",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-06-28T08:41:05Z",
+      "side": 1,
+      "message": "Yes, totally makes sense. Will do.",
+      "parentUuid": "fd652d5e_9b2f27ed",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4932c2cf_b41fb61f",
         "filename": "crypto/mlkem/mlkem.c",
         "patchSetId": 1
@@ -122,6 +140,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f88750f_4b7ce262",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-06-28T08:41:05Z",
+      "side": 1,
+      "message": "Right now the spec is not fully defined here. It says there needs to be public key validation but encaps doesn\u0027t actually do it.\nNIST said they are going to require public key validation in encaps. So with the final version of FIPS203 this should go away and encaps will fail on invalid public keys instead. (That\u0027s at least what they said so far.) I\u0027m happy to change the API in this direction already.",
+      "parentUuid": "0619d994_8c881ee8",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5651688d_1afd97ad",
         "filename": "crypto/mlkem/mlkem768_nistkats.txt",
         "patchSetId": 1
@@ -167,6 +203,24 @@
       "writtenOn": "2024-06-25T22:39:38Z",
       "side": 1,
       "message": "Should `karamel/target.h` also be on this list?",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30a5458a_647ca06f",
+        "filename": "third_party/libcrux/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-06-28T08:41:05Z",
+      "side": 1,
+      "message": "Yes definitely. Looks like I dropped it accidentally.",
+      "parentUuid": "13235901_71ae1d0a",
       "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -241,6 +295,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0ef1219_a911dba2",
+        "filename": "third_party/libcrux/karamel/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-06-28T08:41:05Z",
+      "side": 1,
+      "message": "Indeed, large parts in here are not used. I pulled in the entire file to make updating simple. But we can have a separate version of this file for boring, as we do already for the eurydice_glue.h, to contain only the bare minimum needed.",
+      "parentUuid": "f12f7e79_ee9fbde0",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5aeaad3a_b5238934",
         "filename": "third_party/libcrux/karamel/target.h",
         "patchSetId": 1
@@ -258,6 +330,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22575cde_0c9e2bf4",
+        "filename": "third_party/libcrux/karamel/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-06-28T08:41:05Z",
+      "side": 1,
+      "message": "Things like pragma etc. don\u0027t work on all platforms this is used on. That being said, I don\u0027t think we currently unroll loops and didn\u0027t find a big difference in doing so. I think we can drop this (see previous comment).",
+      "parentUuid": "5aeaad3a_b5238934",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a96bea4_367a0da6",
         "filename": "third_party/libcrux/libcrux_core.h",
         "patchSetId": 1
@@ -269,6 +359,24 @@
       "writtenOn": "2024-06-25T22:39:38Z",
       "side": 1,
       "message": "How will verification apply to this case -- are you proving that it won\u0027t happen?",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60db3594_fa6b5aab",
+        "filename": "third_party/libcrux/libcrux_core.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-06-28T08:41:05Z",
+      "side": 1,
+      "message": "Yes, we prove panic freedom of the Rust code. Hence, this is guaranteed to not happen. We have been going back and forth on whether to take this into account when extracting the C code. Would you prefer to skip the error cases? I think we could tell the extraction to ignore panics and get rid of these.",
+      "parentUuid": "3a96bea4_367a0da6",
       "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
