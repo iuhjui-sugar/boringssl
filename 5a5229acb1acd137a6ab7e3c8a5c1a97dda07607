@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75263c63_f16f1581",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-07-03T23:11:52Z",
+      "side": 1,
+      "message": "This change does some refactoring to support https://boringssl-review.googlesource.com/c/boringssl/+/69689",
+      "revId": "5a5229acb1acd137a6ab7e3c8a5c1a97dda07607",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
