@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a94d58_aa60a5c0",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2eb94cb3_d418e771",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4932c2cf_b41fb61f",
@@ -87,6 +105,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcce0f4a_9fcb0182",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b5a008f_50542043",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "66809873_a28abe7b",
@@ -117,6 +153,24 @@
       "writtenOn": "2024-06-25T22:39:38Z",
       "side": 1,
       "message": "Indeed, please do one of these.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71914898_248a8bfa",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce93a182_ba5b98d9",
       "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -156,6 +210,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c3f3fe_fe90560c",
+        "filename": "crypto/mlkem/mlkem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f88750f_4b7ce262",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5651688d_1afd97ad",
@@ -173,6 +245,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cca58935_507dc36f",
+        "filename": "crypto/mlkem/mlkem768_nistkats.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5651688d_1afd97ad",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cb7e171_63754a94",
@@ -186,6 +276,24 @@
       "writtenOn": "2024-06-25T22:39:38Z",
       "side": 1,
       "message": "Please add post-compilation constant-time validation here, `CONSTTIME_SECRET` and so on. See https://boringssl-review.googlesource.com/c/boringssl/+/60186 for an example.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b004822b_a9296f7a",
+        "filename": "crypto/mlkem/mlkem_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cb7e171_63754a94",
       "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -242,6 +350,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f524ad6f_67f59c91",
+        "filename": "third_party/libcrux/code_gen.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaf1e119_d3dfeed1",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e37570a_0bf394a3",
@@ -259,6 +385,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4732dd0b_6f97b2ea",
+        "filename": "third_party/libcrux/eurydice_glue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e37570a_0bf394a3",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e3c96b8_df70d0a9",
@@ -272,6 +416,24 @@
       "writtenOn": "2024-06-25T22:39:38Z",
       "side": 1,
       "message": "Please say how empty slices are represented.",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d2393af_40aeb00d",
+        "filename": "third_party/libcrux/eurydice_glue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1e3c96b8_df70d0a9",
       "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -311,6 +473,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb96403b_ffc2c3e9",
+        "filename": "third_party/libcrux/karamel/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0ef1219_a911dba2",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5aeaad3a_b5238934",
@@ -346,6 +526,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cde93b20_ff7a78e8",
+        "filename": "third_party/libcrux/karamel/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22575cde_0c9e2bf4",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a96bea4_367a0da6",
@@ -377,6 +575,24 @@
       "side": 1,
       "message": "Yes, we prove panic freedom of the Rust code. Hence, this is guaranteed to not happen. We have been going back and forth on whether to take this into account when extracting the C code. Would you prefer to skip the error cases? I think we could tell the extraction to ignore panics and get rid of these.",
       "parentUuid": "3a96bea4_367a0da6",
+      "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6230e4f_9b85eca3",
+        "filename": "third_party/libcrux/libcrux_core.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 3396573
+      },
+      "writtenOn": "2024-07-08T11:13:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "60db3594_fa6b5aab",
       "revId": "3eb8ac924f1e7b640b19c1a050823adcb4c6c463",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
