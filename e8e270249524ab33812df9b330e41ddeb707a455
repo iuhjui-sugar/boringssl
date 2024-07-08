@@ -22,6 +22,30 @@
       },
       "revId": "e8e270249524ab33812df9b330e41ddeb707a455",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f713d9b7_4033a929",
+        "filename": "util/all_tests.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 3274298
+      },
+      "writtenOn": "2024-07-08T19:31:24Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "0bc4bbf7_61cc8f0d",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 43
+      },
+      "revId": "e8e270249524ab33812df9b330e41ddeb707a455",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
