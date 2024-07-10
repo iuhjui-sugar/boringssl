@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03d47f6c_4fe770c4",
+        "filename": "ssl/d1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-10T21:01:26Z",
+      "side": 1,
+      "message": "I think we need a `tls_free` call here, so `ssl` doesn\u0027t get into this in between state where it has an `s3` but not a `d1`.\n\nThis *almost* doesn\u0027t matter (`SSL_new` won\u0027t return the object) except that `SSL_clear`, in theory, can actually get into this state.\n\n(Everything about this is ridiculous and this probably should actually be two classes implementing a C++ interface. Also pretending to believe in allocation errors in libssl should really stop. Also we, everywhere, assume that `ssl-\u003es3` is non-null, so actually if you get into this state, trying to use the `SSL` will probably crash. But I guess we\u0027ll cross that bridge another time. `SSL_clear` is also a horrible API.)",
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f17ee811_9f526895",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-10T21:01:26Z",
+      "side": 1,
+      "message": "Now that `seal_next_message` doesn\u0027t check this, probably these `assert`s should become `BSSL_CHECK`s, or a \"clean\" `ERR_R_INTERNAL_ERROR`, so we don\u0027t go totally haywire.",
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb64e07f_bb799c68",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-10T21:01:26Z",
+      "side": 1,
+      "message": "I suppose it is technically allowed (wonder if we even test this) to get a HelloVerifyRequest with an empty cookie (why???), and then the `dtls_cookie` check would fail. This is very silly though.",
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de061ee1_8b1c31b4",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2957,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-10T21:01:26Z",
+      "side": 1,
+      "message": "crbug.com/42290608 might be a better link",
+      "range": {
+        "startLine": 2957,
+        "startChar": 12,
+        "endLine": 2957,
+        "endChar": 35
+      },
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d7ea593_7bbe1cf7",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2825,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-10T21:01:26Z",
+      "side": 1,
+      "message": "Let\u0027s use crbug.com/42290608 since it\u0027s a bit more specific.\n\n(Oh how I miss our short, memorable bug numbers.)",
+      "range": {
+        "startLine": 2825,
+        "startChar": 14,
+        "endLine": 2825,
+        "endChar": 37
+      },
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5cb6f9f_501a32a3",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2856,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-10T21:01:26Z",
+      "side": 1,
+      "message": "Doesn\u0027t DTLS 1.2 do that too?",
+      "range": {
+        "startLine": 2854,
+        "startChar": 22,
+        "endLine": 2856,
+        "endChar": 36
+      },
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fc75de7_a3dbaaaf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 6152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-10T21:01:26Z",
+      "side": 1,
+      "message": "Guessing we will eventually want an `is_at_least_tls13()` method on this test fixture or something, but eh this works. 😊",
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
