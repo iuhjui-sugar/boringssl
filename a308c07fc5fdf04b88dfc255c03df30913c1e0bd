@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8467f14a_5aa8aba7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-16T17:08:48Z",
+      "side": 1,
+      "message": "Thanks! Last couple of comments.",
+      "revId": "a308c07fc5fdf04b88dfc255c03df30913c1e0bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b14157f_5c01cc22",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4630,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-16T17:08:48Z",
+      "side": 1,
+      "message": "Nit: stray blank line",
+      "revId": "a308c07fc5fdf04b88dfc255c03df30913c1e0bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b734eb_f8a18ad3",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-16T17:08:48Z",
+      "side": 1,
+      "message": "Not a request for change for this CL or anything, but it occurs to me that setting `should_ack_sni` here is all manner of silly. The actual value is computed as part of `ssl_check_clienthello_tlsext`.\n\nI might follow-up, after this lands, to simplify this slightly. 😊",
+      "revId": "a308c07fc5fdf04b88dfc255c03df30913c1e0bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28bdd427_9cc7cfd0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 17388,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-16T17:08:48Z",
+      "side": 1,
+      "message": "Looks like this test doesn\u0027t actually check that we correctly handle that case. If I comment out resetting `hostname`, the test still passes.\n\nI think we might need an `-expect-no-server-name` flag. (Let me know if you need some pointers here. The flags system is kinda horrible and doesn\u0027t distinguish \"no expectation\" from \"expect empty string\" very well. One of these days, I want to replace the shim \u003c-\u003e runner bit with a JSON thing and then we can just write a struct literal and move on with life.)",
+      "revId": "a308c07fc5fdf04b88dfc255c03df30913c1e0bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
