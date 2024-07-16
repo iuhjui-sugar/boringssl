@@ -33,6 +33,23 @@
       "message": "Could have sworn I hit CR+2 and CQ+2 already. Let\u0027s try that again...",
       "revId": "efdcb1a153e5c742149185f6759ecb02f8df5bc4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e371e187_ae973e75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-16T19:32:17Z",
+      "side": 1,
+      "message": "Pfft, I always forget we need another person to stamp for external contributions now. I\u0027ll ping Adam and Bob.",
+      "revId": "efdcb1a153e5c742149185f6759ecb02f8df5bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
