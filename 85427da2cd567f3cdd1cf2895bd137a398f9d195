@@ -87,6 +87,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd29c2df_8b3877b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2024-07-16T06:37:28Z",
+      "side": 1,
+      "message": "No worries, thanks for the review! All comments should be addressed",
+      "parentUuid": "14554ca5_2e8fc1b9",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37356802_2b491de4",
@@ -182,6 +200,24 @@
       "writtenOn": "2024-06-27T15:38:47Z",
       "side": 1,
       "message": "I *think* it works if you just let it run since you\u0027ve cleared the ECH keys, but I\u0027m OK with adding a check. 😊",
+      "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fe1c372_a36eb3d6",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2024-07-16T06:37:28Z",
+      "side": 1,
+      "message": "I think I figured out why we need this. In this case, clearing `hs-\u003eech_keys` isn\u0027t enough because each call to `decrypt_ech` ends up reinstantiating `hs-\u003eech_keys` with an upref on `ssl-\u003ectx-\u003eech_keys`, which I don\u0027t think we can\u0027t touch. Then we end up looping on decrypting ECH, updating the active hello to ClientHelloInner, and rewinding.",
+      "parentUuid": "4c3cb5f8_f11ef3d3",
       "revId": "85427da2cd567f3cdd1cf2895bd137a398f9d195",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
