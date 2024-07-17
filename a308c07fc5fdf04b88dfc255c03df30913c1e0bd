@@ -88,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "463edfd4_3cc1894a",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-17T04:32:37Z",
+      "side": 1,
+      "message": "Oops, sorry, I missed your reply here and already did this:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/69747/",
+      "parentUuid": "16e3c751_0eabcafb",
+      "revId": "a308c07fc5fdf04b88dfc255c03df30913c1e0bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28bdd427_9cc7cfd0",
