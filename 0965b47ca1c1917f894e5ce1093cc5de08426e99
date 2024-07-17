@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "710c2b5d_6b2ec0cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-17T17:17:44Z",
+      "side": 1,
+      "message": "Thanks for the updates. This is looking a lot better! Looks like there\u0027s a few build issues, but I imagine we can sort those out iteratively. A status update on our end:\n\nIETF is coming up, so I\u0027ll be heads down preparing for that all week and then away next week. I may end up taking a little time off after IETF, we\u0027ll see. When I\u0027m back, I hope to have more cycles to give this attention.\n\nI think the two main non-trivial issues to sort out are:\n1. Licensing\n2. The NIST standard isn\u0027t final yet\n\nLicensing-wise, this would be the first Apache2 thing added to BoringSSL, and I\u0027m a little loathe to make our license zoo even worse, as that bubbles up into *everything* that uses the library. 😊 (Though that is a conversation we could have with folks if needed.)\n\nThat said, OpenSSL upstream has since moved to Apache2, so we\u0027ve already needed to resolve that one way or another. I can try to pick that up after IETF and see if we can get that resolved.\n\nAnother possibility is, if you\u0027re willing to license libcrux under ISC. However, I see there is still (a tiny tiny bit of) code from krml, and I suppose the code overall is the output of krml, so I\u0027m guessing that\u0027s not totally trivial.\n\n(I don\u0027t expect this to be a fatal blocker. Just need to tug at it a bit and see where we can get to.)\n\nThe next non-trivial issue is what the primitive implements. This is called ML-KEM, but the final ML-KEM doesn\u0027t exist yet. I assume this is the initial public draft?\n\nEvery snapshot we check in, and expose under public API, is effectively a distinct primitive. We\u0027d be stuck either supporting it indefinitely, or going through a removal process for early adopters. This means we want to minimize the number of distinct ML-KEM variants we check in.\n\nWe\u0027ve currently implemented the round3 primitive (kyber.h) for TLS and other early adopters. Our plan was to stick with that until the final ML-KEM. Then we\u0027ll have a total of just two, and transition off of round3. That means we *don\u0027t* want to implement the ML-KEM initial public draft, at least as public API. So I think our options then are:\n\n1. We review this but hold off on landing it until NIST is ready, make the final changes needed, and then land this.\n2. We review this and land it, but intentionally do not connect it to the public API. It\u0027s essentially in there only to make sure it builds, but nothing actually uses it yet.\n3. We retarget this to round3 and integrate it into our existing Kyber implementation.\n\nOption 3 is probably not the best use of time, since we\u0027ll ultimately want it to ML-KEM anyway. (Although if round3 and ML-KEM can share code during the transition, that would be nice!) So probably that means either 1 or 2 initially.\n\nFinally, we\u0027ll want to iterate a bit on the code itself. But skimming the CL, I think all the remaining issues are small enough that we can just handle them on Gerrit without any fanfare.",
+      "revId": "0965b47ca1c1917f894e5ce1093cc5de08426e99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
