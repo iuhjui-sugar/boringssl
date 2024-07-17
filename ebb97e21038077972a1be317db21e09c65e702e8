@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1267e39_e28e03d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-17T18:10:11Z",
+      "side": 1,
+      "message": "If you add `Fixed: 42290529` to the commit message, it\u0027ll get linked to the bug and auto-close the bug.",
+      "revId": "ebb97e21038077972a1be317db21e09c65e702e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

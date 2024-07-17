@@ -233,6 +233,30 @@
       },
       "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39d1d99c_74753a1c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-17T18:10:11Z",
+      "side": 1,
+      "message": "Sadness. Ah well.",
+      "parentUuid": "042844dc_30d3dc89",
+      "range": {
+        "startLine": 573,
+        "startChar": 13,
+        "endLine": 573,
+        "endChar": 35
+      },
+      "revId": "ddfeb94e182b4b5e979547aa6857649d1a76da27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
