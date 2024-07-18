@@ -33,6 +33,24 @@
       "message": "(Oops, did not mean to rerun CQ there.)",
       "revId": "0965b47ca1c1917f894e5ce1093cc5de08426e99",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e2d4707_e0f763ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3542378
+      },
+      "writtenOn": "2024-07-18T13:58:35Z",
+      "side": 1,
+      "message": "Happy to help debug the build failures.\n\nOn the two other points:\n- We usually cross-license our code under MIT. Would that license work? \n- We do have a Kyber Round 3 version of this code but we would likely need help to integrate it into your current APIs.",
+      "parentUuid": "710c2b5d_6b2ec0cf",
+      "revId": "0965b47ca1c1917f894e5ce1093cc5de08426e99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
