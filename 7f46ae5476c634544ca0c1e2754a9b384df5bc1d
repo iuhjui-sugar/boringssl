@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afe97635_9c0b56a2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-07-18T14:31:49Z",
+      "side": 1,
+      "message": "What\u0027s the motivation here? We\u0027ll eventually end up doing this, but BoringSSL doesn\u0027t have an `SSL_OP_NO_DTLSv1_3` constant yet, and our DTLS 1.3 implementation is still a work in progress.\n\nUntil it\u0027s enabled by default, I don\u0027t think `-no-tls13` is needed here and actually loses a bit of test fidelity. I think we don\u0027t want to do this until slightly later.",
+      "revId": "7f46ae5476c634544ca0c1e2754a9b384df5bc1d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
