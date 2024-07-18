@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1609785b_35fecb0e",
+        "filename": "ssl/d1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-07-18T00:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03d47f6c_4fe770c4",
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f17ee811_9f526895",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-07-10T21:01:26Z",
       "side": 1,
       "message": "Now that `seal_next_message` doesn\u0027t check this, probably these `assert`s should become `BSSL_CHECK`s, or a \"clean\" `ERR_R_INTERNAL_ERROR`, so we don\u0027t go totally haywire.",
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18586b39_d766ba11",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-07-18T00:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f17ee811_9f526895",
       "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -75,6 +111,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1778bece_97019a36",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2957,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-07-18T00:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de061ee1_8b1c31b4",
+      "range": {
+        "startLine": 2957,
+        "startChar": 12,
+        "endLine": 2957,
+        "endChar": 35
+      },
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d7ea593_7bbe1cf7",
@@ -98,6 +158,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61f7185f_e510dfbc",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2825,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-07-18T00:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d7ea593_7bbe1cf7",
+      "range": {
+        "startLine": 2825,
+        "startChar": 14,
+        "endLine": 2825,
+        "endChar": 37
+      },
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5cb6f9f_501a32a3",
@@ -111,6 +195,30 @@
       "writtenOn": "2024-07-10T21:01:26Z",
       "side": 1,
       "message": "Doesn\u0027t DTLS 1.2 do that too?",
+      "range": {
+        "startLine": 2854,
+        "startChar": 22,
+        "endLine": 2856,
+        "endChar": 36
+      },
+      "revId": "1b4243141b5e94e7a997d92afb821a0ea3b8071e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9c60ce0_f7339cb1",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2856,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-07-18T00:03:11Z",
+      "side": 1,
+      "message": "I can\u0027t remember what this part of the comment was supposed to mean, so it\u0027s gone now.",
+      "parentUuid": "b5cb6f9f_501a32a3",
       "range": {
         "startLine": 2854,
         "startChar": 22,
