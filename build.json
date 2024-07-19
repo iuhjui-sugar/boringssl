@@ -95,7 +95,8 @@
         ],
         "asm": [
             "third_party/fiat/asm/fiat_p256_adx_mul.S",
-            "third_party/fiat/asm/fiat_p256_adx_sqr.S"
+            "third_party/fiat/asm/fiat_p256_adx_sqr.S",
+            "crypto/fipsmodule/modes/asm/aes-gcm-avx10-x86_64.S"
         ],
         "perlasm_aarch64": [
             {"src": "crypto/fipsmodule/aes/asm/aesv8-armx.pl", "dst": "aesv8-armv8"},

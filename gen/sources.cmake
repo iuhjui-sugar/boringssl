@@ -104,6 +104,7 @@ set(
 set(
   BCM_SOURCES_ASM
 
+  crypto/fipsmodule/modes/asm/aes-gcm-avx10-x86_64.S
   gen/bcm/aesni-gcm-x86_64-apple.S
   gen/bcm/aesni-gcm-x86_64-linux.S
   gen/bcm/aesni-x86-apple.S
