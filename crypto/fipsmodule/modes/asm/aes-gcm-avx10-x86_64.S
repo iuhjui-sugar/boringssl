@@ -1,50 +1,19 @@
-/* SPDX-License-Identifier: Apache-2.0 OR BSD-2-Clause */
 //
 // VAES and VPCLMULQDQ optimized AES-GCM for x86_64
 //
 // Copyright 2024 Google LLC
 //
-// Author: Eric Biggers <ebiggers@google.com>
+// Permission to use, copy, modify, and/or distribute this software for any
+// purpose with or without fee is hereby granted, provided that the above
+// copyright notice and this permission notice appear in all copies.
 //
-//------------------------------------------------------------------------------
-//
-// This file is dual-licensed, meaning that you can use it under your choice of
-// either of the following two licenses:
-//
-// Licensed under the Apache License 2.0 (the "License").  You may obtain a copy
-// of the License at
-//
-//	http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
-// or
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are met:
-//
-// 1. Redistributions of source code must retain the above copyright notice,
-//    this list of conditions and the following disclaimer.
-//
-// 2. Redistributions in binary form must reproduce the above copyright
-//    notice, this list of conditions and the following disclaimer in the
-//    documentation and/or other materials provided with the distribution.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.
+// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+// WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+// SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+// WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+// OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+// CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 //
 //------------------------------------------------------------------------------
 //
@@ -81,7 +50,18 @@
 // 32, masking support, and new instructions such as vpternlogd (which can do a
 // three-argument XOR).  These features are very useful for AES-GCM.
 
-#include <linux/linkage.h>
+#include <openssl/asm_base.h>
+#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && \
+    (defined(__APPLE__) || defined(__ELF__))
+
+#define SYM_FUNC_START(name) \
+	.global name; \
+	.hidden name; \
+	name:
+#define SYM_FUNC_END(name) \
+	.type name, %function; \
+	.size name, . - name
+#define RET ret
 
 .section .rodata
 .p2align 6
@@ -121,19 +101,10 @@
 // stored from highest (H^NUM_H_POWERS) to lowest (H^1).
 #define NUM_H_POWERS		16
 
-// Offset to AES key length (in bytes) in the key struct
-#define OFFSETOF_AESKEYLEN	480
+#define OFFSETOFEND_H_POWERS	(NUM_H_POWERS * 16)
 
-// Offset to start of hash key powers array in the key struct
-#define OFFSETOF_H_POWERS	512
-
-// Offset to end of hash key powers array in the key struct.
-//
-// This is immediately followed by three zeroized padding blocks, which are
-// included so that partial vectors can be handled more easily.  E.g. if VL=64
-// and two blocks remain, we load the 4 values [H^2, H^1, 0, 0].  The most
-// padding blocks needed is 3, which occurs if [H^1, 0, 0, 0] is loaded.
-#define OFFSETOFEND_H_POWERS	(OFFSETOF_H_POWERS + (NUM_H_POWERS * 16))
+// Offset to 'rounds' in AES_KEY struct
+#define OFFSETOF_AES_ROUNDS	240
 
 .text
 
@@ -312,14 +283,11 @@
 	vpternlogd	$0x96, \t0, \mi, \hi
 .endm
 
-// void aes_gcm_precompute_##suffix(struct aes_gcm_key_avx10 *key);
+// void gcm_init_##suffix(u128 Htable[16], const uint64_t Xi[2]);
 //
-// Given the expanded AES key |key->aes_key|, this function derives the GHASH
-// subkey and initializes |key->ghash_key_powers| with powers of it.
+// Initialize |Htable| with powers of the GHASH subkey |Xi|.
 //
-// The number of key powers initialized is NUM_H_POWERS, and they are stored in
-// the order H^NUM_H_POWERS to H^1.  The zeroized padding blocks after the key
-// powers themselves are also initialized.
+// The powers are stored in the order H^NUM_H_POWERS to H^1.
 //
 // This macro supports both VL=32 and VL=64.  _set_veclen must have been invoked
 // with the desired length.  In the VL=32 case, the function computes twice as
@@ -328,11 +296,12 @@
 .macro	_aes_gcm_precompute
 
 	// Function arguments
-	.set	KEY,		%rdi
+	.set	HTABLE,		%rdi
+	.set	XI,		%rsi
 
 	// Additional local variables.  V0-V2 and %rax are used as temporaries.
-	.set	POWERS_PTR,	%rsi
-	.set	RNDKEYLAST_PTR,	%rdx
+	.set	POWERS_PTR,	%rdx
+	.set	RNDKEYLAST_PTR,	%rcx
 	.set	H_CUR,		V3
 	.set	H_CUR_YMM,	%ymm3
 	.set	H_CUR_XMM,	%xmm3
@@ -344,27 +313,12 @@
 	.set	GFPOLY_XMM,	%xmm5
 
 	// Get pointer to lowest set of key powers (located at end of array).
-	lea		OFFSETOFEND_H_POWERS-VL(KEY), POWERS_PTR
+	lea		OFFSETOFEND_H_POWERS-VL(HTABLE), POWERS_PTR
 
-	// Encrypt an all-zeroes block to get the raw hash subkey.
-	movl		OFFSETOF_AESKEYLEN(KEY), %eax
-	lea		6*16(KEY,%rax,4), RNDKEYLAST_PTR
-	vmovdqu		(KEY), %xmm0  // Zero-th round key XOR all-zeroes block
-	add		$16, KEY
-1:
-	vaesenc		(KEY), %xmm0, %xmm0
-	add		$16, KEY
-	cmp		KEY, RNDKEYLAST_PTR
-	jne		1b
-	vaesenclast	(RNDKEYLAST_PTR), %xmm0, %xmm0
-
-	// Reflect the bytes of the raw hash subkey.
-	vpshufb		.Lbswap_mask(%rip), %xmm0, H_CUR_XMM
-
-	// Zeroize the padding blocks.
-	vpxor		%xmm0, %xmm0, %xmm0
-	vmovdqu		%ymm0, VL(POWERS_PTR)
-	vmovdqu		%xmm0, VL+2*16(POWERS_PTR)
+	// Load the byte-reflected hash subkey.  BoringSSL provides it in
+	// byte-reflected form except the two halves are in the wrong order.
+	vmovq		8(XI), H_CUR_XMM
+	vpinsrq		$1, (XI), H_CUR_XMM, H_CUR_XMM
 
 	// Finish preprocessing the first key power, H^1.  Since this GHASH
 	// implementation operates directly on values with the backwards bit
@@ -562,44 +516,46 @@
 	vpxord		RNDKEY0, V3, V3
 .endm
 
-// void aes_gcm_{enc,dec}_update_##suffix(const struct aes_gcm_key_avx10 *key,
-//					  const u32 le_ctr[4], u8 ghash_acc[16],
-//					  const u8 *src, u8 *dst, int datalen);
+// void aes_gcm_{enc,dec}_update_##suffix(const uint8_t *in, uint8_t *out,
+//					  size_t len, const AES_KEY *key,
+//					  const uint8_t ivec[16],
+//					  const u128 Htable[16],
+//					  uint8_t Xi[16]);
 //
 // This macro generates a GCM encryption or decryption update function with the
 // above prototype (with \enc selecting which one).  This macro supports both
 // VL=32 and VL=64.  _set_veclen must have been invoked with the desired length.
 //
 // This function computes the next portion of the CTR keystream, XOR's it with
-// |datalen| bytes from |src|, and writes the resulting encrypted or decrypted
-// data to |dst|.  It also updates the GHASH accumulator |ghash_acc| using the
-// next |datalen| ciphertext bytes.
+// |len| bytes from |in|, and writes the resulting encrypted or decrypted data
+// to |out|.  It also updates the GHASH accumulator |Xi| using the next |len|
+// ciphertext bytes.
 //
-// |datalen| must be a multiple of 16, except on the last call where it can be
-// any length.  The caller must do any buffering needed to ensure this.  Both
+// |len| must be a multiple of 16, except on the last call where it can be any
+// length.  The caller must do any buffering needed to ensure this.  Both
 // in-place and out-of-place en/decryption are supported.
 //
-// |le_ctr| must give the current counter in little-endian format.  For a new
+// |ivec| must give the current counter in big-endian format.  For a new
 // message, the low word of the counter must be 2.  This function loads the
-// counter from |le_ctr| and increments the loaded counter as needed, but it
-// does *not* store the updated counter back to |le_ctr|.  The caller must
-// update |le_ctr| if any more data segments follow.  Internally, only the low
-// 32-bit word of the counter is incremented, following the GCM standard.
+// counter from |ivec| and increments the loaded counter as needed, but it does
+// *not* store the updated counter back to |ivec|.  The caller must update
+// |ivec| if any more data segments follow.  Internally, only the low 32-bit
+// word of the counter is incremented, following the GCM standard.
 .macro	_aes_gcm_update	enc
 
 	// Function arguments
-	.set	KEY,		%rdi
-	.set	LE_CTR_PTR,	%rsi
-	.set	GHASH_ACC_PTR,	%rdx
-	.set	SRC,		%rcx
-	.set	DST,		%r8
-	.set	DATALEN,	%r9d
-	.set	DATALEN64,	%r9	// Zero-extend DATALEN before using!
+	.set	SRC,		%rdi
+	.set	DST,		%rsi
+	.set	DATALEN,	%rdx
+	.set	AESKEY,		%rcx
+	.set	BE_CTR_PTR,	%r8
+	.set	H_POWERS,	%r9
+	// GHASH_ACC_PTR is at 8(%rsp)
 
 	// Additional local variables
 
-	// %rax and %k1 are used as temporary registers.  LE_CTR_PTR is also
-	// available as a temporary register after the counter is loaded.
+	// %rax, %k1, and %k2 are used as temporary registers.  BE_CTR_PTR is
+	// also available as a temporary register after the counter is loaded.
 
 	// AES key length in bytes
 	.set	AESKEYLEN,	%r10d
@@ -607,6 +563,9 @@
 
 	// Pointer to the last AES round key for the chosen AES variant
 	.set	RNDKEYLAST_PTR,	%r11
+
+	// Pointer to GHASH accumulator argument
+	.set	GHASH_ACC_PTR,	%r12
 
 	// In the main loop, V0-V3 are used as AES input and output.  Elsewhere
 	// they are used as temporary registers.
@@ -623,6 +582,7 @@
 	// BSWAP_MASK is the shuffle mask for byte-reflecting 128-bit values
 	// using vpshufb, copied to all 128-bit lanes.
 	.set	BSWAP_MASK,	V8
+	.set	BSWAP_MASK_XMM,	%xmm8
 
 	// RNDKEY temporarily holds the next AES round key.
 	.set	RNDKEY,		V9
@@ -677,22 +637,30 @@
 	// GFPOLY contains the .Lgfpoly constant, copied to all 128-bit lanes.
 	.set	GFPOLY,		V31
 
+	push		%r12
+	mov		16(%rsp), GHASH_ACC_PTR
+
 	// Load some constants.
 	vbroadcasti32x4	.Lbswap_mask(%rip), BSWAP_MASK
 	vbroadcasti32x4	.Lgfpoly(%rip), GFPOLY
 
 	// Load the GHASH accumulator and the starting counter.
+	// BoringSSL passes these values in big endian format.
 	vmovdqu		(GHASH_ACC_PTR), GHASH_ACC_XMM
-	vbroadcasti32x4	(LE_CTR_PTR), LE_CTR
+	vpshufb		BSWAP_MASK_XMM, GHASH_ACC_XMM, GHASH_ACC_XMM
+	vbroadcasti32x4	(BE_CTR_PTR), LE_CTR
+	vpshufb		BSWAP_MASK, LE_CTR, LE_CTR
 
-	// Load the AES key length in bytes.
-	movl		OFFSETOF_AESKEYLEN(KEY), AESKEYLEN
+	// Load the AES key length in bytes.  BoringSSL stores number of rounds
+	// minus 1, so convert using: AESKEYLEN = 4 * aeskey->rounds - 20.
+	movl		OFFSETOF_AES_ROUNDS(AESKEY), AESKEYLEN
+	lea		-20(,AESKEYLEN,4), AESKEYLEN
 
 	// Make RNDKEYLAST_PTR point to the last AES round key.  This is the
 	// round key with index 10, 12, or 14 for AES-128, AES-192, or AES-256
 	// respectively.  Then load the zero-th and last round keys.
-	lea		6*16(KEY,AESKEYLEN64,4), RNDKEYLAST_PTR
-	vbroadcasti32x4	(KEY), RNDKEY0
+	lea		6*16(AESKEY,AESKEYLEN64,4), RNDKEYLAST_PTR
+	vbroadcasti32x4	(AESKEY), RNDKEY0
 	vbroadcasti32x4	(RNDKEYLAST_PTR), RNDKEYLAST
 
 	// Finish initializing LE_CTR by adding [0, 1, ...] to its low words.
@@ -709,18 +677,14 @@
 
 	// If there are at least 4*VL bytes of data, then continue into the loop
 	// that processes 4*VL bytes of data at a time.  Otherwise skip it.
-	//
-	// Pre-subtracting 4*VL from DATALEN saves an instruction from the main
-	// loop and also ensures that at least one write always occurs to
-	// DATALEN, zero-extending it and allowing DATALEN64 to be used later.
-	sub		$4*VL, DATALEN
-	jl		.Lcrypt_loop_4x_done\@
+	cmp		$4*VL, DATALEN
+	jb		.Lcrypt_loop_4x_done\@
 
 	// Load powers of the hash key.
-	vmovdqu8	OFFSETOFEND_H_POWERS-4*VL(KEY), H_POW4
-	vmovdqu8	OFFSETOFEND_H_POWERS-3*VL(KEY), H_POW3
-	vmovdqu8	OFFSETOFEND_H_POWERS-2*VL(KEY), H_POW2
-	vmovdqu8	OFFSETOFEND_H_POWERS-1*VL(KEY), H_POW1
+	vmovdqu8	OFFSETOFEND_H_POWERS-4*VL(H_POWERS), H_POW4
+	vmovdqu8	OFFSETOFEND_H_POWERS-3*VL(H_POWERS), H_POW3
+	vmovdqu8	OFFSETOFEND_H_POWERS-2*VL(H_POWERS), H_POW2
+	vmovdqu8	OFFSETOFEND_H_POWERS-1*VL(H_POWERS), H_POW1
 
 	// Main loop: en/decrypt and hash 4 vectors at a time.
 	//
@@ -741,7 +705,7 @@
 	// Encrypt the first 4 vectors of plaintext blocks.  Leave the resulting
 	// ciphertext in GHASHDATA[0-3] for GHASH.
 	_ctr_begin_4x
-	lea		16(KEY), %rax
+	lea		16(AESKEY), %rax
 1:
 	vbroadcasti32x4	(%rax), RNDKEY
 	_vaesenc_4x	RNDKEY
@@ -763,7 +727,8 @@
 	add		$4*VL, SRC
 	add		$4*VL, DST
 	sub		$4*VL, DATALEN
-	jl		.Lghash_last_ciphertext_4x\@
+	cmp		$4*VL, DATALEN
+	jb		.Lghash_last_ciphertext_4x\@
 .endif
 
 	// Cache as many additional AES round keys as possible.
@@ -843,7 +808,8 @@
 	add		$4*VL, SRC
 	add		$4*VL, DST
 	sub		$4*VL, DATALEN
-	jge		.Lcrypt_loop_4x\@
+	cmp		$4*VL, DATALEN
+	jae		.Lcrypt_loop_4x\@
 
 .if \enc
 .Lghash_last_ciphertext_4x\@:
@@ -855,8 +821,8 @@
 
 .Lcrypt_loop_4x_done\@:
 
-	// Undo the extra subtraction by 4*VL and check whether data remains.
-	add		$4*VL, DATALEN
+	// Check whether any data remains.
+	test		DATALEN, DATALEN
 	jz		.Ldone\@
 
 	// The data length isn't a multiple of 4*VL.  Process the remaining data
@@ -878,11 +844,11 @@
 
 	// Make POWERS_PTR point to the key powers [H^N, H^(N-1), ...] where N
 	// is the number of blocks that remain.
-	.set		POWERS_PTR, LE_CTR_PTR	// LE_CTR_PTR is free to be reused.
-	mov		DATALEN, %eax
+	.set		POWERS_PTR, BE_CTR_PTR	// BE_CTR_PTR is free to be reused.
+	mov		DATALEN, %rax
 	neg		%rax
 	and		$~15, %rax  // -round_up(DATALEN, 16)
-	lea		OFFSETOFEND_H_POWERS(KEY,%rax), POWERS_PTR
+	lea		OFFSETOFEND_H_POWERS(H_POWERS,%rax), POWERS_PTR
 
 	// Start collecting the unreduced GHASH intermediate value LO, MI, HI.
 	.set		LO, GHASHDATA0
@@ -895,26 +861,78 @@
 	vpxor		MI_XMM, MI_XMM, MI_XMM
 	vpxor		HI_XMM, HI_XMM, HI_XMM
 
+	cmp		$VL, DATALEN
+	jb		.Lpartial_vec\@
+
 .Lcrypt_loop_1x\@:
+	// Process a full vector of length VL.
 
-	// Select the appropriate mask for this iteration: all 1's if
-	// DATALEN >= VL, otherwise DATALEN 1's.  Do this branchlessly using the
-	// bzhi instruction from BMI2.  (This relies on DATALEN <= 255.)
-.if VL < 64
-	mov		$-1, %eax
-	bzhi		DATALEN, %eax, %eax
-	kmovd		%eax, %k1
-.else
-	mov		$-1, %rax
-	bzhi		DATALEN64, %rax, %rax
-	kmovq		%rax, %k1
-.endif
-
-	// Encrypt a vector of counter blocks.  This does not need to be masked.
+	// Encrypt a vector of counter blocks.
 	vpshufb		BSWAP_MASK, LE_CTR, V0
 	vpaddd		LE_CTR_INC, LE_CTR, LE_CTR
 	vpxord		RNDKEY0, V0, V0
-	lea		16(KEY), %rax
+	lea		16(AESKEY), %rax
+1:
+	vbroadcasti32x4	(%rax), RNDKEY
+	vaesenc		RNDKEY, V0, V0
+	add		$16, %rax
+	cmp		%rax, RNDKEYLAST_PTR
+	jne		1b
+	vaesenclast	RNDKEYLAST, V0, V0
+
+	// XOR the data with the vector of keystream blocks.
+	vmovdqu8	(SRC), V1
+	vpxord		V1, V0, V0
+	vmovdqu8	V0, (DST)
+
+	// Update GHASH with the ciphertext blocks, without reducing.
+	vmovdqu8        (POWERS_PTR), H_POW1
+.if \enc
+	vpshufb		BSWAP_MASK, V0, V0
+.else
+	vpshufb		BSWAP_MASK, V1, V0
+.endif
+	vpxord		GHASH_ACC, V0, V0
+	_ghash_mul_noreduce	H_POW1, V0, LO, MI, HI, GHASHDATA3, V1, V2, V3
+	vpxor		GHASH_ACC_XMM, GHASH_ACC_XMM, GHASH_ACC_XMM
+
+	add		$VL, POWERS_PTR
+	add		$VL, SRC
+	add		$VL, DST
+	sub		$VL, DATALEN
+	cmp		$VL, DATALEN
+	jae		.Lcrypt_loop_1x\@
+
+	test		DATALEN, DATALEN
+	jz		.Lreduce\@
+
+.Lpartial_vec\@:
+	// Process a partial vector of length 1 <= DATALEN < VL.
+
+	// Set the data mask %k1 to DATALEN 1's.
+	// Set the key powers mask %k2 to round_up(DATALEN, 16) 1's.
+	mov		$-1, %rax
+	bzhi		DATALEN, %rax, %rax
+.if VL < 64
+	kmovd		%eax, %k1
+.else
+	kmovq		%rax, %k1
+.endif
+	add		$15, DATALEN
+	and		$~15, DATALEN
+	mov		$-1, %rax
+	bzhi		DATALEN, %rax, %rax
+.if VL < 64
+	kmovd		%eax, %k2
+.else
+	kmovq		%rax, %k2
+.endif
+
+	// Encrypt one last vector of counter blocks.  This does not need to be
+	// masked.  The counter does not need to be incremented here.
+	vpshufb		BSWAP_MASK, LE_CTR, V0
+	vpxord		RNDKEY0, V0, V0
+	lea		16(AESKEY), %rax
 1:
 	vbroadcasti32x4	(%rax), RNDKEY
 	vaesenc		RNDKEY, V0, V0
@@ -940,30 +958,26 @@
 	// GHASH.  However, any such blocks are all-zeroes, and the values that
 	// they're multiplied with are also all-zeroes.  Therefore they just add
 	// 0 * 0 = 0 to the final GHASH result, which makes no difference.
-	vmovdqu8        (POWERS_PTR), H_POW1
+	vmovdqu8        (POWERS_PTR), H_POW1{%k2}{z}
 .if \enc
 	vmovdqu8	V0, V1{%k1}{z}
 .endif
 	vpshufb		BSWAP_MASK, V1, V0
 	vpxord		GHASH_ACC, V0, V0
 	_ghash_mul_noreduce	H_POW1, V0, LO, MI, HI, GHASHDATA3, V1, V2, V3
-	vpxor		GHASH_ACC_XMM, GHASH_ACC_XMM, GHASH_ACC_XMM
 
-	add		$VL, POWERS_PTR
-	add		$VL, SRC
-	add		$VL, DST
-	sub		$VL, DATALEN
-	jg		.Lcrypt_loop_1x\@
-
+.Lreduce\@:
 	// Finally, do the GHASH reduction.
 	_ghash_reduce	LO, MI, HI, GFPOLY, V0
 	_horizontal_xor	HI, HI_XMM, GHASH_ACC_XMM, %xmm0, %xmm1, %xmm2
 
 .Ldone\@:
 	// Store the updated GHASH accumulator back to memory.
+	vpshufb		BSWAP_MASK_XMM, GHASH_ACC_XMM, GHASH_ACC_XMM
 	vmovdqu		GHASH_ACC_XMM, (GHASH_ACC_PTR)
 
 	vzeroupper	// This is needed after using ymm or zmm registers.
+	pop		%r12
 	RET
 .endm
 
@@ -1105,9 +1119,9 @@
 .endm
 
 _set_veclen 32
-SYM_FUNC_START(aes_gcm_precompute_vaes_avx10_256)
+SYM_FUNC_START(gcm_init_vpclmulqdq_avx10)
 	_aes_gcm_precompute
-SYM_FUNC_END(aes_gcm_precompute_vaes_avx10_256)
+SYM_FUNC_END(gcm_init_vpclmulqdq_avx10)
 SYM_FUNC_START(aes_gcm_enc_update_vaes_avx10_256)
 	_aes_gcm_update	1
 SYM_FUNC_END(aes_gcm_enc_update_vaes_avx10_256)
@@ -1116,9 +1130,11 @@ SYM_FUNC_START(aes_gcm_dec_update_vaes_avx10_256)
 SYM_FUNC_END(aes_gcm_dec_update_vaes_avx10_256)
 
 _set_veclen 64
+#if 0 // Not currently used by BoringSSL.
 SYM_FUNC_START(aes_gcm_precompute_vaes_avx10_512)
 	_aes_gcm_precompute
 SYM_FUNC_END(aes_gcm_precompute_vaes_avx10_512)
+#endif
 SYM_FUNC_START(aes_gcm_enc_update_vaes_avx10_512)
 	_aes_gcm_update	1
 SYM_FUNC_END(aes_gcm_enc_update_vaes_avx10_512)
@@ -1126,97 +1142,102 @@ SYM_FUNC_START(aes_gcm_dec_update_vaes_avx10_512)
 	_aes_gcm_update	0
 SYM_FUNC_END(aes_gcm_dec_update_vaes_avx10_512)
 
-// void aes_gcm_aad_update_vaes_avx10(const struct aes_gcm_key_avx10 *key,
-//				      u8 ghash_acc[16],
-//				      const u8 *aad, int aadlen);
+// void gcm_gmult_vpclmulqdq_avx10(uint8_t Xi[16], const u128 Htable[16]);
+SYM_FUNC_START(gcm_gmult_vpclmulqdq_avx10)
+	.set	GHASH_ACC_PTR,	%rdi
+	.set	H_POWERS,	%rsi
+	.set	GHASH_ACC,	%xmm0
+	.set	BSWAP_MASK,	%xmm1
+	.set	H_POW1,		%xmm2
+	.set	GFPOLY,		%xmm3
+	.set	T0,		%xmm4
+	.set	T1,		%xmm5
+	.set	T2,		%xmm6
+
+	_CET_ENDBR
+
+	vmovdqu		(GHASH_ACC_PTR), GHASH_ACC
+	vmovdqu		.Lbswap_mask(%rip), BSWAP_MASK
+	vmovdqu		OFFSETOFEND_H_POWERS-16(H_POWERS), H_POW1
+	vmovdqu		.Lgfpoly(%rip), GFPOLY
+	vpshufb		BSWAP_MASK, GHASH_ACC, GHASH_ACC
+
+	_ghash_mul	H_POW1, GHASH_ACC, GHASH_ACC, GFPOLY, T0, T1, T2
+
+	vpshufb		BSWAP_MASK, GHASH_ACC, GHASH_ACC
+	vmovdqu		GHASH_ACC, (GHASH_ACC_PTR)
+	RET
+SYM_FUNC_END(gcm_gmult_vpclmulqdq_avx10)
+
+// void gcm_ghash_vpclmulqdq_avx10(uint8_t Xi[16], const u128 h_powers[16],
+//				   const uint8_t *in, size_t len);
 //
 // This function processes the AAD (Additional Authenticated Data) in GCM.
-// Using the key |key|, it updates the GHASH accumulator |ghash_acc| with the
-// data given by |aad| and |aadlen|.  |key->ghash_key_powers| must have been
-// initialized.  On the first call, |ghash_acc| must be all zeroes.  |aadlen|
-// must be a multiple of 16, except on the last call where it can be any length.
-// The caller must do any buffering needed to ensure this.
+// Using the key |h_powers|, it updates the GHASH accumulator |Xi| with the data
+// given by |in| and |len|.  On the first call, |Xi| must be all zeroes.  |len|
+// must be a multiple of 16.
 //
 // AES-GCM is almost always used with small amounts of AAD, less than 32 bytes.
 // Therefore, for AAD processing we currently only provide this implementation
-// which uses 256-bit vectors (ymm registers) and only has a 1x-wide loop.  This
+// which uses 128-bit vectors (xmm registers) and only has a 1x-wide loop.  This
 // keeps the code size down, and it enables some micro-optimizations, e.g. using
 // VEX-coded instructions instead of EVEX-coded to save some instruction bytes.
 // To optimize for large amounts of AAD, we could implement a 4x-wide loop and
 // provide a version using 512-bit vectors, but that doesn't seem to be useful.
-SYM_FUNC_START(aes_gcm_aad_update_vaes_avx10)
+SYM_FUNC_START(gcm_ghash_vpclmulqdq_avx10)
 
 	// Function arguments
-	.set	KEY,		%rdi
-	.set	GHASH_ACC_PTR,	%rsi
+	.set	GHASH_ACC_PTR,	%rdi
+	.set	H_POWERS,	%rsi
 	.set	AAD,		%rdx
-	.set	AADLEN,		%ecx
-	.set	AADLEN64,	%rcx	// Zero-extend AADLEN before using!
+	.set	AADLEN,		%rcx
 
 	// Additional local variables.
-	// %rax, %ymm0-%ymm3, and %k1 are used as temporary registers.
-	.set	BSWAP_MASK,	%ymm4
-	.set	GFPOLY,		%ymm5
-	.set	GHASH_ACC,	%ymm6
-	.set	GHASH_ACC_XMM,	%xmm6
-	.set	H_POW1,		%ymm7
+	// %rax and %xmm0-%xmm3 are used as temporary registers.
+	.set	BSWAP_MASK,	%xmm4
+	.set	GFPOLY,		%xmm5
+	.set	GHASH_ACC,	%xmm6
+	.set	H_POW1,		%xmm7
+
+	_CET_ENDBR
 
 	// Load some constants.
-	vbroadcasti128	.Lbswap_mask(%rip), BSWAP_MASK
-	vbroadcasti128	.Lgfpoly(%rip), GFPOLY
+	vmovdqu		.Lbswap_mask(%rip), BSWAP_MASK
+	vmovdqu		.Lgfpoly(%rip), GFPOLY
 
 	// Load the GHASH accumulator.
-	vmovdqu		(GHASH_ACC_PTR), GHASH_ACC_XMM
+	vmovdqu		(GHASH_ACC_PTR), GHASH_ACC
+	vpshufb		BSWAP_MASK, GHASH_ACC, GHASH_ACC
 
-	// Update GHASH with 32 bytes of AAD at a time.
-	//
-	// Pre-subtracting 32 from AADLEN saves an instruction from the loop and
-	// also ensures that at least one write always occurs to AADLEN,
-	// zero-extending it and allowing AADLEN64 to be used later.
-	sub		$32, AADLEN
-	jl		.Laad_loop_1x_done
-	vmovdqu8	OFFSETOFEND_H_POWERS-32(KEY), H_POW1	// [H^2, H^1]
-.Laad_loop_1x:
-	vmovdqu		(AAD), %ymm0
-	vpshufb		BSWAP_MASK, %ymm0, %ymm0
-	vpxor		%ymm0, GHASH_ACC, GHASH_ACC
-	_ghash_mul	H_POW1, GHASH_ACC, GHASH_ACC, GFPOLY, \
-			%ymm0, %ymm1, %ymm2
-	vextracti128	$1, GHASH_ACC, %xmm0
-	vpxor		%xmm0, GHASH_ACC_XMM, GHASH_ACC_XMM
-	add		$32, AAD
-	sub		$32, AADLEN
-	jge		.Laad_loop_1x
-.Laad_loop_1x_done:
-	add		$32, AADLEN
+	// Update GHASH with 16 bytes of AAD at a time.
+	test		AADLEN, AADLEN
 	jz		.Laad_done
-
-	// Update GHASH with the remaining 1 <= AADLEN < 32 bytes of AAD.
-	mov		$-1, %eax
-	bzhi		AADLEN, %eax, %eax
-	kmovd		%eax, %k1
-	vmovdqu8	(AAD), %ymm0{%k1}{z}
-	neg		AADLEN64
-	and		$~15, AADLEN64  // -round_up(AADLEN, 16)
-	vmovdqu8	OFFSETOFEND_H_POWERS(KEY,AADLEN64), H_POW1
-	vpshufb		BSWAP_MASK, %ymm0, %ymm0
-	vpxor		%ymm0, GHASH_ACC, GHASH_ACC
+	vmovdqu8	OFFSETOFEND_H_POWERS-16(H_POWERS), H_POW1
+.Laad_loop_1x:
+	vmovdqu		(AAD), %xmm0
+	vpshufb		BSWAP_MASK, %xmm0, %xmm0
+	vpxor		%xmm0, GHASH_ACC, GHASH_ACC
 	_ghash_mul	H_POW1, GHASH_ACC, GHASH_ACC, GFPOLY, \
-			%ymm0, %ymm1, %ymm2
-	vextracti128	$1, GHASH_ACC, %xmm0
-	vpxor		%xmm0, GHASH_ACC_XMM, GHASH_ACC_XMM
+			%xmm0, %xmm1, %xmm2
+	add		$16, AAD
+	sub		$16, AADLEN
+	jnz		.Laad_loop_1x
 
 .Laad_done:
 	// Store the updated GHASH accumulator back to memory.
-	vmovdqu		GHASH_ACC_XMM, (GHASH_ACC_PTR)
+	vpshufb		BSWAP_MASK, GHASH_ACC, GHASH_ACC
+	vmovdqu		GHASH_ACC, (GHASH_ACC_PTR)
 
-	vzeroupper	// This is needed after using ymm or zmm registers.
 	RET
-SYM_FUNC_END(aes_gcm_aad_update_vaes_avx10)
+SYM_FUNC_END(gcm_ghash_vpclmulqdq_avx10)
 
+#if 0 // Not currently used by BoringSSL.
 SYM_FUNC_START(aes_gcm_enc_final_vaes_avx10)
 	_aes_gcm_final	1
 SYM_FUNC_END(aes_gcm_enc_final_vaes_avx10)
 SYM_FUNC_START(aes_gcm_dec_final_vaes_avx10)
 	_aes_gcm_final	0
 SYM_FUNC_END(aes_gcm_dec_final_vaes_avx10)
+#endif
+
+#endif
