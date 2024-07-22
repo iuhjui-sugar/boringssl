@@ -11,6 +11,8 @@ add_custom_command(
   COMMAND ${BINDGEN_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/wrapper.h
           -o ${wrapper_rs_relative}
           --depfile=${depfile_relative}
+          # Any updates to these flags must also be made to the 
+          # bindgen flags in BUILD.bazel
           --no-derive-default
           --enable-function-attribute-detection
           --use-core
