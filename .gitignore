@@ -10,6 +10,9 @@
 /doc/doc.css
 /rust/Cargo.lock
 /rust/bssl-crypto/Cargo.lock
+/rust/bazel-*
+/rust/MODULE.bazel.lock
+/rust/MODULE.bazel
 /rust/target
 /user.bazelrc
 
