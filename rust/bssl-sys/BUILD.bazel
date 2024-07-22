@@ -1,0 +1,36 @@
+load("@rules_rust//bindgen:defs.bzl", "rust_bindgen_library")
+
+rust_bindgen_library(
+    name = "bssl-sys",
+    # Any updates to these flags must also be made to the 
+    # bindgen flags in CMakeLists.txt
+    bindgen_flags = [
+        "--no-derive-default",
+        "--enable-function-attribute-detection",
+        "--use-core",
+        "--default-macro-constant-type=signed",
+        "--rustified-enum=point_conversion_form_t",
+        "--allowlist-file=.*[[:punct:]]openssl[[:punct:]].*\\.h",
+    ],
+    cc_lib = ":wrapper",
+    header = "wrapper.h",
+    # This flag adds --experimental, --wrap-static-fns,
+    # and --wrap-statics-fns-path to the bindgen flags
+    wrap_static_fns = True,
+    visibility = [
+        "//:__subpackages__",
+    ],
+)
+
+cc_library(
+    name = "wrapper",
+    srcs = [
+        "rust_wrapper.c",
+        "rust_wrapper.h",
+    ],
+    hdrs = ["wrapper.h"],
+    deps = [
+        "@boringssl//:crypto",
+        "@boringssl//:ssl",
+    ],
+)

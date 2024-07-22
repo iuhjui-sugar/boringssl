@@ -12,3 +12,6 @@ A low-level binding crate for Rust that moves in lockstop with BoringSSL.
 3. install [`cargo-deny`](https://github.com/EmbarkStudios/cargo-deny).
 
 After that, the `bssl-sys` crate can be built. By default, it looks for `bindgen` output and BoringSSL static libraries in the `build` directory. This can be reconfigured with `BORINGSSL_BUILD_DIR` environment variable. Note the environment variable is evaluated relative to `rust/bssl-sys/src`, so using an absolute path may be more convenient.
+
+### Instructions to use with Bazel
+1. Add `@boringssl//rust/bssl-crypto` as a dependency to the BUILD file where you would like to use bssl-crypto
