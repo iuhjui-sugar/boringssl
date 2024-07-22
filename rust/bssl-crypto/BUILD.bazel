@@ -1,0 +1,16 @@
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_test")
+
+rust_library(
+    name = "bssl_crypto",
+    srcs = glob(include = ["src/**/*.rs"]),
+    deps = [
+        "//rust/bssl-sys:bssl_sys",
+    ],
+    visibility = ["//visibility:public"],
+
+)
+
+rust_test(
+    name = "bssl_crypto_test",
+    crate = ":bssl_crypto",
+)
