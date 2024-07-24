@@ -16,6 +16,7 @@ package runner
 
 import (
 	"bytes"
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"io"
@@ -23,14 +24,73 @@ import (
 	"net"
 )
 
+func (c *Conn) readDTLS13RecordHeader(b *block) (headerLen int, recordLen int, recTyp recordType, seq []byte, err error) {
+	// The DTLS 1.3 record header starts with the type byte containing
+	// 0b001CSLEE, where C, S, L, and EE are bits with the following
+	// meanings:
+	//
+	// C=1: Connection ID is present (C=0: CID is absent)
+	// S=1: the sequence number is 16 bits (S=0: it is 8 bits)
+	// L=1: 16-bit length field is present (L=0: record goes to end of packet)
+	// EE: low two bits of the epoch.
+	//
+	// A real DTLS implementation would parse these bits and take
+	// appropriate action based on them. However, this is a test
+	// implementation, and the code we are testing only ever sends C=0, S=1,
+	// L=1. This code expects those bits to be set and will error if
+	// anything else is set. This means we expect the type byte to look like
+	// 0b001011EE, or 0x2c-0x2f.
+	recordHeaderLen := 5
+	if len(b.data) < recordHeaderLen {
+		return 0, 0, 0, nil, errors.New("dtls: failed to read record header")
+	}
+	typ := b.data[0]
+	if typ&0xfc != 0x2c {
+		return 0, 0, 0, nil, errors.New("dtls: DTLS 1.3 record header has bad type byte")
+	}
+	// For test purposes, require the epoch received be the same as the
+	// epoch we expect to receive.
+	epoch := typ & 0x03
+	if epoch != c.in.seq[1]&0x03 {
+		c.sendAlert(alertIllegalParameter)
+		return 0, 0, 0, nil, c.in.setErrorLocked(fmt.Errorf("dtls: bad epoch"))
+	}
+	wireSeq := binary.BigEndian.Uint16(b.data[1:3])
+	// Reconstruct the sequence number from the low 16 bits on the wire.
+	// A real implementation would compute the full sequence number that is
+	// closest to the highest successfully decrypted record in the
+	// identified epoch. Since this test implementation errors on decryption
+	// failures instead of simply discarding packets, it reconstructs a
+	// sequence number that is not less than c.in.seq. (This matches the
+	// behavior of the check of the sequence number in the old record
+	// header format.)
+	seqInt := binary.BigEndian.Uint64(c.in.seq[:])
+	// c.in.seq has the epoch in the upper two bytes - clear those.
+	seqInt = seqInt &^ (0xffff << 48)
+	newSeq := seqInt&^0xffff | uint64(wireSeq)
+	if newSeq < seqInt {
+		newSeq += 0x10000
+	}
+
+	seq = make([]byte, 8)
+	binary.BigEndian.PutUint64(seq, newSeq)
+	copy(c.in.seq[2:], seq[2:])
+
+	recordLen = int(b.data[3])<<8 | int(b.data[4])
+	return recordHeaderLen, recordLen, 0, seq, nil
+}
+
 // readDTLSRecordHeader reads the record header from the block. Based on the
 // header it reads, it checks the header's validity and sets appropriate state
 // as needed. This function returns the record header, the record type indicated
 // in the header (if it contains the type), and the sequence number to use for
 // record decryption.
 func (c *Conn) readDTLSRecordHeader(b *block) (headerLen int, recordLen int, typ recordType, seq []byte, err error) {
-	recordHeaderLen := 13
+	if c.in.cipher != nil && c.in.version >= VersionTLS13 {
+		return c.readDTLS13RecordHeader(b)
+	}
 
+	recordHeaderLen := 13
 	// Read out one record.
 	//
 	// A real DTLS implementation should be tolerant of errors,

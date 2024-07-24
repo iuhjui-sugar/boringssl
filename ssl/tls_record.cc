@@ -586,6 +586,7 @@ using namespace bssl;
 
 size_t SSL_max_seal_overhead(const SSL *ssl) {
   if (SSL_is_dtls(ssl)) {
+    // TODO: check if this is always the right epoch.
     return dtls_max_seal_overhead(ssl, ssl->d1->w_epoch);
   }
 
