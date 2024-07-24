@@ -3729,6 +3729,72 @@ read alert 1 0
 		shouldFail:    true,
 		expectedError: ":DECODE_ERROR:",
 	})
+
+	// DTLS 1.3 should work with record headers that don't set the
+	// length bit or that use the short sequence number format.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		protocol: dtls,
+		name:     "DTLS13RecordHeader-NoLength-Client",
+		config: Config{
+			MinVersion:                 VersionTLS13,
+			DTLSRecordHeaderOmitLength: true,
+		},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		protocol: dtls,
+		name:     "DTLS13RecordHeader-NoLength-Server",
+		config: Config{
+			MinVersion:                 VersionTLS13,
+			DTLSRecordHeaderOmitLength: true,
+		},
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		protocol: dtls,
+		name:     "DTLS13RecordHeader-ShortSeqNums-Client",
+		config: Config{
+			MinVersion:          VersionTLS13,
+			DTLSUseShortSeqNums: true,
+		},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		protocol: dtls,
+		name:     "DTLS13RecordHeader-ShortSeqNums-Server",
+		config: Config{
+			MinVersion:          VersionTLS13,
+			DTLSUseShortSeqNums: true,
+		},
+	})
+
+	// TODO(nharper): These tests fail by timing out, but that causes the
+	// whole test run to wait for the timeout. Figure out a way to check
+	// that this connection failed without waiting so long (or figure out
+	// another way to test this).
+	testCases = append(testCases, testCase{
+		protocol: dtls,
+		name:     "DTLS13RecordHeader-OldHeader",
+		config: Config{
+			MinVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				DTLSUsePlaintextRecordHeader: true,
+			},
+		},
+		shouldFail: true,
+	})
+	testCases = append(testCases, testCase{
+		protocol: dtls,
+		name:     "DTLS13RecordHeader-CIDBit",
+		config: Config{
+			MinVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				DTLS13RecordHeaderSetCIDBit: true,
+			},
+		},
+		shouldFail: true,
+	})
 }
 
 func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol protocol) {
