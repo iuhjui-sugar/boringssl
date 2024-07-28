@@ -128,4 +128,8 @@ fn main() {
     }
 
     println!("cargo:conf={}", OSSL_CONF_DEFINES.join(","));
+
+    // Tell rustc that these are valid `cfg`
+    println!("cargo:rustc-check-cfg=cfg(unsupported_inline_wrappers)");
+    println!("cargo:rustc-check-cfg=cfg(soong)");
 }
