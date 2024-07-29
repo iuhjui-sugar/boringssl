@@ -521,11 +521,14 @@ static enum ssl_hs_wait_t do_start_connect(SSL_HANDSHAKE *hs) {
                                 ssl->session->ticket.empty();
     const bool has_ticket_session =
         ssl->session != nullptr && !ssl->session->ticket.empty();
+    // DTLS 1.3 disables compatibility mode.
+    const bool enable_compatibility_mode =
+        hs->max_version >= TLS1_3_VERSION && !SSL_is_dtls(hs->ssl);
     if (has_id_session) {
       hs->session_id_len = ssl->session->session_id_length;
       OPENSSL_memcpy(hs->session_id, ssl->session->session_id,
                      hs->session_id_len);
-    } else if (has_ticket_session || hs->max_version >= TLS1_3_VERSION) {
+    } else if (has_ticket_session || enable_compatibility_mode) {
       // Send a random session ID. TLS 1.3 always sends one, and TLS 1.2 session
       // tickets require a placeholder value to signal resumption.
       hs->session_id_len = sizeof(hs->session_id);
