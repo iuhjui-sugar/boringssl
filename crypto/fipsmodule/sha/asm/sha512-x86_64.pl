@@ -157,6 +157,7 @@ die "can't locate x86_64-xlate.pl";
 # CFI annotations are wrong. It allocates stack in a loop and should be
 # rewritten to avoid this.
 $avx = 1;
+$avx = 2 if ($hash eq "sha512");
 $shaext = 1;
 
 open OUT,"| \"$^X\" \"$xlate\" $flavour \"$output\"";
@@ -1477,11 +1478,12 @@ sub bodyx_00_15 () {
 }
 
 $code.=<<___;
+.globl	${func}_avx2
 .type	${func}_avx2,\@function,3
 .align	64
 ${func}_avx2:
 .cfi_startproc
-.Lavx2_shortcut:
+	_CET_ENDBR
 	mov	%rsp,%rax		# copy %rsp
 .cfi_def_cfa_register	%rax
 	push	%rbx
@@ -1668,7 +1670,7 @@ $code.=<<___;
 	xor	$C,$a3			# magic
 	vmovdqa	$t3,0x60(%rsp)
 	mov	$F,$a4
-	add	\$16*2*$SZ,$Tbl
+	add	\$`16*2*$SZ`,$Tbl
 	jmp	.Lavx2_00_47
 
 .align	16
