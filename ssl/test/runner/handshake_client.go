@@ -1003,12 +1003,16 @@ func (hs *clientHandshakeState) doTLS13Handshake(msg any) error {
 	hs.finishedHash.discardHandshakeBuffer()
 
 	// The first server message must be followed by a ChangeCipherSpec.
-	c.expectTLS13ChangeCipherSpec = true
+	c.expectTLS13ChangeCipherSpec = !c.isDTLS
 
+	sessionID := hs.hello.sessionID
+	if c.isDTLS {
+		sessionID = nil
+	}
 	if haveHelloRetryRequest {
 		hs.writeServerHash(helloRetryRequest.marshal())
 
-		if !bytes.Equal(hs.hello.sessionID, helloRetryRequest.sessionID) {
+		if !bytes.Equal(sessionID, helloRetryRequest.sessionID) {
 			return errors.New("tls: ClientHello and HelloRetryRequest session IDs did not match.")
 		}
 
@@ -1111,7 +1115,7 @@ func (hs *clientHandshakeState) doTLS13Handshake(msg any) error {
 		}
 	}
 
-	if !bytes.Equal(hs.hello.sessionID, hs.serverHello.sessionID) {
+	if !bytes.Equal(sessionID, hs.serverHello.sessionID) {
 		return errors.New("tls: ClientHello and ServerHello session IDs did not match.")
 	}
 
