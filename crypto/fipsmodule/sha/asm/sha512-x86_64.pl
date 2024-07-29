@@ -156,7 +156,7 @@ die "can't locate x86_64-xlate.pl";
 # For now, we intentionally disable it. While it gives a 13-16% perf boost, the
 # CFI annotations are wrong. It allocates stack in a loop and should be
 # rewritten to avoid this.
-$avx = 1;
+$avx = 2;
 $shaext = 1;
 
 open OUT,"| \"$^X\" \"$xlate\" $flavour \"$output\"";
@@ -1477,11 +1477,12 @@ sub bodyx_00_15 () {
 }
 
 $code.=<<___;
+.globl	${func}_avx2
 .type	${func}_avx2,\@function,3
 .align	64
 ${func}_avx2:
 .cfi_startproc
-.Lavx2_shortcut:
+	_CET_ENDBR
 	mov	%rsp,%rax		# copy %rsp
 .cfi_def_cfa_register	%rax
 	push	%rbx
