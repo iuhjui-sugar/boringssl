@@ -16,6 +16,24 @@
       "message": "If we set `ERR_R_INTERNAL_ERROR`, I think we\u0027ll also need to `return nullptr` here and below, and then declare this function is fallible (i.e. callers need to check for null).\n\nThat... sounds tedious though. I see there are quite a few callers. Perhaps we just `BSSL_CHECK`, I dunno. Mostly I was nervous that passing in a bad epoch would just random return a different epoch. That seems not great. 😊",
       "revId": "a50ddf405801fc680d0bb911573c79932b0cf217",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8918d25_7368c01b",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-07-29T20:47:06Z",
+      "side": 1,
+      "message": "switched to `BSSL_CHECK`.",
+      "parentUuid": "d19077eb_82bce9d0",
+      "revId": "a50ddf405801fc680d0bb911573c79932b0cf217",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
