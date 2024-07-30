@@ -46,6 +46,7 @@
 #include <openssl/experimental/spx.h>
 #include <openssl/hrss.h>
 #include <openssl/mem.h>
+#include <openssl/mlkem.h>
 #include <openssl/nid.h>
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
@@ -752,8 +753,7 @@ static bool SpeedECDHCurve(const std::string &name, const EC_GROUP *group,
   }
 
   bssl::UniquePtr<EC_KEY> peer_key(EC_KEY_new());
-  if (!peer_key ||
-      !EC_KEY_set_group(peer_key.get(), group) ||
+  if (!peer_key || !EC_KEY_set_group(peer_key.get(), group) ||
       !EC_KEY_generate_key(peer_key.get())) {
     return false;
   }
@@ -810,8 +810,7 @@ static bool SpeedECDSACurve(const std::string &name, const EC_GROUP *group,
   }
 
   bssl::UniquePtr<EC_KEY> key(EC_KEY_new());
-  if (!key ||
-      !EC_KEY_set_group(key.get(), group) ||
+  if (!key || !EC_KEY_set_group(key.get(), group) ||
       !EC_KEY_generate_key(key.get())) {
     return false;
   }
@@ -1128,6 +1127,103 @@ static bool SpeedKyber(const std::string &selected) {
   }
 
   results.Print("Kyber parse + encap");
+
+  return true;
+}
+
+static bool SpeedMLKEM(const std::string &selected) {
+  if (!selected.empty() && selected != "ML-KEM-768") {
+    return true;
+  }
+
+  TimeResults results;
+
+  uint8_t ciphertext[MLKEM_CIPHERTEXT_BYTES];
+  // This ciphertext is nonsense, but decap is constant-time so, for the
+  // purposes of timing, it's fine.
+  memset(ciphertext, 42, sizeof(ciphertext));
+  if (!TimeFunctionParallel(&results, [&]() -> bool {
+        MLKEM_private_key priv;
+        uint8_t encoded_public_key[MLKEM_PUBLIC_KEY_BYTES];
+        MLKEM_generate_key(encoded_public_key, &priv);
+        uint8_t shared_secret[MLKEM_SHARED_SECRET_BYTES];
+        MLKEM_decap(shared_secret, ciphertext, &priv);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time MLKEM_generate_key + MLKEM_decap.\n");
+    return false;
+  }
+
+  results.Print("ML-KEM-768 generate + decap");
+
+  MLKEM_private_key priv;
+  uint8_t encoded_public_key[MLKEM_PUBLIC_KEY_BYTES];
+  MLKEM_generate_key(encoded_public_key, &priv);
+  MLKEM_public_key pub;
+  if (!TimeFunctionParallel(&results, [&]() -> bool {
+        CBS encoded_public_key_cbs;
+        CBS_init(&encoded_public_key_cbs, encoded_public_key,
+                 sizeof(encoded_public_key));
+        if (!MLKEM_parse_public_key(&pub, &encoded_public_key_cbs)) {
+          return false;
+        }
+        uint8_t shared_secret[MLKEM_SHARED_SECRET_BYTES];
+        MLKEM_encap(ciphertext, shared_secret, &pub);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time MLKEM_encap.\n");
+    return false;
+  }
+
+  results.Print("ML-KEM-1024 parse + encap");
+
+  return true;
+}
+
+static bool SpeedMLKEM1024(const std::string &selected) {
+  if (!selected.empty() && selected != "ML-KEM-1024") {
+    return true;
+  }
+
+  TimeResults results;
+
+  uint8_t ciphertext[MLKEM1024_CIPHERTEXT_BYTES];
+  auto priv = std::make_unique<MLKEM1024_private_key>();
+  // This ciphertext is nonsense, but decap is constant-time so, for the
+  // purposes of timing, it's fine.
+  memset(ciphertext, 42, sizeof(ciphertext));
+  if (!TimeFunctionParallel(&results, [&]() -> bool {
+        uint8_t encoded_public_key[MLKEM1024_PUBLIC_KEY_BYTES];
+        MLKEM1024_generate_key(encoded_public_key, priv.get());
+        uint8_t shared_secret[MLKEM_SHARED_SECRET_BYTES];
+        MLKEM1024_decap(shared_secret, ciphertext, priv.get());
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time MLKEM_generate_key + MLKEM_decap.\n");
+    return false;
+  }
+
+  results.Print("ML-KEM-1024 generate + decap");
+
+  uint8_t encoded_public_key[MLKEM1024_PUBLIC_KEY_BYTES];
+  MLKEM1024_generate_key(encoded_public_key, priv.get());
+  MLKEM1024_public_key pub;
+  if (!TimeFunctionParallel(&results, [&]() -> bool {
+        CBS encoded_public_key_cbs;
+        CBS_init(&encoded_public_key_cbs, encoded_public_key,
+                 sizeof(encoded_public_key));
+        if (!MLKEM1024_parse_public_key(&pub, &encoded_public_key_cbs)) {
+          return false;
+        }
+        uint8_t shared_secret[MLKEM_SHARED_SECRET_BYTES];
+        MLKEM1024_encap(ciphertext, shared_secret, &pub);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time MLKEM_encap.\n");
+    return false;
+  }
+
+  results.Print("ML-KEM-1024 parse + encap");
 
   return true;
 }
@@ -1768,18 +1864,20 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedHash(EVP_sha256(), "SHA-256", selected) ||
       !SpeedHash(EVP_sha512(), "SHA-512", selected) ||
       !SpeedHash(EVP_blake2b256(), "BLAKE2b-256", selected) ||
-      !SpeedRandom(selected) ||      //
-      !SpeedECDH(selected) ||        //
-      !SpeedECDSA(selected) ||       //
-      !Speed25519(selected) ||       //
-      !SpeedSPAKE2(selected) ||      //
-      !SpeedScrypt(selected) ||      //
-      !SpeedRSAKeyGen(selected) ||   //
-      !SpeedHRSS(selected) ||        //
-      !SpeedKyber(selected) ||       //
-      !SpeedDilithium(selected) ||   //
-      !SpeedSpx(selected) ||         //
-      !SpeedHashToCurve(selected) || //
+      !SpeedRandom(selected) ||       //
+      !SpeedECDH(selected) ||         //
+      !SpeedECDSA(selected) ||        //
+      !Speed25519(selected) ||        //
+      !SpeedSPAKE2(selected) ||       //
+      !SpeedScrypt(selected) ||       //
+      !SpeedRSAKeyGen(selected) ||    //
+      !SpeedHRSS(selected) ||         //
+      !SpeedKyber(selected) ||        //
+      !SpeedMLKEM(selected) ||        //
+      !SpeedMLKEM1024(selected) ||    //
+      !SpeedDilithium(selected) ||    //
+      !SpeedSpx(selected) ||          //
+      !SpeedHashToCurve(selected) ||  //
       !SpeedTrustToken("TrustToken-Exp1-Batch1", TRUST_TOKEN_experiment_v1(), 1,
                        selected) ||
       !SpeedTrustToken("TrustToken-Exp1-Batch10", TRUST_TOKEN_experiment_v1(),
@@ -1792,7 +1890,7 @@ bool Speed(const std::vector<std::string> &args) {
                        TRUST_TOKEN_experiment_v2_pmb(), 1, selected) ||
       !SpeedTrustToken("TrustToken-Exp2PMB-Batch10",
                        TRUST_TOKEN_experiment_v2_pmb(), 10, selected) ||
-      !SpeedBase64(selected) || //
+      !SpeedBase64(selected) ||  //
       !SpeedSipHash(selected)) {
     return false;
   }
