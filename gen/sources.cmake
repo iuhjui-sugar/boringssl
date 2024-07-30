@@ -383,6 +383,7 @@ set(
   crypto/kyber/kyber.c
   crypto/lhash/lhash.c
   crypto/mem.c
+  crypto/mlkem/mlkem.cc
   crypto/obj/obj.c
   crypto/obj/obj_xref.c
   crypto/pem/pem_all.c
@@ -559,6 +560,7 @@ set(
   include/openssl/md4.h
   include/openssl/md5.h
   include/openssl/mem.h
+  include/openssl/mlkem.h
   include/openssl/nid.h
   include/openssl/obj.h
   include/openssl/obj_mac.h
@@ -640,6 +642,7 @@ set(
   crypto/keccak/internal.h
   crypto/kyber/internal.h
   crypto/lhash/internal.h
+  crypto/mlkem/internal.h
   crypto/obj/obj_dat.h
   crypto/pkcs7/internal.h
   crypto/pkcs8/internal.h
@@ -751,6 +754,7 @@ set(
   crypto/keccak/keccak_test.cc
   crypto/kyber/kyber_test.cc
   crypto/lhash/lhash_test.cc
+  crypto/mlkem/mlkem_test.cc
   crypto/obj/obj_test.cc
   crypto/pem/pem_test.cc
   crypto/pkcs7/pkcs7_test.cc
@@ -842,6 +846,10 @@ set(
   crypto/hpke/hpke_test_vectors.txt
   crypto/keccak/keccak_tests.txt
   crypto/kyber/kyber_tests.txt
+  crypto/mlkem/mlkem1024_decap_tests.txt
+  crypto/mlkem/mlkem1024_encap_tests.txt
+  crypto/mlkem/mlkem768_decap_tests.txt
+  crypto/mlkem/mlkem768_encap_tests.txt
   crypto/pkcs8/test/bad1.p12
   crypto/pkcs8/test/bad2.p12
   crypto/pkcs8/test/bad3.p12
