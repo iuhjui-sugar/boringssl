@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5554fc8_90939f08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10131
+      },
+      "writtenOn": "2024-07-30T19:23:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure about cfi, so only enabled avx2 codepath for sha512",
+      "revId": "56298f87921664894b2b71e08d227b54292b9d73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
