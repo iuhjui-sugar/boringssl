@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb87a15_c8275557",
+        "filename": "MODULE.bazel",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-07-31T16:36:03Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "d528fe62f78ed9fd3b345b910d5ee89799ebe6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cafb3b51_51f73ff4",
+        "filename": "WORKSPACE",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-07-31T16:36:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure that we want to be adding a top-level WORKSPACE file in the BoringSSL repo. Is this just to demonstrate how to use the Bazel rules? If so, a section in BUILDING.md might be more suitable.",
+      "revId": "d528fe62f78ed9fd3b345b910d5ee89799ebe6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29c659a3_6eb7c0eb",
+        "filename": "rust/bssl-sys/BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-07-31T16:36:03Z",
+      "side": 1,
+      "message": "This is a subset of the flags in the CMake file (e.g. --wrap-static-fns-path missing). Does the `wrap_static_fns` Bazel argument subsume that?\n\nIn general, can Bazel read these arguments from a separate file so that we could keep the arguments in sync?",
+      "revId": "d528fe62f78ed9fd3b345b910d5ee89799ebe6a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
