@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c190fed1_215bffd1",
+        "filename": "MODULE.bazel",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-01T19:07:40Z",
+      "side": 1,
+      "message": "I know that I asked this on the other CL, and you said that it was because of LLVM, but should it be provided by the ultimate package that is being built in that case? BoringSSL shouldn\u0027t have opinions about what LLVM version people are using.",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4d116f4_1a04ae75",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-01T19:07:40Z",
+      "side": 1,
+      "message": "A top-level `WORKSPACE` file should probably not be added, right? If this is to help testing the Bazel build, it could live elsewhere and be referenced in `BUILDING.md`. (And `BUILDING.md` should probably be updated in this CL.)",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "805e795e_525b45ce",
+        "filename": "rust/bssl-sys/BUILD.bazel",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-01T19:07:40Z",
+      "side": 1,
+      "message": "Ultimately, it would be nice not to duplicate these arguments with the CMake build somehow. Minimally, each should have a comment noting that the other should also be updated.",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
