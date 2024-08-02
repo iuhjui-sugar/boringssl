@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a60d7e53_bc9fec7e",
+        "filename": "MODULE.bazel",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-02T18:26:05Z",
+      "side": 1,
+      "message": "I will open an issue with llvm to ask them to provide zlib. I believe this is a known issue though since most other examples on github using llvm in rust toolchains bring in zlib. I followed an example similar to what crubit http://shortn/_WLeBFuJFPP is doing at Google. I moved the zlib dep to the WORKSPACE file to avoid bringing zlib into the top level workspace.",
+      "parentUuid": "c190fed1_215bffd1",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a4d116f4_1a04ae75",
         "filename": "WORKSPACE",
         "patchSetId": 3
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb5c3d42_7861bc58",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-02T18:26:05Z",
+      "side": 1,
+      "message": "I moved the WORKSPACE file inside of rust/, It\u0027s required for the Bazel build, we have to pull in and setup bindgen to create the rust bindings. For CMake you expect the user to have bindgen installed right? Do you still want this to be the case? \n\nAlso, I updated the readme for bssl-crypto since there\u0027s no additional steps for building with Bazel without adding the dependency.",
+      "parentUuid": "a4d116f4_1a04ae75",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "805e795e_525b45ce",
         "filename": "rust/bssl-sys/BUILD.bazel",
         "patchSetId": 3
@@ -48,6 +84,24 @@
       "writtenOn": "2024-08-01T19:07:40Z",
       "side": 1,
       "message": "Ultimately, it would be nice not to duplicate these arguments with the CMake build somehow. Minimally, each should have a comment noting that the other should also be updated.",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b939f486_6238240e",
+        "filename": "rust/bssl-sys/BUILD.bazel",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-02T18:26:05Z",
+      "side": 1,
+      "message": "I added a comment, I\u0027m trying to figure out how to get the cmake file and build file to read the args from the same place.",
+      "parentUuid": "805e795e_525b45ce",
       "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
