@@ -22,6 +22,57 @@
       },
       "revId": "75ec517e67ced7c7f343a42b06634f4cf8883411",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f54ddb_a70a6239",
+        "filename": "rust/WORKSPACE",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-02T18:31:30Z",
+      "side": 1,
+      "message": "Forgive me because I know nothing of Bazel. (David, who is more familiar, will be back next week.) But we have people building the C parts of BoringSSL with Bazel and all we have in that WORKSPACE file is `workspace(name \u003d \"boringssl\")`.\n\nThis file is specifying specific versions of the Rust toolchain, and that\u0027s a) not something that we\u0027re expected to have to keep up to date, and thus will rot and b) not something that a leaf-dependency would normally specify. Surely the top-level project would define things like this?",
+      "revId": "75ec517e67ced7c7f343a42b06634f4cf8883411",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fb4d78e_475cc052",
+        "filename": "rust/bssl-sys/BUILD.bazel",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-02T18:31:30Z",
+      "side": 1,
+      "message": "nit: trailing whitespace.",
+      "revId": "75ec517e67ced7c7f343a42b06634f4cf8883411",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21739438_c7774120",
+        "filename": "rust/bssl-sys/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-02T18:31:30Z",
+      "side": 1,
+      "message": "nit: trailing whitespace.",
+      "revId": "75ec517e67ced7c7f343a42b06634f4cf8883411",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
