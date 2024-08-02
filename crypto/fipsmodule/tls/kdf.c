@@ -185,17 +185,28 @@ int CRYPTO_tls13_hkdf_expand_label(uint8_t *out, size_t out_len,
                                    const uint8_t *label, size_t label_len,
                                    const uint8_t *hash, size_t hash_len) {
   static const uint8_t kProtocolLabel[] = "tls13 ";
+  return CRYPTO_tls13_hkdf_expand_label_with_prefix(
+      out, out_len, digest, secret, secret_len, kProtocolLabel,
+      sizeof(kProtocolLabel) - 1, label, label_len, hash, hash_len);
+}
+
+int CRYPTO_tls13_hkdf_expand_label_with_prefix(
+    uint8_t *out, size_t out_len,                          //
+    const EVP_MD *digest,                                  //
+    const uint8_t *secret, size_t secret_len,              //
+    const uint8_t *label_prefix, size_t label_prefix_len,  //
+    const uint8_t *label, size_t label_len,                //
+    const uint8_t *hash, size_t hash_len) {
   CBB cbb, child;
   uint8_t *hkdf_label = NULL;
   size_t hkdf_label_len;
 
   FIPS_service_indicator_lock_state();
   CBB_zero(&cbb);
-  if (!CBB_init(&cbb, 2 + 1 + sizeof(kProtocolLabel) - 1 + label_len + 1 +
-                          hash_len) ||
+  if (!CBB_init(&cbb, 2 + 1 + label_prefix_len + label_len + 1 + hash_len) ||
       !CBB_add_u16(&cbb, out_len) ||
       !CBB_add_u8_length_prefixed(&cbb, &child) ||
-      !CBB_add_bytes(&child, kProtocolLabel, sizeof(kProtocolLabel) - 1) ||
+      !CBB_add_bytes(&child, label_prefix, label_prefix_len) ||
       !CBB_add_bytes(&child, label, label_len) ||
       !CBB_add_u8_length_prefixed(&cbb, &child) ||
       !CBB_add_bytes(&child, hash, hash_len) ||
@@ -215,4 +226,3 @@ int CRYPTO_tls13_hkdf_expand_label(uint8_t *out, size_t out_len,
   }
   return ret;
 }
-

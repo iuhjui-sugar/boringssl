@@ -39,6 +39,19 @@ OPENSSL_EXPORT int CRYPTO_tls13_hkdf_expand_label(
     const uint8_t *label, size_t label_len,              //
     const uint8_t *hash, size_t hash_len);
 
+#define FIPS_API_HAS_HKDF_EXPAND_LABEL_WITH_PREFIX
+
+// CRYPTO_tls13_hkdf_expand_label_with_prefix computes the TLS 1.3
+// HKDF-Expand-Label function from RFC 8446 section 7.1. However, instead of
+// hardcoding the label prefix of "tls13 ", it uses a caller-supplied label
+// prefix. This allows for DTLS 1.3 to change the label prefix, as described in
+// RFC 9147 section 5.9.
+OPENSSL_EXPORT int CRYPTO_tls13_hkdf_expand_label_with_prefix(
+    uint8_t *out, size_t out_len, const EVP_MD *digest,    //
+    const uint8_t *secret, size_t secret_len,              //
+    const uint8_t *label_prefix, size_t label_prefix_len,  //
+    const uint8_t *label, size_t label_len,                //
+    const uint8_t *hash, size_t hash_len);
 
 #if defined(__cplusplus)
 }
