@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45e8a90e_2501cf9b",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-02T01:17:08Z",
+      "side": 1,
+      "message": "TLS 1.3 defines the behavior of the server echoing the legacy_session_id separately from compatibility mode - all that compatibility mode does with session IDs is have the client send a fake session ID. The DTLS 1.3 RFC states that compatibility mode is disabled, and then it goes on to say that servers must not echo the legacy_session_id. This is written as normative language, but it is also written in a way that sounds like it is describing what it means to disable compatibility mode. I chose to implement the normative language in RFC 9147, and assume that it overrides the language in RFC 8446 section 4.1.3 which requires the legacy_session_id_echo match the legacy_session_id regardless of compatibility mode.",
+      "revId": "1c04fc14c8a2b1cc2dc17c722c74b35426c18fe8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
