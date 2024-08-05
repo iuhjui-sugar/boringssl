@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cbfbd93_623cacb7",
+        "filename": "crypto/mlkem/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2024-08-05T22:10:03Z",
+      "side": 1,
+      "message": "I assume the lack of 768 here is intentional, reflecting that this should be the default option?",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "09af3349b7700328d9897143adc84fb6c9e2bba4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad8d3c96_f9db44d2",
+        "filename": "crypto/mlkem/mlkem1024_decap_tests.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2024-08-05T22:10:03Z",
+      "side": 1,
+      "message": "If you want more test vectors, I have some under http://google3/experimental/users/sschmieg/kyber/gentestvectors/vectors/\n(also in this pull request for Filippo\u0027s project https://github.com/C2SP/wycheproof/pull/110)\n\nThey include test vectors for the negative cases and some other edge cases.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 307
+      },
+      "revId": "09af3349b7700328d9897143adc84fb6c9e2bba4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
