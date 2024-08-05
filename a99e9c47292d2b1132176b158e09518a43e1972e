@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "682af149_8ee3a418",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-05T20:39:41Z",
+      "side": 1,
+      "message": "From https://github.com/rust-lang/rust/issues/93083, looks like this pattern works:\n\n```suggestion\n//! // Hashing with dynamic dispatch.\n//! #[cfg(feature \u003d \"std\")]\n//! {\n//!     fn update_hash(ctx: \u0026mut dyn std::io::Write) {\n//!         ctx.write(b\"hel\");\n//!         ctx.write(b\"lo\");\n//!     }\n//!\n//!     let mut ctx \u003d digest::Sha256::new();\n//!     update_hash(\u0026mut ctx);\n//!     assert_eq!(ctx.digest(), digest);\n//! }\n```\n\n(Also bumped the indent to 4 spaces to match Rust style.)",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 40
+      },
+      "revId": "a99e9c47292d2b1132176b158e09518a43e1972e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
