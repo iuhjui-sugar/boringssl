@@ -166,14 +166,31 @@ static void fiat_p256_inv_square(fiat_p256_felem out,
   fiat_p256_square(out, ret);  // 2^256 - 2^224 + 2^192 + 2^96 - 2^2
 }
 
+static inline uint64_t shrd_64(uint64_t lo, uint64_t hi, uint64_t n) {
+  return (((uint128_t)hi << 64) | (uint128_t)lo) >> (n&63);
+}
+
+static void fiat_p256_halve(fiat_p256_felem y, const fiat_p256_felem x) {
+	uint64_t m = -value_barrier_w(x[0]&1);
+	fiat_p256_felem maybe_minus_half = {m, m>>33, m<<63, m<<32>>1};
+	y[0] = shrd_64(y[0], y[1], 1);
+	y[1] = shrd_64(y[1], y[2], 1);
+	y[2] = shrd_64(y[2], y[3], 1);
+	y[3] = y[3] >> 1;
+	fiat_p256_sub(y, y, maybe_minus_half);
+}
+
 // Group operations
 // ----------------
 //
 // Building on top of the field operations we have the operations on the
 // elliptic curve group itself. Points on the curve are represented in Jacobian
 // coordinates.
-//
-// Both operations were transcribed to Coq and proven to correspond to naive
+
+// Outputs can equal corresponding inputs, i.e., x_out == x_in is allowed.
+// while x_out == y_in is not (maybe this works, but it's not tested).
+
+// Addition operation was transcribed to Coq and proven to correspond to naive
 // implementations using Affine coordinates, for all suitable fields.  In the
 // Coq proofs, issues of constant-time execution and memory layout (aliasing)
 // conventions were not considered. Specification of affine coordinates:
@@ -181,58 +198,30 @@ static void fiat_p256_inv_square(fiat_p256_felem out,
 // As a sanity check, a proof that these points form a commutative group:
 // <https://github.com/mit-plv/fiat-crypto/blob/79f8b5f39ed609339f0233098dee1a3c4e6b3080/src/Curves/Weierstrass/AffineProofs.v#L33>
 
-// fiat_p256_point_double calculates 2*(x_in, y_in, z_in)
-//
-// The method is taken from:
-//   http://hyperelliptic.org/EFD/g1p/auto-shortw-jacobian-3.html#doubling-dbl-2001-b
-//
-// Coq transcription and correctness proof:
-// <https://github.com/mit-plv/fiat-crypto/blob/79f8b5f39ed609339f0233098dee1a3c4e6b3080/src/Curves/Weierstrass/Jacobian.v#L93>
-// <https://github.com/mit-plv/fiat-crypto/blob/79f8b5f39ed609339f0233098dee1a3c4e6b3080/src/Curves/Weierstrass/Jacobian.v#L201>
-//
-// Outputs can equal corresponding inputs, i.e., x_out == x_in is allowed.
-// while x_out == y_in is not (maybe this works, but it's not tested).
 static void fiat_p256_point_double(fiat_p256_felem x_out, fiat_p256_felem y_out,
                                    fiat_p256_felem z_out,
                                    const fiat_p256_felem x_in,
                                    const fiat_p256_felem y_in,
                                    const fiat_p256_felem z_in) {
-  fiat_p256_felem delta, gamma, beta, ftmp, ftmp2, tmptmp, alpha, fourbeta;
-  // delta = z^2
-  fiat_p256_square(delta, z_in);
-  // gamma = y^2
-  fiat_p256_square(gamma, y_in);
-  // beta = x*gamma
-  fiat_p256_mul(beta, x_in, gamma);
-
-  // alpha = 3*(x-delta)*(x+delta)
-  fiat_p256_sub(ftmp, x_in, delta);
-  fiat_p256_add(ftmp2, x_in, delta);
-
-  fiat_p256_add(tmptmp, ftmp2, ftmp2);
-  fiat_p256_add(ftmp2, ftmp2, tmptmp);
-  fiat_p256_mul(alpha, ftmp, ftmp2);
-
-  // x' = alpha^2 - 8*beta
-  fiat_p256_square(x_out, alpha);
-  fiat_p256_add(fourbeta, beta, beta);
-  fiat_p256_add(fourbeta, fourbeta, fourbeta);
-  fiat_p256_add(tmptmp, fourbeta, fourbeta);
-  fiat_p256_sub(x_out, x_out, tmptmp);
-
-  // z' = (y + z)^2 - gamma - delta
-  fiat_p256_add(delta, gamma, delta);
-  fiat_p256_add(ftmp, y_in, z_in);
-  fiat_p256_square(z_out, ftmp);
-  fiat_p256_sub(z_out, z_out, delta);
-
-  // y' = alpha*(4*beta - x') - 8*gamma^2
-  fiat_p256_sub(y_out, fourbeta, x_out);
-  fiat_p256_add(gamma, gamma, gamma);
-  fiat_p256_square(gamma, gamma);
-  fiat_p256_mul(y_out, alpha, y_out);
-  fiat_p256_add(gamma, gamma, gamma);
-  fiat_p256_sub(y_out, y_out, gamma);
+  fiat_p256_felem D, A, tmp; // HMV'04p91
+  fiat_p256_add(D, y_in, y_in); // B
+  fiat_p256_square(tmp, z_in);
+  fiat_p256_square(D, D); // C
+  fiat_p256_mul(z_out, z_in, y_in);
+  fiat_p256_add(z_out, z_out, z_out);
+  fiat_p256_add(A, x_in, tmp);
+  fiat_p256_sub(tmp, x_in, tmp);
+  fiat_p256_square(y_out, D);
+  fiat_p256_halve(y_out, y_out); // C^2/2
+  fiat_p256_mul(A, A, tmp);
+  fiat_p256_add(tmp, A, A); fiat_p256_add(A, A, tmp); // A
+  fiat_p256_mul(D, D, x_in); // D
+  fiat_p256_add(tmp, D, D);
+  fiat_p256_square(x_out, A);
+  fiat_p256_sub(x_out, x_out, tmp);
+  fiat_p256_sub(D, D, x_out);
+  fiat_p256_mul(D, D, A);
+  fiat_p256_sub(y_out, D, y_out);
 }
 
 // fiat_p256_point_add calculates (x1, y1, z1) + (x2, y2, z2)
