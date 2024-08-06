@@ -1,6 +1,46 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd09683d_fdd88001",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-06T18:58:11Z",
+      "side": 1,
+      "message": "Optional: It is kinda goofy that QUIC and DTLS 1.3 disable them totally differently. In principle, `has_id_session` should always be false in QUIC. (Short of someone forcibly constructing a bad session.)\n\nMaybe we should drop the `quic_method` check on the outside and instead just write:\n\n```\n  // DTLS 1.3 and QUIC disable compatibility mode.\n  const bool enable_compatibility_mode \u003d\n      hs-\u003emax_version \u003e\u003d TLS1_3_VERSION \u0026\u0026 !SSL_is_dtls(hs-\u003essl) \u0026\u0026\n      ssl-\u003equic_method \u003d\u003d nullptr;\n```",
+      "revId": "1c04fc14c8a2b1cc2dc17c722c74b35426c18fe8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9bbfafa_d4ae8151",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-06T18:58:11Z",
+      "side": 1,
+      "message": "Nit: Perhaps `expectedSessionID`. I was a little confused at first.",
+      "range": {
+        "startLine": 1008,
+        "startChar": 1,
+        "endLine": 1008,
+        "endChar": 10
+      },
+      "revId": "1c04fc14c8a2b1cc2dc17c722c74b35426c18fe8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "45e8a90e_2501cf9b",
@@ -14,6 +54,24 @@
       "writtenOn": "2024-08-02T01:17:08Z",
       "side": 1,
       "message": "TLS 1.3 defines the behavior of the server echoing the legacy_session_id separately from compatibility mode - all that compatibility mode does with session IDs is have the client send a fake session ID. The DTLS 1.3 RFC states that compatibility mode is disabled, and then it goes on to say that servers must not echo the legacy_session_id. This is written as normative language, but it is also written in a way that sounds like it is describing what it means to disable compatibility mode. I chose to implement the normative language in RFC 9147, and assume that it overrides the language in RFC 8446 section 4.1.3 which requires the legacy_session_id_echo match the legacy_session_id regardless of compatibility mode.",
+      "revId": "1c04fc14c8a2b1cc2dc17c722c74b35426c18fe8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2288d6aa_2ce5c2b2",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-06T18:58:11Z",
+      "side": 1,
+      "message": "Oh lovely. That\u0027s fun because RFC 9147 arguably only overrode the server behavior, but not the client behavior. So you could argue that this sentence is still in force in DTLS 1.3:\n\n\u003e A client which receives a legacy_session_id_echo field that does not match what it sent in the ClientHello MUST abort the handshake with an \"illegal_parameter\" alert.\n\nBut then things won\u0027t interop. I\u0027ll file an erratum about that. \n\nWhether there is spec text that implies clients must check that the field is empty is... ambiguous. I agree with checking though (looks like NSS does too), so I\u0027ll include that in the erratum.",
+      "parentUuid": "45e8a90e_2501cf9b",
       "revId": "1c04fc14c8a2b1cc2dc17c722c74b35426c18fe8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
