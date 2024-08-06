@@ -76,14 +76,29 @@ static __inline__ uint64_t fiat_p256_value_barrier_u64(uint64_t a) {
  *   out2: [0x0 ~> 0x1]
  */
 static FIAT_P256_FIAT_INLINE void fiat_p256_addcarryx_u64(uint64_t* out1, fiat_p256_uint1* out2, fiat_p256_uint1 arg1, uint64_t arg2, uint64_t arg3) {
-  fiat_p256_uint128 x1;
-  uint64_t x2;
-  fiat_p256_uint1 x3;
-  x1 = ((arg1 + (fiat_p256_uint128)arg2) + arg3);
-  x2 = (uint64_t)(x1 & UINT64_C(0xffffffffffffffff));
-  x3 = (fiat_p256_uint1)(x1 >> 64);
-  *out1 = x2;
-  *out2 = x3;
+// NOTE: edited after generation
+#if defined(__has_builtin)
+#  if __has_builtin(__builtin_ia32_addcarryx_u64)
+#    define addcarry64 __builtin_ia32_addcarryx_u64
+#  endif
+#endif
+#if defined(addcarry64)
+  long long unsigned int t;
+  *out2 = addcarry64(arg1, arg2, arg3, &t);
+  *out1 = t;
+#elif defined(_M_X64)
+  long long unsigned int t;
+  *out2 = _addcarry_u64(arg1, arg2, arg3, out1);
+  *out1 = t;
+#else
+  arg2 += arg1;
+  arg1 = arg2 < arg1;
+  uint64_t ret = arg2 + arg3;
+  arg1 += ret < arg2;
+  *out1 = ret;
+  *out2 = arg1;
+#endif
+#undef addcarry64
 }
 
 /*
@@ -102,14 +117,24 @@ static FIAT_P256_FIAT_INLINE void fiat_p256_addcarryx_u64(uint64_t* out1, fiat_p
  *   out2: [0x0 ~> 0x1]
  */
 static FIAT_P256_FIAT_INLINE void fiat_p256_subborrowx_u64(uint64_t* out1, fiat_p256_uint1* out2, fiat_p256_uint1 arg1, uint64_t arg2, uint64_t arg3) {
-  fiat_p256_int128 x1;
-  fiat_p256_int1 x2;
-  uint64_t x3;
-  x1 = ((arg2 - (fiat_p256_int128)arg1) - arg3);
-  x2 = (fiat_p256_int1)(x1 >> 64);
-  x3 = (uint64_t)(x1 & UINT64_C(0xffffffffffffffff));
-  *out1 = x3;
-  *out2 = (fiat_p256_uint1)(0x0 - x2);
+#if defined(__has_builtin)
+#  if __has_builtin(__builtin_ia32_subborrow_u64)
+#    define subborrow64 __builtin_ia32_subborrow_u64
+#  endif
+#endif
+#if defined(subborrow64)
+  long long unsigned int t;
+  *out2 = subborrow64(arg1, arg2, arg3, &t);
+  *out1 = t;
+#elif defined(_M_X64)
+  long long unsigned int t;
+  *out2 = _subborrow_u64(arg1, arg2, arg3, &t); // NOTE: edited after generation
+  *out1 = t;
+#else
+  *out1 = arg2 - arg3 - arg1;
+  *out2 = (arg2 < arg3) | ((arg2 == arg3) & arg1);
+#endif
+#undef subborrow64
 }
 
 /*
