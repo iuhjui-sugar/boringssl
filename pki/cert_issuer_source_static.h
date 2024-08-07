@@ -30,6 +30,13 @@ class OPENSSL_EXPORT CertIssuerSourceStatic : public CertIssuerSource {
   // Clears the set of certificates.
   void Clear();
 
+  // Returns the underlying storage containing all the certificates.
+  const std::unordered_multimap<std::string_view,
+                                std::shared_ptr<const ParsedCertificate>>&
+  Certs() const {
+    return intermediates_;
+  }
+
   size_t size() const { return intermediates_.size(); }
 
   // CertIssuerSource implementation:
