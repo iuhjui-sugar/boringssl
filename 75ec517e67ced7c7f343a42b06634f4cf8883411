@@ -79,6 +79,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "913f1544_ade0be99",
+        "filename": "rust/WORKSPACE",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-07T19:19:59Z",
+      "side": 1,
+      "message": "http://shortn/_FzLOwocGU9 - patch in Oak",
+      "parentUuid": "f9a3a256_7187b6f5",
+      "revId": "75ec517e67ced7c7f343a42b06634f4cf8883411",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1fb4d78e_475cc052",
         "filename": "rust/bssl-sys/BUILD.bazel",
         "patchSetId": 5
