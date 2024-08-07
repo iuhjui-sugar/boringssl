@@ -772,12 +772,20 @@ if(INSTALL_ENABLED)
   endif()
 
   install(TARGETS crypto ssl
-          EXPORT OpenSSLTargets ${INSTALL_DESTINATION_DEFAULT})
-  install(TARGETS bssl DESTINATION ${INSTALL_DESTINATION_DEFAULT})
-  install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+          EXPORT OpenSSLTargets ${INSTALL_DESTINATION_DEFAULT}
+          COMPONENT libraries)
+  install(TARGETS bssl
+          DESTINATION ${INSTALL_DESTINATION_DEFAULT}
+          COMPONENT executable)
+  install(DIRECTORY include/
+          DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+          COMPONENT libraries)
   install(EXPORT OpenSSLTargets
           FILE OpenSSLTargets.cmake
           NAMESPACE OpenSSL::
-          DESTINATION lib/cmake/OpenSSL)
-  install(FILES cmake/OpenSSLConfig.cmake DESTINATION lib/cmake/OpenSSL)
+          DESTINATION lib/cmake/OpenSSL
+          COMPONENT libraries)
+  install(FILES cmake/OpenSSLConfig.cmake
+          DESTINATION lib/cmake/OpenSSL
+          COMPONENT libraries)
 endif()
