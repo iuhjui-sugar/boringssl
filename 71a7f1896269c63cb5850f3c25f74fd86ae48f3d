@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1026e81d_13cf9706",
+        "filename": "pki/cert_issuer_source_static.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-08-07T23:29:55Z",
+      "side": 1,
+      "message": "Feels like returning the internal storage type is exposing implementation details, but otherwise would have to create a new vector that is just going to get iterated through and then discarded which also feels wasteful (but probably doesn\u0027t actually matter..)\n\nOpinion?",
+      "revId": "71a7f1896269c63cb5850f3c25f74fd86ae48f3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
