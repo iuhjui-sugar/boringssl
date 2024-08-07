@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03b972f8_e16ed9e7",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-07T23:37:45Z",
+      "side": 1,
+      "message": "Good point. I think this is actually ok, but it does contradict the docs. I\u0027ve aligned with the docs, but changed this code quite a lot, so PTAL.",
+      "parentUuid": "fec4bfd1_6c2c9948",
+      "revId": "f667a2aec34e8a6ba6f02c2dd9ac1523fafc9a95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54fe0fcf_1ce82011",
         "filename": "ssl/s3_both.cc",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2024-08-07T16:27:24Z",
       "side": 1,
       "message": "Nit\n```suggestion\n  explicit AesHwCipherScorer(bool has_aes_hw) : aes_is_fine_(has_aes_hw) {}\n```",
+      "range": {
+        "startLine": 674,
+        "startChar": 2,
+        "endLine": 674,
+        "endChar": 19
+      },
+      "revId": "f667a2aec34e8a6ba6f02c2dd9ac1523fafc9a95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f6f55c2_3e592a85",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-07T23:37:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54fe0fcf_1ce82011",
       "range": {
         "startLine": 674,
         "startChar": 2,
