@@ -61,6 +61,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9a3a256_7187b6f5",
+        "filename": "rust/WORKSPACE",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-07T18:35:04Z",
+      "side": 1,
+      "message": "I updated the readme with instructions for setting up the rust toolchain needed to generate the bindgen bindings. \n\nIt does make more sense for the top-level project to setup the rust toolchain as they likely will already have one setup and the additional configuration will come from setting up bindgen. \n\nBuilding llvm and bindgen takes a couple of minutes on the first build, we have a patch in Oak right now where we use a pre-generated bindgen file. \n\nAny thoughts on setting up the Bazel BUILD this way? It would require the Boringssl team to keep the bindgen file up to date as bssl-crypto is updated.",
+      "parentUuid": "39afbe59_1da4f1e8",
+      "revId": "75ec517e67ced7c7f343a42b06634f4cf8883411",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1fb4d78e_475cc052",
         "filename": "rust/bssl-sys/BUILD.bazel",
         "patchSetId": 5

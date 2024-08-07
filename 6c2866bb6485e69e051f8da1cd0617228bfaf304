@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "220a3da3_9ec5c710",
+        "filename": "MODULE.bazel",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-07T18:35:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a60d7e53_bc9fec7e",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4d116f4_1a04ae75",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I moved the WORKSPACE file inside of rust/, It\u0027s required for the Bazel build, we have to pull in and setup bindgen to create the rust bindings. For CMake you expect the user to have bindgen installed right? Do you still want this to be the case? \n\nAlso, I updated the readme for bssl-crypto since there\u0027s no additional steps for building with Bazel without adding the dependency.",
       "parentUuid": "a4d116f4_1a04ae75",
+      "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64354fff_ac4dcd9d",
+        "filename": "WORKSPACE",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-07T18:35:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "eb5c3d42_7861bc58",
       "revId": "6c2866bb6485e69e051f8da1cd0617228bfaf304",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
