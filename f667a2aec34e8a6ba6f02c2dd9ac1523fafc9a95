@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96d10725_90e4178e",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T03:18:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "03b972f8_e16ed9e7",
+      "revId": "f667a2aec34e8a6ba6f02c2dd9ac1523fafc9a95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54fe0fcf_1ce82011",
