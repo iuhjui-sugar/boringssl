@@ -108,6 +108,23 @@
       "message": "This shouldn\u0027t be needed because you\u0027ve got the `wrap_static_fns` bits in there. (It\u0027s only there for Android because they haven\u0027t gotten `wrap_static_fns` working yet.)",
       "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fb8c2ed_f0e39665",
+        "filename": "rust/bssl-sys/BUILD.bazel",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T22:36:17Z",
+      "side": 1,
+      "message": "Wait, how does this work? `:crypto` and `:ssl` are defined at the top-level package.",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
