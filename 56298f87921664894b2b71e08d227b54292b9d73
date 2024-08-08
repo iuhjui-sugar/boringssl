@@ -16,6 +16,23 @@
       "message": "I\u0027m not sure about cfi, so only enabled avx2 codepath for sha512",
       "revId": "56298f87921664894b2b71e08d227b54292b9d73",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95afc47b_1f8e4dcb",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-08T17:06:22Z",
+      "side": 1,
+      "message": "This comment would need to be updated, but is it wrong?  I\u0027m looking suspiciously at line 1688.",
+      "revId": "56298f87921664894b2b71e08d227b54292b9d73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
