@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6259a2df_e8b7cbcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-08T22:26:08Z",
+      "side": 1,
+      "message": "If you say David\u0027s special name three times he should appear and that\u0027ll be useful because he knows Bazel better than I do:\n\nBenjamin Davidson, Benjamin Davidson, Benjamin Davidson.",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
