@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d96cd353_b3211963",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T03:32:27Z",
+      "side": 1,
+      "message": "Ah right, I forgot about the mess that is tickets needing random session IDs. 😞 I guess I need a further erratum on the spec.\n\nAlso I filed crbug.com/358137285 because I don\u0027t think we can actually test this right now, but we probably need to. 😊",
+      "parentUuid": "87705e01_25058e4f",
+      "revId": "1c04fc14c8a2b1cc2dc17c722c74b35426c18fe8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9bbfafa_d4ae8151",
