@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecd10e71_d5029872",
+        "filename": ".gitignore",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T22:35:16Z",
+      "side": 1,
+      "message": "Are these still needed? I would assume that it\u0027s all one Bazel module now.",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6259a2df_e8b7cbcf",
@@ -14,6 +31,81 @@
       "writtenOn": "2024-08-08T22:26:08Z",
       "side": 1,
       "message": "If you say David\u0027s special name three times he should appear and that\u0027ll be useful because he knows Bazel better than I do:\n\nBenjamin Davidson, Benjamin Davidson, Benjamin Davidson.",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b44cea6_f6e03173",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T22:35:16Z",
+      "side": 1,
+      "message": "Oops, sorry, my inbox is overflowing. 😞",
+      "parentUuid": "6259a2df_e8b7cbcf",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffb3b9b4_8b9c9ace",
+        "filename": "rust/bssl-crypto/BUILD.bazel",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T22:35:16Z",
+      "side": 1,
+      "message": "Just to confirm: it is indeed the Rust + Bazel convention to mix hyphens and underscores like this?",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c451f32a_c2e6f188",
+        "filename": "rust/bssl-crypto/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T22:35:16Z",
+      "side": 1,
+      "message": "We already have a MODULE.bazel file. Is there any reason we\u0027re not adding it that way?",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f03f5680_8617ed5f",
+        "filename": "rust/bssl-sys/BUILD.bazel",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-08T22:35:16Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be needed because you\u0027ve got the `wrap_static_fns` bits in there. (It\u0027s only there for Android because they haven\u0027t gotten `wrap_static_fns` working yet.)",
       "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
