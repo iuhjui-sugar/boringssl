@@ -34,6 +34,24 @@
       "parentUuid": "1026e81d_13cf9706",
       "revId": "71a7f1896269c63cb5850f3c25f74fd86ae48f3d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24fbbf0c_698be15c",
+        "filename": "pki/cert_issuer_source_static.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2024-08-09T18:55:08Z",
+      "side": 1,
+      "message": "yeah that\u0027s reasonable.  Done, ptal.",
+      "parentUuid": "05ddbd78_58a5a73d",
+      "revId": "71a7f1896269c63cb5850f3c25f74fd86ae48f3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
