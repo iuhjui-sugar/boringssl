@@ -198,30 +198,27 @@ static void fiat_p256_halve(fiat_p256_felem y, const fiat_p256_felem x) {
 // As a sanity check, a proof that these points form a commutative group:
 // <https://github.com/mit-plv/fiat-crypto/blob/79f8b5f39ed609339f0233098dee1a3c4e6b3080/src/Curves/Weierstrass/AffineProofs.v#L33>
 
-static void fiat_p256_point_double(fiat_p256_felem x_out, fiat_p256_felem y_out,
-                                   fiat_p256_felem z_out,
-                                   const fiat_p256_felem x_in,
-                                   const fiat_p256_felem y_in,
-                                   const fiat_p256_felem z_in) {
+static void fiat_p256_point_double(fiat_p256_felem out[3],
+                                   const fiat_p256_felem in[3]) {
   fiat_p256_felem D, A, tmp; // HMV'04p91
-  fiat_p256_add(D, y_in, y_in); // B
-  fiat_p256_square(tmp, z_in);
+  fiat_p256_add(D, in[1], in[1]); // B
+  fiat_p256_square(tmp, in[2]);
   fiat_p256_square(D, D); // C
-  fiat_p256_mul(z_out, z_in, y_in);
-  fiat_p256_add(z_out, z_out, z_out);
-  fiat_p256_add(A, x_in, tmp);
-  fiat_p256_sub(tmp, x_in, tmp);
-  fiat_p256_square(y_out, D);
-  fiat_p256_halve(y_out, y_out); // C^2/2
+  fiat_p256_mul(out[2], in[2], in[1]);
+  fiat_p256_add(out[2], out[2], out[2]);
+  fiat_p256_add(A, in[0], tmp);
+  fiat_p256_sub(tmp, in[0], tmp);
+  fiat_p256_square(out[1], D);
+  fiat_p256_halve(out[1], out[1]); // C^2/2
   fiat_p256_mul(A, A, tmp);
   fiat_p256_add(tmp, A, A); fiat_p256_add(A, A, tmp); // A
-  fiat_p256_mul(D, D, x_in); // D
+  fiat_p256_mul(D, D, in[0]); // D
   fiat_p256_add(tmp, D, D);
-  fiat_p256_square(x_out, A);
-  fiat_p256_sub(x_out, x_out, tmp);
-  fiat_p256_sub(D, D, x_out);
+  fiat_p256_square(out[0], A);
+  fiat_p256_sub(out[0], out[0], tmp);
+  fiat_p256_sub(D, D, out[0]);
   fiat_p256_mul(D, D, A);
-  fiat_p256_sub(y_out, D, y_out);
+  fiat_p256_sub(out[1], D, out[1]);
 }
 
 // fiat_p256_point_add calculates (x1, y1, z1) + (x2, y2, z2)
@@ -230,31 +227,31 @@ static void fiat_p256_point_double(fiat_p256_felem x_out, fiat_p256_felem y_out,
 // are equal, (while not equal to the point at infinity). This case never
 // happens during single point multiplication, so there is no timing leak for
 // ECDH or ECDSA signing.
-static void fiat_p256_point_add(fiat_p256_felem x3, fiat_p256_felem y3,
-                                fiat_p256_felem z3, const fiat_p256_felem x1,
-                                const fiat_p256_felem y1,
-                                const fiat_p256_felem z1, const int mixed,
+static void fiat_p256_point_add_(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const int p2affine,
                                 const fiat_p256_felem x2,
                                 const fiat_p256_felem y2,
                                 const fiat_p256_felem z2) {
+  const uint64_t* const in2[3] = {x2, y2, z2};
   fiat_p256_felem x_out, y_out, z_out;  // HMV'04 p89 eqn 3.14
-  fiat_p256_limb_t z1nz = fiat_p256_nz(z1);
-  fiat_p256_limb_t z2nz = fiat_p256_nz(z2);
+  fiat_p256_limb_t z1nz = fiat_p256_nz(in1[2]);
+  fiat_p256_limb_t z2nz = fiat_p256_nz(in2[2]);
 
   // z1z1 = z1z1 = z1**2
   fiat_p256_felem z1z1;
-  fiat_p256_square(z1z1, z1);  // A = Z^2
+  fiat_p256_square(z1z1, in1[2]);  // A = Z^2
 
   // u2 = x2*z1z1
   fiat_p256_felem u2;
-  fiat_p256_mul(u2, x2, z1z1);  // C = X2*A
+  fiat_p256_mul(u2, in2[0], z1z1);  // C = X2*A
 
   fiat_p256_felem u1, z2z2;
-  if (mixed) {  // Z2 == 1 (special case Z2 = 0 is handled later).
-    fiat_p256_copy(u1, x1);
+  if (p2affine) {  // Z2 == 1 (special case Z2 = 0 is handled later).
+    fiat_p256_copy(u1, in1[0]);
   } else {
-    fiat_p256_square(z2z2, z2);
-    fiat_p256_mul(u1, x1, z2z2);
+    fiat_p256_square(z2z2, in2[2]);
+    fiat_p256_mul(u1, in1[0], z2z2);
   }
 
   // h = u2 - u1
@@ -262,23 +259,23 @@ static void fiat_p256_point_add(fiat_p256_felem x3, fiat_p256_felem y3,
   fiat_p256_sub(h, u2, u1);  // E = C - X1
 
   fiat_p256_felem s2;
-  fiat_p256_mul(s2, z1, z1z1);  // B + Z1*A
+  fiat_p256_mul(s2, in1[2], z1z1);  // B + Z1*A
 
-  fiat_p256_mul(z_out, h, z1);  // Z3 = E*Z1
-  if (!mixed) {
-    fiat_p256_mul(z_out, z_out, z2);
+  fiat_p256_mul(z_out, h, in1[2]);  // Z3 = E*Z1
+  if (!p2affine) {
+    fiat_p256_mul(z_out, z_out, in2[2]);
   }
 
   // s2 = y2 * z1**3
-  fiat_p256_mul(s2, s2, y2);  // D = Y2 * B
+  fiat_p256_mul(s2, s2, in2[1]);  // D = Y2 * B
 
   fiat_p256_felem s1;
-  if (mixed) {  // Z2 == 1
-    fiat_p256_copy(s1, y1);
+  if (p2affine) {  // Z2 == 1
+    fiat_p256_copy(s1, in1[1]);
   } else {
-    // s1 = y1 * z2**3
-    fiat_p256_mul(s1, z2, z2z2);
-    fiat_p256_mul(s1, s1, y1);
+    // s1 = in1[1] * z2**3
+    fiat_p256_mul(s1, in2[2], z2z2);
+    fiat_p256_mul(s1, s1, in1[1]);
   }
 
   fiat_p256_limb_t xneq = fiat_p256_nz(h);
@@ -293,7 +290,7 @@ static void fiat_p256_point_add(fiat_p256_felem x3, fiat_p256_felem y3,
                                           ~constant_time_is_zero_w(z1nz) &
                                           ~constant_time_is_zero_w(z2nz);
   if (constant_time_declassify_w(is_nontrivial_double)) {
-    fiat_p256_point_double(x3, y3, z3, x1, y1, z1);
+    fiat_p256_point_double(out, in1);
     return;
   }
 
@@ -319,12 +316,30 @@ static void fiat_p256_point_add(fiat_p256_felem x3, fiat_p256_felem y3,
   fiat_p256_mul(h, h, r);       // E * F
   fiat_p256_sub(y_out, h, S2);
 
-  fiat_p256_cmovznz(x_out, z1nz, x2, x_out);
-  fiat_p256_cmovznz(x3, z2nz, x1, x_out);
-  fiat_p256_cmovznz(y_out, z1nz, y2, y_out);
-  fiat_p256_cmovznz(y3, z2nz, y1, y_out);
-  fiat_p256_cmovznz(z_out, z1nz, z2, z_out);
-  fiat_p256_cmovznz(z3, z2nz, z1, z_out);
+  fiat_p256_cmovznz(x_out, z1nz, in2[0], x_out);
+  fiat_p256_cmovznz(out[0], z2nz, in1[0], x_out);
+  fiat_p256_cmovznz(y_out, z1nz, in2[1], y_out);
+  fiat_p256_cmovznz(out[1], z2nz, in1[1], y_out);
+  fiat_p256_cmovznz(z_out, z1nz, in2[2], z_out);
+  fiat_p256_cmovznz(out[2], z2nz, in1[2], z_out);
+}
+
+static void fiat_p256_point_add(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[3]) {
+  return fiat_p256_point_add_(out, in1, 0, in2[0], in2[1], in2[2]);
+}
+
+static void fiat_p256_point_add_affine(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[3]) {
+  return fiat_p256_point_add_(out, in1, 1, in2[0], in2[1], in2[2]);
+}
+
+static void fiat_p256_point_add_affine_nz(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[2]) {
+  return fiat_p256_point_add_(out, in1, 1, in2[0], in2[1], fiat_p256_one);
 }
 
 #include "./p256_table.h"
@@ -410,30 +425,29 @@ static int ec_GFp_nistp256_point_get_affine_coordinates(
 
 static void ec_GFp_nistp256_add(const EC_GROUP *group, EC_JACOBIAN *r,
                                 const EC_JACOBIAN *a, const EC_JACOBIAN *b) {
-  fiat_p256_felem x1, y1, z1, x2, y2, z2;
-  fiat_p256_from_generic(x1, &a->X);
-  fiat_p256_from_generic(y1, &a->Y);
-  fiat_p256_from_generic(z1, &a->Z);
-  fiat_p256_from_generic(x2, &b->X);
-  fiat_p256_from_generic(y2, &b->Y);
-  fiat_p256_from_generic(z2, &b->Z);
-  fiat_p256_point_add(x1, y1, z1, x1, y1, z1, 0 /* both Jacobian */, x2, y2,
-                      z2);
-  fiat_p256_to_generic(&r->X, x1);
-  fiat_p256_to_generic(&r->Y, y1);
-  fiat_p256_to_generic(&r->Z, z1);
+  fiat_p256_felem p[3], q[3];
+  fiat_p256_from_generic(p[0], &a->X);
+  fiat_p256_from_generic(p[1], &a->Y);
+  fiat_p256_from_generic(p[2], &a->Z);
+  fiat_p256_from_generic(q[0], &b->X);
+  fiat_p256_from_generic(q[1], &b->Y);
+  fiat_p256_from_generic(q[2], &b->Z);
+  fiat_p256_point_add(p, p, q);
+  fiat_p256_to_generic(&r->X, p[0]);
+  fiat_p256_to_generic(&r->Y, p[1]);
+  fiat_p256_to_generic(&r->Z, p[2]);
 }
 
 static void ec_GFp_nistp256_dbl(const EC_GROUP *group, EC_JACOBIAN *r,
                                 const EC_JACOBIAN *a) {
-  fiat_p256_felem x, y, z;
-  fiat_p256_from_generic(x, &a->X);
-  fiat_p256_from_generic(y, &a->Y);
-  fiat_p256_from_generic(z, &a->Z);
-  fiat_p256_point_double(x, y, z, x, y, z);
-  fiat_p256_to_generic(&r->X, x);
-  fiat_p256_to_generic(&r->Y, y);
-  fiat_p256_to_generic(&r->Z, z);
+  fiat_p256_felem p[3];
+  fiat_p256_from_generic(p[0], &a->X);
+  fiat_p256_from_generic(p[1], &a->Y);
+  fiat_p256_from_generic(p[2], &a->Z);
+  fiat_p256_point_double(p, p);
+  fiat_p256_to_generic(&r->X, p[0]);
+  fiat_p256_to_generic(&r->Y, p[1]);
+  fiat_p256_to_generic(&r->Z, p[2]);
 }
 
 static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
@@ -447,14 +461,9 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
   fiat_p256_from_generic(p_pre_comp[1][2], &p->Z);
   for (size_t j = 2; j <= 16; ++j) {
     if (j & 1) {
-      fiat_p256_point_add(p_pre_comp[j][0], p_pre_comp[j][1], p_pre_comp[j][2],
-                          p_pre_comp[1][0], p_pre_comp[1][1], p_pre_comp[1][2],
-                          0, p_pre_comp[j - 1][0], p_pre_comp[j - 1][1],
-                          p_pre_comp[j - 1][2]);
+      fiat_p256_point_add(p_pre_comp[j], p_pre_comp[j - 1], p_pre_comp[1]);
     } else {
-      fiat_p256_point_double(p_pre_comp[j][0], p_pre_comp[j][1],
-                             p_pre_comp[j][2], p_pre_comp[j / 2][0],
-                             p_pre_comp[j / 2][1], p_pre_comp[j / 2][2]);
+      fiat_p256_point_double(p_pre_comp[j], p_pre_comp[j / 2]);
     }
   }
 
@@ -466,7 +475,7 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
   for (size_t i = 255; i < 256; i--) {
     // double
     if (!skip) {
-      fiat_p256_point_double(nq[0], nq[1], nq[2], nq[0], nq[1], nq[2]);
+      fiat_p256_point_double(nq, nq);
     }
 
     // do other additions every 5 doublings
@@ -487,8 +496,7 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
       fiat_p256_cmovznz(tmp[1], (fiat_p256_limb_t)sign, tmp[1], ftmp);
 
       if (!skip) {
-        fiat_p256_point_add(nq[0], nq[1], nq[2], nq[0], nq[1], nq[2],
-                            0 /* mixed */, tmp[0], tmp[1], tmp[2]);
+        fiat_p256_point_add(nq, nq, tmp);
       } else {
         fiat_p256_copy(nq[0], tmp[0]);
         fiat_p256_copy(nq[1], tmp[1]);
@@ -512,7 +520,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
   int skip = 1;  // Save two point operations in the first round.
   for (size_t i = 31; i < 32; i--) {
     if (!skip) {
-      fiat_p256_point_double(nq[0], nq[1], nq[2], nq[0], nq[1], nq[2]);
+      fiat_p256_point_double(nq, nq);
     }
 
     // First, look 32 bits upwards.
@@ -525,8 +533,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
                                   fiat_p256_g_pre_comp[1], tmp);
 
     if (!skip) {
-      fiat_p256_point_add(nq[0], nq[1], nq[2], nq[0], nq[1], nq[2],
-                          1 /* mixed */, tmp[0], tmp[1], tmp[2]);
+      fiat_p256_point_add_affine(nq, nq, tmp);
     } else {
       fiat_p256_copy(nq[0], tmp[0]);
       fiat_p256_copy(nq[1], tmp[1]);
@@ -542,8 +549,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
     // Select the point to add, in constant time.
     fiat_p256_select_point_affine((fiat_p256_limb_t)bits, 15,
                                   fiat_p256_g_pre_comp[0], tmp);
-    fiat_p256_point_add(nq[0], nq[1], nq[2], nq[0], nq[1], nq[2], 1 /* mixed */,
-                        tmp[0], tmp[1], tmp[2]);
+    fiat_p256_point_add_affine(nq, nq, tmp);
   }
 
   fiat_p256_to_generic(&r->X, nq[0]);
@@ -563,13 +569,9 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
   fiat_p256_from_generic(p_pre_comp[0][1], &p->Y);
   fiat_p256_from_generic(p_pre_comp[0][2], &p->Z);
   fiat_p256_felem p2[3];
-  fiat_p256_point_double(p2[0], p2[1], p2[2], p_pre_comp[0][0],
-                         p_pre_comp[0][1], p_pre_comp[0][2]);
+  fiat_p256_point_double(p2, p_pre_comp[0]);
   for (size_t i = 1; i < OPENSSL_ARRAY_SIZE(p_pre_comp); i++) {
-    fiat_p256_point_add(p_pre_comp[i][0], p_pre_comp[i][1], p_pre_comp[i][2],
-                        p_pre_comp[i - 1][0], p_pre_comp[i - 1][1],
-                        p_pre_comp[i - 1][2], 0 /* not mixed */, p2[0], p2[1],
-                        p2[2]);
+    fiat_p256_point_add(p_pre_comp[i], p_pre_comp[i - 1], p2);
   }
 
   // Set up the coefficients for |p_scalar|.
@@ -581,7 +583,7 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
   fiat_p256_felem ret[3] = {{0}, {0}, {0}};
   for (int i = 256; i >= 0; i--) {
     if (!skip) {
-      fiat_p256_point_double(ret[0], ret[1], ret[2], ret[0], ret[1], ret[2]);
+      fiat_p256_point_double(ret, ret);
     }
 
     // For the |g_scalar|, we use the precomputed table without the
@@ -594,10 +596,7 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
       bits |= fiat_p256_get_bit(g_scalar, i + 32);
       if (bits != 0) {
         size_t index = (size_t)(bits - 1);
-        fiat_p256_point_add(ret[0], ret[1], ret[2], ret[0], ret[1], ret[2],
-                            1 /* mixed */, fiat_p256_g_pre_comp[1][index][0],
-                            fiat_p256_g_pre_comp[1][index][1],
-                            fiat_p256_one);
+        fiat_p256_point_add_affine_nz(ret, ret, fiat_p256_g_pre_comp[1][index]);
         skip = 0;
       }
 
@@ -608,10 +607,7 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
       bits |= fiat_p256_get_bit(g_scalar, i);
       if (bits != 0) {
         size_t index = (size_t)(bits - 1);
-        fiat_p256_point_add(ret[0], ret[1], ret[2], ret[0], ret[1], ret[2],
-                            1 /* mixed */, fiat_p256_g_pre_comp[0][index][0],
-                            fiat_p256_g_pre_comp[0][index][1],
-                            fiat_p256_one);
+        fiat_p256_point_add_affine_nz(ret, ret, fiat_p256_g_pre_comp[0][index]);
         skip = 0;
       }
     }
@@ -626,8 +622,7 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
         y = &tmp;
       }
       if (!skip) {
-        fiat_p256_point_add(ret[0], ret[1], ret[2], ret[0], ret[1], ret[2],
-                            0 /* not mixed */, p_pre_comp[idx][0], *y,
+        fiat_p256_point_add_(ret, ret, 0 /* not mixed */, p_pre_comp[idx][0], *y,
                             p_pre_comp[idx][2]);
       } else {
         fiat_p256_copy(ret[0], p_pre_comp[idx][0]);
