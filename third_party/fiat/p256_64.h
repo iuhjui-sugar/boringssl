@@ -176,6 +176,10 @@ static FIAT_P256_FIAT_INLINE void fiat_p256_mulx_u64(uint64_t* out1, uint64_t* o
  *   out1: [0x0 ~> 0xffffffffffffffff]
  */
 static FIAT_P256_FIAT_INLINE void fiat_p256_cmovznz_u64(uint64_t* out1, fiat_p256_uint1 arg1, uint64_t arg2, uint64_t arg3) {
+  *out1 = arg1 ? arg3 : arg2;
+}
+
+static FIAT_P256_FIAT_INLINE void fiat_p256_cmovznz_u64_simplify(uint64_t* out1, fiat_p256_uint1 arg1, uint64_t arg2, uint64_t arg3) {
   fiat_p256_uint1 x1;
   uint64_t x2;
   uint64_t x3;
@@ -900,7 +904,7 @@ static FIAT_P256_FIAT_INLINE void fiat_p256_sub(fiat_p256_montgomery_domain_fiel
   fiat_p256_subborrowx_u64(&x3, &x4, x2, (arg1[1]), (arg2[1]));
   fiat_p256_subborrowx_u64(&x5, &x6, x4, (arg1[2]), (arg2[2]));
   fiat_p256_subborrowx_u64(&x7, &x8, x6, (arg1[3]), (arg2[3]));
-  fiat_p256_cmovznz_u64(&x9, x8, 0x0, UINT64_C(0xffffffffffffffff));
+  fiat_p256_cmovznz_u64_simplify(&x9, x8, 0x0, UINT64_C(0xffffffffffffffff));
   fiat_p256_addcarryx_u64(&x10, &x11, 0x0, x1, x9);
   fiat_p256_addcarryx_u64(&x12, &x13, x11, x3, (x9 & UINT32_C(0xffffffff)));
   fiat_p256_addcarryx_u64(&x14, &x15, x13, x5, 0x0);
@@ -943,7 +947,7 @@ static FIAT_P256_FIAT_INLINE void fiat_p256_opp(fiat_p256_montgomery_domain_fiel
   fiat_p256_subborrowx_u64(&x3, &x4, x2, 0x0, (arg1[1]));
   fiat_p256_subborrowx_u64(&x5, &x6, x4, 0x0, (arg1[2]));
   fiat_p256_subborrowx_u64(&x7, &x8, x6, 0x0, (arg1[3]));
-  fiat_p256_cmovznz_u64(&x9, x8, 0x0, UINT64_C(0xffffffffffffffff));
+  fiat_p256_cmovznz_u64_simplify(&x9, x8, 0x0, UINT64_C(0xffffffffffffffff));
   fiat_p256_addcarryx_u64(&x10, &x11, 0x0, x1, x9);
   fiat_p256_addcarryx_u64(&x12, &x13, x11, x3, (x9 & UINT32_C(0xffffffff)));
   fiat_p256_addcarryx_u64(&x14, &x15, x13, x5, 0x0);

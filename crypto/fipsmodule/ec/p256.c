@@ -356,7 +356,8 @@ static void fiat_p256_select_point_affine(
   OPENSSL_memset(out, 0, sizeof(fiat_p256_felem) * 3);
   for (size_t i = 0; i < size; i++) {
     fiat_p256_limb_t mismatch = i ^ (idx - 1);
-    fiat_p256_cmovznz(out[0], mismatch, pre_comp[i][0], out[0]);
+
+    fiat_p256_cmovznz((uint64_t*)value_barrier_w((uintptr_t)out[0]), mismatch, pre_comp[i][0], out[0]);
     fiat_p256_cmovznz(out[1], mismatch, pre_comp[i][1], out[1]);
   }
   fiat_p256_cmovznz(out[2], idx, out[2], fiat_p256_one);
