@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6340b701_09b79688",
+        "filename": ".gitignore",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-09T20:36:16Z",
+      "side": 1,
+      "message": "Nope not needed.",
+      "parentUuid": "ecd10e71_d5029872",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6259a2df_e8b7cbcf",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -76,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae7aa595_8ec04086",
+        "filename": "rust/bssl-crypto/BUILD.bazel",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-09T20:36:16Z",
+      "side": 1,
+      "message": "I changed the names to underscores from digging around rust library names on g3.",
+      "parentUuid": "ffb3b9b4_8b9c9ace",
+      "range": {
+        "startLine": 12,
+        "startChar": 12,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c451f32a_c2e6f188",
@@ -89,6 +131,24 @@
       "writtenOn": "2024-08-08T22:35:16Z",
       "side": 1,
       "message": "We already have a MODULE.bazel file. Is there any reason we\u0027re not adding it that way?",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff3e5694_35c944e3",
+        "filename": "rust/bssl-crypto/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-09T20:36:16Z",
+      "side": 1,
+      "message": "So I\u0027ve been trying to BUILD bssl-crypto locally a couple different ways:\n1. adding rules_rust to MODULE.bazel, but this complains about not being able to find the necessary deps for bindgen (llvm).\n2. I add rules_rust to a WORKSPACE file via http_archive and I\u0027m able to build with just the changes in this cl.\n\nTo check that I could build and test bssl_crypto I created a top level workspace file with just the contents in the readme and ran bazel test :bssl_crypto",
+      "parentUuid": "c451f32a_c2e6f188",
       "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -110,6 +170,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d867139c_72122465",
+        "filename": "rust/bssl-sys/BUILD.bazel",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-09T20:36:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f03f5680_8617ed5f",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8fb8c2ed_f0e39665",
@@ -123,6 +201,24 @@
       "writtenOn": "2024-08-08T22:36:17Z",
       "side": 1,
       "message": "Wait, how does this work? `:crypto` and `:ssl` are defined at the top-level package.",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6deaa713_decaadd6",
+        "filename": "rust/bssl-sys/BUILD.bazel",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-09T20:36:16Z",
+      "side": 1,
+      "message": "I forgot to add the // after removing the WORKSPACE files from rust/",
+      "parentUuid": "8fb8c2ed_f0e39665",
       "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
