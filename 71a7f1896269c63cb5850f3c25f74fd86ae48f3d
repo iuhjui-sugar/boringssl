@@ -16,6 +16,24 @@
       "message": "Feels like returning the internal storage type is exposing implementation details, but otherwise would have to create a new vector that is just going to get iterated through and then discarded which also feels wasteful (but probably doesn\u0027t actually matter..)\n\nOpinion?",
       "revId": "71a7f1896269c63cb5850f3c25f74fd86ae48f3d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05ddbd78_58a5a73d",
+        "filename": "pki/cert_issuer_source_static.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-09T16:56:57Z",
+      "side": 1,
+      "message": "Hmmm. If this were only used within Chromium, I think I\u0027d say exposing the internals is fine. But presumably we\u0027ll eventually need to make Chromium use a public API. So I\u0027d slightly lean towards making a new vector even though it makes me a little sad.\n\n(For completeness, one way to both have no copies but also not worry about API surface is for Chromium to own the storage and implement a custom CertIssuerSourceStatic. That is probably far more trouble than is worth it though.)",
+      "parentUuid": "1026e81d_13cf9706",
+      "revId": "71a7f1896269c63cb5850f3c25f74fd86ae48f3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
