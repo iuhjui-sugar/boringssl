@@ -171,13 +171,16 @@ static inline uint64_t shrd_64(uint64_t lo, uint64_t hi, uint64_t n) {
 }
 
 static void fiat_p256_halve(fiat_p256_felem y, const fiat_p256_felem x) {
-	uint64_t m = -value_barrier_w(x[0]&1);
-	fiat_p256_felem maybe_minus_half = {m, m>>33, m<<63, m<<32>>1};
-	y[0] = shrd_64(y[0], y[1], 1);
-	y[1] = shrd_64(y[1], y[2], 1);
-	y[2] = shrd_64(y[2], y[3], 1);
-	y[3] = y[3] >> 1;
-	fiat_p256_sub(y, y, maybe_minus_half);
+  static const fiat_p256_felem minus_half = {
+    -UINT64_C(1), -UINT64_C(1) >> 33, -UINT64_C(1) << 63, -UINT64_C(1) << 32 >> 1};
+  fiat_p256_felem maybe_minus_half = {0};
+  fiat_p256_cmovznz(maybe_minus_half, x[0] & 1, maybe_minus_half, minus_half);
+
+  y[0] = shrd_64(y[0], y[1], 1);
+  y[1] = shrd_64(y[1], y[2], 1);
+  y[2] = shrd_64(y[2], y[3], 1);
+  y[3] = y[3] >> 1;
+  fiat_p256_sub(y, y, maybe_minus_half);
 }
 
 // Group operations
