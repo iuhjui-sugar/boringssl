@@ -16,6 +16,24 @@
       "message": "Do we know if this is needed? AIUI, their build makes Clang think it\u0027s targeting Linux x86_64, in which case the normal Linux x86_64 spelling of this *should* work. (I mean, if Clang doesn\u0027t even know what ISA it\u0027s targeting, the build cannot possibly work.)",
       "revId": "3e585fd1b3b8a62465cb3d99298e835de158b2a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e966430_94943d9e",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-12T18:03:48Z",
+      "side": 1,
+      "message": "Hmm, fair point. Let\u0027s drop this for now.",
+      "parentUuid": "368335fb_554bf27c",
+      "revId": "3e585fd1b3b8a62465cb3d99298e835de158b2a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
