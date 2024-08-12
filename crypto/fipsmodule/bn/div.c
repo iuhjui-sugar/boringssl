@@ -281,7 +281,6 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
   }
   res->width = loop - 1;
 
-  // space for temp
   if (!bn_wexpand(tmp, div_n + 1)) {
     goto err;
   }
@@ -342,23 +341,18 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
 #endif  // !BN_ULLONG
     }
 
+    // Subtract sdiv * q from wnum. The estimated q may either be equal to the
+    // true value or q + 1. If q + 1, the subtraction will underflow, and we fix
+    // it up below.
     tmp->d[div_n] = bn_mul_words(tmp->d, sdiv->d, div_n, q);
-    // ingore top values of the bignums just sub the two
-    // BN_ULONG arrays with bn_sub_words
     if (bn_sub_words(wnum.d, wnum.d, tmp->d, div_n + 1)) {
-      // Note: As we have considered only the leading
-      // two BN_ULONGs in the calculation of q, sdiv * q
-      // might be greater than wnum (but then (q-1) * sdiv
-      // is less or equal than wnum)
       q--;
-      if (bn_add_words(wnum.d, wnum.d, sdiv->d, div_n)) {
-        // we can't have an overflow here (assuming
-        // that q != 0, but if q == 0 then tmp is
-        // zero anyway)
-        (*wnump)++;
-      }
+      // The final addition is expected to overflow, canceling the underflow.
+      wnum.d[div_n] += bn_add_words(wnum.d, wnum.d, sdiv->d, div_n);
     }
-    // store part of the result
+
+    // q is the next word of the quotient, and wnum has been updated to the
+    // running remainder.
     res->d[i] = q;
   }
 
