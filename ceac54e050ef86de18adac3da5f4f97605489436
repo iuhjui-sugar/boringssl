@@ -173,6 +173,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bd463abb_fc04c341",
+        "filename": "rust/bssl-crypto/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-12T18:36:01Z",
+      "side": 1,
+      "message": "I think the issue is with llvm\u0027s bazel setup http://shortn/_fzgo26BPrp, I opened an issue with rules_rust to see if they can help, but I believe llvm is already working on fixing this.\n\nCan we add the build files for oak and other teams(b/346582525) to use/test and I can add rules_rust to MODULE.bazel in boringssl and update the readme once bzlmod support is added.",
+      "parentUuid": "feb33e34_28c30a64",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f03f5680_8617ed5f",
         "filename": "rust/bssl-sys/BUILD.bazel",
         "patchSetId": 7
