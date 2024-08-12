@@ -191,6 +191,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "713b89af_ccf4e7ed",
+        "filename": "rust/bssl-crypto/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-12T18:54:45Z",
+      "side": 1,
+      "message": "\u003e http://shortn/_fzgo26BPrp\n\nFor posterity, as this is an open source Gerrit, that short link expands to https://github.com/llvm/llvm-project/issues/55924\n\n\u003e Can we add the build files for oak and other teams(b/346582525) to use/test and I can add rules_rust to MODULE.bazel in boringssl and update the readme once bzlmod support is added.\n\nWe don\u0027t want to break `bazel build ...` in the BoringSSL tree. I also don\u0027t think we can reasonably treat this build as supported when the instructions involve manually dropping extra files in. We\u0027d need to figure out something else here.\n\nRe b/346582525, I don\u0027t believe this CL will do anything for those teams because google3 already uses a completely different build from the external Bazel build. Are you all trying to build in google3, or standalone?\n\nIf you do need the external Bazel build, perhaps you team could help clear the underlying blocker?",
+      "parentUuid": "bd463abb_fc04c341",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f03f5680_8617ed5f",
         "filename": "rust/bssl-sys/BUILD.bazel",
         "patchSetId": 7
