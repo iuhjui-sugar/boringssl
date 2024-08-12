@@ -230,6 +230,9 @@ static void fiat_p256_point_double(fiat_p256_felem out[3],
 // are equal, (while not equal to the point at infinity). This case never
 // happens during single point multiplication, so there is no timing leak for
 // ECDH or ECDSA signing.
+#if defined(__GNUC__) && !defined(OPENSSL_SMALL)
+__attribute__((always_inline)) // 0.5% on P-256 ECDH
+#endif
 static void fiat_p256_point_add_(fiat_p256_felem out[3],
                                 const fiat_p256_felem in1[3],
                                 const int p2affine,
