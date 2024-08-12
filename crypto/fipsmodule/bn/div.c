@@ -215,33 +215,26 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
   // ensures, in Knuth's terminology, that v1 >= b/2, needed for the quotient
   // estimation step.
   int norm_shift = BN_BITS2 - (BN_num_bits(divisor) % BN_BITS2);
-  if (!BN_lshift(sdiv, divisor, norm_shift)) {
+  if (!BN_lshift(sdiv, divisor, norm_shift) ||
+      !BN_lshift(snum, numerator, norm_shift)) {
     goto err;
   }
   bn_set_minimal_width(sdiv);
-  sdiv->neg = 0;
-
-  // TODO(crbug.com/358687140): We also shift the numerator up by one extra
-  // word. This was done for convenience so that |wnump[-2]| below always
-  // exists, but makes the offsets confusing. Remove it.
-  norm_shift += BN_BITS2;
-  if (!BN_lshift(snum, numerator, norm_shift)) {
-    goto err;
-  }
   bn_set_minimal_width(snum);
+  sdiv->neg = 0;
   snum->neg = 0;
 
   // Extend |snum| with zeros to satisfy the long division invariants:
-  // - |snum|, minus the extra word, must be at least as large as |sdiv|.
+  // - |snum| must be at least as large as |sdiv|.
   // - |snum|'s most significant word must be zero to guarantee the first loop
   //   iteration works with a prefix greater than |sdiv|. (This is the extra u0
   //   digit in Knuth.)
   //
-  // TODO(crbug.com/358687140): This is still slightly larger than needed. After
-  // removing the confusing extra word, revise this.
+  // TODO(crbug.com/358687140): This is still slightly larger than needed.
+  // Revise this once the rest of the code is clearer.
   int div_n = sdiv->width;
-  if (snum->width <= div_n + 1) {
-    if (!bn_resize_words(snum, div_n + 2)) {
+  if (snum->width <= div_n) {
+    if (!bn_resize_words(snum, div_n + 1)) {
       goto err;
     }
   } else {
@@ -276,10 +269,10 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
   // for later.
   const int numerator_neg = numerator->neg;
   res->neg = (numerator_neg ^ divisor->neg);
-  if (!bn_wexpand(res, loop - 1)) {
+  if (!bn_wexpand(res, loop)) {
     goto err;
   }
-  res->width = loop - 1;
+  res->width = loop;
 
   if (!bn_wexpand(tmp, div_n + 1)) {
     goto err;
@@ -289,11 +282,11 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
   // indexes words from most to least significant, so our index is reversed.
   // Each loop iteration computes |res->d[i]| of the quotient and updates |snum|
   // with the running remainder. Before each loop iteration,
-  // |snum->d[i+2 .. width]| must be less than |sdiv|.
-  for (int i = loop - 2; i >= 0; i--, wnump--) {
+  // |snum->d[i+1 .. width]| must be less than |sdiv|.
+  for (int i = loop - 1; i >= 0; i--, wnump--) {
     // TODO(crbug.com/358687140): Remove these running pointers.
     wnum.d--;
-    assert(wnum.d == snum->d + i + 1);
+    assert(wnum.d == snum->d + i);
     assert(wnump == wnum.d + div_n);
 
     // the first part of the loop uses the top two words of snum and sdiv to
@@ -307,38 +300,39 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
       assert(n0 < d0);
       bn_div_rem_words(&q, &rm, n0, n1, d0);
 
+      if (div_n > 1) {
 #ifdef BN_ULLONG
-      BN_ULLONG t2 = (BN_ULLONG)d1 * q;
-      for (;;) {
-        if (t2 <= ((((BN_ULLONG)rm) << BN_BITS2) | wnump[-2])) {
-          break;
+        BN_ULLONG t2 = (BN_ULLONG)d1 * q;
+        for (;;) {
+          if (t2 <= ((((BN_ULLONG)rm) << BN_BITS2) | wnump[-2])) {
+            break;
+          }
+          q--;
+          rm += d0;
+          if (rm < d0) {
+            break;  // don't let rm overflow
+          }
+          t2 -= d1;
         }
-        q--;
-        rm += d0;
-        if (rm < d0) {
-          break;  // don't let rm overflow
+#else   // !BN_ULLONG
+        BN_ULONG t2l, t2h;
+        BN_UMULT_LOHI(t2l, t2h, d1, q);
+        for (;;) {
+          if (t2h < rm || (t2h == rm && t2l <= wnump[-2])) {
+            break;
+          }
+          q--;
+          rm += d0;
+          if (rm < d0) {
+            break;  // don't let rm overflow
+          }
+          if (t2l < d1) {
+            t2h--;
+          }
+          t2l -= d1;
         }
-        t2 -= d1;
-      }
-#else  // !BN_ULLONG
-      BN_ULONG t2l, t2h;
-      BN_UMULT_LOHI(t2l, t2h, d1, q);
-      for (;;) {
-        if (t2h < rm ||
-            (t2h == rm && t2l <= wnump[-2])) {
-          break;
-        }
-        q--;
-        rm += d0;
-        if (rm < d0) {
-          break;  // don't let rm overflow
-        }
-        if (t2l < d1) {
-          t2h--;
-        }
-        t2l -= d1;
-      }
 #endif  // !BN_ULLONG
+      }
     }
 
     // Subtract sdiv * q from wnum. The estimated q may either be equal to the
