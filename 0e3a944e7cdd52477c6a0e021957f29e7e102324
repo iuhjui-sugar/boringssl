@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb8586f8_23de6267",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-13T21:27:58Z",
+      "side": 1,
+      "message": "Pretty annoying that the book omits some key proofs and just leaves it as an exercise. Ah well.",
+      "range": {
+        "startLine": 329,
+        "startChar": 10,
+        "endLine": 329,
+        "endChar": 19
+      },
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ec49d17_af472ff2",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-13T21:27:58Z",
+      "side": 1,
+      "message": "TBH, diverging from Knuth would be a *lot* shorter. Then the fixup code just looks like:\n\n```\n#ifdef BN_ULLONG\n      BN_ULLONG t2 \u003d (BN_ULLONG)d1 * q;\n      if (t2 \u003e ((((BN_ULLONG)rm) \u003c\u003c BN_BITS2) | wnump[-2])) {\n        q--;\n      }\n#else  // !BN_ULLONG\n      BN_ULONG t2l, t2h;\n      BN_UMULT_LOHI(t2l, t2h, d1, q);\n      if (t2h \u003e rm ||\n          (t2h \u003d\u003d rm \u0026\u0026 t2l \u003e wnump[-2])) {\n        q--;\n      }\n#endif  // !BN_ULLONG\n```\n\nBut then we\u0027d be diverging from the usual formulation here.",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66fb40b0_5016783b",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-13T21:27:58Z",
+      "side": 1,
+      "message": "This is a bit hairy. To review, compare to step D3 in the book and flip the variables around. Knuth uses u for n and v for d. Note also that Knuth expands out the expression for the remainder, whereas in code you\u0027d use the fact that you\u0027ve computed it already.",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
