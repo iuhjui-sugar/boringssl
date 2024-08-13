@@ -3,6 +3,80 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7b55dc76_0547afaf",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-13T01:07:28Z",
+      "side": 1,
+      "message": "Would it make more sense and make it a bit nicer to extract the guts of this if and the else into separate little functions for dtls 1.3 and dtls legacy, and just call them in here?",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4178576_6cc8000e",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-13T01:07:28Z",
+      "side": 1,
+      "message": "I really hate to do this to you, but this repeated little snippet really screams for a goto drop_packet;",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cf5de11_c5fdf0a3",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-13T01:07:28Z",
+      "side": 1,
+      "message": "Is this comment in the right place?",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f79a8c_7db0a39a",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-13T01:07:28Z",
+      "side": 1,
+      "message": "by the time we have more than one magical number in here, these scream to be defined as constants for something more meaningful than a bare 5 and 13",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 11
+      },
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "beedb7cd_126491c0",
         "filename": "ssl/internal.h",
         "patchSetId": 5
