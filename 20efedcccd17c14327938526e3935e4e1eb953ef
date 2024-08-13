@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beedb7cd_126491c0",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-13T00:39:30Z",
+      "side": 1,
+      "message": "Was trying to figure out why this change is in here, I assume missed with 82f9853fc7? \n\nMaybe since it\u0027s the only change in this file in this cl, commit it separately.",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc08ee30_9beb5cc0",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4403,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-13T00:39:30Z",
+      "side": 1,
+      "message": "It looks like you are effectively sanity checking the record layer format in dtls.go now - correct?  Does this comment need updating to indicate this?",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
