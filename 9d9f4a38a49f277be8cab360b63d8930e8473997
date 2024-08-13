@@ -22,6 +22,30 @@
       },
       "revId": "9d9f4a38a49f277be8cab360b63d8930e8473997",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fdcf5c0_bb50e235",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-13T21:34:37Z",
+      "side": 0,
+      "message": "I thought I did keep that:\n\n\u003e The outputs will be such that |quotient| * |divisor| + |rem| \u003d |numerator|, with the quotient rounded towards zero\n\nDid you mean a different bit?",
+      "parentUuid": "65bfa927_c895597e",
+      "range": {
+        "startLine": 179,
+        "startChar": 2,
+        "endLine": 179,
+        "endChar": 76
+      },
+      "revId": "9d9f4a38a49f277be8cab360b63d8930e8473997",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
