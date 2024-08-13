@@ -16,6 +16,24 @@
       "message": "Ignore this tower for now. I didn\u0027t mean to push it yet. Gerrit is bad at life.",
       "revId": "9d9f4a38a49f277be8cab360b63d8930e8473997",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92c2d70c_5142c5fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-13T21:33:26Z",
+      "side": 1,
+      "message": "(resolving)",
+      "parentUuid": "1965951b_ef6e8a81",
+      "revId": "9d9f4a38a49f277be8cab360b63d8930e8473997",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
