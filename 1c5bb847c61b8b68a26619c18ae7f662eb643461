@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "826ab701_1ea57c06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-13T21:52:06Z",
+      "side": 1,
+      "message": "Nit: Not really, it just modernizes the initialization of them ;)",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "1c5bb847c61b8b68a26619c18ae7f662eb643461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
