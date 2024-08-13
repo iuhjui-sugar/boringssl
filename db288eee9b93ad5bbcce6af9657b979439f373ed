@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abd6e975_53901b1a",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-13T21:24:29Z",
+      "side": 1,
+      "message": "This is the only line that writes to `res`. `i` goes from `loop - 2` to `0`, so the correct `res-\u003ewidth` is `loop - 1`.",
+      "revId": "db288eee9b93ad5bbcce6af9657b979439f373ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
