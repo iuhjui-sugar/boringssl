@@ -242,7 +242,7 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
   const uint64_t* const in2[3] = {x2, y2, z2};
   fiat_p256_felem x_out, y_out, z_out;  // HMV'04 p89 eqn 3.14
   fiat_p256_limb_t z1nz = fiat_p256_nz(in1[2]);
-  fiat_p256_limb_t z2nz = fiat_p256_nz(in2[2]);
+  fiat_p256_limb_t z2nz = p2affine ? 1 : fiat_p256_nz(in2[2]);
 
   // z1z1 = z1z1 = z1**2
   fiat_p256_felem z1z1;
@@ -253,7 +253,7 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
   fiat_p256_mul(u2, in2[0], z1z1);  // C = X2*A
 
   fiat_p256_felem u1, z2z2;
-  if (p2affine) {  // Z2 == 1 (special case Z2 = 0 is handled later).
+  if (p2affine) {
     fiat_p256_copy(u1, in1[0]);
   } else {
     fiat_p256_square(z2z2, in2[2]);
@@ -336,34 +336,34 @@ static void fiat_p256_point_add(fiat_p256_felem out[3],
   return fiat_p256_point_add_(out, in1, 0, in2[0], in2[1], in2[2]);
 }
 
-static void fiat_p256_point_add_affine(fiat_p256_felem out[3],
-                                const fiat_p256_felem in1[3],
-                                const fiat_p256_felem in2[3]) {
-  return fiat_p256_point_add_(out, in1, 1, in2[0], in2[1], in2[2]);
-}
-
 static void fiat_p256_point_add_affine_nz(fiat_p256_felem out[3],
                                 const fiat_p256_felem in1[3],
                                 const fiat_p256_felem in2[2]) {
   return fiat_p256_point_add_(out, in1, 1, in2[0], in2[1], fiat_p256_one);
 }
 
+static void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[2],
+                                size_t really) {
+  fiat_p256_felem tmp[3];
+  fiat_p256_point_add_affine_nz(tmp, in1, in2);
+  constant_time_conditional_memcpy(out, tmp, sizeof(tmp), ~constant_time_is_zero_w(really));
+}
+
 #include "./p256_table.h"
 
 // fiat_p256_select_point_affine selects the |idx-1|th point from a
-// precomputation table and copies it to out. If |idx| is zero, the output is
-// the point at infinity.
+// precomputation table and copies it to out. If |idx|=0, the output is (0, 0).
 static void fiat_p256_select_point_affine(
     const fiat_p256_limb_t idx, size_t size,
-    const fiat_p256_felem pre_comp[/*size*/][2], fiat_p256_felem out[3]) {
-  OPENSSL_memset(out, 0, sizeof(fiat_p256_felem) * 3);
-  for (size_t i = 0; i < size; i++) {
-    fiat_p256_limb_t mismatch = i ^ (idx - 1);
+    const fiat_p256_felem pre_comp[/*size*/][2], fiat_p256_felem out[2]) {
 
-    fiat_p256_cmovznz((uint64_t*)value_barrier_w((uintptr_t)out[0]), mismatch, pre_comp[i][0], out[0]);
-    fiat_p256_cmovznz(out[1], mismatch, pre_comp[i][1], out[1]);
+  fiat_p256_felem t[2] = {{0}, {0}};
+  for (size_t i = 0; i < size; i++) {
+    constant_time_conditional_memxor(t, pre_comp[i], sizeof(t), constant_time_eq_w(idx, 1 + i));
   }
-  fiat_p256_cmovznz(out[2], idx, out[2], fiat_p256_one);
+  OPENSSL_memcpy(out, t, sizeof(t));
 }
 
 // fiat_p256_select_point selects the |idx|th point from a precomputation table
@@ -522,7 +522,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
                                            EC_JACOBIAN *r,
                                            const EC_SCALAR *scalar) {
   // Set nq to the point at infinity.
-  fiat_p256_felem nq[3] = {{0}, {0}, {0}}, tmp[3];
+  fiat_p256_felem nq[3] = {{0}, {0}, {0}}, tmp[2];
 
   int skip = 1;  // Save two point operations in the first round.
   for (size_t i = 31; i < 32; i--) {
@@ -540,11 +540,11 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
                                   fiat_p256_g_pre_comp[1], tmp);
 
     if (!skip) {
-      fiat_p256_point_add_affine(nq, nq, tmp);
+      fiat_p256_point_add_affine_conditional(nq, nq, tmp, bits);
     } else {
       fiat_p256_copy(nq[0], tmp[0]);
       fiat_p256_copy(nq[1], tmp[1]);
-      fiat_p256_copy(nq[2], tmp[2]);
+      fiat_p256_cmovznz(nq[2], bits, nq[2], fiat_p256_one);
       skip = 0;
     }
 
@@ -556,7 +556,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
     // Select the point to add, in constant time.
     fiat_p256_select_point_affine((fiat_p256_limb_t)bits, 15,
                                   fiat_p256_g_pre_comp[0], tmp);
-    fiat_p256_point_add_affine(nq, nq, tmp);
+    fiat_p256_point_add_affine_conditional(nq, nq, tmp, bits);
   }
 
   fiat_p256_to_generic(&r->X, nq[0]);
