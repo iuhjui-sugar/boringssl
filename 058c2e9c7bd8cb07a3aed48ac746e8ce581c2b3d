@@ -16,6 +16,24 @@
       "message": "(Embedded private key is in the wrong format.)",
       "revId": "058c2e9c7bd8cb07a3aed48ac746e8ce581c2b3d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "173b5f24_5e6e5110",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3582241
+      },
+      "writtenOn": "2024-08-14T21:49:32Z",
+      "side": 1,
+      "message": "Thank you for catching that! I updated the key to the one you provided over email and confirmed that it runs now :)",
+      "parentUuid": "26139208_6015402a",
+      "revId": "058c2e9c7bd8cb07a3aed48ac746e8ce581c2b3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
