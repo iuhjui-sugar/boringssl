@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24f96a5c_7dbb0094",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1182,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-14T16:26:13Z",
+      "side": 1,
+      "message": "```suggestion\n  augmented_entropy[MLDSA_SEED_BYTES] \u003d K;\n  augmented_entropy[MLDSA_SEED_BYTES + 1] \u003d L;\n```",
+      "range": {
+        "startLine": 1181,
+        "startChar": 0,
+        "endLine": 1182,
+        "endChar": 46
+      },
+      "revId": "10e15b30e6d8f6f86bda2b12c8da0dc25464a9f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
