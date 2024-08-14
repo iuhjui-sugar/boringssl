@@ -34,6 +34,24 @@
       "parentUuid": "8b9618e9_53918072",
       "revId": "afd7b85ca7d228039610bee9949e195eefd2198c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "408f9793_3f48a154",
+        "filename": "crypto/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-14T18:15:53Z",
+      "side": 1,
+      "message": "There was a time when matching OpenSSL was important, because OpenSSL assembly would access the variable directly.\n\nThat has (almost) been excised and I expect going forward we would probably insist on doing the dispatch in C, so yeah I think we can now treat the format as defined by BoringSSL. (To that end, we can probably remove the AMD XOP divergence at this point.)",
+      "parentUuid": "02856796_efd8fe18",
+      "revId": "afd7b85ca7d228039610bee9949e195eefd2198c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
