@@ -244,6 +244,30 @@
       },
       "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dafb8079_b9f20cd3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 3775,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T15:50:45Z",
+      "side": 1,
+      "message": "Several possibilites? \n\n0) If this is a special case of \"I sent garbage and the server dropped it on the floor and timed out\" consider that it really isn\u0027t special from any other case of sending garbage\n\n1) if 0) is not the case and it\u0027s important, make a test mode where these are instantly fatal and can be instantly recognized as such (but extra code and non default behaviour eeew)\n\n2) Make the timeout configurable, and artificially volkswagen the timeout for test purposes, so we see the timeout case in half a second or something if we truly need to test all the way to the timeout case for these?",
+      "parentUuid": "47efca52_1ef60c40",
+      "range": {
+        "startLine": 3772,
+        "startChar": 0,
+        "endLine": 3775,
+        "endChar": 30
+      },
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
