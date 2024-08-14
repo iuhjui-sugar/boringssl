@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b9618e9_53918072",
+        "filename": "crypto/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T17:19:08Z",
+      "side": 1,
+      "message": "Idly wondering if this is ok for us to do. MPX support was removed from the linux kernel in 2020, I\u0027m not sure what in windows might support it?",
+      "revId": "afd7b85ca7d228039610bee9949e195eefd2198c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
