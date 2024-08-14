@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ee8d08e_fd8eb072",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T22:21:08Z",
+      "side": 1,
+      "message": "I don\u0027t think this comment block is necessary anymore. You have effectively rewritten it to be the Knuth algorithm, and it is not used for secrets. \n\nAll the things that were done before for non longer applicable reasons can\nbe found the source code\u0027s history and this doesn\u0027t make sense to keep here \nanymore distracting the reader.",
+      "range": {
+        "startLine": 188,
+        "startChar": 4,
+        "endLine": 194,
+        "endChar": 74
+      },
+      "revId": "8131a5259f5ac0f68f49b2fbd095d494fbca8682",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0a1d206_7b13b677",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T22:21:08Z",
+      "side": 1,
+      "message": "I would simply delete this sentence, We say at the top we are not to be used with secrets, and in this paragraph we basically say that three times with this sentence ;)",
+      "range": {
+        "startLine": 219,
+        "startChar": 57,
+        "endLine": 220,
+        "endChar": 57
+      },
+      "revId": "8131a5259f5ac0f68f49b2fbd095d494fbca8682",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
