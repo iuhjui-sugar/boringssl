@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "453f0c24_66b2070f",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-14T00:19:00Z",
+      "side": 1,
+      "message": "I extracted the guts of the new format logic into a separate function. I don\u0027t know if it\u0027s worth it to also extract the logic for the old format.",
+      "parentUuid": "7b55dc76_0547afaf",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4178576_6cc8000e",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f8935b2_932f2d93",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-14T00:19:00Z",
+      "side": 1,
+      "message": "I avoided the need for a goto by having the extracted function return a bool and do the repeated snippet once if it returns false.",
+      "parentUuid": "a4178576_6cc8000e",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cf5de11_c5fdf0a3",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-08-13T01:07:28Z",
       "side": 1,
       "message": "Is this comment in the right place?",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6adde89e_1f5f9638",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-14T00:19:00Z",
+      "side": 1,
+      "message": "No. My memory is that the DTLS1_BITMAP functions dealing with whether we\u0027ve seen a packet before are what expect to have the epoch in the high bytes of the sequence number. This comment belongs with code that sets those epoch bytes for that purpose, but I can\u0027t find that code. I\u0027ve removed this comment since I can\u0027t find the code it belongs to.\n\n(Note that the sequence number passed to the AEAD Open operation should be without the epoch, a difference between DTLS 1.2 and 1.3.)",
+      "parentUuid": "6cf5de11_c5fdf0a3",
       "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -75,6 +129,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "263a938e_7ddf4ec5",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-14T00:19:00Z",
+      "side": 1,
+      "message": "Defined constants. LMK if I should move some of the comments around between here (describing why its this value) and internal.h where the constant is defined.",
+      "parentUuid": "a0f79a8c_7db0a39a",
+      "range": {
+        "startLine": 433,
+        "startChar": 0,
+        "endLine": 433,
+        "endChar": 11
+      },
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "beedb7cd_126491c0",
@@ -92,6 +170,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd905d4_883d2197",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-14T00:19:00Z",
+      "side": 1,
+      "message": "Moved this to https://boringssl-review.googlesource.com/c/boringssl/+/70207",
+      "parentUuid": "beedb7cd_126491c0",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc08ee30_9beb5cc0",
@@ -105,6 +201,47 @@
       "writtenOn": "2024-08-13T00:39:30Z",
       "side": 1,
       "message": "It looks like you are effectively sanity checking the record layer format in dtls.go now - correct?  Does this comment need updating to indicate this?",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d91aae69_6430516b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4403,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-14T00:19:00Z",
+      "side": 1,
+      "message": "Updated the comment.",
+      "parentUuid": "cc08ee30_9beb5cc0",
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47efca52_1ef60c40",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 3775,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-14T00:19:00Z",
+      "side": 1,
+      "message": "Can you advise on a better way to test this? These tests are expecting the connection to timeout, which means that `go test` now takes 15s to run (most of it waiting for timeout).",
+      "range": {
+        "startLine": 3772,
+        "startChar": 0,
+        "endLine": 3775,
+        "endChar": 30
+      },
       "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
