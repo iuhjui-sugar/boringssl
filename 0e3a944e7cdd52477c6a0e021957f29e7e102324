@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a34c712_164fd8c4",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:12:27Z",
+      "side": 1,
+      "message": "digit u0 in Knuth step D1",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "974e3c16_d69597d7",
         "filename": "crypto/fipsmodule/bn/div.c",
         "patchSetId": 2
