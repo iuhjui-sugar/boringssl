@@ -3,6 +3,80 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b29ec18d_f36e4ad3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Mostly, make sure we reference all the Kunty \"D\" steps even though some of them are silly.. See if I have it correct in my suggestions :)",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c53852_53038732",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Add \"Knuth Step D1\" to the comment here",
+      "range": {
+        "startLine": 214,
+        "startChar": 5,
+        "endLine": 214,
+        "endChar": 10
+      },
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "974e3c16_d69597d7",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Kunth Step D2 here",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ddbeeef_f160fe95",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Start this block with Knuth Step D3",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cb8586f8_23de6267",
         "filename": "crypto/fipsmodule/bn/div.c",
         "patchSetId": 2
@@ -54,6 +128,74 @@
       "writtenOn": "2024-08-13T21:27:58Z",
       "side": 1,
       "message": "This is a bit hairy. To review, compare to step D3 in the book and flip the variables around. Knuth uses u for n and v for d. Note also that Knuth expands out the expression for the remainder, whereas in code you\u0027d use the fact that you\u0027ve computed it already.",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d000b104_c27260a7",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Knuth Step D5",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afa1b32_60da5222",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Knuth Step D6",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f58d86c8_315d8e9e",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Knuth Step D7",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b49f99_6b09996f",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T21:00:43Z",
+      "side": 1,
+      "message": "Knuth Step D8",
       "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
