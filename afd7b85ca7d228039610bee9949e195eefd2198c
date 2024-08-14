@@ -16,6 +16,24 @@
       "message": "Idly wondering if this is ok for us to do. MPX support was removed from the linux kernel in 2020, I\u0027m not sure what in windows might support it?",
       "revId": "afd7b85ca7d228039610bee9949e195eefd2198c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02856796_efd8fe18",
+        "filename": "crypto/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 11611
+      },
+      "writtenOn": "2024-08-14T17:44:11Z",
+      "side": 1,
+      "message": "As far as I can tell, the format of `OPENSSL_ia32cap_P` is defined by BoringSSL, and the fact that it *mostly* matches the words output from `cpuid` is just done as a shortcut.  `cpuid` bits that aren\u0027t currently being checked by BoringSSL, such as the MPX bit, can be reused for other purposes.  If you think BoringSSL will start checking for MPX support in the future, we can choose a different bit, but this seems unlikely given that Intel has killed the feature off.",
+      "parentUuid": "8b9618e9_53918072",
+      "revId": "afd7b85ca7d228039610bee9949e195eefd2198c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
