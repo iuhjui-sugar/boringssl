@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffede366_a09b87bb",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-14T19:28:40Z",
+      "side": 0,
+      "message": "You seem to have lost something here.",
+      "revId": "aaf59e8d8d17308442d9211e670c7f9718362ceb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
