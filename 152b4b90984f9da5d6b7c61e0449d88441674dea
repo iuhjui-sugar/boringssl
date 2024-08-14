@@ -16,6 +16,24 @@
       "message": "This seems to be allowing things that were not before.",
       "revId": "152b4b90984f9da5d6b7c61e0449d88441674dea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6386948d_b047ddd5",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2024-08-14T20:33:17Z",
+      "side": 1,
+      "message": "Commented them out.\n\nSetting to empty list should be equivalent to comment the entries out, and the change was inherited from https://github.com/EmbarkStudios/cargo-deny/pull/688",
+      "parentUuid": "8da10ec7_7d2171f1",
+      "revId": "152b4b90984f9da5d6b7c61e0449d88441674dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

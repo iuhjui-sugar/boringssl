@@ -16,6 +16,24 @@
       "message": "You seem to have lost something here.",
       "revId": "aaf59e8d8d17308442d9211e670c7f9718362ceb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "363b0975_b8dd69d8",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2024-08-14T20:33:17Z",
+      "side": 0,
+      "message": "These two entries look to me like remnants from before `licenses.allow` was changed to `\"ISC\"`, but maybe I misunderstood?",
+      "parentUuid": "ffede366_a09b87bb",
+      "revId": "aaf59e8d8d17308442d9211e670c7f9718362ceb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
