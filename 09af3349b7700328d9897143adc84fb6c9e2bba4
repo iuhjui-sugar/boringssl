@@ -45,6 +45,30 @@
       },
       "revId": "09af3349b7700328d9897143adc84fb6c9e2bba4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3d05ad7_a880d3cc",
+        "filename": "crypto/mlkem/mlkem1024_decap_tests.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-14T18:52:55Z",
+      "side": 1,
+      "message": "Have integrated those test vectors, thank you.",
+      "parentUuid": "ad8d3c96_f9db44d2",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 307
+      },
+      "revId": "09af3349b7700328d9897143adc84fb6c9e2bba4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
