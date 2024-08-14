@@ -4,10 +4,76 @@
     (defined(__APPLE__) || defined(__ELF__))
 
 .text
+
+.align 32
+#if defined(__APPLE__)
+.private_extern _fiat_p256_adx_add
+.global _fiat_p256_adx_add
+_fiat_p256_adx_sadd
+#else
+.type fiat_p256_adx_add, @function
+.hidden fiat_p256_adx_add
+.global fiat_p256_adx_add
+fiat_p256_adx_add:
+#endif
+.cfi_startproc
+_CET_ENDBR
+pushq %rbp
+.cfi_adjust_cfa_offset 8
+.cfi_offset rbp, -16
+push %rbx
+.cfi_adjust_cfa_offset 8
+.cfi_offset rbx, -16
+
+movq (%rsi), %r8
+addq (%rdx), %r8
+movq 8(%rsi), %r9
+adcq 8(%rdx), %r9
+movq 16(%rsi), %r10
+adcq 16(%rdx), %r10
+movq 24(%rsi), %r11
+adcq 24(%rdx), %r11
+movl $0, %esi
+adcq %rsi, %rsi
+
+movq %r8, %rax
+subq $-1, %rax
+movq %r9, %rbx
+sbbq .C(%rip), %rbx
+movq %r10, %rcx
+sbbq $0, %rcx
+movq %r11, %rdx
+sbbq .A(%rip), %rdx
+sbbq $0, %rsi
+
+cmovcq %r8, %rax
+movq %rax, (%rdi)
+cmovcq %r9, %rbx
+movq %rbx, 8(%rdi)
+cmovcq %r10, %rcx
+movq %rcx, 16(%rdi)
+cmovcq %r11, %rdx
+movq %rdx, 24(%rdi)
+
+popq %rbx
+.cfi_restore rbx
+.cfi_adjust_cfa_offset -8
+popq %rbp
+.cfi_restore rbp
+.cfi_adjust_cfa_offset -8
+retq
+.cfi_endproc
+#if defined(__ELF__)
+.size fiat_p256_adx_add, .-fiat_p256_adx_add
+#endif
+
 .A:
 .quad 0xffffffff00000001
 .B:
 .quad 0x100000000
+.C:
+.quad 0xffffffff
+.align 32
 #if defined(__APPLE__)
 .private_extern _fiat_p256_adx_sqr
 .global _fiat_p256_adx_sqr
