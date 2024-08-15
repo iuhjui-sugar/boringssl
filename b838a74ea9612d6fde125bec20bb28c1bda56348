@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbe91fcc_1d14002a",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-15T14:15:22Z",
+      "side": 1,
+      "message": "```suggestion\n    // https://pq-crystals.org/dilithium/data/dilithium-specification-round3.pdf\n```",
+      "revId": "b838a74ea9612d6fde125bec20bb28c1bda56348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53010961_3ff1da6f",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1436,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-15T14:15:22Z",
+      "side": 1,
+      "message": "```suggestion\n// FIPS 204, Algorithm 3 (`ML-DSA.Verify`). Returns 1 on success and 0 on failure.\n```",
+      "revId": "b838a74ea9612d6fde125bec20bb28c1bda56348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2f9203_ec81d1c4",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1451,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-15T14:15:22Z",
+      "side": 1,
+      "message": "```suggestion\n// FIPS 204, Algorithm 8 (`ML-DSA.Verify_internal`). Returns 1 on success and 0 on\n// failure.\nint MLDSA_verify_internal(\n```",
+      "revId": "b838a74ea9612d6fde125bec20bb28c1bda56348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17d2c51d_7e2476b4",
+        "filename": "crypto/mldsa/mldsa_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-15T14:15:22Z",
+      "side": 1,
+      "message": "I assume this file is intentionally left out from this change until the server includes the latest update?",
+      "revId": "b838a74ea9612d6fde125bec20bb28c1bda56348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7b830d5_eb8af14b",
+        "filename": "gen/sources.bzl",
+        "patchSetId": 6
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-15T14:15:22Z",
+      "side": 1,
+      "message": "Do the JSON file need to be mentioned anywhere, or are they checked in as FYI (and to recompute the text file via the conversion tool)?",
+      "revId": "b838a74ea9612d6fde125bec20bb28c1bda56348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
