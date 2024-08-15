@@ -16,6 +16,24 @@
       "message": "BTW, it\u0027s not letting us land these earlier CLs because (I think) you\u0027ve set a tag on them all. We usually just land CLs in patch towers as they become ready to reduce the amount of rebasing and stuff needed. Do you have a preference?",
       "revId": "d8b328246ae8e1d2e74148688877efc21a670f91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f25dfe7c_3878f606",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11611
+      },
+      "writtenOn": "2024-08-15T17:37:26Z",
+      "side": 1,
+      "message": "I already replaced the topic with a hashtag, which allows individual submission.  Only the earliest CL in a series can be individually submitted, though.  I moved this one to be the earliest CL, so it should get submitted if you add Commit-Queue +2 again.",
+      "parentUuid": "91525495_9d66cd01",
+      "revId": "d8b328246ae8e1d2e74148688877efc21a670f91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
