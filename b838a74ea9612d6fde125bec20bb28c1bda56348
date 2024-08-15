@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b090c94_f9846f62",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-15T14:16:03Z",
+      "side": 1,
+      "message": "This link didn\u0027t change with the final standard (it\u0027s referring to the candidate algorithm anyway).",
+      "parentUuid": "dbe91fcc_1d14002a",
+      "revId": "b838a74ea9612d6fde125bec20bb28c1bda56348",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53010961_3ff1da6f",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 6
