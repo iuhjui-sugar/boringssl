@@ -16,6 +16,382 @@
       "message": "Looks good (but we should probably wait for NIST to update their tests).",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fffedee8_44dba8a6",
+        "filename": "crypto/mldsa/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "s/Returns/It returns/ across the file",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 10
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "943ff9e3_f9179111",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "I assume all coefficients are expected to be fully reduced?\n\nEdit: Ah, no, I see we store a variety of things in here. I guess the thinking is we\u0027ll rely on a ton of asserts for the different bounds here?",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b72b3e44_d9d9f7c2",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "This works, but `0u - x` should work just as well to appease MSVC and is more straightforward.",
+      "range": {
+        "startLine": 151,
+        "startChar": 72,
+        "endLine": 151,
+        "endChar": 78
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29cf5346_a96d55bb",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "This only works if `x \u003c\u003d (uint64_t)kPrime \u003c\u003c 32`, right? Maybe worth a `declassify_assert` in there.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fffeca1_b6d8b160",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "(I don\u0027t understand NTTs and am just assuming this is correct. Ditto for NTT inverse.)",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa62ab9d_cec5a5b2",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Leaving a note for myself: the spec has this return (signed) integers, but we return negative numbers as positive representatives mod q. I assume this is because we\u0027ll ultimately want everything mod q anyway, but leaving a note so I remember to check on this.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a94f00_b73df6af",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "May as well write it as an assert I suppose.\n```suggestion\n  // Pre-condition: 0 \u003c\u003d r1 \u003c\u003d 2^10 - 1\n  assert(r1 \u003c (1 \u003c\u003c 10));\n```",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9769e462_e4038d99",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "I couldn\u0027t see how all this did the same thing as the FIPS 204 code, so I just exhaustively compared, and it it checks out:\n\n```\nq \u003d 8380417\nhalf_prime \u003d (q-1) // 2\ngamma2 \u003d (q-1) // 32\n\ndef mod_pm(a, b):\n  a %\u003d b\n  if a \u003e b/2:\n    a -\u003d b\n  return a\n\ndef ref(r):\n  r0 \u003d mod_pm(r, 2 * gamma2)\n  if r - r0 \u003d\u003d q - 1:\n    r1 \u003d 0\n    r0 -\u003d 1\n  else:\n    r1 \u003d (r - r0) // (2 * gamma2)\n  return r1, r0\n\ndef impl(r):\n  r1 \u003d (r + 127) \u003e\u003e 7\n  r1 \u003d (r1 * 1025 + (1 \u003c\u003c 21)) \u003e\u003e 22\n  r1 \u0026\u003d 15\n\n  r0 \u003d r\n  r0 -\u003d r1 * 2 * gamma2\n  r0 -\u003d ((half_prime - r0) \u003e\u003e 31) \u0026 q\n  return r1, r0\n\nfor r in range(q):\n  if ref(r) !\u003d impl(r):\n    raise ValueError(f\"{r}, {ref(r)}, {impl(r)}\")\n    \n# Traceback (most recent call last):\n#   File \"/tmp/foo.py\", line 32, in \u003cmodule\u003e\n#     raise ValueError(f\"{r}, {ref(r)}, {impl(r)}\")\n# ValueError: 261889, (0, 261889), (1, -1833215)\n```",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41853e9b_8f42aa9f",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "This isn\u0027t quite algorithm 39, since algorithm 39 takes slightly different inputs.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75c3c57f_5e5f59b6",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Looking at the caller, this actually needs to be constant-time, right? I guess saving `!\u003d` to a variable tends to be branchless.",
+      "range": {
+        "startLine": 390,
+        "startChar": 22,
+        "endLine": 390,
+        "endChar": 24
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19199810_e1b684f0",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Maybe worth a comment somewhere here that m is 16, since it was otherwise not obvious how it related to the FIPS formulation.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25c4da82_5b272b89",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Might be worth a comment that bits is bitlen b in the NIST document, and not b itself.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f911ee8_f8831313",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Should we assert that element is within bounds?",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31986619_a81743a5",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "My eyes kinda glazed over all these functions. I\u0027m... just going to assume they\u0027re correct.\n\nOptional: I remember a similar bitpacking function being surprisingly perf-sensitive in Kyber and worth specializing. Guessing that\u0027s not the case perf-wise here? I dunno, I see bits is only ever 4 and 10 anyway. Specializing also makes the bounds on `out` more obvious:\n\n(Completely untested.)\n```\nstatic void scalar_encode_4(uint8_t out[128], const scalar *s) {\n  // Every 2 elements lands on a byte boundary.\n  static_assert(DEGREE % 2 \u003d\u003d 0, \"DEGREE must be a multiple of 2\");\n  for (int i \u003d 0; i \u003c DEGREE / 2; i++) {\n    uint32_t a \u003d s-\u003ec[2 * i];\n    uint32_t b \u003d s-\u003ec[2 * i + 1];\n    declassify_assert(a \u003c 16);\n    declassify_assert(b \u003c 16);\n    out[i] \u003d a | (b \u003c\u003c 4);\n  }\n}\n\nstatic void scalar_encode_10(uint8_t out[320], const scalar *s) {\n  // Every 4 elements lands on a byte boundary.\n  static_assert(DEGREE % 4 \u003d\u003d 0, \"DEGREE must be a multiple of 4\");\n  for (int i \u003d 0; i \u003c DEGREE / 4; i++) {\n    uint32_t a \u003d s-\u003ec[4 * i];\n    uint32_t b \u003d s-\u003ec[4 * i + 1];\n    uint32_t c \u003d s-\u003ec[4 * i + 2];\n    uint32_t d \u003d s-\u003ec[4 * i + 3];\n    declassify_assert(a \u003c 1024);\n    declassify_assert(b \u003c 1024);\n    declassify_assert(c \u003c 1024);\n    declassify_assert(d \u003c 1024);\n    out[5 * i] \u003d (uint8_t)a;\n    out[5 * i + 1] \u003d (uint8_t)((a \u003e\u003e 8) | (b \u003c\u003c 2));\n    out[5 * i + 2] \u003d (uint8_t)((b \u003e\u003e 6) | (c \u003c\u003c 4));\n    out[5 * i + 3] \u003d (uint8_t)((c \u003e\u003e 4) | (d \u003c\u003c 6));\n    out[5 * i + 4] \u003d (uint8_t)(d \u003e\u003e 2);\n  }\n}\n```\n\nI think this is more clearer (and probably faster) than generic bitpacking.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a8159d3_2f0f40bb",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Probably worth a comment about how `bits` and `max` relate to NIST\u0027s `a` and `b`.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f73218f_84532fb0",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Optional: I suppose this has three different bit widths (4, 13, and 20) to specialize. 13 is mildly annoying because it only loops every 8. Yeah, I dunno.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d5a38e9_81fa7c9a",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Note to self: this is how far I got on Thursday. Continue from here tomorrow. Hopefully tomorrow will be faster to get through. 😊",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8370bfe7_b422c4e0",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Should we prefix all these with `MLDSA65` instead of `MLDSA`? It\u0027ll be annoying to rename if we ever add one of the others.",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "094c28e0_3ed394b2",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "s/Returns/It returns/ across the whole file",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84b0599b_f0a48bb5",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T23:22:10Z",
+      "side": 1,
+      "message": "Perhaps \"use an empty context\". Otherwise it reads as if empty and omitted context are different things. Mostly this stuck out to me because occasionally APIs are gross and believe NULL,0 and non-NULL,0 are different things.",
+      "range": {
+        "startLine": 92,
+        "startChar": 72,
+        "endLine": 92,
+        "endChar": 78
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
