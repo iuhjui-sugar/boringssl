@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91525495_9d66cd01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:09Z",
+      "side": 1,
+      "message": "BTW, it\u0027s not letting us land these earlier CLs because (I think) you\u0027ve set a tag on them all. We usually just land CLs in patch towers as they become ready to reduce the amount of rebasing and stuff needed. Do you have a preference?",
+      "revId": "d8b328246ae8e1d2e74148688877efc21a670f91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
