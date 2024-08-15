@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1f78ba8_410cfb7e",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14c53852_53038732",
+      "range": {
+        "startLine": 214,
+        "startChar": 5,
+        "endLine": 214,
+        "endChar": 10
+      },
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a34c712_164fd8c4",
@@ -58,6 +82,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd88d432_b435e070",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a34c712_164fd8c4",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "974e3c16_d69597d7",
@@ -71,6 +113,24 @@
       "writtenOn": "2024-08-14T21:00:43Z",
       "side": 1,
       "message": "Kunth Step D2 here",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18f56a60_b0e153ed",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "Left this out for now since a later CL touches this code up, but I\u0027ll put something on it there.",
+      "parentUuid": "974e3c16_d69597d7",
       "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -94,6 +154,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e72c61ea_717260cb",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "Done but actually on line 289.",
+      "parentUuid": "9ddbeeef_f160fe95",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cb8586f8_23de6267",
         "filename": "crypto/fipsmodule/bn/div.c",
         "patchSetId": 2
@@ -105,6 +183,30 @@
       "writtenOn": "2024-08-13T21:27:58Z",
       "side": 1,
       "message": "Pretty annoying that the book omits some key proofs and just leaves it as an exercise. Ah well.",
+      "range": {
+        "startLine": 329,
+        "startChar": 10,
+        "endLine": 329,
+        "endChar": 19
+      },
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f87db14_bd175daa",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "For posterity: the proofs are in the answers to the exercises in the book.",
+      "parentUuid": "cb8586f8_23de6267",
       "range": {
         "startLine": 329,
         "startChar": 10,
@@ -166,6 +268,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d762d1_1a82c3b5",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "Done though this is step 4. Though it\u0027s weird because step 5 is the `if` statement and then the whole body is step 6. Since this is only a few lines anyway, I\u0027ve just marked the whole chunk of code as 4-6.",
+      "parentUuid": "d000b104_c27260a7",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6afa1b32_60da5222",
@@ -179,6 +299,24 @@
       "writtenOn": "2024-08-14T21:00:43Z",
       "side": 1,
       "message": "Knuth Step D6",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e39e19_aaf900a9",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "6afa1b32_60da5222",
       "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -200,6 +338,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd9d7f6d_c64d8f66",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "(I\u0027ve marked the whole loop as 2-7.)",
+      "parentUuid": "f58d86c8_315d8e9e",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63b49f99_6b09996f",
@@ -213,6 +369,24 @@
       "writtenOn": "2024-08-14T21:00:43Z",
       "side": 1,
       "message": "Knuth Step D8",
+      "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d35dfb74_c2f7597c",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-15T16:48:56Z",
+      "side": 1,
+      "message": "(Will leave this for the later CL which comments the rest of this.)",
+      "parentUuid": "63b49f99_6b09996f",
       "revId": "0e3a944e7cdd52477c6a0e021957f29e7e102324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
