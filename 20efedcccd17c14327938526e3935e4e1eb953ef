@@ -268,6 +268,30 @@
       },
       "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "573de8e3_3e561d81",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 3775,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-16T22:07:42Z",
+      "side": 1,
+      "message": "I resolved this TODO by doing the following 2 things:\n1) make the protocol bug not take effect until after the handshake is complete\n2) use the `expectMessageDropped` option in the test case.\n\n(To do #1, I needed to a little plumbing to make the handshakeComplete bool available where I needed it.)",
+      "parentUuid": "dafb8079_b9f20cd3",
+      "range": {
+        "startLine": 3772,
+        "startChar": 0,
+        "endLine": 3775,
+        "endChar": 30
+      },
+      "revId": "20efedcccd17c14327938526e3935e4e1eb953ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

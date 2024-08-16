@@ -16,6 +16,24 @@
       "message": "Can this chunk just similarly become parse_dls_legacy_record_header?",
       "revId": "01a14b47e4fbebfee78fe8d1895b46b1db4a4a6d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b752516_046ef1b0",
+        "filename": "ssl/dtls_record.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-16T22:07:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "803b7aa5_dcfee98a",
+      "revId": "01a14b47e4fbebfee78fe8d1895b46b1db4a4a6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
