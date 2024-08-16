@@ -882,6 +882,326 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3f9b15f_d1c76729",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d5a38e9_81fa7c9a",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c04e10_eba45989",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Looks like this is just one step of ExpandMask.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee843f5_6a49ae1f",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "```suggestion\n      derived_seed[RHO_BYTES + 1] \u003d (uint8_t)i;\n      derived_seed[RHO_BYTES] \u003d (uint8_t)j;\n```\n\n(I haven\u0027t gone back to trying to get `-Wconversion` to pass for a long while, but may as well.)",
+      "range": {
+        "startLine": 820,
+        "startChar": 0,
+        "endLine": 821,
+        "endChar": 34
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6b81f04_2c31e806",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "(I guess this and below is where parallel Keccak would help with perf.)",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dfc3cd1_b8a2bbd9",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Unfortunate that NIST decided to call it kappa in the caller and mu in the function. Ah well.",
+      "range": {
+        "startLine": 851,
+        "startChar": 39,
+        "endLine": 851,
+        "endChar": 44
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cbef4b4_a5251c40",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void w1_encode(uint8_t out[128 * K], const vectork *w1) {\n```\n\nAnd then we don\u0027t need the comment",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f971711f_0c67f141",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void hint_bit_pack(uint8_t out[OMEGA + K], const vectork *h) {\n```",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "864f9536_32ff7564",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "This is kind of precarious. So, if I\u0027m understanding this correctly, this only stays in bounds because of how many non-zero values `h`. I\u0027m assuming this encoding is not performance-sensitive. It may be worth doing this as a release mode assert. Something like...\n\n\n\n```suggestion\n        // h must have at most OMEGA nonzero coefficients.\n        BSSL_CHECK(index \u003c OMEGA);\n        out[index++] \u003d j;\n```",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6a58e0f_10cc264a",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "```suggestion\nstatic int hint_bit_unpack(vectork *h, const uint8_t in[OMEGA + K]) {\n```",
+      "range": {
+        "startLine": 947,
+        "startChar": 53,
+        "endLine": 947,
+        "endChar": 56
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b55edb88_3a4cb83c",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "```suggestion\n      static_assert(DEGREE \u003d\u003d 256,\n                    \"DEGREE must be 256 for this write to be in bounds\");\n      h-\u003ev[i].c[byte] \u003d 1;\n```",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e46d911_3d7cad8e",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Do we expect folks using `MLDSA_private_key_from_seed` to end up needing the public key? If so, the combo of this and `MLDSA_public_from_private` is more work than just not discarding the value.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eadb7f60_b85b6827",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "May as well `assert(CBB_len(\u0026cbb) \u003d\u003d MLDSA_PUBLIC_KEY_BYTES);` to make sure we filled the whole thing.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c0cc70_f64c2f41",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1333,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Presumably this is impossible, but this is a little fun. So `vectorl_expand_mask` has an `assert` that `kappa + L` is 16-bit, needed for the encodings to avoid dropping bits...\n\nBut there isn\u0027t actually anything ensuring that assertion is true. (Though the probability of this happening is negligible.)\n\nLooking at the spec, they don\u0027t actually have a precondition on ExpandMask or IntegerToBytes. The functions take any integer and silently truncate. So I think the spec formulation makes this well-defined, but potentially diverging.\n\nI suppose tripping that assertion doesn\u0027t actually do anything. It just seems a little weird to have an assertion that is only probabilistically unreachable. *shrug* (Could leave it alone, take the assert out, leave some comments, add a limit per appendix C, or whatever. Don\u0027t feel strongly, just found it odd.)",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2f1f9df_f628441e",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Optional: I think multiplication works just fine in-place, so we could avoid `t1_ntt` with:\n\n```suggestion\n  vectork_scale_power2_round(\u0026values-\u003ect1_ntt, \u0026pub-\u003et1);\n  vectork_ntt(\u0026values-\u003ect1_ntt);\n  vectork_mult_scalar(\u0026values-\u003ect1_ntt, \u0026values-\u003ect1_ntt, \u0026c_ntt);\n```",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1509,
+        "endChar": 65
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646cfdcf_24c11b3a",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1516,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Optional: Likewise, `w_approx` and `w1` can be pretty easily folded together.\n\n(One of `az_ntt` or `ct1_ntt` could also be folded in, but that might be too hard to read.)",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "090935ef_304d3e96",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Where\u0027s this check come from? I\u0027m not seeing it in the NIST document.\n\n(Doesn\u0027t the hint decode process guarantee it already?)",
+      "range": {
+        "startLine": 1526,
+        "startChar": 32,
+        "endLine": 1526,
+        "endChar": 50
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfa7917e_5deb7233",
+        "filename": "crypto/mldsa/mldsa_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "Good job, NIST.\n\nIs it fixed now? This claims it is.\nhttps://groups.google.com/a/list.nist.gov/g/pqc-forum/c/s_Wez9FanHw/m/4alRqqfSCgAJ",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8370bfe7_b422c4e0",
@@ -1019,6 +1339,23 @@
         "endLine": 92,
         "endChar": 78
       },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3b87ffe_ba5b5988",
+        "filename": "third_party/wycheproof_testvectors/mldsa_65_standard_sign_test.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T20:03:53Z",
+      "side": 1,
+      "message": "I don\u0027t actually see these in the Wycheproof repo. :-/\n\nI... suspect we can\u0027t land this (or at least import this into google3) until that\u0027s been at least fixed in the google3 copy of Wycheproof.",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
