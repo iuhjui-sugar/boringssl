@@ -134,6 +134,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9676f77c_e7ca779b",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T12:45:16Z",
+      "side": 1,
+      "message": "The comment was not that this may not be the case. It is that we should write down our preconditions, and asserts are useful ways to write them down.",
+      "parentUuid": "6afa471d_9c0b66e4",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2fffeca1_b6d8b160",
@@ -164,6 +182,30 @@
       "writtenOn": "2024-08-16T08:04:19Z",
       "side": 1,
       "message": "We could add one more reduce_once here, but it would be ultimately redundant.",
+      "range": {
+        "startLine": 239,
+        "startChar": 55,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ec232e_4ead22c0",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T12:45:16Z",
+      "side": 1,
+      "message": "Montgomery reduction works up to q*R, a looser bound than q^2, and 2*q \u003c R, so I believe this is fine. But that is actually somewhat subtle, so all the more reason it is important to document the preconditions, test the preconditions with an assert, and add a comment here because the bound is less obvious.",
+      "parentUuid": "029ddddf_3b4e898c",
       "range": {
         "startLine": 239,
         "startChar": 55,
@@ -226,6 +268,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "456340af_13dee7a4",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T12:45:16Z",
+      "side": 1,
+      "message": "The postcondition assert does not require the precondition assert if `r1` had high bits set.",
+      "parentUuid": "5b5d69cb_677d9f03",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9769e462_e4038d99",
@@ -274,6 +334,24 @@
       "side": 1,
       "message": "Correct. In the spec, this is called as: `MakeHint(-ct0, w - cs2 + ct0)`, where:\n\n```\ndef MakeHint(z, r):\n    r1 \u003d HighBits(r)\n    v1 \u003d HighBits(r + z)\n    r1 !\u003d v1\n```\n\nThis means that `r \u003d w - cs2 + ct0` and `r + z \u003d w - cs2`, so it makes more sense to me to have a function with parameters `ct0, cs2, w` to avoid one addition (maybe the `(z, r)` makes the most sense from a mathematical perspective, but from an implementation perspective it doesn\u0027t).\n\n---\n\nIn the spec, 3 additions/subtractions:\n```\ntmp :\u003d w - cs2\nr :\u003d tmp + ct0\nr_plus_z :\u003d r + z\n```\n\nWith this implementation, 2 additions/subtractions:\n```\nr_plus_z :\u003d w - cs2\nr :\u003d r_plus_z + ct0\n```",
       "parentUuid": "41853e9b_8f42aa9f",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c480936b_229fceec",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T12:45:16Z",
+      "side": 1,
+      "message": "I\u0027m not disagreeing with the code. The request is simply that if you comment that a function is some algorithm and it actually isn\u0027t, the comment should explain the divergence.",
+      "parentUuid": "e2810757_9c9a5b89",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -366,6 +444,24 @@
       "side": 1,
       "message": "Seems a bit at odds with specializing the functions for performance reasons? IMO, it\u0027s not _that_ hard to prove that each input is within bounds of its number of bits (and the spec does or assumes such proofs).",
       "parentUuid": "7f911ee8_f8831313",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4a24d0b_144f4005",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T12:45:16Z",
+      "side": 1,
+      "message": "Why are asserts at odds with performance? Keep in mind that C `assert`s are not compiled in release builds.",
+      "parentUuid": "dce3d6f1_807f55f8",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
