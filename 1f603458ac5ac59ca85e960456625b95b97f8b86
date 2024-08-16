@@ -216,6 +216,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cbc9219_7bbd841d",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-16T12:46:09Z",
+      "side": 1,
+      "message": "Oops, Gerrit has interpreted my equations as Markdown. Reformatting:\n\nMontgomery reduction works up to `q*R`, a looser bound than `q^2`, and `2*q \u003c R`, so I believe this is fine. But that is actually somewhat subtle, so all the more reason it is important to document the preconditions, test the preconditions with an assert, and add a comment here because the bound is less obvious.",
+      "parentUuid": "46ec232e_4ead22c0",
+      "range": {
+        "startLine": 239,
+        "startChar": 55,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa62ab9d_cec5a5b2",
