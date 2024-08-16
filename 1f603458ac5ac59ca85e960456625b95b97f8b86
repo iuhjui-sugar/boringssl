@@ -58,6 +58,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dc18605_96ed8142",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T08:04:19Z",
+      "side": 1,
+      "message": "Yes coefficients are expected to be kept in the `[0, kPrime)` range here, which makes things easier to reason about (feel free to add more asserts of course, but adding them on each arithmetic operation would significantly affect performance).\n\nNote that the implementation by Dilithium authors uses a signed representation (within `[-kPrime/2, kPrime/2]`) which may or may not be more efficient (I didn\u0027t check) and doesn\u0027t reduce every time, but here as I understood the goal is to have a reference implementation, not an optimized one (in particular, SIMD would speed things up, notably for the NTTs and for the Keccaks).",
+      "parentUuid": "943ff9e3_f9179111",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b72b3e44_d9d9f7c2",
@@ -98,6 +116,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afa471d_9c0b66e4",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T08:04:19Z",
+      "side": 1,
+      "message": "This is always* called with the product of two numbers reduced modulo `kPrime`, so this is always the case.\n\n*Technically in the NTT^-1 it\u0027s called once with an operand of the product that\u0027s `\u003c 2 * kPrime`, so we could add another reduction in case although that wouldn\u0027t change the result.",
+      "parentUuid": "29cf5346_a96d55bb",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2fffeca1_b6d8b160",
@@ -111,6 +147,29 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "(I don\u0027t understand NTTs and am just assuming this is correct. Ditto for NTT inverse.)",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "029ddddf_3b4e898c",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T08:04:19Z",
+      "side": 1,
+      "message": "We could add one more reduce_once here, but it would be ultimately redundant.",
+      "range": {
+        "startLine": 239,
+        "startChar": 55,
+        "endLine": 239,
+        "endChar": 76
+      },
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -149,6 +208,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b5d69cb_677d9f03",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T08:04:19Z",
+      "side": 1,
+      "message": "IMO it\u0027s not _that_ hard to prove that this is true at the call site (and the spec does or assume such proof). But there is another (redundant) assert for the post-condition, so up to you.",
+      "parentUuid": "02a94f00_b73df6af",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9769e462_e4038d99",
@@ -179,6 +256,24 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "This isn\u0027t quite algorithm 39, since algorithm 39 takes slightly different inputs.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2810757_9c9a5b89",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T08:04:19Z",
+      "side": 1,
+      "message": "Correct. In the spec, this is called as: `MakeHint(-ct0, w - cs2 + ct0)`, where:\n\n```\ndef MakeHint(z, r):\n    r1 \u003d HighBits(r)\n    v1 \u003d HighBits(r + z)\n    r1 !\u003d v1\n```\n\nThis means that `r \u003d w - cs2 + ct0` and `r + z \u003d w - cs2`, so it makes more sense to me to have a function with parameters `ct0, cs2, w` to avoid one addition (maybe the `(z, r)` makes the most sense from a mathematical perspective, but from an implementation perspective it doesn\u0027t).\n\n---\n\nIn the spec, 3 additions/subtractions:\n```\ntmp :\u003d w - cs2\nr :\u003d tmp + ct0\nr_plus_z :\u003d r + z\n```\n\nWith this implementation, 2 additions/subtractions:\n```\nr_plus_z :\u003d w - cs2\nr :\u003d r_plus_z + ct0\n```",
+      "parentUuid": "41853e9b_8f42aa9f",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -253,6 +348,24 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "Should we assert that element is within bounds?",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dce3d6f1_807f55f8",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T08:04:19Z",
+      "side": 1,
+      "message": "Seems a bit at odds with specializing the functions for performance reasons? IMO, it\u0027s not _that_ hard to prove that each input is within bounds of its number of bits (and the spec does or assumes such proofs).",
+      "parentUuid": "7f911ee8_f8831313",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
