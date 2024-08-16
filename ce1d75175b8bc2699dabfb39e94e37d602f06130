@@ -16,6 +16,24 @@
       "message": "After re-reading how the cpuid instruction works on intel, I have convinced myself that this is ok and doesn\u0027t accidentally break the detection of amd\u0027s that have broken rdrand..",
       "revId": "ce1d75175b8bc2699dabfb39e94e37d602f06130",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eb3ee4c_9768a59d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11611
+      },
+      "writtenOn": "2024-08-16T00:17:55Z",
+      "side": 1,
+      "message": "Yes, the \"Disable RDRAND\" code runs in exactly the same cases that it did before.",
+      "parentUuid": "f3da3474_f926a552",
+      "revId": "ce1d75175b8bc2699dabfb39e94e37d602f06130",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
