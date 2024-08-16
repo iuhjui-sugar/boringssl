@@ -328,6 +328,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b6a560_d6867ead",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T12:59:19Z",
+      "side": 1,
+      "message": "Yes, here it\u0027s not hard to prove that the pre-condition implies the post-condition (the 2 comments literally provide the proof). Of course not the other way around.",
+      "parentUuid": "baa71d1c_855dc86f",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9769e462_e4038d99",
@@ -504,6 +522,24 @@
       "side": 1,
       "message": "Why are asserts at odds with performance? Keep in mind that C `assert`s are not compiled in release builds.",
       "parentUuid": "dce3d6f1_807f55f8",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f130303_007b1e1e",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-16T12:59:19Z",
+      "side": 1,
+      "message": "\u003e Keep in mind that C `assert`s are not compiled in release builds.\n\nThis I didn\u0027t know, and is certainly surprising (coming from Rust where `assert!` is always on, and a separate `debug_assert!` is available for checks that need to be disabled in release mode: https://doc.rust-lang.org/std/macro.assert.html). (Although to be nit-picky, https://en.cppreference.com/w/cpp/error/assert mentions that it depends on the `NDEBUG` macro being defined, so just reading this C file isn\u0027t enough to conclude that `assert`s are not compiled in release builds.)\n\nLet\u0027s ignore my comments about performance and add `assert`s everywhere then :)",
+      "parentUuid": "e4a24d0b_144f4005",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
