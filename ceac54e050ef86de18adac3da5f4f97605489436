@@ -209,6 +209,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "611935ba_ece5d464",
+        "filename": "rust/bssl-crypto/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3514953
+      },
+      "writtenOn": "2024-08-16T19:54:15Z",
+      "side": 1,
+      "message": "We are trying to build standalone. \n\nI used the build files under this bug b/300372725 from g3 to build standalone.\n\nI will investigate either clearing the blocker or look into a different way to build Bindgen with Bazel and update this cl asap.",
+      "parentUuid": "713b89af_ccf4e7ed",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f03f5680_8617ed5f",
         "filename": "rust/bssl-sys/BUILD.bazel",
         "patchSetId": 7
