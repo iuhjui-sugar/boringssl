@@ -917,6 +917,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffe51e18_d0bc6603",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48c04e10_eba45989",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ee843f5_6a49ae1f",
@@ -930,6 +948,30 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "```suggestion\n      derived_seed[RHO_BYTES + 1] \u003d (uint8_t)i;\n      derived_seed[RHO_BYTES] \u003d (uint8_t)j;\n```\n\n(I haven\u0027t gone back to trying to get `-Wconversion` to pass for a long while, but may as well.)",
+      "range": {
+        "startLine": 820,
+        "startChar": 0,
+        "endLine": 821,
+        "endChar": 34
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "772a79bf_4170d709",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ee843f5_6a49ae1f",
       "range": {
         "startLine": 820,
         "startChar": 0,
@@ -997,6 +1039,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4a782a4_f8467432",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cbef4b4_a5251c40",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f971711f_0c67f141",
@@ -1014,6 +1074,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c098a0_6e5b3ba3",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f971711f_0c67f141",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "864f9536_32ff7564",
@@ -1027,6 +1105,24 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "This is kind of precarious. So, if I\u0027m understanding this correctly, this only stays in bounds because of how many non-zero values `h`. I\u0027m assuming this encoding is not performance-sensitive. It may be worth doing this as a release mode assert. Something like...\n\n\n\n```suggestion\n        // h must have at most OMEGA nonzero coefficients.\n        BSSL_CHECK(index \u003c OMEGA);\n        out[index++] \u003d j;\n```",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c9aca3c_675c51df",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "864f9536_32ff7564",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1054,6 +1150,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccfce83_febc92f4",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6a58e0f_10cc264a",
+      "range": {
+        "startLine": 947,
+        "startChar": 53,
+        "endLine": 947,
+        "endChar": 56
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b55edb88_3a4cb83c",
@@ -1067,6 +1187,24 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "```suggestion\n      static_assert(DEGREE \u003d\u003d 256,\n                    \"DEGREE must be 256 for this write to be in bounds\");\n      h-\u003ev[i].c[byte] \u003d 1;\n```",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75ff3321_63d24316",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b55edb88_3a4cb83c",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1090,6 +1228,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "807e8f79_2b5b2c79",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "I think the major motive for using `from_seed` is to avoid storing 4KB private keys. (I mean, that\u0027s just a pain to copy-paste so I kinda hope the seed is used quite a lot?) But I think this function is just for people loading a private key from a seed?",
+      "parentUuid": "4e46d911_3d7cad8e",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eadb7f60_b85b6827",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 8
@@ -1101,6 +1257,24 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "May as well `assert(CBB_len(\u0026cbb) \u003d\u003d MLDSA_PUBLIC_KEY_BYTES);` to make sure we filled the whole thing.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1feaf474_721c48d5",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1216,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eadb7f60_b85b6827",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1145,6 +1319,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "906bf32e_5e733103",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f1f9df_f628441e",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1509,
+        "endChar": 65
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "646cfdcf_24c11b3a",
@@ -1158,6 +1356,24 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "Optional: Likewise, `w_approx` and `w1` can be pretty easily folded together.\n\n(One of `az_ntt` or `ct1_ntt` could also be folded in, but that might be too hard to read.)",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1090b5d_7d5ab9d8",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1516,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Done. (Folded az_ntt and w1, but kept a variable called `w1` for clarity.)",
+      "parentUuid": "646cfdcf_24c11b3a",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1185,6 +1401,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c01c163_b3ee1ae5",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Good point. Dropped, although I\u0027ll flag for Guillaume.",
+      "parentUuid": "090935ef_304d3e96",
+      "range": {
+        "startLine": 1526,
+        "startChar": 32,
+        "endLine": 1526,
+        "endChar": 50
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfa7917e_5deb7233",
@@ -1198,6 +1438,24 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "Good job, NIST.\n\nIs it fixed now? This claims it is.\nhttps://groups.google.com/a/list.nist.gov/g/pqc-forum/c/s_Wez9FanHw/m/4alRqqfSCgAJ",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e7468f3_f8edce53",
+        "filename": "crypto/mldsa/mldsa_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "I\u0027ll try again now.",
+      "parentUuid": "cfa7917e_5deb7233",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1356,6 +1614,24 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "I don\u0027t actually see these in the Wycheproof repo. :-/\n\nI... suspect we can\u0027t land this (or at least import this into google3) until that\u0027s been at least fixed in the google3 copy of Wycheproof.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96d37422_c2fa3152",
+        "filename": "third_party/wycheproof_testvectors/mldsa_65_standard_sign_test.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T20:51:16Z",
+      "side": 1,
+      "message": "Yea, we may need to #if 0 these tests out when cherry-picking into google3 for now. I would like to keep the tests in the open-source repo, however.",
+      "parentUuid": "e3b87ffe_ba5b5988",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
