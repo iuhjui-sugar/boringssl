@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8782072c_ad8bb4dd",
+        "filename": "crypto/mldsa/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fffedee8_44dba8a6",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 10
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "943ff9e3_f9179111",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 8
@@ -89,6 +113,30 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "This works, but `0u - x` should work just as well to appease MSVC and is more straightforward.",
+      "range": {
+        "startLine": 151,
+        "startChar": 72,
+        "endLine": 151,
+        "endChar": 78
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e8da1be_728df616",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b72b3e44_d9d9f7c2",
       "range": {
         "startLine": 151,
         "startChar": 72,
@@ -148,6 +196,24 @@
       "side": 1,
       "message": "The comment was not that this may not be the case. It is that we should write down our preconditions, and asserts are useful ways to write them down.",
       "parentUuid": "6afa471d_9c0b66e4",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c33f9909_bc79f7d0",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9676f77c_e7ca779b",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -230,6 +296,30 @@
       "side": 1,
       "message": "Oops, Gerrit has interpreted my equations as Markdown. Reformatting:\n\nMontgomery reduction works up to `q*R`, a looser bound than `q^2`, and `2*q \u003c R`, so I believe this is fine. But that is actually somewhat subtle, so all the more reason it is important to document the preconditions, test the preconditions with an assert, and add a comment here because the bound is less obvious.",
       "parentUuid": "46ec232e_4ead22c0",
+      "range": {
+        "startLine": 239,
+        "startChar": 55,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66419798_8569a712",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "See if you\u0027re happy with the updates here. (Perhaps asserting the bounds on `odd` and `even` is superfluous?)",
+      "parentUuid": "4cbc9219_7bbd841d",
       "range": {
         "startLine": 239,
         "startChar": 55,
@@ -348,6 +438,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f0d87ce9_9627123a",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96b6a560_d6867ead",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "9769e462_e4038d99",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 8
@@ -418,6 +526,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2e42828b_9a226028",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c480936b_229fceec",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "75c3c57f_5e5f59b6",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 8
@@ -456,6 +582,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "340b88c0_5f9442ad",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19199810_e1b684f0",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25c4da82_5b272b89",
@@ -469,6 +613,24 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "Might be worth a comment that bits is bitlen b in the NIST document, and not b itself.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e02c40_27209cc0",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Or just rename the variable. Done.",
+      "parentUuid": "25c4da82_5b272b89",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -562,6 +724,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cadfc45_d5cff3e7",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4e9ca64_40e6261f",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "31986619_a81743a5",
@@ -575,6 +755,24 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "My eyes kinda glazed over all these functions. I\u0027m... just going to assume they\u0027re correct.\n\nOptional: I remember a similar bitpacking function being surprisingly perf-sensitive in Kyber and worth specializing. Guessing that\u0027s not the case perf-wise here? I dunno, I see bits is only ever 4 and 10 anyway. Specializing also makes the bounds on `out` more obvious:\n\n(Completely untested.)\n```\nstatic void scalar_encode_4(uint8_t out[128], const scalar *s) {\n  // Every 2 elements lands on a byte boundary.\n  static_assert(DEGREE % 2 \u003d\u003d 0, \"DEGREE must be a multiple of 2\");\n  for (int i \u003d 0; i \u003c DEGREE / 2; i++) {\n    uint32_t a \u003d s-\u003ec[2 * i];\n    uint32_t b \u003d s-\u003ec[2 * i + 1];\n    declassify_assert(a \u003c 16);\n    declassify_assert(b \u003c 16);\n    out[i] \u003d a | (b \u003c\u003c 4);\n  }\n}\n\nstatic void scalar_encode_10(uint8_t out[320], const scalar *s) {\n  // Every 4 elements lands on a byte boundary.\n  static_assert(DEGREE % 4 \u003d\u003d 0, \"DEGREE must be a multiple of 4\");\n  for (int i \u003d 0; i \u003c DEGREE / 4; i++) {\n    uint32_t a \u003d s-\u003ec[4 * i];\n    uint32_t b \u003d s-\u003ec[4 * i + 1];\n    uint32_t c \u003d s-\u003ec[4 * i + 2];\n    uint32_t d \u003d s-\u003ec[4 * i + 3];\n    declassify_assert(a \u003c 1024);\n    declassify_assert(b \u003c 1024);\n    declassify_assert(c \u003c 1024);\n    declassify_assert(d \u003c 1024);\n    out[5 * i] \u003d (uint8_t)a;\n    out[5 * i + 1] \u003d (uint8_t)((a \u003e\u003e 8) | (b \u003c\u003c 2));\n    out[5 * i + 2] \u003d (uint8_t)((b \u003e\u003e 6) | (c \u003c\u003c 4));\n    out[5 * i + 3] \u003d (uint8_t)((c \u003e\u003e 4) | (d \u003c\u003c 6));\n    out[5 * i + 4] \u003d (uint8_t)(d \u003e\u003e 2);\n  }\n}\n```\n\nI think this is more clearer (and probably faster) than generic bitpacking.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acbc8477_5f68abe4",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "It gets 3% performance for verification but it\u0027s also clearer. Done.\n\nI also noticed that the signed-decode functions are infallible for 13 and 20 bits if specialized so I did that one too.\n\nBefore:\n\nDid 9207 MLDSA key generation operations in 1033071us (8912.3 ops/sec)\nDid 86000 MLDSA parse (valid) private key operations in 1006740us (85424.2 ops/sec)\nDid 1836 MLDSA sign (randomized) operations in 1006695us (1823.8 ops/sec)\nDid 139000 MLDSA parse (valid) public key operations in 1006780us (138063.9 ops/sec)\nDid 9135 MLDSA verify (valid signature) operations in 1015933us (8991.7 ops/sec)\nDid 9482 MLDSA verify (invalid signature) operations in 1056263us (8976.9 ops/sec)\n\nAfter:\n\nDid 9450 MLDSA key generation operations in 1023378us (9234.1 ops/sec)\nDid 493000 MLDSA parse (valid) private key operations in 1001206us (492406.2 ops/sec)\nDid 2205 MLDSA sign (randomized) operations in 1109876us (1986.7 ops/sec)\nDid 264000 MLDSA parse (valid) public key operations in 1001212us (263680.4 ops/sec)\nDid 10040 MLDSA verify (valid signature) operations in 1040548us (9648.8 ops/sec)\nDid 10175 MLDSA verify (invalid signature) operations in 1054923us (9645.3 ops/sec)",
+      "parentUuid": "31986619_a81743a5",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -596,6 +794,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a736bc77_b9b26008",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a8159d3_2f0f40bb",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f73218f_84532fb0",
@@ -609,6 +825,24 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "Optional: I suppose this has three different bit widths (4, 13, and 20) to specialize. 13 is mildly annoying because it only loops every 8. Yeah, I dunno.",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "229f402b_aa903be6",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f73218f_84532fb0",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -630,6 +864,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6869c3_29e6c6f3",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0d5a38e9_81fa7c9a",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8370bfe7_b422c4e0",
@@ -643,6 +895,30 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "Should we prefix all these with `MLDSA65` instead of `MLDSA`? It\u0027ll be annoying to rename if we ever add one of the others.",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "273bcd28_c83444cb",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Up for discussion, but for ML-KEM I\u0027m keeping ML-KEM-768 as just `MLKEM_foo` because that\u0027s the standard one and people using something else should notice that it\u0027s a little odder. I\u0027m applying similar reasoning here.",
+      "parentUuid": "8370bfe7_b422c4e0",
       "range": {
         "startLine": 31,
         "startChar": 3,
@@ -676,6 +952,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f43d8d6_fdc1e7b1",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "094c28e0_3ed394b2",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 15
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84b0599b_f0a48bb5",
@@ -689,6 +989,30 @@
       "writtenOn": "2024-08-15T23:22:10Z",
       "side": 1,
       "message": "Perhaps \"use an empty context\". Otherwise it reads as if empty and omitted context are different things. Mostly this stuck out to me because occasionally APIs are gross and believe NULL,0 and non-NULL,0 are different things.",
+      "range": {
+        "startLine": 92,
+        "startChar": 72,
+        "endLine": 92,
+        "endChar": 78
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0feab92a_078dc43d",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-16T18:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84b0599b_f0a48bb5",
       "range": {
         "startLine": 92,
         "startChar": 72,
