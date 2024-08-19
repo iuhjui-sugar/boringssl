@@ -354,6 +354,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8722554_b6122711",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "(Comment LGTM. No opinions on the added asserts on `step_root`, `even`, and `odd`. I was just after the comment.)\n\n\u003e I just find it odd to only have them in the reverse NTT, the forward NTT is quite similar and should have similar checks for consistency.\n\nThe forward NTT reduces the product of two already reduced values, which is straightforwardly OK. Montgomery reduction always has q \u003c R \u003d\u003e q*q \u003c q*R because otherwise it\u0027s kinda pointless.\n\nThe reverse NTT reduces the product of a q-bounded value *and a 2q-bounded value*. This is not straightforwardly OK. It not always true that 2q \u003c R in Montgomery reduction. It just is true here.\n\nI agree that the added *assertions* are equally justified in both, but the comment is load-bearing in reverse NTT in a way that it isn\u0027t for forward NTT.",
+      "parentUuid": "b2548037_4c221d9d",
+      "range": {
+        "startLine": 239,
+        "startChar": 55,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa62ab9d_cec5a5b2",
@@ -1187,6 +1211,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a0f1a78_49af2233",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "For something as critical as bounds-safety, I think it\u0027s important for things to be more locally obvious than that.\n\n(Were this written in a safe language, we\u0027d have gotten this check automatically, and I doubt this access would have warranted a use of `get_unchecked_mut` in Rust.)",
+      "parentUuid": "5b2c144f_79342f61",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6a58e0f_10cc264a",
@@ -1306,6 +1348,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31304c6b_8dde7b87",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "Yeah, I guess if you\u0027re loading a private key, you\u0027re (probably?) not planning to just hand the public key over to someone because you\u0027ve already done that.\n\n*shrug*",
+      "parentUuid": "807e8f79_2b5b2c79",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eadb7f60_b85b6827",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 8
@@ -1370,6 +1430,24 @@
       "side": 1,
       "message": "\u003e It just seems a little weird to have an assertion that is only probabilistically unreachable.\n\nIsn\u0027t it quite common in cryptography that if something has probability less than `2^-128` (or `2^-256` or whatever your tolerance is), then it\u0027s as if it never happens? Because if it happens, it\u0027s as if an attacker managed to brute-force your private key and that\u0027s game over.\n\nMore concretely, unfortunately the spec doesn\u0027t spell out the probability of each loop iteration failing. I could easily reach around 50 iterations (see the wycheproof test file) by generating 10\u0027000 signatures, but for this to overflow you\u0027d need 65\u0027536/L \u003d 13\u0027107 iterations.\n\nWith a bit of napkin math (don\u0027t quote me on this), if the probability to exceed 100 iterations (rounded up from 50) is less than 1/10000 (which is less than `2^-13`), the probability to exceed 1000 iterations should be less than `2^-130` and the probability to exceed 10000 iterations should be less than `2^-1300`.",
       "parentUuid": "77c0cc70_f64c2f41",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fdf570f_aa3cd46b",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1333,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "It\u0027s game over in terms of cryptographic properties, but that\u0027s not the same as integrity of the execution environment.\n\nWe also have to account for things like private keys that fail invariants. Do the bounds hold for all possible private key byte strings, or just the ones that were the output of keygen. (From the chat, it sounded like this was probably true but uncertain?) Even though attack control of the private key obviously invalidates all cryptographic properties, so we don\u0027t actually care if the results are meaningful, but we *do* care that the function stays within DoS and other security bounds in all such cases.\n\nThis is because, e.g., a hosting provider may provide a service where the (untrusted) customer provides a private key for the hosting provider to evaluate. Ideally the key would never leave the hosting provider and be delegated, but alas that\u0027s not universal. There are also examples (e.g. WebCrypto) where a more trusted execution environment (browser code) runs cryptographic operations on behalf of untrusted code (website code). There, the output is unimportant, but the untrusted code cannot compromise the integrity of the execution environment.\n\nAt the very least, if we leave it as is, I think we should have a comment here because this isn\u0027t obvious. But the invalid private key thing makes me a bit uncomfortable. Picking up NIST\u0027s limits from Appendix C might not be the worst idea?\n\n(Side-effect-less infinite loops are also UB from a language perspective, but unlikely the compiler would do anything with that one.)",
+      "parentUuid": "a396c44b_75028d96",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1647,6 +1725,30 @@
       "side": 1,
       "message": "I assume we are probably going to be forced into adding at least one of the others at some point, given that I\u0027d rather avoid a future rename and have it consistent in the future so some version of something like  MLDSA65 would be better imo. (I am not picky about the exact colour of that bikeshed)",
       "parentUuid": "0b0f8ee7_0e3ed03a",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c88f70e6_045f961e",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "\u003e preferred by whom? It might be good to qualify.\n\n(We assert preferences in BoringSSL. That doesn\u0027t need to be qualified. Question is just whether the API names are the way to do it.)",
+      "parentUuid": "f891f3f3_a9b73aac",
       "range": {
         "startLine": 31,
         "startChar": 3,

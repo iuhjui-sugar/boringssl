@@ -3,6 +3,80 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66deaa03_5b784668",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void scalar_encode_signed_4_eta(uint8_t out[128], const scalar *s) {\n```",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68de3422_8fb3fafa",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void scalar_encode_signed_13_12(uint8_t out[416], const scalar *s) {\n```",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5412ebee_ec95de8f",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void scalar_encode_signed_20_19(uint8_t out[640], const scalar *s) {\n```",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a8e5760_72706a74",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "Optional: we end up writing this `kPrime + a - b` expression lots and lots of times.\n\nIs worth just adding something like...\n\n```\nuint32_t mod_sub(uint32_t a, uint32_t b) {\n  declassify_assert(a \u003c kPrime);\n  declassify_assert(b \u003c kPrime);\n  return reduce_once(kPrime + a - b);\n}\n```",
+      "range": {
+        "startLine": 652,
+        "startChar": 29,
+        "endLine": 652,
+        "endChar": 56
+      },
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b8aae97_5313f87c",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 11
@@ -14,6 +88,92 @@
       "writtenOn": "2024-08-19T09:45:07Z",
       "side": 1,
       "message": "The value of `bits` is always known at compile time, so you could directly call the specialized function at the call site rather than having this dispatching function. Same for decoding.\n\nOf course in principle a good compiler should inline this and eliminate the dead code.",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f48e43_639d7213",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "The compiler doing it will depend a bit on its inlining preferences. But I think the more important reason to do this is being able to write down the bounds of `out`. Though duplicating the loop is definitely a bit tedious. 😞 I dunno.\n\n(Not that those bounds are enforced much yet. GCC has some warning. But once `-fbounds-safety` actually exists, this\u0027ll be very handy.)",
+      "parentUuid": "0b8aae97_5313f87c",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f386fd1_10acce4a",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void scalar_decode_10(scalar *out, const uint8_t in[320]) {\n```",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8adfe8aa_06b8c9c9",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "```suggestion\nstatic int scalar_decode_signed_4_eta(scalar *out, const uint8_t in[128]) {\n```",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65c26070_31e75d50",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void scalar_decode_signed_13_12(scalar *out, const uint8_t in[416]) {\n```",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3eea37a_e290f3b3",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T17:49:01Z",
+      "side": 1,
+      "message": "```suggestion\nstatic void scalar_decode_signed_20_19(scalar *out, const uint8_t in[640]) {\n```",
       "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
