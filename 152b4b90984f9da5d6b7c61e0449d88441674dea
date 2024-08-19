@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf193718_87bdb810",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T21:15:09Z",
+      "side": 1,
+      "message": "A thought (feel free to ignore me if you all think this is better), but given that the comments are mostly documentation that one could look up, and the defaults are, well, default, do we actually want to use this as a template?\n\nWould it make more sense to just include the fields we care about and include perhaps a link to somewhere canonical for the defaults and docs and whatnot?\n\n(No strong opinions, just a drive-by thought I had as I was going through my inbox.)",
+      "revId": "152b4b90984f9da5d6b7c61e0449d88441674dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8da10ec7_7d2171f1",
         "filename": "rust/bssl-crypto/deny.toml",
         "patchSetId": 1

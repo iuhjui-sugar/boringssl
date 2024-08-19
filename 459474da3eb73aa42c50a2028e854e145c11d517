@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fba4ca45_af8abc8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T21:15:09Z",
+      "side": 1,
+      "message": "Huh. I take it cargo-deny is not an official part of Rust, if it doesn\u0027t live under the Rust GitHub org?",
+      "revId": "459474da3eb73aa42c50a2028e854e145c11d517",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
