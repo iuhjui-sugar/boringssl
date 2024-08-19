@@ -1635,6 +1635,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f891f3f3_a9b73aac",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-19T16:04:38Z",
+      "side": 1,
+      "message": "I assume we are probably going to be forced into adding at least one of the others at some point, given that I\u0027d rather avoid a future rename and have it consistent in the future so some version of something like  MLDSA65 would be better imo. (I am not picky about the exact colour of that bikeshed)",
+      "parentUuid": "0b0f8ee7_0e3ed03a",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "094c28e0_3ed394b2",
         "filename": "include/openssl/mldsa.h",
         "patchSetId": 8
