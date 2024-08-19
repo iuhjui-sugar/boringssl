@@ -227,6 +227,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c1e0792_27b62c37",
+        "filename": "rust/bssl-crypto/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-19T15:11:21Z",
+      "side": 1,
+      "message": "Has your team filed a bug with the rules_rust project? I don\u0027t believe the LLVM GitHub issue is actually a blocker; after all, BoringSSL was in BCR before we actually supported bzlmod.\n\nllvm-project seems to also already exist in BCR. I suspect this can be fixed on the rules_rust side.\nhttps://github.com/bazelbuild/bazel-central-registry/tree/main/modules/llvm-project",
+      "parentUuid": "611935ba_ece5d464",
+      "revId": "ceac54e050ef86de18adac3da5f4f97605489436",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f03f5680_8617ed5f",
         "filename": "rust/bssl-sys/BUILD.bazel",
         "patchSetId": 7
