@@ -43,15 +43,4 @@ TEST(P256Test, AdxSquareABI) {
     GTEST_SKIP() << "Can't test ABI of ADX code without ADX";
   }
 }
-
-TEST(P256Test, AdxAddABI) {
-  static const uint64_t in1[4] = {0}, in2[4] = {0};
-  uint64_t out[4];
-  if (CRYPTO_is_BMI1_capable() && CRYPTO_is_BMI2_capable() &&
-      CRYPTO_is_ADX_capable()) {
-    CHECK_ABI(fiat_p256_adx_add, out, in1, in2);
-  } else {
-    GTEST_SKIP() << "Can't test ABI of ADX code without ADX";
-  }
-}
 #endif

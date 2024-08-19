@@ -211,16 +211,16 @@ static void fiat_p256_point_double(fiat_p256_felem out[3],
   fiat_p256_add(out[2], out[2], out[2]);
   fiat_p256_add(A, in[0], tmp);
   fiat_p256_sub(tmp, in[0], tmp);
+  fiat_p256_felem t2; fiat_p256_add(t2, tmp, tmp); fiat_p256_add(tmp, t2, tmp);
   fiat_p256_square(out[1], D);
-  fiat_p256_halve(out[1], out[1]); // C^2/2
   fiat_p256_mul(A, A, tmp);
-  fiat_p256_add(tmp, A, A); fiat_p256_add(A, A, tmp); // A
   fiat_p256_mul(D, D, in[0]); // D
-  fiat_p256_add(tmp, D, D);
   fiat_p256_square(out[0], A);
+  fiat_p256_add(tmp, D, D);
   fiat_p256_sub(out[0], out[0], tmp);
   fiat_p256_sub(D, D, out[0]);
   fiat_p256_mul(D, D, A);
+  fiat_p256_halve(out[1], out[1]); // C^2/2
   fiat_p256_sub(out[1], D, out[1]);
 }
 
