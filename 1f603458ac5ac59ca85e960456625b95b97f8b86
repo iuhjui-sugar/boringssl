@@ -1425,6 +1425,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ea7d5eb_f932e64c",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1526,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-19T08:25:23Z",
+      "side": 1,
+      "message": "Yes, they removed it between the draft and the final standard, but forgot to flag it in the Appendix D.3 changelog. This check was indeed redundant because by construction the value `h` cannot contain more than `OMEGA` ones (due to how the signature serialization format is defined).",
+      "parentUuid": "8c01c163_b3ee1ae5",
+      "range": {
+        "startLine": 1526,
+        "startChar": 32,
+        "endLine": 1526,
+        "endChar": 50
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfa7917e_5deb7233",
