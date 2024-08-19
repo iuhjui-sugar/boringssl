@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b8aae97_5313f87c",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-19T09:45:07Z",
+      "side": 1,
+      "message": "The value of `bits` is always known at compile time, so you could directly call the specialized function at the call site rather than having this dispatching function. Same for decoding.\n\nOf course in principle a good compiler should inline this and eliminate the dead code.",
+      "revId": "d98a91e4ea1b7628162ad3810cf0a3fed7841a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -330,6 +330,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2548037_4c221d9d",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-19T09:45:07Z",
+      "side": 1,
+      "message": "There\u0027s ultimately a lot of superfluous checks, but given David\u0027s note that they don\u0027t make it in release mode anyway that\u0027s fine to have them, right? I just find it odd to only have them in the reverse NTT, the forward NTT is quite similar and should have similar checks for consistency.",
+      "parentUuid": "66419798_8569a712",
+      "range": {
+        "startLine": 239,
+        "startChar": 55,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fa62ab9d_cec5a5b2",
@@ -1001,6 +1025,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7f0a46eb_b9ad643e",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-19T09:45:07Z",
+      "side": 1,
+      "message": "There\u0027s definitely room for parallelization. One practical difficulty is that each instance of these rejection sampling functions may consume a different number of blocks from the Keccak state, so the code would become a bit more tangled and care must be taken that it\u0027s still correct.",
+      "parentUuid": "c6b81f04_2c31e806",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8dfc3cd1_b8a2bbd9",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 8
@@ -1123,6 +1165,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "864f9536_32ff7564",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b2c144f_79342f61",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-19T09:45:07Z",
+      "side": 1,
+      "message": "That\u0027s literally what the check at line 1393 of this patchset ensures. Given that `hint_bit_pack()` and its unique caller `mldsa_marshal_signature()` are both private to this file, there\u0027s no way this can be called with an invalid input.",
+      "parentUuid": "1c9aca3c_675c51df",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1292,6 +1352,24 @@
       "writtenOn": "2024-08-16T20:03:53Z",
       "side": 1,
       "message": "Presumably this is impossible, but this is a little fun. So `vectorl_expand_mask` has an `assert` that `kappa + L` is 16-bit, needed for the encodings to avoid dropping bits...\n\nBut there isn\u0027t actually anything ensuring that assertion is true. (Though the probability of this happening is negligible.)\n\nLooking at the spec, they don\u0027t actually have a precondition on ExpandMask or IntegerToBytes. The functions take any integer and silently truncate. So I think the spec formulation makes this well-defined, but potentially diverging.\n\nI suppose tripping that assertion doesn\u0027t actually do anything. It just seems a little weird to have an assertion that is only probabilistically unreachable. *shrug* (Could leave it alone, take the assert out, leave some comments, add a limit per appendix C, or whatever. Don\u0027t feel strongly, just found it odd.)",
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a396c44b_75028d96",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1333,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-19T09:45:07Z",
+      "side": 1,
+      "message": "\u003e It just seems a little weird to have an assertion that is only probabilistically unreachable.\n\nIsn\u0027t it quite common in cryptography that if something has probability less than `2^-128` (or `2^-256` or whatever your tolerance is), then it\u0027s as if it never happens? Because if it happens, it\u0027s as if an attacker managed to brute-force your private key and that\u0027s game over.\n\nMore concretely, unfortunately the spec doesn\u0027t spell out the probability of each loop iteration failing. I could easily reach around 50 iterations (see the wycheproof test file) by generating 10\u0027000 signatures, but for this to overflow you\u0027d need 65\u0027536/L \u003d 13\u0027107 iterations.\n\nWith a bit of napkin math (don\u0027t quote me on this), if the probability to exceed 100 iterations (rounded up from 50) is less than 1/10000 (which is less than `2^-13`), the probability to exceed 1000 iterations should be less than `2^-130` and the probability to exceed 10000 iterations should be less than `2^-1300`.",
+      "parentUuid": "77c0cc70_f64c2f41",
       "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1521,6 +1599,30 @@
       "side": 1,
       "message": "Up for discussion, but for ML-KEM I\u0027m keeping ML-KEM-768 as just `MLKEM_foo` because that\u0027s the standard one and people using something else should notice that it\u0027s a little odder. I\u0027m applying similar reasoning here.",
       "parentUuid": "8370bfe7_b422c4e0",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 8
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b0f8ee7_0e3ed03a",
+        "filename": "include/openssl/mldsa.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-19T09:45:07Z",
+      "side": 1,
+      "message": "Up to you, but \"that\u0027s the standard one\" depends on perspective, all 3 variants are standardized by NIST. Maybe \"that\u0027s the preferred one\", but again, preferred by whom? It might be good to qualify.",
+      "parentUuid": "273bcd28_c83444cb",
       "range": {
         "startLine": 31,
         "startChar": 3,
