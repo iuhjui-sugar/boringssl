@@ -239,8 +239,9 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
                                 const fiat_p256_felem x2,
                                 const fiat_p256_felem y2,
                                 const fiat_p256_felem z2) {
+  // following HMV'04 p89 eqn 3.14
   const uint64_t* const in2[3] = {x2, y2, z2};
-  fiat_p256_felem x_out, y_out, z_out;  // HMV'04 p89 eqn 3.14
+  fiat_p256_felem p_out[3];
   fiat_p256_limb_t z1nz = fiat_p256_nz(in1[2]);
   fiat_p256_limb_t z2nz = p2affine ? 1 : fiat_p256_nz(in2[2]);
 
@@ -267,9 +268,9 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
   fiat_p256_felem s2;
   fiat_p256_mul(s2, in1[2], z1z1);  // B + Z1*A
 
-  fiat_p256_mul(z_out, h, in1[2]);  // Z3 = E*Z1
+  fiat_p256_mul(p_out[2], h, in1[2]);  // Z3 = E*Z1
   if (!p2affine) {
-    fiat_p256_mul(z_out, z_out, in2[2]);
+    fiat_p256_mul(p_out[2], p_out[2], in2[2]);
   }
 
   // s2 = y2 * z1**3
@@ -304,30 +305,33 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
   fiat_p256_square(Hsqr, h);  // G = E^2
 
   // Rsqr
-  fiat_p256_square(x_out, r);  // F^2
+  fiat_p256_square(p_out[0], r);  // F^2
 
   fiat_p256_felem Hcub;
   fiat_p256_mul(Hcub, Hsqr, h);  // H = G*E
 
   fiat_p256_felem U2;
   fiat_p256_mul(U2, u1, Hsqr);  // I = X1 * G
-  fiat_p256_sub(x_out, x_out, Hcub);
-  fiat_p256_sub(x_out, x_out, U2);
-  fiat_p256_sub(x_out, x_out, U2);
+  fiat_p256_sub(p_out[0], p_out[0], Hcub);
+  fiat_p256_sub(p_out[0], p_out[0], U2);
+  fiat_p256_sub(p_out[0], p_out[0], U2);
 
-  fiat_p256_sub(h, U2, x_out);
+  fiat_p256_sub(h, U2, p_out[0]);
 
   fiat_p256_felem S2;
   fiat_p256_mul(S2, Hcub, s1);  // Y1 * H
   fiat_p256_mul(h, h, r);       // E * F
-  fiat_p256_sub(y_out, h, S2);
+  fiat_p256_sub(p_out[1], h, S2);
 
-  fiat_p256_cmovznz(x_out, z1nz, in2[0], x_out);
-  fiat_p256_cmovznz(out[0], z2nz, in1[0], x_out);
-  fiat_p256_cmovznz(y_out, z1nz, in2[1], y_out);
-  fiat_p256_cmovznz(out[1], z2nz, in1[1], y_out);
-  fiat_p256_cmovznz(z_out, z1nz, in2[2], z_out);
-  fiat_p256_cmovznz(out[2], z2nz, in1[2], z_out);
+  fiat_p256_felem t_out[3] = {{0}, {0}, {0}};
+  constant_time_conditional_memxor(t_out, p_out, sizeof(p_out), ~(constant_time_is_zero_w(z1nz)|constant_time_is_zero_w(z2nz)));
+  if (!p2affine) {
+    constant_time_conditional_memxor(t_out, in1, sizeof(t_out), constant_time_is_zero_w(z2nz));
+  }
+  constant_time_conditional_memxor(t_out[0], in2[0], sizeof(t_out[0]), constant_time_is_zero_w(z1nz));
+  constant_time_conditional_memxor(t_out[1], in2[1], sizeof(t_out[1]), constant_time_is_zero_w(z1nz));
+  constant_time_conditional_memxor(t_out[2], in2[2], sizeof(t_out[2]), constant_time_is_zero_w(z1nz));
+  OPENSSL_memcpy(out, t_out, sizeof(t_out));
 }
 
 static void fiat_p256_point_add(fiat_p256_felem out[3],
