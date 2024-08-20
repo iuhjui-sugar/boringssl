@@ -171,17 +171,9 @@ static uint16_t reconstruct_epoch(uint8_t wire_epoch, uint16_t current_epoch) {
   return epoch;
 }
 
-// reconstruct_seqnum returns the smallest sequence number that hasn't been seen
-// in |bitmap| and is still within |bitmap|'s window to handle as a reordered
-// record.
-//
-// Section 4.2.2 of RFC 9147 describes an algorithm for reconstructing sequence
-// numbers, which is implemented here. This algorithm finds the sequence number
-// that is numerically closest to one plus the largest sequence number seen in
-// this epoch.
-static uint64_t reconstruct_seqnum(uint16_t wire_seq, uint64_t seq_mask,
-                                   DTLS1_BITMAP *bitmap) {
-  uint64_t max_seqnum_plus_one = bitmap->max_seq_num + 1;
+uint64_t reconstruct_seqnum(uint16_t wire_seq, uint64_t seq_mask,
+                            uint64_t max_valid_seqnum) {
+  uint64_t max_seqnum_plus_one = max_valid_seqnum + 1;
   uint64_t diff = (wire_seq - max_seqnum_plus_one) & seq_mask;
   uint64_t step = seq_mask + 1;
   uint64_t seqnum = max_seqnum_plus_one + diff;
@@ -216,7 +208,8 @@ static bool parse_dtls13_record_header(SSL *ssl, CBS *in, size_t packet_size,
       // The record header was incomplete or malformed.
       return false;
     }
-    *out_sequence = reconstruct_seqnum(seq, 0xffff, &ssl->d1->bitmap);
+    *out_sequence =
+        reconstruct_seqnum(seq, 0xffff, ssl->d1->bitmap.max_seq_num);
   } else {
     // 8-bit sequence number.
     uint8_t seq;
@@ -224,7 +217,7 @@ static bool parse_dtls13_record_header(SSL *ssl, CBS *in, size_t packet_size,
       // The record header was incomplete or malformed.
       return false;
     }
-    *out_sequence = reconstruct_seqnum(seq, 0xff, &ssl->d1->bitmap);
+    *out_sequence = reconstruct_seqnum(seq, 0xff, ssl->d1->bitmap.max_seq_num);
   }
   *out_header_len = packet_size - CBS_len(in);
   if ((type & 0x04) == 0x04) {
