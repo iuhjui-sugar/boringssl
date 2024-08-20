@@ -631,6 +631,88 @@ TEST(GrowableArrayTest, GrowableArrayContainingGrowableArrays) {
   }
 }
 
+TEST(ReconstructSeqnumTest, Increment) {
+  // Test simple cases from the beginning of an epoch with both 8- and 16-bit
+  // wire sequence numbers.
+  EXPECT_EQ(reconstruct_seqnum(0, 0xff, 0), 0u);
+  EXPECT_EQ(reconstruct_seqnum(1, 0xff, 0), 1u);
+  EXPECT_EQ(reconstruct_seqnum(2, 0xff, 0), 2u);
+  EXPECT_EQ(reconstruct_seqnum(0, 0xffff, 0), 0u);
+  EXPECT_EQ(reconstruct_seqnum(1, 0xffff, 0), 1u);
+  EXPECT_EQ(reconstruct_seqnum(2, 0xffff, 0), 2u);
+
+  // When the wire sequence number is less than the corresponding low bytes of
+  // the max seen sequence number, check that the next larger sequence number
+  // is reconstructed as its numerically closer than the corresponding sequence
+  // number that would keep the high order bits the same.
+  EXPECT_EQ(reconstruct_seqnum(0, 0xff, 0xff), 0x100u);
+  EXPECT_EQ(reconstruct_seqnum(1, 0xff, 0xff), 0x101u);
+  EXPECT_EQ(reconstruct_seqnum(2, 0xff, 0xff), 0x102u);
+  EXPECT_EQ(reconstruct_seqnum(0, 0xffff, 0xffff), 0x10000u);
+  EXPECT_EQ(reconstruct_seqnum(1, 0xffff, 0xffff), 0x10001u);
+  EXPECT_EQ(reconstruct_seqnum(2, 0xffff, 0xffff), 0x10002u);
+
+  // Test cases when the wire sequence number is close to the largest magnitude
+  // that can be represented in 8 or 16 bits.
+  EXPECT_EQ(reconstruct_seqnum(0xff, 0xff, 0x2f0), 0x2ffu);
+  EXPECT_EQ(reconstruct_seqnum(0xfe, 0xff, 0x2f0), 0x2feu);
+  EXPECT_EQ(reconstruct_seqnum(0xffff, 0xffff, 0x2f000), 0x2ffffu);
+  EXPECT_EQ(reconstruct_seqnum(0xfffe, 0xffff, 0x2f000), 0x2fffeu);
+
+  // Test when the max seen sequence number is close to the uint64_t max value.
+  // Note: Section 4.2.1 of RFC 9147 states that the DTLS 1.3 connection must be
+  // rekeyed or abandoned before sequence numbers wrap. The reconstruct_seqnum
+  // function does not enforce this constraint.
+  EXPECT_EQ(reconstruct_seqnum(0, 0xff, 0xffffffffffffffff), 0u);
+  EXPECT_EQ(reconstruct_seqnum(1, 0xff, 0xfffffffffffffff0), 1u);
+  EXPECT_EQ(reconstruct_seqnum(2, 0xffff, 0xffffffffffffff00), 2u);
+  EXPECT_EQ(reconstruct_seqnum(3, 0xffff, 0xfffffffffffff000), 3u);
+}
+
+TEST(ReconstructSeqnumTest, Decrement) {
+  // Test cases where the reconstructed sequence number is less than the max
+  // seen sequence number.
+  EXPECT_EQ(reconstruct_seqnum(0, 0xff, 0x210), 0x200u);
+  EXPECT_EQ(reconstruct_seqnum(2, 0xff, 0x210), 0x202u);
+  EXPECT_EQ(reconstruct_seqnum(0, 0xffff, 0x43210), 0x40000u);
+  EXPECT_EQ(reconstruct_seqnum(2, 0xffff, 0x43210), 0x40002u);
+
+  // Test when the wire sequence number is greater than the low bits of the
+  // max seen sequence number.
+  EXPECT_EQ(reconstruct_seqnum(0xff, 0xff, 0x200), 0x1ffu);
+  EXPECT_EQ(reconstruct_seqnum(0xfe, 0xff, 0x200), 0x1feu);
+  EXPECT_EQ(reconstruct_seqnum(0xffff, 0xffff, 0x20000), 0x1ffffu);
+  EXPECT_EQ(reconstruct_seqnum(0xfffe, 0xffff, 0x20000), 0x1fffeu);
+
+  // Test when the reconstructed sequence number underflows the max seen
+  // sequence number. Note: DTLS 1.3 sequence numbers are not supposed to wrap,
+  // but reconstruct_seqnum does not enforce this constraint.
+  EXPECT_EQ(reconstruct_seqnum(0xff, 0xff, 0), 0xffffffffffffffffu);
+  EXPECT_EQ(reconstruct_seqnum(0xfe, 0xff, 0), 0xfffffffffffffffeu);
+  EXPECT_EQ(reconstruct_seqnum(0xffff, 0xffff, 0), 0xffffffffffffffffu);
+  EXPECT_EQ(reconstruct_seqnum(0xfffe, 0xffff, 0), 0xfffffffffffffffeu);
+}
+
+TEST(ReconstructSeqnumTest, Halfway) {
+  // Test wire sequence numbers that are close to halfway away from the max
+  // seen sequence number. The algorithm specifies that the output should be
+  // numerically closest to 1 plus the max seen (0x100 in the following test
+  // cases). With a max seen of 0x100 and a wire sequence of 0x81, the two
+  // closest values to 1+0x100 are 0x81 and 0x181, which are both the same
+  // amount away. The algorithm doesn't specify what to do on this edge case;
+  // our implementation chooses the larger value (0x181), on the assumption that
+  // it's more likely to be a new or larger sequence number rather than a replay
+  // or an out-of-order packet.
+  EXPECT_EQ(reconstruct_seqnum(0x80, 0xff, 0x100), 0x180u);
+  EXPECT_EQ(reconstruct_seqnum(0x81, 0xff, 0x100), 0x181u);
+  EXPECT_EQ(reconstruct_seqnum(0x82, 0xff, 0x100), 0x82u);
+
+  // Repeat these tests with 16-bit wire sequence numbers.
+  EXPECT_EQ(reconstruct_seqnum(0x8000, 0xffff, 0x10000), 0x18000u);
+  EXPECT_EQ(reconstruct_seqnum(0x8001, 0xffff, 0x10000), 0x18001u);
+  EXPECT_EQ(reconstruct_seqnum(0x8002, 0xffff, 0x10000), 0x8002u);
+}
+
 TEST(SSLTest, CipherRules) {
   for (const CipherTest &t : kCipherTests) {
     SCOPED_TRACE(t.rule);
