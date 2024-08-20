@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f65a4c9_87772cb9",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-20T17:48:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "861413d3_d7beae0a",
+      "range": {
+        "startLine": 26,
+        "startChar": 59,
+        "endLine": 26,
+        "endChar": 68
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "530945fd_6f894aa7",
@@ -64,6 +88,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b6218b5_326da0ee",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-20T17:48:43Z",
+      "side": 1,
+      "message": "TBH the entire second paragraph can be deleted..",
+      "parentUuid": "530945fd_6f894aa7",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97434f7e_84ea0500",
@@ -77,6 +125,30 @@
       "writtenOn": "2024-08-20T17:34:13Z",
       "side": 1,
       "message": "Looks like we haven\u0027t set it up so that `OPENSSL_DEPRECATED` automatically includes `OPENSSL_EXPORT`, so I think we need both. (Or to change `OPENSSL_DEPRECATED`.)",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a0d6a8b_ac1b98af",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-20T17:48:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97434f7e_84ea0500",
       "range": {
         "startLine": 74,
         "startChar": 0,
