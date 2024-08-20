@@ -725,7 +725,6 @@ set(
   crypto/curve25519/x25519_test.cc
   crypto/dh_extra/dh_test.cc
   crypto/digest_extra/digest_test.cc
-  crypto/dilithium/dilithium_test.cc
   crypto/dsa/dsa_test.cc
   crypto/ecdh_extra/ecdh_test.cc
   crypto/err/err_test.cc
@@ -814,9 +813,6 @@ set(
   crypto/cipher_extra/test/nist_cavp/tdes_ecb.txt
   crypto/cipher_extra/test/xchacha20_poly1305_tests.txt
   crypto/curve25519/ed25519_tests.txt
-  crypto/dilithium/dilithium_tests.txt
-  crypto/dilithium/edge_cases_draft_dilithium3_sign.txt
-  crypto/dilithium/edge_cases_draft_dilithium3_verify.txt
   crypto/ecdh_extra/ecdh_tests.txt
   crypto/evp/evp_tests.txt
   crypto/evp/scrypt_tests.txt
