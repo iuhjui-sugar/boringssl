@@ -104,6 +104,8 @@ set(
 set(
   BCM_SOURCES_ASM
 
+  gen/bcm/aes-gcm-avx10-x86_64-apple.S
+  gen/bcm/aes-gcm-avx10-x86_64-linux.S
   gen/bcm/aesni-gcm-x86_64-apple.S
   gen/bcm/aesni-gcm-x86_64-linux.S
   gen/bcm/aesni-x86-apple.S
@@ -208,6 +210,7 @@ set(
 set(
   BCM_SOURCES_NASM
 
+  gen/bcm/aes-gcm-avx10-x86_64-win.asm
   gen/bcm/aesni-gcm-x86_64-win.asm
   gen/bcm/aesni-x86-win.asm
   gen/bcm/aesni-x86_64-win.asm
