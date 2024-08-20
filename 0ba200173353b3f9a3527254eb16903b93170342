@@ -16,6 +16,24 @@
       "message": "Not deleted in the CL itself, though?",
       "revId": "0ba200173353b3f9a3527254eb16903b93170342",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3114cdae_cc1aa253",
+        "filename": "build.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-20T17:02:21Z",
+      "side": 0,
+      "message": "Yeah, I just noticed I missed it and fixed it.",
+      "parentUuid": "2c32df39_d6cb6ee4",
+      "revId": "0ba200173353b3f9a3527254eb16903b93170342",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

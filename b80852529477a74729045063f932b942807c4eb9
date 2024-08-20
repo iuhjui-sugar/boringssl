@@ -40,6 +40,30 @@
       ],
       "revId": "b80852529477a74729045063f932b942807c4eb9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f762734_7b392704",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-20T17:02:21Z",
+      "side": 1,
+      "message": "Fixed, (and in the commit message)",
+      "parentUuid": "720707e6_a89897be",
+      "range": {
+        "startLine": 26,
+        "startChar": 49,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "revId": "b80852529477a74729045063f932b942807c4eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
