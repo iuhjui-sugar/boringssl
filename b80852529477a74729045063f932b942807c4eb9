@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "720707e6_a89897be",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-20T16:58:19Z",
+      "side": 1,
+      "message": "ML-DSA, to have consistent capitalisation?",
+      "range": {
+        "startLine": 26,
+        "startChar": 49,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1eb92d5b_50a3b800",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "include/openssl/experimental/dilithium.h",
+              "range": {
+                "startLine": 26,
+                "startChar": 0,
+                "endLine": 27,
+                "endChar": 0
+              },
+              "replacement": "// The ML-DSA spec has now been standardized and ML-DSA is avaliable in\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b80852529477a74729045063f932b942807c4eb9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

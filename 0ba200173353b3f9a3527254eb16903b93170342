@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c32df39_d6cb6ee4",
+        "filename": "build.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-20T16:58:19Z",
+      "side": 0,
+      "message": "Not deleted in the CL itself, though?",
+      "revId": "0ba200173353b3f9a3527254eb16903b93170342",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
