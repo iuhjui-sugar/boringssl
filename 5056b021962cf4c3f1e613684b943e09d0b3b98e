@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9abab14_093eb29f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-20T23:38:40Z",
+      "side": 1,
+      "message": "The only change from the initial public draft to the final FIPS spec was the change to add domain separation to the key generation. NIST have updated the ACVP vectors and they\u0027re imported here to check that we match them.\n\nThis also changes the experimental Kyber code in that it supports ML-KEM-1024 by using some C++ templates.\n\nOtherwise, it\u0027s all the same code.",
+      "revId": "5056b021962cf4c3f1e613684b943e09d0b3b98e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
