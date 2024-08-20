@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9070cf87_5d0e36e5",
+        "filename": "crypto/dilithium/dilithium_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-20T17:34:13Z",
+      "side": 1,
+      "message": "Hmm. I think, so long as we carry the code, we still want to test that we haven\u0027t completely broken it.",
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "861413d3_d7beae0a",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-20T17:34:13Z",
+      "side": 1,
+      "message": "available",
+      "range": {
+        "startLine": 26,
+        "startChar": 59,
+        "endLine": 26,
+        "endChar": 68
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "530945fd_6f894aa7",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-20T17:34:13Z",
+      "side": 1,
+      "message": "This isn\u0027t true anymore. We can probably merge these together. Perhaps...\n\n```\n// Dilithium3.\n//\n// This header implements an experimental, draft predecessor to ML-DSA. ML-DSA\n// has since been standardized and is available in \u003copenssl/mldsa.h\u003e. This\n// header is now deprecated and will be removed from BoringSSL soon. New code\n// should use \u003copenssl/mldsa.h\u003e and existing callers should migrate.\n//\n// The draft construction in this header is incompatible with the final\n// standard. It was implemented historically for short-lived experiments. It\n// must not be deployed anywhere durable, such as a long-lived key store.\n```",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97434f7e_84ea0500",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-20T17:34:13Z",
+      "side": 1,
+      "message": "Looks like we haven\u0027t set it up so that `OPENSSL_DEPRECATED` automatically includes `OPENSSL_EXPORT`, so I think we need both. (Or to change `OPENSSL_DEPRECATED`.)",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 18
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
