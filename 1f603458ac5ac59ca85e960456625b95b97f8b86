@@ -422,6 +422,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fb6cc0a2_9bc0144f",
+        "filename": "crypto/mldsa/mldsa.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 17331
+      },
+      "writtenOn": "2024-08-20T11:16:52Z",
+      "side": 1,
+      "message": "\u003e The forward NTT reduces the product of two already reduced values, which is straightforwardly OK. Montgomery reduction always has q \u003c R \u003d\u003e qq \u003c qR because otherwise it\u0027s kinda pointless.\n\u003e\n\u003e The reverse NTT reduces the product of a q-bounded value and a 2q-bounded value. This is not straightforwardly OK. It not always true that 2q \u003c R in Montgomery reduction. It just is true here.\n\nAgreed",
+      "parentUuid": "7513aabc_f20221fd",
+      "range": {
+        "startLine": 239,
+        "startChar": 55,
+        "endLine": 239,
+        "endChar": 76
+      },
+      "revId": "1f603458ac5ac59ca85e960456625b95b97f8b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fa62ab9d_cec5a5b2",
         "filename": "crypto/mldsa/mldsa.c",
         "patchSetId": 8
