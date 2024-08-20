@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25410f7b_862a8d37",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-20T17:51:28Z",
+      "side": 1,
+      "message": "I think it\u0027s useful to make sure people know, when migrating, that this is not just an API change. It\u0027s an incompatible construction and your migration is not just changing the APIs.\n\nAnd as long as it\u0027s a non-trivial migration, I suspect we still want to keep the \"nowhere durable\" warning, which now has real teeth behind it because it was indeed a different construction as we warned.",
+      "parentUuid": "3b6218b5_326da0ee",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97434f7e_84ea0500",
         "filename": "include/openssl/experimental/dilithium.h",
         "patchSetId": 3
