@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a16cf42b_f10bcd66",
+        "filename": "crypto/dilithium/dilithium_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-20T18:02:27Z",
+      "side": 1,
+      "message": "Meh, ok, Added the tests back.",
+      "parentUuid": "9070cf87_5d0e36e5",
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "861413d3_d7beae0a",
@@ -126,6 +144,30 @@
       "side": 1,
       "message": "I think it\u0027s useful to make sure people know, when migrating, that this is not just an API change. It\u0027s an incompatible construction and your migration is not just changing the APIs.\n\nAnd as long as it\u0027s a non-trivial migration, I suspect we still want to keep the \"nowhere durable\" warning, which now has real teeth behind it because it was indeed a different construction as we warned.",
       "parentUuid": "3b6218b5_326da0ee",
+      "range": {
+        "startLine": 31,
+        "startChar": 57,
+        "endLine": 31,
+        "endChar": 78
+      },
+      "revId": "01f8791f77c1c9b15db5f6eed52fa494a3be8f9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64a35093_588bdad5",
+        "filename": "include/openssl/experimental/dilithium.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-20T18:02:27Z",
+      "side": 1,
+      "message": "Added the durable warning back.",
+      "parentUuid": "25410f7b_862a8d37",
       "range": {
         "startLine": 31,
         "startChar": 57,
