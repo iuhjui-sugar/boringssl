@@ -16,6 +16,24 @@
       "message": "This is interesting. Arguably the sequence number that is numerically closest here is not the wraparound value but 0xff, 0xfe, 0xffff, and 0xfffe. (Similarly above, though that case is questionably reachable.) And it is probably a better reconstruction than what we currently output. I.e. we\u0027d do a better job of tolerating reorder if if we special-cased these cases.\n\nBut it\u0027s weird because this extra tolerance will quickly go away after the first 2^16 records, so one really shouldn\u0027t be relying on it.\n\n*shrug*\n\nNot a concrete request to change anything, and the spec actually doesn\u0027t prescribe any particular algorithm. I think sticking with the simple thing is perfectly defensible, but maybe it\u0027s worth a comment somewhere that we are intentionally wrapping around.",
       "revId": "d91db6872c3bedd6a63e4bcd938a9e12567c9ced",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cafeea0_9f7d46bd",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2024-08-21T23:28:12Z",
+      "side": 1,
+      "message": "It\u0027s only numerically closer if we\u0027re doing math Z_{2^64}, and while `uint64_t`s are doing math on that field, sequence numbers are still integers (just limited to that range). I\u0027ve changed reconstruct_seqnum to handle overflow/underflow, and added tests for that. This has the side effect that should our peer try to wrap around their seqnums (I would be amazed if a connection could last that long, even with intentionally skipping seqnums), we won\u0027t wrap around in seqnum reconstruction and the connection will fail.",
+      "parentUuid": "ac36ad72_0b0d0071",
+      "revId": "d91db6872c3bedd6a63e4bcd938a9e12567c9ced",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
