@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73646829_509b36af",
+        "filename": "crypto/mlkem/mlkem.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-21T18:28:32Z",
+      "side": 1,
+      "message": "I think that\u0027s orthogonal to this.\n\nWhether the other private key format exists or not, this object is now called a \"seed\". IIRC, it didn\u0027t have a name in the round3 draft (looks like it was just \"d\"), which is how we ended up calling it \"entropy\".",
+      "parentUuid": "8161e456_72168f9f",
+      "range": {
+        "startLine": 685,
+        "startChar": 10,
+        "endLine": 685,
+        "endChar": 17
+      },
+      "revId": "5056b021962cf4c3f1e613684b943e09d0b3b98e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01830ed4_707eaeaf",
         "filename": "crypto/mlkem/mlkem.cc",
         "patchSetId": 20
