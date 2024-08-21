@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8161e456_72168f9f",
+        "filename": "crypto/mlkem/mlkem.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-21T18:15:04Z",
+      "side": 1,
+      "message": "We should probably either\n\n1) make all the changes now to internalize the private key stuff and just use a seed, and import this as such (changing the commit message to indicate how/why this is changed from the draft kyber implementation)\n\nor\n\n2) keep this as is and make a separate change for 1) as a follow on. \n\nI\u0027m not too fussy over which way, but would prefer no half measures, I have weak preference for 2.",
+      "parentUuid": "5248b627_5334e2d0",
+      "range": {
+        "startLine": 685,
+        "startChar": 10,
+        "endLine": 685,
+        "endChar": 17
+      },
+      "revId": "5056b021962cf4c3f1e613684b943e09d0b3b98e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "01830ed4_707eaeaf",
         "filename": "crypto/mlkem/mlkem.cc",
         "patchSetId": 20
