@@ -367,13 +367,19 @@ void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
 
 #include "./p256_table.h"
 
+void fiat_p256_select_point_affine(
+    const fiat_p256_limb_t idx, size_t size,
+    const fiat_p256_felem pre_comp[/*size*/][2], fiat_p256_felem out[2]);
+
 // fiat_p256_select_point_affine selects the |idx-1|th point from a
 // precomputation table and copies it to out. If |idx|=0, the output is (0, 0).
-static void fiat_p256_select_point_affine(
+__attribute__((always_inline))
+void fiat_p256_select_point_affine(
     const fiat_p256_limb_t idx, size_t size,
     const fiat_p256_felem pre_comp[/*size*/][2], fiat_p256_felem out[2]) {
 
   fiat_p256_felem t[2] = {{0}, {0}};
+#pragma clang loop unroll_count(8)
   for (size_t i = 0; i < size; i++) {
     constant_time_conditional_memxor(t, pre_comp[i], sizeof(t), constant_time_eq_w(idx, 1 + i));
   }
@@ -475,7 +481,7 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
                                       const EC_JACOBIAN *p,
                                       const EC_SCALAR *scalar) {
   fiat_p256_felem p_pre_comp[17][3];
-  OPENSSL_memset(&p_pre_comp, 0, sizeof(p_pre_comp));
+  OPENSSL_memset(&p_pre_comp, 0, sizeof(p_pre_comp)); // XXX (0,0,0) ??
   // Precompute multiples.
   fiat_p256_from_generic(p_pre_comp[1][0], &p->X);
   fiat_p256_from_generic(p_pre_comp[1][1], &p->Y);
