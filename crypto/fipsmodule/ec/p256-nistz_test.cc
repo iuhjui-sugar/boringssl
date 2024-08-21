@@ -416,25 +416,6 @@ static void TestPointAdd(FileTest *t) {
   ASSERT_TRUE(PointToAffine(&a_affine, &a));
   ASSERT_TRUE(PointToAffine(&b_affine, &b));
 
-  // ecp_nistz256_point_add_affine does not work when a == b unless doubling the
-  // point at infinity.
-  if (OPENSSL_memcmp(&a_affine, &b_affine, sizeof(a_affine)) != 0 ||
-      OPENSSL_memcmp(&a_affine, &infinity, sizeof(a_affine)) == 0) {
-    ecp_nistz256_point_add_affine(&ret, &a, &b_affine);
-    EXPECT_POINTS_EQUAL(&result, &ret);
-
-    OPENSSL_memcpy(&ret, &a, sizeof(ret));
-    ecp_nistz256_point_add_affine(&ret, &ret /* a */, &b_affine);
-    EXPECT_POINTS_EQUAL(&result, &ret);
-
-    ecp_nistz256_point_add_affine(&ret, &b, &a_affine);
-    EXPECT_POINTS_EQUAL(&result, &ret);
-
-    OPENSSL_memcpy(&ret, &b, sizeof(ret));
-    ecp_nistz256_point_add_affine(&ret, &ret /* b */, &a_affine);
-    EXPECT_POINTS_EQUAL(&result, &ret);
-  }
-
   if (OPENSSL_memcmp(&a, &b, sizeof(a)) == 0) {
     ecp_nistz256_point_double(&ret, &a);
     EXPECT_POINTS_EQUAL(&result, &ret);
@@ -557,23 +538,6 @@ TEST(P256_NistzTest, ABI) {
   CHECK_ABI(ecp_nistz256_point_add, &p, &kInfinity, &kInfinity);
   CHECK_ABI(ecp_nistz256_point_double, &p, &kA);
   CHECK_ABI(ecp_nistz256_point_double, &p, &kInfinity);
-
-  static const P256_POINT_AFFINE kC = {
-      {TOBN(0x7e3ad339, 0xfb3fa5f0), TOBN(0x559d669d, 0xe3a047b2),
-       TOBN(0x8883b298, 0x7042e595), TOBN(0xfabada65, 0x7e477f08)},
-      {TOBN(0xd9cfceb8, 0xda1c3e85), TOBN(0x80863761, 0x0ce6d6bc),
-       TOBN(0xa8409d84, 0x66034f02), TOBN(0x05519925, 0x31a68d55)},
-  };
-  // This file represents affine infinity as (0, 0).
-  static const P256_POINT_AFFINE kInfinityAffine = {
-    {TOBN(0, 0), TOBN(0, 0), TOBN(0, 0), TOBN(0, 0)},
-    {TOBN(0, 0), TOBN(0, 0), TOBN(0, 0), TOBN(0, 0)},
-  };
-
-  CHECK_ABI(ecp_nistz256_point_add_affine, &p, &kA, &kC);
-  CHECK_ABI(ecp_nistz256_point_add_affine, &p, &kA, &kInfinityAffine);
-  CHECK_ABI(ecp_nistz256_point_add_affine, &p, &kInfinity, &kInfinityAffine);
-  CHECK_ABI(ecp_nistz256_point_add_affine, &p, &kInfinity, &kC);
 }
 
 #endif

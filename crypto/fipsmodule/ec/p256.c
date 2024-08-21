@@ -201,7 +201,9 @@ static void fiat_p256_halve(fiat_p256_felem y, const fiat_p256_felem x) {
 // As a sanity check, a proof that these points form a commutative group:
 // <https://github.com/mit-plv/fiat-crypto/blob/79f8b5f39ed609339f0233098dee1a3c4e6b3080/src/Curves/Weierstrass/AffineProofs.v#L33>
 
-static void fiat_p256_point_double(fiat_p256_felem out[3],
+void fiat_p256_point_double(fiat_p256_felem out[3],
+                                   const fiat_p256_felem in[3]);
+void fiat_p256_point_double(fiat_p256_felem out[3],
                                    const fiat_p256_felem in[3]) {
   fiat_p256_felem D, A, tmp; // HMV'04p91
   fiat_p256_add(D, in[1], in[1]); // B
@@ -324,7 +326,7 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
   fiat_p256_sub(p_out[1], h, S2);
 
   fiat_p256_felem t_out[3] = {{0}, {0}, {0}};
-  constant_time_conditional_memxor(t_out, p_out, sizeof(p_out), ~(constant_time_is_zero_w(z1nz)|constant_time_is_zero_w(z2nz)));
+  constant_time_conditional_memxor(t_out, p_out, sizeof(t_out), ~(constant_time_is_zero_w(z1nz)|constant_time_is_zero_w(z2nz)));
   if (!p2affine) {
     constant_time_conditional_memxor(t_out, in1, sizeof(t_out), constant_time_is_zero_w(z2nz));
   }
@@ -334,7 +336,11 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
   OPENSSL_memcpy(out, t_out, sizeof(t_out));
 }
 
-static void fiat_p256_point_add(fiat_p256_felem out[3],
+void fiat_p256_point_add(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[3]);
+
+void fiat_p256_point_add(fiat_p256_felem out[3],
                                 const fiat_p256_felem in1[3],
                                 const fiat_p256_felem in2[3]) {
   return fiat_p256_point_add_(out, in1, 0, in2[0], in2[1], in2[2]);
@@ -346,7 +352,11 @@ static void fiat_p256_point_add_affine_nz(fiat_p256_felem out[3],
   return fiat_p256_point_add_(out, in1, 1, in2[0], in2[1], fiat_p256_one);
 }
 
-static void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
+void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[2],
+                                size_t really);
+void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
                                 const fiat_p256_felem in1[3],
                                 const fiat_p256_felem in2[2],
                                 size_t really) {

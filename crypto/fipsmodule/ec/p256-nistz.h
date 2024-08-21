@@ -120,18 +120,30 @@ void ecp_nistz256_select_w5(P256_POINT *val, const P256_POINT in_t[16],
 void ecp_nistz256_select_w7(P256_POINT_AFFINE *val,
                             const P256_POINT_AFFINE in_t[64], int index);
 
+typedef uint64_t fiat_p256_limb_t;
+typedef uint64_t fiat_p256_felem[4];
+void fiat_p256_point_double(fiat_p256_felem out[3], const fiat_p256_felem in[3]);
+
+void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[2],
+                                size_t really);
+
+void fiat_p256_point_add(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[3]);
+
+
 // ecp_nistz256_point_double sets |r| to |a| doubled.
-void ecp_nistz256_point_double(P256_POINT *r, const P256_POINT *a);
+static inline void ecp_nistz256_point_double(P256_POINT *r, const P256_POINT *a) {
+  fiat_p256_point_double((fiat_p256_felem*)r, (fiat_p256_felem*)a);
+}
 
 // ecp_nistz256_point_add adds |a| to |b| and places the result in |r|.
-void ecp_nistz256_point_add(P256_POINT *r, const P256_POINT *a,
-                            const P256_POINT *b);
-
-// ecp_nistz256_point_add_affine adds |a| to |b| and places the result in
-// |r|. |a| and |b| must not represent the same point unless they are both
-// infinity.
-void ecp_nistz256_point_add_affine(P256_POINT *r, const P256_POINT *a,
-                                   const P256_POINT_AFFINE *b);
+static inline void ecp_nistz256_point_add(P256_POINT *r, const P256_POINT *a,
+                            const P256_POINT *b) {
+  fiat_p256_point_add((fiat_p256_felem*)r, (fiat_p256_felem*)a, (fiat_p256_felem*)b);
+}
 
 #endif /* !defined(OPENSSL_NO_ASM) && \
           (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) &&   \

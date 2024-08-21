@@ -344,9 +344,7 @@ static void ecp_nistz256_point_mul_base(const EC_GROUP *group, EC_JACOBIAN *r,
     ecp_nistz256_neg(neg_Y, t.Y);
     copy_conditional(t.Y, neg_Y, wvalue & 1);
 
-    // Note |ecp_nistz256_point_add_affine| does not work if |p| and |t| are the
-    // same non-infinity point.
-    ecp_nistz256_point_add_affine(&p, &p, &t);
+    fiat_p256_point_add_affine_conditional((fiat_p256_felem*)&p,(fiat_p256_felem*)&p,(fiat_p256_felem*)&t, wvalue>>1);
   }
 
   assert(group->field.N.width == P256_LIMBS);
@@ -403,10 +401,7 @@ static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
       ecp_nistz256_neg(t.Y, t.Y);
     }
 
-    // Note |ecp_nistz256_point_add_affine| does not work if |p| and |t| are
-    // the same non-infinity point, so it is important that we compute the
-    // |g_scalar| term before the |p_scalar| term.
-    ecp_nistz256_point_add_affine(&p, &p, &t);
+    fiat_p256_point_add_affine_conditional((fiat_p256_felem*)&p,(fiat_p256_felem*)&p,(fiat_p256_felem*)&t, wvalue>>1);
   }
 
   alignas(32) P256_POINT tmp;

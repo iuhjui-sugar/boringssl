@@ -168,7 +168,6 @@ static std::vector<size_t> g_chunk_lengths = {16, 256, 1350, 8192, 16384};
 // IterationsBetweenTimeChecks returns the number of iterations of |func| to run
 // in between checking the time, or zero on error.
 static uint32_t IterationsBetweenTimeChecks(std::function<bool()> func) {
-	return 50000;
   uint64_t start = time_now();
   if (!func()) {
     return 0;
@@ -773,15 +772,14 @@ static bool SpeedECDHCurve(const std::string &name, const EC_GROUP *group,
     return false;
   }
 
-  bssl::UniquePtr<EC_KEY> key(EC_KEY_new());
-  if (!key || !EC_KEY_set_group(key.get(), group) ||
-		  !EC_KEY_generate_key(key.get())) {
-	  return false;
-  }
-
   TimeResults results;
   if (!TimeFunctionParallel(
-          &results, [&key, group, peer_value_len, &peer_value]() -> bool {
+          &results, [group, peer_value_len, &peer_value]() -> bool {
+            bssl::UniquePtr<EC_KEY> key(EC_KEY_new());
+            if (!key || !EC_KEY_set_group(key.get(), group) ||
+                !EC_KEY_generate_key(key.get())) {
+              return false;
+            }
             bssl::UniquePtr<EC_POINT> point(EC_POINT_new(group));
             bssl::UniquePtr<EC_POINT> peer_point(EC_POINT_new(group));
             bssl::UniquePtr<BN_CTX> ctx(BN_CTX_new());
@@ -843,7 +841,7 @@ static bool SpeedECDSACurve(const std::string &name, const EC_GROUP *group,
     return false;
   }
 
-  if (1||!TimeFunctionParallel(
+  if (!TimeFunctionParallel(
           &results, [&key, &signature, &digest, sig_len]() -> bool {
             return ECDSA_verify(0, digest, sizeof(digest), signature, sig_len,
                                 key.get()) == 1;
