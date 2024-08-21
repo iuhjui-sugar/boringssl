@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5018f8c_a69003e9",
+        "filename": "crypto/mlkem/mlkem.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-21T18:30:13Z",
+      "side": 1,
+      "message": "Fixed by hand. For some reason clang-format won\u0027t reformat these lines. It\u0027ll reformat the first line of the body, but it won\u0027t touch these for me.",
+      "parentUuid": "9d479a50_9993db89",
+      "revId": "5056b021962cf4c3f1e613684b943e09d0b3b98e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5248b627_5334e2d0",
@@ -106,6 +124,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdc94e9d_b4950ae4",
+        "filename": "crypto/mlkem/mlkem.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-21T18:30:13Z",
+      "side": 1,
+      "message": "Changed to `seed` and have made the private-key marshal function private in this change. Commit message updated accordingly. (The parse function is still public.)\n\nI\u0027ll align ML-DSA in a subsequent change.",
+      "parentUuid": "8161e456_72168f9f",
+      "range": {
+        "startLine": 685,
+        "startChar": 10,
+        "endLine": 685,
+        "endChar": 17
+      },
+      "revId": "5056b021962cf4c3f1e613684b943e09d0b3b98e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01830ed4_707eaeaf",
@@ -119,6 +161,30 @@
       "writtenOn": "2024-08-21T17:47:42Z",
       "side": 1,
       "message": "Ditto",
+      "range": {
+        "startLine": 710,
+        "startChar": 13,
+        "endLine": 710,
+        "endChar": 20
+      },
+      "revId": "5056b021962cf4c3f1e613684b943e09d0b3b98e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9488679d_7b444970",
+        "filename": "crypto/mlkem/mlkem.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-21T18:30:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01830ed4_707eaeaf",
       "range": {
         "startLine": 710,
         "startChar": 13,
