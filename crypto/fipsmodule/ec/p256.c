@@ -727,8 +727,28 @@ DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
 #include "p256-nistz.h"
 
 static inline void ecp_nistz256_neg(BN_ULONG res[P256_LIMBS], const BN_ULONG a[P256_LIMBS]) {
-  fiat_p256_opp((fiat_p256_felem*)res, (fiat_p256_felem*)a);
+  fiat_p256_opp((uint64_t*)res, (const uint64_t*)a);
 }
+
+static inline void ecp_nistz256_mul_mont(BN_ULONG res[P256_LIMBS],
+                           const BN_ULONG a[P256_LIMBS],
+                           const BN_ULONG b[P256_LIMBS]) {
+  fiat_p256_mul((uint64_t*)res, (const uint64_t*)a, (const uint64_t*)b);
+}
+
+static inline void ecp_nistz256_sqr_mont(BN_ULONG res[P256_LIMBS],
+                           const BN_ULONG a[P256_LIMBS]) {
+  fiat_p256_square((uint64_t*)res, (const uint64_t*)a);
+}
+
+// ecp_nistz256_from_mont sets |res| to |in|, converted from Montgomery domain
+// by multiplying with 1.
+static inline void ecp_nistz256_from_mont(BN_ULONG res[P256_LIMBS],
+                                          const BN_ULONG in[P256_LIMBS]) {
+  static const BN_ULONG ONE[P256_LIMBS] = { 1 };
+  ecp_nistz256_mul_mont(res, in, ONE);
+}
+
 
 // ecp_nistz256_select_w7 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 64
 // and all zeros (the point at infinity) if |index| is 0. This is done in

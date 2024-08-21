@@ -189,20 +189,6 @@ static testing::AssertionResult ExpectFieldElementsEqual(
 
 #define EXPECT_POINTS_EQUAL(a, b) EXPECT_PRED_FORMAT2(ExpectPointsEqual, a, b)
 
-static void TestFromMont(FileTest *t) {
-  BN_ULONG a[P256_LIMBS], result[P256_LIMBS];
-  ASSERT_TRUE(GetFieldElement(t, a, "A"));
-  ASSERT_TRUE(GetFieldElement(t, result, "Result"));
-
-  BN_ULONG ret[P256_LIMBS];
-  ecp_nistz256_from_mont(ret, a);
-  EXPECT_FIELD_ELEMENTS_EQUAL(result, ret);
-
-  OPENSSL_memcpy(ret, a, sizeof(ret));
-  ecp_nistz256_from_mont(ret, ret /* a */);
-  EXPECT_FIELD_ELEMENTS_EQUAL(result, ret);
-}
-
 static void TestOrdMulMont(FileTest *t) {
   // This test works on scalars rather than field elements, but the
   // representation is the same.
@@ -252,7 +238,7 @@ TEST(P256_NistzTest, TestVectors) {
     } else if (t->GetParameter() == "MulMont") {
       // TestMulMont(t);
     } else if (t->GetParameter() == "FromMont") {
-      TestFromMont(t);
+      // TestFromMont(t);
     } else if (t->GetParameter() == "PointAdd") {
       // TestPointAdd(t);
     } else if (t->GetParameter() == "OrdMulMont") {

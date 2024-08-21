@@ -29,36 +29,7 @@
 extern "C" {
 #endif
 
-// P-256 field operations.
-//
-// An element mod P in P-256 is represented as a little-endian array of
-// |P256_LIMBS| |BN_ULONG|s, spanning the full range of values.
-//
-// The following functions take fully-reduced inputs mod P and give
-// fully-reduced outputs. They may be used in-place.
-
 #define P256_LIMBS (256 / BN_BITS2)
-
-// ecp_nistz256_neg sets |res| to -|a| mod P.
-void ecp_nistz256_neg(BN_ULONG res[P256_LIMBS], const BN_ULONG a[P256_LIMBS]);
-
-// ecp_nistz256_mul_mont sets |res| to |a| * |b| * 2^-256 mod P.
-void ecp_nistz256_mul_mont(BN_ULONG res[P256_LIMBS],
-                           const BN_ULONG a[P256_LIMBS],
-                           const BN_ULONG b[P256_LIMBS]);
-
-// ecp_nistz256_sqr_mont sets |res| to |a| * |a| * 2^-256 mod P.
-void ecp_nistz256_sqr_mont(BN_ULONG res[P256_LIMBS],
-                           const BN_ULONG a[P256_LIMBS]);
-
-// ecp_nistz256_from_mont sets |res| to |in|, converted from Montgomery domain
-// by multiplying with 1.
-static inline void ecp_nistz256_from_mont(BN_ULONG res[P256_LIMBS],
-                                          const BN_ULONG in[P256_LIMBS]) {
-  static const BN_ULONG ONE[P256_LIMBS] = { 1 };
-  ecp_nistz256_mul_mont(res, in, ONE);
-}
-
 
 // P-256 scalar operations.
 //
