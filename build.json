@@ -1026,5 +1026,16 @@
         "srcs": [
             "fuzz/*.cc"
         ]
+    },
+    "bssl_sys_rust": {
+        "srcs": [
+            "rust/bssl-sys/src/*.rs"
+        ]
+    },
+    "bssl_crypto_rust": {
+        "srcs": [
+            "rust/bssl-crypto/src/*.rs",
+            "rust/bssl-crypto/src/*/*.rs"
+        ]
     }
 }
