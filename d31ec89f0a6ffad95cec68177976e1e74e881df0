@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff211c40_66031d7f",
+        "filename": "gen/sources.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-21T21:36:09Z",
+      "side": 1,
+      "message": "One thing that\u0027s kind of a headache: we have no GN builds that care about the BCM / libcrypto split, yet moving to this generic system means that Chromium\u0027s BUILD.gn needs to deal with it. It\u0027s not toooo bad, just means we keep having to write `bcm_sources + crypto_sources`, but ah well.",
+      "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28604861_e9d25f25",
+        "filename": "gen/sources.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-21T21:36:09Z",
+      "side": 1,
+      "message": "Oh hmm, as I upload this, I realize there\u0027s another headache I haven\u0027t resolved in my local test... that these are headers yet we name them `.c` is a real mess. I\u0027ve worked around it in the Bazel build, but the way I\u0027m toying with doing the GN build, this doesn\u0027t actually work.\n\nI\u0027ll have to give that a ponder. Honestly I\u0027m kinda tempted to just rename them all to `.h`. I could also bodge the Chromium build to exclude `bcm.c` and build each file individually, but that\u0027ll be a different sort of headache.",
+      "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
