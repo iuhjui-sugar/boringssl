@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb30819_15e517a5",
+        "filename": "build.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-21T21:32:49Z",
+      "side": 1,
+      "message": "Thoughts on what to name these? We could also do plain \"bssl_sys\" and \"bssl_crypto\", but it seemed a little weird not to namespace it.",
+      "revId": "6434f526b8deb9a11e6477d161846952b2c35e9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bce93809_2dab896b",
+        "filename": "build.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1038,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-21T21:32:49Z",
+      "side": 1,
+      "message": "`filepath.Glob` does not support `**` and it doesn\u0027t seem worth the trouble to pull in a different implementation just to support it. 😊",
+      "revId": "6434f526b8deb9a11e6477d161846952b2c35e9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
