@@ -29,11 +29,6 @@
 extern "C" {
 #endif
 
-
-#if !defined(OPENSSL_NO_ASM) && \
-    (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) &&   \
-    !defined(OPENSSL_SMALL)
-
 // P-256 field operations.
 //
 // An element mod P in P-256 is represented as a little-endian array of
@@ -108,54 +103,11 @@ typedef struct {
   BN_ULONG Y[P256_LIMBS];
 } P256_POINT_AFFINE;
 
-typedef uint64_t fiat_p256_limb_t;
-typedef uint64_t fiat_p256_felem[4];
-
-void fiat_p256_select_point_affine(
-    const fiat_p256_limb_t idx, size_t size,
-    const fiat_p256_felem pre_comp[/*size*/][2], fiat_p256_felem out[2]);
-
 // ecp_nistz256_select_w5 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 16
 // and all zeros (the point at infinity) if |index| is 0. This is done in
 // constant time.
 void ecp_nistz256_select_w5(P256_POINT *val, const P256_POINT in_t[16],
                             int index);
-
-// ecp_nistz256_select_w7 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 64
-// and all zeros (the point at infinity) if |index| is 0. This is done in
-// constant time.
-static __attribute__((__noinline__)) void ecp_nistz256_select_w7(P256_POINT_AFFINE *val,
-                                          const P256_POINT_AFFINE in_t[64],
-                                          int index) {
-  return fiat_p256_select_point_affine(index, 64, (const fiat_p256_felem(*)[2])in_t, (fiat_p256_felem*)val);
-}
-
-void fiat_p256_point_double(fiat_p256_felem out[3], const fiat_p256_felem in[3]);
-
-void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
-                                const fiat_p256_felem in1[3],
-                                const fiat_p256_felem in2[2],
-                                size_t really);
-
-void fiat_p256_point_add(fiat_p256_felem out[3],
-                                const fiat_p256_felem in1[3],
-                                const fiat_p256_felem in2[3]);
-
-
-// ecp_nistz256_point_double sets |r| to |a| doubled.
-static inline void ecp_nistz256_point_double(P256_POINT *r, const P256_POINT *a) {
-  fiat_p256_point_double((fiat_p256_felem*)r, (fiat_p256_felem*)a);
-}
-
-// ecp_nistz256_point_add adds |a| to |b| and places the result in |r|.
-static inline void ecp_nistz256_point_add(P256_POINT *r, const P256_POINT *a,
-                            const P256_POINT *b) {
-  fiat_p256_point_add((fiat_p256_felem*)r, (fiat_p256_felem*)a, (fiat_p256_felem*)b);
-}
-
-#endif /* !defined(OPENSSL_NO_ASM) && \
-          (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) &&   \
-          !defined(OPENSSL_SMALL) */
 
 
 #if defined(__cplusplus)
