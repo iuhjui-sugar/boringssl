@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9d5149_06ceea32",
+        "filename": "crypto/mlkem/internal.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-21T18:53:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "580715e6_a26e3f61",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "ee3b5d73eec999ebf86d26f918fd482dabd01ea0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f30c1a7_b3e610ff",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-08-21T18:33:16Z",
       "side": 1,
       "message": "s/entropy/seed/g",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 37
+      },
+      "revId": "ee3b5d73eec999ebf86d26f918fd482dabd01ea0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "787ab191_92c3e195",
+        "filename": "crypto/mlkem/internal.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-21T18:53:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f30c1a7_b3e610ff",
       "range": {
         "startLine": 59,
         "startChar": 0,
