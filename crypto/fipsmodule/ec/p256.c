@@ -726,8 +726,9 @@ DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
 
 #include "p256-nistz.h"
 
-typedef uint64_t fiat_p256_limb_t;
-typedef uint64_t fiat_p256_felem[4];
+static inline void ecp_nistz256_neg(BN_ULONG res[P256_LIMBS], const BN_ULONG a[P256_LIMBS]) {
+  fiat_p256_opp((fiat_p256_felem*)res, (fiat_p256_felem*)a);
+}
 
 // ecp_nistz256_select_w7 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 64
 // and all zeros (the point at infinity) if |index| is 0. This is done in
