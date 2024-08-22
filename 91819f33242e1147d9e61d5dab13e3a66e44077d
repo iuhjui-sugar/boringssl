@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18a30c3f_2b3c6425",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-22T23:11:58Z",
+      "side": 1,
+      "message": "```suggestion\n// weak symbols. See b/349030716.\n```",
+      "revId": "91819f33242e1147d9e61d5dab13e3a66e44077d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
