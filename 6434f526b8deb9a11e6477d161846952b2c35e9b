@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf8a32f7_253ad8f0",
+        "filename": "build.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-22T19:52:09Z",
+      "side": 1,
+      "message": "From the other comment, changing the name in generate_build_files.py seems not worth the churn risk, but as this one is durable, I think we should name it based on which we think is better. (I don\u0027t care either way and am happy to turn this to `rust_bssl_sys` if we think that\u0027s a better name. Just picked on at random. Preferences?)",
+      "parentUuid": "a1a41943_cec49805",
+      "revId": "6434f526b8deb9a11e6477d161846952b2c35e9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bce93809_2dab896b",
@@ -66,6 +84,24 @@
       "writtenOn": "2024-08-22T18:13:28Z",
       "side": 1,
       "message": "here\u0027s what I mean about rust_foo_bar vs foo_bar_rust",
+      "revId": "6434f526b8deb9a11e6477d161846952b2c35e9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ade3e1f_ff09d8cc",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-22T19:52:09Z",
+      "side": 1,
+      "message": "I\u0027m intentionally not changing anything in `generate_build_files.py` because those keys end up in some of the generated output (the JSON file). It\u0027s very unlikely anything cares about that one, but since the aim is to eventually retire this, I figure leaving it alone is the simplest.",
+      "parentUuid": "ba90a696_6152ad11",
       "revId": "6434f526b8deb9a11e6477d161846952b2c35e9b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
