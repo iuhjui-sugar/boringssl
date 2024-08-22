@@ -69,6 +69,24 @@
       "parentUuid": "68a91546_be61303c",
       "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91d13b14_217af978",
+        "filename": "gen/sources.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-22T20:13:35Z",
+      "side": 1,
+      "message": "We could gen/*.inc though could we not?  Assuming developer builds are not doing this so I\u0027m not ending up chasing compilation errors in a gen/ file normally that would work?",
+      "parentUuid": "e6dfd80c_ffec8e4e",
+      "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
