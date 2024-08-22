@@ -87,6 +87,24 @@
       "parentUuid": "e6dfd80c_ffec8e4e",
       "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a16d246b_a350828d",
+        "filename": "gen/sources.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-22T20:24:42Z",
+      "side": 1,
+      "message": "Developer builds and consumer builds use the same file list now. (Intentionally. Diverging those builds caused a lot of headaches.)\n\nThat would also mean we have to run `go run ./util/pregenerate` every time we touch one of these files, all to give it a different file extension.\n\nNot seeing how that\u0027s an improvement over just calling them `.h`.",
+      "parentUuid": "91d13b14_217af978",
+      "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
