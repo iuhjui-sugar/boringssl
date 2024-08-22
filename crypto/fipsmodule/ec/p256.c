@@ -42,38 +42,38 @@
 // utility functions, handwritten
 
 #if defined(OPENSSL_64_BIT)
-#define FIAT_P256_NLIMBS 4
+#define P256_LIMBS 4
 typedef uint64_t fiat_p256_limb_t;
-typedef uint64_t fiat_p256_felem[FIAT_P256_NLIMBS];
+typedef uint64_t fiat_p256_felem[P256_LIMBS];
 static const fiat_p256_felem fiat_p256_one = {0x1, 0xffffffff00000000,
                                               0xffffffffffffffff, 0xfffffffe};
 #else  // 64BIT; else 32BIT
-#define FIAT_P256_NLIMBS 8
+#define P256_LIMBS 8
 typedef uint32_t fiat_p256_limb_t;
-typedef uint32_t fiat_p256_felem[FIAT_P256_NLIMBS];
+typedef uint32_t fiat_p256_felem[P256_LIMBS];
 static const fiat_p256_felem fiat_p256_one = {
     0x1, 0x0, 0x0, 0xffffffff, 0xffffffff, 0xffffffff, 0xfffffffe, 0x0};
 #endif  // 64BIT
 
 
 static fiat_p256_limb_t fiat_p256_nz(
-    const fiat_p256_limb_t in1[FIAT_P256_NLIMBS]) {
+    const fiat_p256_limb_t in1[P256_LIMBS]) {
   fiat_p256_limb_t ret;
   fiat_p256_nonzero(&ret, in1);
   return ret;
 }
 
-static void fiat_p256_copy(fiat_p256_limb_t out[FIAT_P256_NLIMBS],
-                           const fiat_p256_limb_t in1[FIAT_P256_NLIMBS]) {
-  for (size_t i = 0; i < FIAT_P256_NLIMBS; i++) {
+static void fiat_p256_copy(fiat_p256_limb_t out[P256_LIMBS],
+                           const fiat_p256_limb_t in1[P256_LIMBS]) {
+  for (size_t i = 0; i < P256_LIMBS; i++) {
     out[i] = in1[i];
   }
 }
 
-static void fiat_p256_cmovznz(fiat_p256_limb_t out[FIAT_P256_NLIMBS],
+static void fiat_p256_cmovznz(fiat_p256_limb_t out[P256_LIMBS],
                               fiat_p256_limb_t t,
-                              const fiat_p256_limb_t z[FIAT_P256_NLIMBS],
-                              const fiat_p256_limb_t nz[FIAT_P256_NLIMBS]) {
+                              const fiat_p256_limb_t z[P256_LIMBS],
+                              const fiat_p256_limb_t nz[P256_LIMBS]) {
   fiat_p256_selectznz(out, !!t, z, nz);
 }
 
@@ -779,18 +779,11 @@ DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
 // Montgomery domain.
 
 // A P256_POINT represents a P-256 point in Jacobian coordinates.
-typedef struct {
-  BN_ULONG X[P256_LIMBS];
-  BN_ULONG Y[P256_LIMBS];
-  BN_ULONG Z[P256_LIMBS];
-} P256_POINT;
+typedef fiat_p256_felem P256_POINT[3];
 
 // A P256_POINT_AFFINE represents a P-256 point in affine coordinates. Infinity
 // is encoded as (0, 0).
-typedef struct {
-  BN_ULONG X[P256_LIMBS];
-  BN_ULONG Y[P256_LIMBS];
-} P256_POINT_AFFINE;
+typedef fiat_p256_felem P256_POINT_AFFINE[2];
 
 static inline void ecp_nistz256_neg(BN_ULONG res[P256_LIMBS], const BN_ULONG a[P256_LIMBS]) {
   fiat_p256_opp((uint64_t*)res, (const uint64_t*)a);
@@ -833,17 +826,6 @@ __attribute__((__noinline__))
 static void ecp_nistz256_select_w5(P256_POINT *val, const P256_POINT in_t[16],
                             int index) {
   return fiat_p256_select_point((uint64_t)index-1, 16, (const fiat_p256_felem(*)[3])in_t, (fiat_p256_felem*)val);
-}
-
-// ecp_nistz256_point_double sets |r| to |a| doubled.
-static inline void ecp_nistz256_point_double(P256_POINT *r, const P256_POINT *a) {
-  fiat_p256_point_double((fiat_p256_felem*)r, (fiat_p256_felem*)a);
-}
-
-// ecp_nistz256_point_add adds |a| to |b| and places the result in |r|.
-static inline void ecp_nistz256_point_add(P256_POINT *r, const P256_POINT *a,
-                            const P256_POINT *b) {
-  fiat_p256_point_add((fiat_p256_felem*)r, (fiat_p256_felem*)a, (fiat_p256_felem*)b);
 }
 
 // p256-nistz.c
@@ -951,25 +933,25 @@ static void ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
   // table.
   P256_POINT *row = table;
   assert(group->field.N.width == P256_LIMBS);
-  OPENSSL_memcpy(row[1 - 1].X, p->X.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(row[1 - 1].Y, p->Y.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(row[1 - 1].Z, p->Z.words, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(row[1 - 1][0], p->X.words, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(row[1 - 1][1], p->Y.words, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(row[1 - 1][2], p->Z.words, P256_LIMBS * sizeof(BN_ULONG));
 
-  ecp_nistz256_point_double(&row[2 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[3 - 1], &row[2 - 1], &row[1 - 1]);
-  ecp_nistz256_point_double(&row[4 - 1], &row[2 - 1]);
-  ecp_nistz256_point_double(&row[6 - 1], &row[3 - 1]);
-  ecp_nistz256_point_double(&row[8 - 1], &row[4 - 1]);
-  ecp_nistz256_point_double(&row[12 - 1], &row[6 - 1]);
-  ecp_nistz256_point_add(&row[5 - 1], &row[4 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[7 - 1], &row[6 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[9 - 1], &row[8 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[13 - 1], &row[12 - 1], &row[1 - 1]);
-  ecp_nistz256_point_double(&row[14 - 1], &row[7 - 1]);
-  ecp_nistz256_point_double(&row[10 - 1], &row[5 - 1]);
-  ecp_nistz256_point_add(&row[15 - 1], &row[14 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[11 - 1], &row[10 - 1], &row[1 - 1]);
-  ecp_nistz256_point_double(&row[16 - 1], &row[8 - 1]);
+  fiat_p256_point_double(row[2 - 1], row[1 - 1]);
+  fiat_p256_point_add(row[3 - 1], row[2 - 1], row[1 - 1]);
+  fiat_p256_point_double(row[4 - 1], row[2 - 1]);
+  fiat_p256_point_double(row[6 - 1], row[3 - 1]);
+  fiat_p256_point_double(row[8 - 1], row[4 - 1]);
+  fiat_p256_point_double(row[12 - 1], row[6 - 1]);
+  fiat_p256_point_add(row[5 - 1], row[4 - 1], row[1 - 1]);
+  fiat_p256_point_add(row[7 - 1], row[6 - 1], row[1 - 1]);
+  fiat_p256_point_add(row[9 - 1], row[8 - 1], row[1 - 1]);
+  fiat_p256_point_add(row[13 - 1], row[12 - 1], row[1 - 1]);
+  fiat_p256_point_double(row[14 - 1], row[7 - 1]);
+  fiat_p256_point_double(row[10 - 1], row[5 - 1]);
+  fiat_p256_point_add(row[15 - 1], row[14 - 1], row[1 - 1]);
+  fiat_p256_point_add(row[11 - 1], row[10 - 1], row[1 - 1]);
+  fiat_p256_point_double(row[16 - 1], row[8 - 1]);
 
   BN_ULONG tmp[P256_LIMBS];
   alignas(32) P256_POINT h;
@@ -990,19 +972,19 @@ static void ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
 
       ecp_nistz256_select_w5(&h, table, wvalue >> 1);
 
-      ecp_nistz256_neg(tmp, h.Y);
-      copy_conditional(h.Y, tmp, (wvalue & 1));
+      ecp_nistz256_neg(tmp, h[1]);
+      copy_conditional(h[1], tmp, (wvalue & 1));
 
-      ecp_nistz256_point_add(r, r, &h);
+      fiat_p256_point_add(*r, *r, h);
     }
 
     index -= kWindowSize;
 
-    ecp_nistz256_point_double(r, r);
-    ecp_nistz256_point_double(r, r);
-    ecp_nistz256_point_double(r, r);
-    ecp_nistz256_point_double(r, r);
-    ecp_nistz256_point_double(r, r);
+    fiat_p256_point_double(*r, *r);
+    fiat_p256_point_double(*r, *r);
+    fiat_p256_point_double(*r, *r);
+    fiat_p256_point_double(*r, *r);
+    fiat_p256_point_double(*r, *r);
   }
 
   // Final window
@@ -1013,10 +995,10 @@ static void ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
 
   ecp_nistz256_select_w5(&h, table, wvalue >> 1);
 
-  ecp_nistz256_neg(tmp, h.Y);
-  copy_conditional(h.Y, tmp, wvalue & 1);
+  ecp_nistz256_neg(tmp, h[1]);
+  copy_conditional(h[1], tmp, wvalue & 1);
 
-  ecp_nistz256_point_add(r, r, &h);
+  fiat_p256_point_add(*r, *r, h);
 }
 
 static crypto_word_t calc_first_wvalue(size_t *index, const uint8_t p_str[33]) {
@@ -1048,9 +1030,9 @@ static void ecp_nistz256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
   ecp_nistz256_windowed_mul(group, &out, p, scalar);
 
   assert(group->field.N.width == P256_LIMBS);
-  OPENSSL_memcpy(r->X.words, out.X, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Y.words, out.Y, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Z.words, out.Z, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->X.words, out[0], P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->Y.words, out[1], P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->Z.words, out[2], P256_LIMBS * sizeof(BN_ULONG));
 }
 
 static void ecp_nistz256_point_mul_base(const EC_GROUP *group, EC_JACOBIAN *r,
@@ -1066,16 +1048,16 @@ static void ecp_nistz256_point_mul_base(const EC_GROUP *group, EC_JACOBIAN *r,
   alignas(32) P256_POINT_AFFINE t;
   alignas(32) P256_POINT p;
   ecp_nistz256_select_w7(&t, ecp_nistz256_precomputed[0], wvalue >> 1);
-  ecp_nistz256_neg(p.Z, t.Y);
-  copy_conditional(t.Y, p.Z, wvalue & 1);
+  ecp_nistz256_neg(p[2], t[1]);
+  copy_conditional(t[1], p[2], wvalue & 1);
 
   // Convert |t| from affine to Jacobian coordinates. We set Z to zero if |t|
   // is infinity and |ONE| otherwise. |t| was computed from the table, so it
   // is infinity iff |wvalue >> 1| is zero.
-  OPENSSL_memcpy(p.X, t.X, sizeof(p.X));
-  OPENSSL_memcpy(p.Y, t.Y, sizeof(p.Y));
-  OPENSSL_memset(p.Z, 0, sizeof(p.Z));
-  copy_conditional(p.Z, ONE, wvalue >> 1);
+  OPENSSL_memcpy(p[0], t[0], sizeof(p[0]));
+  OPENSSL_memcpy(p[1], t[1], sizeof(p[0]));
+  OPENSSL_memset(p[2], 0, sizeof(p[2]));
+  copy_conditional(p[2], ONE, wvalue >> 1);
 
   for (int i = 1; i < 37; i++) {
     wvalue = calc_wvalue(&index, p_str);
@@ -1083,16 +1065,16 @@ static void ecp_nistz256_point_mul_base(const EC_GROUP *group, EC_JACOBIAN *r,
     ecp_nistz256_select_w7(&t, ecp_nistz256_precomputed[i], wvalue >> 1);
 
     alignas(32) BN_ULONG neg_Y[P256_LIMBS];
-    ecp_nistz256_neg(neg_Y, t.Y);
-    copy_conditional(t.Y, neg_Y, wvalue & 1);
+    ecp_nistz256_neg(neg_Y, t[1]);
+    copy_conditional(t[1], neg_Y, wvalue & 1);
 
     fiat_p256_point_add_affine_conditional((fiat_p256_felem*)&p,(fiat_p256_felem*)&p,(fiat_p256_felem*)&t, wvalue>>1);
   }
 
   assert(group->field.N.width == P256_LIMBS);
-  OPENSSL_memcpy(r->X.words, p.X, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Y.words, p.Y, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Z.words, p.Z, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->X.words, p[0], P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->Y.words, p[1], P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->Z.words, p[2], P256_LIMBS * sizeof(BN_ULONG));
 }
 
 static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
@@ -1115,19 +1097,19 @@ static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
   // is infinity and |ONE| otherwise. |p| was computed from the table, so it
   // is infinity iff |wvalue >> 1| is zero.
   if ((wvalue >> 1) != 0) {
-    OPENSSL_memcpy(p.X, &ecp_nistz256_precomputed[0][(wvalue >> 1) - 1].X,
-                   sizeof(p.X));
-    OPENSSL_memcpy(p.Y, &ecp_nistz256_precomputed[0][(wvalue >> 1) - 1].Y,
-                   sizeof(p.Y));
-    OPENSSL_memcpy(p.Z, ONE, sizeof(p.Z));
+    OPENSSL_memcpy(p[0], &ecp_nistz256_precomputed[0][(wvalue >> 1) - 1][0],
+                   sizeof(p[0]));
+    OPENSSL_memcpy(p[1], &ecp_nistz256_precomputed[0][(wvalue >> 1) - 1][1],
+                   sizeof(p[1]));
+    OPENSSL_memcpy(p[2], ONE, sizeof(p[2]));
   } else {
-    OPENSSL_memset(p.X, 0, sizeof(p.X));
-    OPENSSL_memset(p.Y, 0, sizeof(p.Y));
-    OPENSSL_memset(p.Z, 0, sizeof(p.Z));
+    OPENSSL_memset(p[0], 0, sizeof(p[0]));
+    OPENSSL_memset(p[1], 0, sizeof(p[1]));
+    OPENSSL_memset(p[2], 0, sizeof(p[2]));
   }
 
   if ((wvalue & 1) == 1) {
-    ecp_nistz256_neg(p.Y, p.Y);
+    ecp_nistz256_neg(p[1], p[1]);
   }
 
   for (int i = 1; i < 37; i++) {
@@ -1140,7 +1122,7 @@ static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
     OPENSSL_memcpy(&t, &ecp_nistz256_precomputed[i][(wvalue >> 1) - 1],
                    sizeof(t));
     if ((wvalue & 1) == 1) {
-      ecp_nistz256_neg(t.Y, t.Y);
+      ecp_nistz256_neg(t[1], t[1]);
     }
 
     fiat_p256_point_add_affine_conditional((fiat_p256_felem*)&p,(fiat_p256_felem*)&p,(fiat_p256_felem*)&t, wvalue>>1);
@@ -1148,12 +1130,12 @@ static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
 
   alignas(32) P256_POINT tmp;
   ecp_nistz256_windowed_mul(group, &tmp, p_, p_scalar);
-  ecp_nistz256_point_add(&p, &p, &tmp);
+  fiat_p256_point_add(p, p, tmp);
 
   assert(group->field.N.width == P256_LIMBS);
-  OPENSSL_memcpy(r->X.words, p.X, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Y.words, p.Y, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Z.words, p.Z, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->X.words, p[0], P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->Y.words, p[1], P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(r->Z.words, p[2], P256_LIMBS * sizeof(BN_ULONG));
 }
 
 static inline void nistz_p256ord_mul(BN_ULONG res[P256_LIMBS],
@@ -1276,7 +1258,8 @@ static int ecp_nistz256_scalar_to_montgomery_inv_vartime(const EC_GROUP *group,
 }
 
 DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistz256_method) {
-  out->point_get_affine_coordinates = ec_GFp_nistp256_point_get_affine_coordinates;
+out->point_get_affine_coordinates =
+    ec_GFp_nistp256_point_get_affine_coordinates;
   out->add = ec_GFp_nistp256_add;
   out->dbl = ec_GFp_nistp256_dbl;
   out->mul = ecp_nistz256_point_mul;

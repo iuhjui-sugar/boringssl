@@ -39,6 +39,8 @@
     (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) &&  \
     !defined(OPENSSL_SMALL) && !defined(BORINGSSL_SHARED_LIBRARY)
 
+#define P256_LIMBS 4
+
 TEST(P256_NistzTest, BEEU) {
 #if defined(OPENSSL_X86_64)
   if (!CRYPTO_is_AVX_capable()) {
