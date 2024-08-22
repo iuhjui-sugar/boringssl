@@ -33,6 +33,24 @@
       "message": "Oh hmm, as I upload this, I realize there\u0027s another headache I haven\u0027t resolved in my local test... that these are headers yet we name them `.c` is a real mess. I\u0027ve worked around it in the Bazel build, but the way I\u0027m toying with doing the GN build, this doesn\u0027t actually work.\n\nI\u0027ll have to give that a ponder. Honestly I\u0027m kinda tempted to just rename them all to `.h`. I could also bodge the Chromium build to exclude `bcm.c` and build each file individually, but that\u0027ll be a different sort of headache.",
       "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68a91546_be61303c",
+        "filename": "gen/sources.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2024-08-22T18:16:17Z",
+      "side": 1,
+      "message": "Chromium could probably handle .inc though couldn\u0027t it?",
+      "parentUuid": "28604861_e9d25f25",
+      "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
