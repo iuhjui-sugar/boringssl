@@ -16,6 +16,24 @@
       "message": "Huh. I take it cargo-deny is not an official part of Rust, if it doesn\u0027t live under the Rust GitHub org?",
       "revId": "459474da3eb73aa42c50a2028e854e145c11d517",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8a33bf1_f0d4a0ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2024-08-22T23:05:16Z",
+      "side": 1,
+      "message": "Right, it\u0027s a third party plugin.",
+      "parentUuid": "fba4ca45_af8abc8c",
+      "revId": "459474da3eb73aa42c50a2028e854e145c11d517",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

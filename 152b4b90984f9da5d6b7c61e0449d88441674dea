@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "766b592b_21d210b8",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2024-08-22T23:05:16Z",
+      "side": 1,
+      "message": "Done.\n\nThanks for the suggestion, a cursory check didn\u0027t find any discrepancies between what\u0027s in the template versus the default values in code, so it should be safe to make this change. It\u0027s definitely cleaner to not use the template and just modify the values we care about.",
+      "parentUuid": "cf193718_87bdb810",
+      "revId": "152b4b90984f9da5d6b7c61e0449d88441674dea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8da10ec7_7d2171f1",
