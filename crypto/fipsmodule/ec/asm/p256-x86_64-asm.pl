@@ -61,7 +61,7 @@ $code.=<<___;
 #   uint64_t a[4],
 #   uint64_t b[4]);
 
-.globl	ecp_nistz256_ord_mul_mont
+.globl ecp_nistz256_ord_mul_mont
 .type	ecp_nistz256_ord_mul_mont,\@function,3
 .align	32
 ecp_nistz256_ord_mul_mont:
@@ -386,7 +386,7 @@ $code.=<<___;
 #   uint64_t a[4],
 #   uint64_t rep);
 
-.globl	ecp_nistz256_ord_sqr_mont
+.globl ecp_nistz256_ord_sqr_mont
 .type	ecp_nistz256_ord_sqr_mont,\@function,3
 .align	32
 ecp_nistz256_ord_sqr_mont:
@@ -678,6 +678,7 @@ ___
 
 $code.=<<___	if ($addx);
 ################################################################################
+.globl ecp_nistz256_ord_mul_montx
 .type	ecp_nistz256_ord_mul_montx,\@function,3
 .align	32
 ecp_nistz256_ord_mul_montx:
@@ -914,6 +915,7 @@ ecp_nistz256_ord_mul_montx:
 .cfi_endproc
 .size	ecp_nistz256_ord_mul_montx,.-ecp_nistz256_ord_mul_montx
 
+.globl ecp_nistz256_ord_sqr_montx
 .type	ecp_nistz256_ord_sqr_montx,\@function,3
 .align	32
 ecp_nistz256_ord_sqr_montx:
@@ -1320,6 +1322,8 @@ $code.=<<___ if ($addx);
 	.rva	.Lord_sqrx_body,.Lord_sqrx_epilogue	# HandlerData[]
 	.long	48,0
 ___
+
+}
 
 $code =~ s/\`([^\`]*)\`/eval $1/gem;
 print $code;
