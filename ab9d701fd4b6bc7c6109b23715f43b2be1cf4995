@@ -16,6 +16,24 @@
       "message": "an emphatic lgtm so I can stop forgetting these are special.",
       "revId": "ab9d701fd4b6bc7c6109b23715f43b2be1cf4995",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba1070b_aabc1aa2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-22T19:49:39Z",
+      "side": 1,
+      "message": "Alas they are still special, but a bit less so now.",
+      "parentUuid": "74cae632_f79aba6a",
+      "revId": "ab9d701fd4b6bc7c6109b23715f43b2be1cf4995",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
