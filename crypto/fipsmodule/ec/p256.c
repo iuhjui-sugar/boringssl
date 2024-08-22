@@ -340,6 +340,18 @@ static void fiat_p256_point_add(fiat_p256_felem out[3],
   return fiat_p256_point_add_(out, in1, 0, in2[0], in2[1], in2[2]);
 }
 
+static void fiat_p256_point_add_conditional(fiat_p256_felem out[3],
+                                const fiat_p256_felem in1[3],
+                                const fiat_p256_felem in2[3],
+                                size_t really) {
+  if (!really) {
+    if (fiat_p256_nz(in2[2]) != 0) {
+      abort();
+    }
+  }
+  return fiat_p256_point_add_(out, in1, 0, in2[0], in2[1], in2[2]);
+}
+
 static void fiat_p256_point_add_affine_nz(fiat_p256_felem out[3],
                                 const fiat_p256_felem in1[3],
                                 const fiat_p256_felem in2[2]) {
@@ -355,35 +367,70 @@ static void fiat_p256_point_add_affine_conditional(fiat_p256_felem out[3],
   constant_time_conditional_memcpy(out, tmp, sizeof(tmp), ~constant_time_is_zero_w(really));
 }
 
-#include "./p256_table.h"
-
-// fiat_p256_select_point_affine selects the |idx-1|th point from a
-// precomputation table and copies it to out. If |idx|=0, the output is (0, 0).
+// constant_time_table_select copies to |dst| from |src| the |i|th out of |n|
+// |s|-byte elements, without leaking |i| through timing. Specialized versions
+// |constant_time_table_select_64|, |constant_time_table_select_96| are faster.
 __attribute__((always_inline))
-static void fiat_p256_select_point_affine(
-    const fiat_p256_limb_t idx, size_t size,
-    const fiat_p256_felem pre_comp[/*size*/][2], fiat_p256_felem out[2]) {
-
-  fiat_p256_felem t[2] = {{0}, {0}};
-#pragma clang loop unroll_count(8)
-  for (size_t i = 0; i < size; i++) {
-    constant_time_conditional_memxor(t, pre_comp[i], sizeof(t), constant_time_eq_w(idx, 1 + i));
+static inline void constant_time_table_select(uint8_t *dst, const uint8_t *src,
+                                       size_t i, size_t n, size_t s) {
+  assert(!buffers_alias(dst, s, src, n*s));
+  if (buffers_alias(dst, s, src, n*s)) {
+    __builtin_unreachable();
   }
-  OPENSSL_memcpy(out, t, sizeof(t));
+  OPENSSL_memset(dst, 0, s);
+#pragma clang loop unroll_count(4)
+  for (size_t j = 0; j < n; j++) {
+    constant_time_conditional_memxor(dst, &src[j*s], s, constant_time_eq_w(i, j));
+  }
 }
 
-// fiat_p256_select_point selects the |idx|th point from a precomputation table
-// and copies it to out.
-static void fiat_p256_select_point(const fiat_p256_limb_t idx, size_t size,
-                                   const fiat_p256_felem pre_comp[/*size*/][3],
-                                   fiat_p256_felem out[3]) {
-  OPENSSL_memset(out, 0, sizeof(fiat_p256_felem) * 3);
-  for (size_t i = 0; i < size; i++) {
-    fiat_p256_limb_t mismatch = i ^ idx;
-    fiat_p256_cmovznz(out[0], mismatch, pre_comp[i][0], out[0]);
-    fiat_p256_cmovznz(out[1], mismatch, pre_comp[i][1], out[1]);
-    fiat_p256_cmovznz(out[2], mismatch, pre_comp[i][2], out[2]);
+// constant_time_table_select_64 copies to |dst| from |src| the |i|th out of
+// |n| 64-byte elements, without leaking |i| through timing.
+__attribute__((always_inline))
+static inline void constant_time_table_select_64(uint8_t *dst, const uint8_t *src,
+                                          size_t i, size_t n) {
+  static const size_t s = 64;
+  uint8_t t[64] = {0};
+#pragma clang loop unroll_count(4)
+  for (size_t j = 0; j < n; j++) {
+    constant_time_conditional_memxor(t, &src[j*s], s, constant_time_eq_w(i, j));
   }
+  OPENSSL_memcpy(dst, t, s);
+}
+
+// constant_time_table_select_96 copies to |dst| from |src| the |i|th out of
+// |n| 96-byte elements, without leaking |i| through timing.
+__attribute__((always_inline))
+static inline void constant_time_table_select_96(uint8_t *dst, const uint8_t *src,
+                                          size_t i, size_t n) {
+  static const size_t s = 96;
+  uint8_t t[96] = {0};
+#pragma clang loop unroll_count(4)
+  for (size_t j = 0; j < n; j++) {
+    constant_time_conditional_memxor(t, &src[j*s], s, constant_time_eq_w(i, j));
+  }
+  OPENSSL_memcpy(dst, t, s);
+}
+
+#include "./p256_table.h"
+
+// fiat_p256_select_point_affine selects the |i|th point from a
+// precomputation table and copies it to out. If |n<=i|, the output is (0, 0).
+__attribute__((always_inline))
+static void fiat_p256_select_point_affine(
+    const fiat_p256_limb_t i, size_t n,
+    const fiat_p256_felem pre_comp[/*n*/][2], fiat_p256_felem out[2]) {
+  static_assert(sizeof(pre_comp[0]) == 64, "");
+  constant_time_table_select_64((uint8_t*)out, (uint8_t*)pre_comp, i, n);
+}
+
+// fiat_p256_select_point selects the |i|th point from a precomputation table
+// and copies it to out.
+static void fiat_p256_select_point(const fiat_p256_limb_t i, size_t n,
+                                   const fiat_p256_felem pre_comp[/*n*/][3],
+                                   fiat_p256_felem out[3]) {
+  static_assert(sizeof(pre_comp[0]) == 96, "");
+  constant_time_table_select_96((uint8_t*)out, (uint8_t*)pre_comp, i, n);
 }
 
 // fiat_p256_get_bit returns the |i|th bit in |in|.
@@ -466,17 +513,16 @@ static void ec_GFp_nistp256_dbl(const EC_GROUP *group, EC_JACOBIAN *r,
 static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
                                       const EC_JACOBIAN *p,
                                       const EC_SCALAR *scalar) {
-  fiat_p256_felem p_pre_comp[17][3];
-  OPENSSL_memset(&p_pre_comp, 0, sizeof(p_pre_comp)); // XXX (0,0,0) ??
+  fiat_p256_felem p_pre_comp[16][3];
   // Precompute multiples.
-  fiat_p256_from_generic(p_pre_comp[1][0], &p->X);
-  fiat_p256_from_generic(p_pre_comp[1][1], &p->Y);
-  fiat_p256_from_generic(p_pre_comp[1][2], &p->Z);
+  fiat_p256_from_generic(p_pre_comp[0][0], &p->X);
+  fiat_p256_from_generic(p_pre_comp[0][1], &p->Y);
+  fiat_p256_from_generic(p_pre_comp[0][2], &p->Z);
   for (size_t j = 2; j <= 16; ++j) {
     if (j & 1) {
-      fiat_p256_point_add(p_pre_comp[j], p_pre_comp[j - 1], p_pre_comp[1]);
+      fiat_p256_point_add(p_pre_comp[j-1], p_pre_comp[j-2], p_pre_comp[0]); // nonzero
     } else {
-      fiat_p256_point_double(p_pre_comp[j], p_pre_comp[j / 2]);
+      fiat_p256_point_double(p_pre_comp[j-1], p_pre_comp[(j-1) / 2]);
     }
   }
 
@@ -503,13 +549,13 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
       ec_GFp_nistp_recode_scalar_bits(&sign, &digit, bits);
 
       // select the point to add or subtract, in constant time.
-      fiat_p256_select_point((fiat_p256_limb_t)digit, 17,
+      fiat_p256_select_point((fiat_p256_limb_t)digit-1, 17,
                              (const fiat_p256_felem(*)[3])p_pre_comp, tmp);
       fiat_p256_opp(ftmp, tmp[1]);  // (X, -Y, Z) is the negative point.
       fiat_p256_cmovznz(tmp[1], (fiat_p256_limb_t)sign, tmp[1], ftmp);
 
       if (!skip) {
-        fiat_p256_point_add(nq, nq, tmp);
+        fiat_p256_point_add_conditional(nq, nq, tmp, digit); // nonzero if digit
       } else {
         fiat_p256_copy(nq[0], tmp[0]);
         fiat_p256_copy(nq[1], tmp[1]);
@@ -542,7 +588,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
     bits |= fiat_p256_get_bit(scalar, i + 96) << 1;
     bits |= fiat_p256_get_bit(scalar, i + 32);
     // Select the point to add, in constant time.
-    fiat_p256_select_point_affine((fiat_p256_limb_t)bits, 15,
+    fiat_p256_select_point_affine((fiat_p256_limb_t)bits-1, 15,
                                   fiat_p256_g_pre_comp[1], tmp);
 
     if (!skip) {
@@ -560,7 +606,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
     bits |= fiat_p256_get_bit(scalar, i + 64) << 1;
     bits |= fiat_p256_get_bit(scalar, i);
     // Select the point to add, in constant time.
-    fiat_p256_select_point_affine((fiat_p256_limb_t)bits, 15,
+    fiat_p256_select_point_affine((fiat_p256_limb_t)bits-1, 15,
                                   fiat_p256_g_pre_comp[0], tmp);
     fiat_p256_point_add_affine_conditional(nq, nq, tmp, bits);
   }
@@ -726,6 +772,26 @@ DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
 
 #include "p256-nistz.h"
 
+
+// P-256 point operations.
+//
+// The following functions may be used in-place. All coordinates are in the
+// Montgomery domain.
+
+// A P256_POINT represents a P-256 point in Jacobian coordinates.
+typedef struct {
+  BN_ULONG X[P256_LIMBS];
+  BN_ULONG Y[P256_LIMBS];
+  BN_ULONG Z[P256_LIMBS];
+} P256_POINT;
+
+// A P256_POINT_AFFINE represents a P-256 point in affine coordinates. Infinity
+// is encoded as (0, 0).
+typedef struct {
+  BN_ULONG X[P256_LIMBS];
+  BN_ULONG Y[P256_LIMBS];
+} P256_POINT_AFFINE;
+
 static inline void ecp_nistz256_neg(BN_ULONG res[P256_LIMBS], const BN_ULONG a[P256_LIMBS]) {
   fiat_p256_opp((uint64_t*)res, (const uint64_t*)a);
 }
@@ -753,10 +819,20 @@ static inline void ecp_nistz256_from_mont(BN_ULONG res[P256_LIMBS],
 // ecp_nistz256_select_w7 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 64
 // and all zeros (the point at infinity) if |index| is 0. This is done in
 // constant time.
-static __attribute__((__noinline__)) void ecp_nistz256_select_w7(P256_POINT_AFFINE *val,
+__attribute__((__noinline__)) 
+static void ecp_nistz256_select_w7(P256_POINT_AFFINE *val,
                                           const P256_POINT_AFFINE in_t[64],
                                           int index) {
-  return fiat_p256_select_point_affine(index, 64, (const fiat_p256_felem(*)[2])in_t, (fiat_p256_felem*)val);
+  return fiat_p256_select_point_affine((uint64_t)index-1, 64, (const fiat_p256_felem(*)[2])in_t, (fiat_p256_felem*)val);
+}
+
+// ecp_nistz256_select_w5 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 16
+// and all zeros (the point at infinity) if |index| is 0. This is done in
+// constant time.
+__attribute__((__noinline__)) 
+static void ecp_nistz256_select_w5(P256_POINT *val, const P256_POINT in_t[16],
+                            int index) {
+  return fiat_p256_select_point((uint64_t)index-1, 16, (const fiat_p256_felem(*)[3])in_t, (fiat_p256_felem*)val);
 }
 
 // ecp_nistz256_point_double sets |r| to |a| doubled.
@@ -846,44 +922,9 @@ static crypto_word_t booth_recode_w7(crypto_word_t in) {
 //
 // WARNING: this breaks the usual convention of constant-time functions
 // returning masks.
-static void copy_conditional(BN_ULONG dst[P256_LIMBS],
+static inline void copy_conditional(BN_ULONG dst[P256_LIMBS],
                              const BN_ULONG src[P256_LIMBS], BN_ULONG move) {
-  BN_ULONG mask1 = ((BN_ULONG)0) - move;
-  BN_ULONG mask2 = ~mask1;
-
-  dst[0] = (src[0] & mask1) ^ (dst[0] & mask2);
-  dst[1] = (src[1] & mask1) ^ (dst[1] & mask2);
-  dst[2] = (src[2] & mask1) ^ (dst[2] & mask2);
-  dst[3] = (src[3] & mask1) ^ (dst[3] & mask2);
-  if (P256_LIMBS == 8) {
-    dst[4] = (src[4] & mask1) ^ (dst[4] & mask2);
-    dst[5] = (src[5] & mask1) ^ (dst[5] & mask2);
-    dst[6] = (src[6] & mask1) ^ (dst[6] & mask2);
-    dst[7] = (src[7] & mask1) ^ (dst[7] & mask2);
-  }
-}
-
-// is_not_zero returns one iff in != 0 and zero otherwise.
-//
-// WARNING: this breaks the usual convention of constant-time functions
-// returning masks.
-//
-// (define-fun is_not_zero ((in (_ BitVec 64))) (_ BitVec 64)
-//   (bvlshr (bvor in (bvsub #x0000000000000000 in)) #x000000000000003f)
-// )
-//
-// (declare-fun x () (_ BitVec 64))
-//
-// (assert (and (= x #x0000000000000000) (= (is_not_zero x) #x0000000000000001)))
-// (check-sat)
-//
-// (assert (and (not (= x #x0000000000000000)) (= (is_not_zero x) #x0000000000000000)))
-// (check-sat)
-//
-static BN_ULONG is_not_zero(BN_ULONG in) {
-  in |= (0 - in);
-  in >>= BN_BITS2 - 1;
-  return in;
+  fiat_p256_cmovznz(dst, move, dst, src);
 }
 
 // ecp_nistz256_mod_inverse_sqr_mont sets |r| to (|in| * 2^-256)^-2 * 2^256 mod
@@ -1103,7 +1144,7 @@ static void ecp_nistz256_point_mul_base(const EC_GROUP *group, EC_JACOBIAN *r,
   OPENSSL_memcpy(p.X, t.X, sizeof(p.X));
   OPENSSL_memcpy(p.Y, t.Y, sizeof(p.Y));
   OPENSSL_memset(p.Z, 0, sizeof(p.Z));
-  copy_conditional(p.Z, ONE, is_not_zero(wvalue >> 1));
+  copy_conditional(p.Z, ONE, wvalue >> 1);
 
   for (int i = 1; i < 37; i++) {
     wvalue = calc_wvalue(&index, p_str);

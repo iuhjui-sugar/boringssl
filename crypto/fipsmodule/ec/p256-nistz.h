@@ -54,33 +54,6 @@ int beeu_mod_inverse_vartime(BN_ULONG out[P256_LIMBS],
                              const BN_ULONG a[P256_LIMBS],
                              const BN_ULONG p[P256_LIMBS]);
 
-
-// P-256 point operations.
-//
-// The following functions may be used in-place. All coordinates are in the
-// Montgomery domain.
-
-// A P256_POINT represents a P-256 point in Jacobian coordinates.
-typedef struct {
-  BN_ULONG X[P256_LIMBS];
-  BN_ULONG Y[P256_LIMBS];
-  BN_ULONG Z[P256_LIMBS];
-} P256_POINT;
-
-// A P256_POINT_AFFINE represents a P-256 point in affine coordinates. Infinity
-// is encoded as (0, 0).
-typedef struct {
-  BN_ULONG X[P256_LIMBS];
-  BN_ULONG Y[P256_LIMBS];
-} P256_POINT_AFFINE;
-
-// ecp_nistz256_select_w5 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 16
-// and all zeros (the point at infinity) if |index| is 0. This is done in
-// constant time.
-void ecp_nistz256_select_w5(P256_POINT *val, const P256_POINT in_t[16],
-                            int index);
-
-
 #if defined(__cplusplus)
 }  // extern C++
 #endif

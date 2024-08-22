@@ -39,38 +39,6 @@
     (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) &&  \
     !defined(OPENSSL_SMALL) && !defined(BORINGSSL_SHARED_LIBRARY)
 
-TEST(P256_NistzTest, SelectW5) {
-  // Fill a table with some garbage input.
-  alignas(64) P256_POINT table[16];
-  for (size_t i = 0; i < 16; i++) {
-    OPENSSL_memset(table[i].X, static_cast<uint8_t>(3 * i), sizeof(table[i].X));
-    OPENSSL_memset(table[i].Y, static_cast<uint8_t>(3 * i + 1),
-                   sizeof(table[i].Y));
-    OPENSSL_memset(table[i].Z, static_cast<uint8_t>(3 * i + 2),
-                   sizeof(table[i].Z));
-  }
-
-  for (int i = 0; i <= 16; i++) {
-    P256_POINT val;
-    ecp_nistz256_select_w5(&val, table, i);
-
-    P256_POINT expected;
-    if (i == 0) {
-      OPENSSL_memset(&expected, 0, sizeof(expected));
-    } else {
-      expected = table[i-1];
-    }
-
-    EXPECT_EQ(Bytes(reinterpret_cast<const char *>(&expected), sizeof(expected)),
-              Bytes(reinterpret_cast<const char *>(&val), sizeof(val)));
-  }
-
-  // This is a constant-time function, so it is only necessary to instrument one
-  // index for ABI checking.
-  P256_POINT val;
-  CHECK_ABI(ecp_nistz256_select_w5, &val, table, 7);
-}
-
 TEST(P256_NistzTest, BEEU) {
 #if defined(OPENSSL_X86_64)
   if (!CRYPTO_is_AVX_capable()) {
