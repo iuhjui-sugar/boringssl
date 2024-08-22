@@ -510,7 +510,7 @@ static void ec_GFp_nistp256_dbl(const EC_GROUP *group, EC_JACOBIAN *r,
 static void p256_point_mul(fiat_p256_felem out[3], const fiat_p256_felem p[3],
                            const uint8_t scalar[32]) {
   // Precompute multiples.
-  fiat_p256_felem p_pre_comp[16][3];
+  fiat_p256_felem alignas(32) p_pre_comp[16][3];
   OPENSSL_memcpy(p_pre_comp[0], p, sizeof(p_pre_comp[0]));
   for (size_t j = 2; j <= 16; ++j) {
     if (j & 1) {
@@ -521,7 +521,7 @@ static void p256_point_mul(fiat_p256_felem out[3], const fiat_p256_felem p[3],
   }
 
   // Set nq to the point at infinity.
-  fiat_p256_felem nq[3] = {{0}, {0}, {0}}, ftmp, tmp[3];
+  fiat_p256_felem alignas(32) nq[3] = {{0}, {0}, {0}}, ftmp, tmp[3];
 
   // Loop over |scalar| msb-to-lsb, incorporating |p_pre_comp| every 5th round.
   int skip = 1;  // Save two point operations in the first round.
@@ -632,11 +632,11 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
   const uint8_t* g_scalar = (uint8_t*)gs->words;
 
   // Precompute multiples of |p|. p_pre_comp[i] is (2*i+1) * |p|.
-  fiat_p256_felem p_pre_comp[1 << (P256_WSIZE_PUBLIC - 1)][3];
+  fiat_p256_felem alignas(32) p_pre_comp[1 << (P256_WSIZE_PUBLIC - 1)][3];
   fiat_p256_from_generic(p_pre_comp[0][0], &p->X);
   fiat_p256_from_generic(p_pre_comp[0][1], &p->Y);
   fiat_p256_from_generic(p_pre_comp[0][2], &p->Z);
-  fiat_p256_felem p2[3];
+  fiat_p256_felem alignas(32) p2[3];
   fiat_p256_point_double(p2, p_pre_comp[0]);
   for (size_t i = 1; i < OPENSSL_ARRAY_SIZE(p_pre_comp); i++) {
     fiat_p256_point_add(p_pre_comp[i], p_pre_comp[i - 1], p2);
@@ -646,7 +646,7 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
 
   // Set |ret| to the point at infinity.
   int skip = 1;  // Save some point operations.
-  fiat_p256_felem ret[3] = {{0}, {0}, {0}};
+  fiat_p256_felem alignas(32) ret[3] = {{0}, {0}, {0}};
   for (int i = 256; i >= 0; i--) {
     if (!skip) {
       fiat_p256_point_double(ret, ret);
@@ -704,13 +704,6 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
   fiat_p256_to_generic(&r->Z, ret[2]);
 }
 
-// A P256_POINT represents a P-256 point in Jacobian coordinates.
-typedef fiat_p256_felem P256_POINT[3];
-
-// A P256_POINT_AFFINE represents a P-256 point in affine coordinates. Infinity
-// is encoded as (0, 0).
-typedef fiat_p256_felem P256_POINT_AFFINE[2];
-
 #if defined(OPENSSL_SMALL)
 
 __attribute__((noinline))
@@ -725,7 +718,7 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
                                            const EC_SCALAR *s) {
   const uint8_t* scalar = (uint8_t*)s->words;
   // Set nq to the point at infinity.
-  fiat_p256_felem nq[3] = {{0}, {0}, {0}}, tmp[2];
+  fiat_p256_felem alignas(32) nq[3] = {{0}, {0}, {0}}, tmp[2];
 
   int skip = 1;  // Save two point operations in the first round.
   for (size_t i = 31; i < 32; i--) {
@@ -788,7 +781,8 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
  */
 
 // Precomputed tables for the default generator
-typedef P256_POINT_AFFINE PRECOMP256_ROW[64];
+typedef fiat_p256_felem _p256_affine_table_point[2];
+typedef _p256_affine_table_point PRECOMP256_ROW[64];
 #include "p256-nistz-table.h"
 
 // Recode window to a signed digit, see |ec_GFp_nistp_recode_scalar_bits| in
@@ -854,8 +848,8 @@ static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
   size_t index = 0;
   crypto_word_t wvalue = calc_first_wvalue(&index, p_str);
 
-  alignas(32) P256_POINT_AFFINE t;
-  alignas(32) P256_POINT p;
+  alignas(32) fiat_p256_felem t[2];
+  alignas(32) fiat_p256_felem p[3];
   fiat_p256_select_point_affine_64(t, ecp_nistz256_precomputed[0], (wvalue>>1)-1);
   fiat_p256_opp(p[2], t[1]);
   copy_conditional(t[1], p[2], wvalue & 1);
