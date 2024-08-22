@@ -51,6 +51,24 @@
       "parentUuid": "28604861_e9d25f25",
       "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6dfd80c_ffec8e4e",
+        "filename": "gen/sources.gni",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-22T19:49:19Z",
+      "side": 1,
+      "message": "I think .inc is more likely to trip tools than .h. E.g. my editor does not detect .inc as C/C++.",
+      "parentUuid": "68a91546_be61303c",
+      "revId": "d31ec89f0a6ffad95cec68177976e1e74e881df0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
