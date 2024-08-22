@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc792b62_f22f5f87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2024-08-22T01:37:10Z",
+      "side": 1,
+      "message": "p.s. I\u0027m unsure about returning the large arrays. Perhaps they should just be `Vec\u003cu8\u003e`, even though we know their size, because it saves Rust memcpying them around and exposing the size in the type system doesn\u0027t help.",
+      "revId": "b0d5bfab4c254877203ac9d3a20ea22b5b211b72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
