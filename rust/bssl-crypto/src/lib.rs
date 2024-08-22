@@ -29,7 +29,7 @@ extern crate alloc;
 extern crate core;
 
 use alloc::vec::Vec;
-use core::ffi::c_void;
+use core::{ffi::c_void, mem::MaybeUninit};
 
 #[macro_use]
 mod macros;
@@ -48,6 +48,8 @@ pub mod ed25519;
 pub mod hkdf;
 pub mod hmac;
 pub mod hpke;
+pub mod mldsa;
+pub mod mlkem;
 pub mod rsa;
 pub mod x25519;
 
@@ -413,6 +415,29 @@ fn cbb_to_buffer<F: FnOnce(*mut bssl_sys::CBB)>(initial_capacity: usize, func: F
     // `CBB_finish`.
     unsafe { Buffer::new(ptr, len) }
 }
+
+/// Calls `func` with a `CBB` pointer that has been initialized to a fixed
+/// array of `N` bytes. That function must write exactly `N` bytes to the
+/// `CBB`. Those bytes are then returned as an array.
+#[allow(clippy::unwrap_used)]
+fn cbb_to_array<const N: usize, F: FnOnce(*mut bssl_sys::CBB)>(func: F) -> [u8; N] {
+    let mut buf = MaybeUninit::<[u8; N]>::uninit();
+    // Safety: type checking ensures that `cbb` is the correct size.
+    let mut cbb = unsafe {
+        initialized_struct_fallible(|cbb| {
+            bssl_sys::CBB_init_fixed(cbb, buf.as_mut_ptr() as *mut u8, N) == 1
+        })
+    }
+    // `CBB_init` only fails if out of memory, which isn't something that this crate handles.
+    .unwrap();
+
+    func(&mut cbb);
+
+    unsafe {
+        assert_eq!(bssl_sys::CBB_len(&cbb), N);
+        // `buf` has been fully written, as checked on the previous line.
+        buf.assume_init()
+    }
 }
 
 /// Used to prevent external implementations of internal traits.
