@@ -155,13 +155,7 @@ DEFINE_METHOD_FUNCTION(EC_GROUP, EC_group_p256) {
   ec_group_init_static_mont(&out->order, OPENSSL_ARRAY_SIZE(kP256Order),
                             kP256Order, kP256OrderRR, kP256OrderN0);
 
-#if !defined(OPENSSL_NO_ASM) &&                              \
-    (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) && \
-    !defined(OPENSSL_SMALL)
-  out->meth = EC_GFp_nistz256_method();
-#else
   out->meth = EC_GFp_nistp256_method();
-#endif
   out->generator.group = out;
   OPENSSL_memcpy(out->generator.raw.X.words, kP256MontGX, sizeof(kP256MontGX));
   OPENSSL_memcpy(out->generator.raw.Y.words, kP256MontGY, sizeof(kP256MontGY));

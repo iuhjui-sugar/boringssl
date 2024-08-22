@@ -419,20 +419,6 @@ static void fiat_p256_select_point_affine(
   constant_time_table_select_64((uint8_t*)dst, (uint8_t*)src, i, n);
 }
 
-__attribute__((noinline))
-static void fiat_p256_select_point_affine_15(
-    fiat_p256_felem dst[2], const fiat_p256_felem src[/*n*/][2],
-    size_t i) {
-  fiat_p256_select_point_affine(dst, src, i, 15);
-}
-
-__attribute__((noinline))
-static void fiat_p256_select_point_affine_64(
-    fiat_p256_felem dst[2], const fiat_p256_felem src[/*n*/][2],
-    size_t i) {
-  fiat_p256_select_point_affine(dst, src, i, 64);
-}
-
 // fiat_p256_select_point selects the |i|th point from a precomputation table
 // and copies it to |dst|.
 __attribute__((always_inline))
@@ -589,49 +575,50 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_JACOBIAN *r,
   fiat_p256_to_generic(&r->Z, t[2]);
 }
 
-static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
-                                           EC_JACOBIAN *r,
-                                           const EC_SCALAR *s) {
-  const uint8_t* scalar = (uint8_t*)s->words;
-  // Set nq to the point at infinity.
-  fiat_p256_felem nq[3] = {{0}, {0}, {0}}, tmp[2];
-
-  int skip = 1;  // Save two point operations in the first round.
-  for (size_t i = 31; i < 32; i--) {
-    if (!skip) {
-      fiat_p256_point_double(nq, nq);
-    }
-
-    // First, look 32 bits upwards.
-    crypto_word_t bits = fiat_p256_get_bit(scalar, i + 224) << 3;
-    bits |= fiat_p256_get_bit(scalar, i + 160) << 2;
-    bits |= fiat_p256_get_bit(scalar, i + 96) << 1;
-    bits |= fiat_p256_get_bit(scalar, i + 32);
-    // Select the point to add, in constant time.
-    fiat_p256_select_point_affine_15(tmp, fiat_p256_g_pre_comp[1], (size_t)bits-1);
-
-    if (!skip) {
-      fiat_p256_point_add_affine_conditional(nq, nq, tmp, bits);
-    } else {
-      fiat_p256_copy(nq[0], tmp[0]);
-      fiat_p256_copy(nq[1], tmp[1]);
-      fiat_p256_cmovznz(nq[2], bits, nq[2], fiat_p256_one);
-      skip = 0;
-    }
-
-    // Second, look at the current position.
-    bits = fiat_p256_get_bit(scalar, i + 192) << 3;
-    bits |= fiat_p256_get_bit(scalar, i + 128) << 2;
-    bits |= fiat_p256_get_bit(scalar, i + 64) << 1;
-    bits |= fiat_p256_get_bit(scalar, i);
-    // Select the point to add, in constant time.
-    fiat_p256_select_point_affine_15(tmp, fiat_p256_g_pre_comp[0], (size_t)bits-1);
-    fiat_p256_point_add_affine_conditional(nq, nq, tmp, bits);
+static int ec_GFp_nistp256_cmp_x_coordinate(const EC_GROUP *group,
+                                            const EC_JACOBIAN *p,
+                                            const EC_SCALAR *r) {
+  if (ec_GFp_simple_is_at_infinity(group, p)) {
+    return 0;
   }
 
-  fiat_p256_to_generic(&r->X, nq[0]);
-  fiat_p256_to_generic(&r->Y, nq[1]);
-  fiat_p256_to_generic(&r->Z, nq[2]);
+  // We wish to compare X/Z^2 with r. This is equivalent to comparing X with
+  // r*Z^2. Note that X and Z are represented in Montgomery form, while r is
+  // not.
+  fiat_p256_felem Z2_mont;
+  fiat_p256_from_generic(Z2_mont, &p->Z);
+  fiat_p256_mul(Z2_mont, Z2_mont, Z2_mont);
+
+  fiat_p256_felem r_Z2;
+  fiat_p256_from_words(r_Z2, r->words);  // r < order < p, so this is valid.
+  fiat_p256_mul(r_Z2, r_Z2, Z2_mont);
+
+  fiat_p256_felem X;
+  fiat_p256_from_generic(X, &p->X);
+  fiat_p256_from_montgomery(X, X);
+
+  if (OPENSSL_memcmp(&r_Z2, &X, sizeof(r_Z2)) == 0) {
+    return 1;
+  }
+
+  // During signing the x coefficient is reduced modulo the group order.
+  // Therefore there is a small possibility, less than 1/2^128, that group_order
+  // < p.x < P. in that case we need not only to compare against |r| but also to
+  // compare against r+group_order.
+  assert(group->field.N.width == group->order.N.width);
+  EC_FELEM tmp;
+  BN_ULONG carry =
+      bn_add_words(tmp.words, r->words, group->order.N.d, group->field.N.width);
+  if (carry == 0 &&
+      bn_less_than_words(tmp.words, group->field.N.d, group->field.N.width)) {
+    fiat_p256_from_generic(r_Z2, &tmp);
+    fiat_p256_mul(r_Z2, r_Z2, Z2_mont);
+    if (OPENSSL_memcmp(&r_Z2, &X, sizeof(r_Z2)) == 0) {
+      return 1;
+    }
+  }
+
+  return 0;
 }
 
 static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
@@ -717,89 +704,68 @@ static void ec_GFp_nistp256_point_mul_public(const EC_GROUP *group,
   fiat_p256_to_generic(&r->Z, ret[2]);
 }
 
-static int ec_GFp_nistp256_cmp_x_coordinate(const EC_GROUP *group,
-                                            const EC_JACOBIAN *p,
-                                            const EC_SCALAR *r) {
-  if (ec_GFp_simple_is_at_infinity(group, p)) {
-    return 0;
-  }
-
-  // We wish to compare X/Z^2 with r. This is equivalent to comparing X with
-  // r*Z^2. Note that X and Z are represented in Montgomery form, while r is
-  // not.
-  fiat_p256_felem Z2_mont;
-  fiat_p256_from_generic(Z2_mont, &p->Z);
-  fiat_p256_mul(Z2_mont, Z2_mont, Z2_mont);
-
-  fiat_p256_felem r_Z2;
-  fiat_p256_from_words(r_Z2, r->words);  // r < order < p, so this is valid.
-  fiat_p256_mul(r_Z2, r_Z2, Z2_mont);
-
-  fiat_p256_felem X;
-  fiat_p256_from_generic(X, &p->X);
-  fiat_p256_from_montgomery(X, X);
-
-  if (OPENSSL_memcmp(&r_Z2, &X, sizeof(r_Z2)) == 0) {
-    return 1;
-  }
-
-  // During signing the x coefficient is reduced modulo the group order.
-  // Therefore there is a small possibility, less than 1/2^128, that group_order
-  // < p.x < P. in that case we need not only to compare against |r| but also to
-  // compare against r+group_order.
-  assert(group->field.N.width == group->order.N.width);
-  EC_FELEM tmp;
-  BN_ULONG carry =
-      bn_add_words(tmp.words, r->words, group->order.N.d, group->field.N.width);
-  if (carry == 0 &&
-      bn_less_than_words(tmp.words, group->field.N.d, group->field.N.width)) {
-    fiat_p256_from_generic(r_Z2, &tmp);
-    fiat_p256_mul(r_Z2, r_Z2, Z2_mont);
-    if (OPENSSL_memcmp(&r_Z2, &X, sizeof(r_Z2)) == 0) {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
-DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
-  out->point_get_affine_coordinates =
-      ec_GFp_nistp256_point_get_affine_coordinates;
-  out->add = ec_GFp_nistp256_add;
-  out->dbl = ec_GFp_nistp256_dbl;
-  out->mul = ec_GFp_nistp256_point_mul;
-  out->mul_base = ec_GFp_nistp256_point_mul_base;
-  out->mul_public = ec_GFp_nistp256_point_mul_public;
-  out->felem_mul = ec_GFp_mont_felem_mul;
-  out->felem_sqr = ec_GFp_mont_felem_sqr;
-  out->felem_to_bytes = ec_GFp_mont_felem_to_bytes;
-  out->felem_from_bytes = ec_GFp_mont_felem_from_bytes;
-  out->felem_reduce = ec_GFp_mont_felem_reduce;
-  // TODO(davidben): This should use the specialized field arithmetic
-  // implementation, rather than the generic one.
-  out->felem_exp = ec_GFp_mont_felem_exp;
-  out->scalar_inv0_montgomery = ec_simple_scalar_inv0_montgomery;
-  out->scalar_to_montgomery_inv_vartime =
-      ec_simple_scalar_to_montgomery_inv_vartime;
-  out->cmp_x_coordinate = ec_GFp_nistp256_cmp_x_coordinate;
-
-  (void)fiat_p256_select_point_affine_64;
-}
-
-
-#if !defined(OPENSSL_NO_ASM) && \
-    (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) &&   \
-    !defined(OPENSSL_SMALL)
-
-#include "p256-nistz.h"
-
 // A P256_POINT represents a P-256 point in Jacobian coordinates.
 typedef fiat_p256_felem P256_POINT[3];
 
 // A P256_POINT_AFFINE represents a P-256 point in affine coordinates. Infinity
 // is encoded as (0, 0).
 typedef fiat_p256_felem P256_POINT_AFFINE[2];
+
+#if defined(OPENSSL_SMALL)
+
+__attribute__((noinline))
+static void fiat_p256_select_point_affine_15(
+    fiat_p256_felem dst[2], const fiat_p256_felem src[/*n*/][2],
+    size_t i) {
+  fiat_p256_select_point_affine(dst, src, i, 15);
+}
+
+static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
+                                           EC_JACOBIAN *r,
+                                           const EC_SCALAR *s) {
+  const uint8_t* scalar = (uint8_t*)s->words;
+  // Set nq to the point at infinity.
+  fiat_p256_felem nq[3] = {{0}, {0}, {0}}, tmp[2];
+
+  int skip = 1;  // Save two point operations in the first round.
+  for (size_t i = 31; i < 32; i--) {
+    if (!skip) {
+      fiat_p256_point_double(nq, nq);
+    }
+
+    // First, look 32 bits upwards.
+    crypto_word_t bits = fiat_p256_get_bit(scalar, i + 224) << 3;
+    bits |= fiat_p256_get_bit(scalar, i + 160) << 2;
+    bits |= fiat_p256_get_bit(scalar, i + 96) << 1;
+    bits |= fiat_p256_get_bit(scalar, i + 32);
+    // Select the point to add, in constant time.
+    fiat_p256_select_point_affine_15(tmp, fiat_p256_g_pre_comp[1], (size_t)bits-1);
+
+    if (!skip) {
+      fiat_p256_point_add_affine_conditional(nq, nq, tmp, bits);
+    } else {
+      fiat_p256_copy(nq[0], tmp[0]);
+      fiat_p256_copy(nq[1], tmp[1]);
+      fiat_p256_cmovznz(nq[2], bits, nq[2], fiat_p256_one);
+      skip = 0;
+    }
+
+    // Second, look at the current position.
+    bits = fiat_p256_get_bit(scalar, i + 192) << 3;
+    bits |= fiat_p256_get_bit(scalar, i + 128) << 2;
+    bits |= fiat_p256_get_bit(scalar, i + 64) << 1;
+    bits |= fiat_p256_get_bit(scalar, i);
+    // Select the point to add, in constant time.
+    fiat_p256_select_point_affine_15(tmp, fiat_p256_g_pre_comp[0], (size_t)bits-1);
+    fiat_p256_point_add_affine_conditional(nq, nq, tmp, bits);
+  }
+
+  fiat_p256_to_generic(&r->X, nq[0]);
+  fiat_p256_to_generic(&r->Y, nq[1]);
+  fiat_p256_to_generic(&r->Z, nq[2]);
+}
+
+#else // defined(OPENSSL_SMALL)
 
 // p256-nistz.c
 
@@ -821,25 +787,8 @@ typedef fiat_p256_felem P256_POINT_AFFINE[2];
  *                          256 Bit Primes"
  */
 
-#include <openssl/ec.h>
-
-#include <assert.h>
-#include <stdint.h>
-#include <string.h>
-
-#include <openssl/bn.h>
-#include <openssl/crypto.h>
-#include <openssl/err.h>
-
-#include "../bn/internal.h"
-#include "../delocate.h"
-#include "../../internal.h"
-#include "internal.h"
-#include "p256-nistz.h"
-
-typedef P256_POINT_AFFINE PRECOMP256_ROW[64];
-
 // Precomputed tables for the default generator
+typedef P256_POINT_AFFINE PRECOMP256_ROW[64];
 #include "p256-nistz-table.h"
 
 // Recode window to a signed digit, see |ec_GFp_nistp_recode_scalar_bits| in
@@ -887,8 +836,16 @@ static crypto_word_t calc_wvalue(size_t *index, const uint8_t p_str[33]) {
   return booth_recode_w7(wvalue);
 }
 
-static void ecp_nistz256_point_mul_base(const EC_GROUP *group, EC_JACOBIAN *r,
-                                        const EC_SCALAR *scalar) {
+__attribute__((noinline))
+static void fiat_p256_select_point_affine_64(
+    fiat_p256_felem dst[2], const fiat_p256_felem src[/*n*/][2],
+    size_t i) {
+  fiat_p256_select_point_affine(dst, src, i, 64);
+}
+
+static void ec_GFp_nistp256_point_mul_base(const EC_GROUP *group,
+                                           EC_JACOBIAN *r,
+                                           const EC_SCALAR *scalar) {
   uint8_t p_str[33];
   OPENSSL_memcpy(p_str, scalar->words, 32);
   p_str[32] = 0;
@@ -929,85 +886,32 @@ static void ecp_nistz256_point_mul_base(const EC_GROUP *group, EC_JACOBIAN *r,
   OPENSSL_memcpy(r->Z.words, p[2], P256_LIMBS * sizeof(BN_ULONG));
 }
 
-static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
-                                           EC_JACOBIAN *r,
-                                           const EC_SCALAR *g_scalar,
-                                           const EC_JACOBIAN *p_,
-                                           const EC_SCALAR *p_scalar) {
-  assert(p_ != NULL && p_scalar != NULL && g_scalar != NULL);
+#endif // !OPENSSL_SMALL
 
-  alignas(32) P256_POINT p;
-  uint8_t p_str[33];
-  OPENSSL_memcpy(p_str, g_scalar->words, 32);
-  p_str[32] = 0;
+#if !defined(OPENSSL_NO_ASM) && \
+    (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64))
 
-  // First window
-  size_t index = 0;
-  size_t wvalue = calc_first_wvalue(&index, p_str);
-
-  // Convert |p| from affine to Jacobian coordinates. We set Z to zero if |p|
-  // is infinity and |fiat_p256_one| otherwise. |p| was computed from the
-  // table, so it is infinity iff |wvalue >> 1| is zero.
-  if ((wvalue >> 1) != 0) {
-    OPENSSL_memcpy(p[0], &ecp_nistz256_precomputed[0][(wvalue >> 1) - 1][0],
-                   sizeof(p[0]));
-    OPENSSL_memcpy(p[1], &ecp_nistz256_precomputed[0][(wvalue >> 1) - 1][1],
-                   sizeof(p[1]));
-    OPENSSL_memcpy(p[2], fiat_p256_one, sizeof(p[2]));
-  } else {
-    OPENSSL_memset(p[0], 0, sizeof(p[0]));
-    OPENSSL_memset(p[1], 0, sizeof(p[1]));
-    OPENSSL_memset(p[2], 0, sizeof(p[2]));
-  }
-
-  if ((wvalue & 1) == 1) {
-    fiat_p256_opp(p[1], p[1]);
-  }
-
-  for (int i = 1; i < 37; i++) {
-    wvalue = calc_wvalue(&index, p_str);
-    if ((wvalue >> 1) == 0) {
-      continue;
-    }
-
-    alignas(32) P256_POINT_AFFINE t;
-    OPENSSL_memcpy(&t, &ecp_nistz256_precomputed[i][(wvalue >> 1) - 1],
-                   sizeof(t));
-    if ((wvalue & 1) == 1) {
-      fiat_p256_opp(t[1], t[1]);
-    }
-
-    fiat_p256_point_add_affine_conditional((fiat_p256_felem*)&p,(fiat_p256_felem*)&p,(fiat_p256_felem*)&t, wvalue>>1);
-  }
-
-  alignas(32) P256_POINT tmp;
-  fiat_p256_from_generic(tmp[0], &p_->X);
-  fiat_p256_from_generic(tmp[1], &p_->Y);
-  fiat_p256_from_generic(tmp[2], &p_->Z);
-  p256_point_mul(tmp, tmp, (uint8_t*)p_scalar->words);
-  fiat_p256_point_add(p, p, tmp);
-
-  assert(group->field.N.width == P256_LIMBS);
-  OPENSSL_memcpy(r->X.words, p[0], P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Y.words, p[1], P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Z.words, p[2], P256_LIMBS * sizeof(BN_ULONG));
-}
+#include "p256-nistz.h"
 
 static inline void nistz_p256ord_mul(BN_ULONG res[P256_LIMBS],
                                const BN_ULONG a[P256_LIMBS],
                                const BN_ULONG b[P256_LIMBS]) {
-  if (!CRYPTO_is_ADX_capable()) {
+#if defined(OPENSSL_X86_64)
+  if (CRYPTO_is_ADX_capable()) {
     return ecp_nistz256_ord_mul_montx(res, a, b);
   }
+#endif
   return ecp_nistz256_ord_mul_mont(res, a, b);
 }
 
 static inline void nistz_p256ord_sqr(BN_ULONG res[P256_LIMBS],
                                      const BN_ULONG a[P256_LIMBS],
                                      BN_ULONG rep) {
-  if (!CRYPTO_is_ADX_capable()) {
+#if defined(OPENSSL_X86_64)
+  if (CRYPTO_is_ADX_capable()) {
     return ecp_nistz256_ord_sqr_montx(res, a, rep);
   }
+#endif
   return ecp_nistz256_ord_sqr_mont(res, a, rep);
 }
 
@@ -1112,14 +1016,17 @@ static int ecp_nistz256_scalar_to_montgomery_inv_vartime(const EC_GROUP *group,
   return 1;
 }
 
-DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistz256_method) {
-out->point_get_affine_coordinates =
-    ec_GFp_nistp256_point_get_affine_coordinates;
+#endif /* !defined(OPENSSL_NO_ASM) && \
+          (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) */
+
+DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
+  out->point_get_affine_coordinates =
+      ec_GFp_nistp256_point_get_affine_coordinates;
   out->add = ec_GFp_nistp256_add;
   out->dbl = ec_GFp_nistp256_dbl;
   out->mul = ec_GFp_nistp256_point_mul;
-  out->mul_base = ecp_nistz256_point_mul_base;
-  out->mul_public = ecp_nistz256_points_mul_public;
+  out->mul_base = ec_GFp_nistp256_point_mul_base;
+  out->mul_public = ec_GFp_nistp256_point_mul_public;
   out->felem_mul = ec_GFp_mont_felem_mul;
   out->felem_sqr = ec_GFp_mont_felem_sqr;
   out->felem_to_bytes = ec_GFp_mont_felem_to_bytes;
@@ -1128,12 +1035,15 @@ out->point_get_affine_coordinates =
   // TODO(davidben): This should use the specialized field arithmetic
   // implementation, rather than the generic one.
   out->felem_exp = ec_GFp_mont_felem_exp;
+#if !defined(OPENSSL_NO_ASM) && \
+    (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64))
   out->scalar_inv0_montgomery = ecp_nistz256_inv0_mod_ord;
   out->scalar_to_montgomery_inv_vartime =
       ecp_nistz256_scalar_to_montgomery_inv_vartime;
+#else
+  out->scalar_inv0_montgomery = ec_simple_scalar_inv0_montgomery;
+  out->scalar_to_montgomery_inv_vartime =
+      ec_simple_scalar_to_montgomery_inv_vartime;
+#endif
   out->cmp_x_coordinate = ec_GFp_nistp256_cmp_x_coordinate;
 }
-
-#endif /* !defined(OPENSSL_NO_ASM) && \
-          (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) &&  \
-          !defined(OPENSSL_SMALL) */
