@@ -927,75 +927,6 @@ static inline void copy_conditional(BN_ULONG dst[P256_LIMBS],
   fiat_p256_cmovznz(dst, move, dst, src);
 }
 
-// ecp_nistz256_mod_inverse_sqr_mont sets |r| to (|in| * 2^-256)^-2 * 2^256 mod
-// p. That is, |r| is the modular inverse square of |in| for input and output in
-// the Montgomery domain.
-static void ecp_nistz256_mod_inverse_sqr_mont(BN_ULONG r[P256_LIMBS],
-                                              const BN_ULONG in[P256_LIMBS]) {
-  // This implements the addition chain described in
-  // https://briansmith.org/ecc-inversion-addition-chains-01#p256_field_inversion
-  BN_ULONG x2[P256_LIMBS], x3[P256_LIMBS], x6[P256_LIMBS], x12[P256_LIMBS],
-      x15[P256_LIMBS], x30[P256_LIMBS], x32[P256_LIMBS];
-  ecp_nistz256_sqr_mont(x2, in);      // 2^2 - 2^1
-  ecp_nistz256_mul_mont(x2, x2, in);  // 2^2 - 2^0
-
-  ecp_nistz256_sqr_mont(x3, x2);      // 2^3 - 2^1
-  ecp_nistz256_mul_mont(x3, x3, in);  // 2^3 - 2^0
-
-  ecp_nistz256_sqr_mont(x6, x3);
-  for (int i = 1; i < 3; i++) {
-    ecp_nistz256_sqr_mont(x6, x6);
-  }                                   // 2^6 - 2^3
-  ecp_nistz256_mul_mont(x6, x6, x3);  // 2^6 - 2^0
-
-  ecp_nistz256_sqr_mont(x12, x6);
-  for (int i = 1; i < 6; i++) {
-    ecp_nistz256_sqr_mont(x12, x12);
-  }                                     // 2^12 - 2^6
-  ecp_nistz256_mul_mont(x12, x12, x6);  // 2^12 - 2^0
-
-  ecp_nistz256_sqr_mont(x15, x12);
-  for (int i = 1; i < 3; i++) {
-    ecp_nistz256_sqr_mont(x15, x15);
-  }                                     // 2^15 - 2^3
-  ecp_nistz256_mul_mont(x15, x15, x3);  // 2^15 - 2^0
-
-  ecp_nistz256_sqr_mont(x30, x15);
-  for (int i = 1; i < 15; i++) {
-    ecp_nistz256_sqr_mont(x30, x30);
-  }                                      // 2^30 - 2^15
-  ecp_nistz256_mul_mont(x30, x30, x15);  // 2^30 - 2^0
-
-  ecp_nistz256_sqr_mont(x32, x30);
-  ecp_nistz256_sqr_mont(x32, x32);      // 2^32 - 2^2
-  ecp_nistz256_mul_mont(x32, x32, x2);  // 2^32 - 2^0
-
-  BN_ULONG ret[P256_LIMBS];
-  ecp_nistz256_sqr_mont(ret, x32);
-  for (int i = 1; i < 31 + 1; i++) {
-    ecp_nistz256_sqr_mont(ret, ret);
-  }                                     // 2^64 - 2^32
-  ecp_nistz256_mul_mont(ret, ret, in);  // 2^64 - 2^32 + 2^0
-
-  for (int i = 0; i < 96 + 32; i++) {
-    ecp_nistz256_sqr_mont(ret, ret);
-  }                                      // 2^192 - 2^160 + 2^128
-  ecp_nistz256_mul_mont(ret, ret, x32);  // 2^192 - 2^160 + 2^128 + 2^32 - 2^0
-
-  for (int i = 0; i < 32; i++) {
-    ecp_nistz256_sqr_mont(ret, ret);
-  }                                      // 2^224 - 2^192 + 2^160 + 2^64 - 2^32
-  ecp_nistz256_mul_mont(ret, ret, x32);  // 2^224 - 2^192 + 2^160 + 2^64 - 2^0
-
-  for (int i = 0; i < 30; i++) {
-    ecp_nistz256_sqr_mont(ret, ret);
-  }                                      // 2^254 - 2^222 + 2^190 + 2^94 - 2^30
-  ecp_nistz256_mul_mont(ret, ret, x30);  // 2^254 - 2^222 + 2^190 + 2^94 - 2^0
-
-  ecp_nistz256_sqr_mont(ret, ret);
-  ecp_nistz256_sqr_mont(r, ret);  // 2^256 - 2^224 + 2^192 + 2^96 - 2^2
-}
-
 // r = p * p_scalar
 static void ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
                                       const EC_JACOBIAN *p,
@@ -1236,7 +1167,7 @@ static int ecp_nistz256_get_affine(const EC_GROUP *group,
 
   BN_ULONG z_inv2[P256_LIMBS];
   assert(group->field.N.width == P256_LIMBS);
-  ecp_nistz256_mod_inverse_sqr_mont(z_inv2, point->Z.words);
+  fiat_p256_inv_square(z_inv2, point->Z.words);
 
   if (x != NULL) {
     ecp_nistz256_mul_mont(x->words, z_inv2, point->X.words);
