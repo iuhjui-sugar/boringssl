@@ -41,11 +41,16 @@ extern "C" {
 void ecp_nistz256_ord_mul_mont(BN_ULONG res[P256_LIMBS],
                                const BN_ULONG a[P256_LIMBS],
                                const BN_ULONG b[P256_LIMBS]);
+void ecp_nistz256_ord_mul_montx(BN_ULONG res[P256_LIMBS],
+                               const BN_ULONG a[P256_LIMBS],
+                               const BN_ULONG b[P256_LIMBS]);
 
 // ecp_nistz256_ord_sqr_mont sets |res| to |a|^(2*|rep|) where inputs and
 // outputs are in Montgomery form. That is, |res| is
 // (|a| * 2^-256)^(2*|rep|) * 2^256 mod N.
 void ecp_nistz256_ord_sqr_mont(BN_ULONG res[P256_LIMBS],
+                               const BN_ULONG a[P256_LIMBS], BN_ULONG rep);
+void ecp_nistz256_ord_sqr_montx(BN_ULONG res[P256_LIMBS],
                                const BN_ULONG a[P256_LIMBS], BN_ULONG rep);
 
 // beeu_mod_inverse_vartime sets out = a^-1 mod p using a Euclidean algorithm.

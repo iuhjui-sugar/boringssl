@@ -1156,57 +1156,22 @@ static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
   OPENSSL_memcpy(r->Z.words, p.Z, P256_LIMBS * sizeof(BN_ULONG));
 }
 
-static int ecp_nistz256_get_affine(const EC_GROUP *group,
-                                   const EC_JACOBIAN *point, EC_FELEM *x,
-                                   EC_FELEM *y) {
-  if (constant_time_declassify_int(
-          ec_GFp_simple_is_at_infinity(group, point))) {
-    OPENSSL_PUT_ERROR(EC, EC_R_POINT_AT_INFINITY);
-    return 0;
+static inline void nistz_p256ord_mul(BN_ULONG res[P256_LIMBS],
+                               const BN_ULONG a[P256_LIMBS],
+                               const BN_ULONG b[P256_LIMBS]) {
+  if (!CRYPTO_is_ADX_capable()) {
+    return ecp_nistz256_ord_mul_montx(res, a, b);
   }
-
-  BN_ULONG z_inv2[P256_LIMBS];
-  assert(group->field.N.width == P256_LIMBS);
-  fiat_p256_inv_square(z_inv2, point->Z.words);
-
-  if (x != NULL) {
-    ecp_nistz256_mul_mont(x->words, z_inv2, point->X.words);
-  }
-
-  if (y != NULL) {
-    ecp_nistz256_sqr_mont(z_inv2, z_inv2);                            // z^-4
-    ecp_nistz256_mul_mont(y->words, point->Y.words, point->Z.words);  // y * z
-    ecp_nistz256_mul_mont(y->words, y->words, z_inv2);  // y * z^-3
-  }
-
-  return 1;
+  return ecp_nistz256_ord_mul_mont(res, a, b);
 }
 
-static void ecp_nistz256_add(const EC_GROUP *group, EC_JACOBIAN *r,
-                             const EC_JACOBIAN *a_, const EC_JACOBIAN *b_) {
-  P256_POINT a, b;
-  OPENSSL_memcpy(a.X, a_->X.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(a.Y, a_->Y.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(a.Z, a_->Z.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(b.X, b_->X.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(b.Y, b_->Y.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(b.Z, b_->Z.words, P256_LIMBS * sizeof(BN_ULONG));
-  ecp_nistz256_point_add(&a, &a, &b);
-  OPENSSL_memcpy(r->X.words, a.X, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Y.words, a.Y, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Z.words, a.Z, P256_LIMBS * sizeof(BN_ULONG));
-}
-
-static void ecp_nistz256_dbl(const EC_GROUP *group, EC_JACOBIAN *r,
-                             const EC_JACOBIAN *a_) {
-  P256_POINT a;
-  OPENSSL_memcpy(a.X, a_->X.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(a.Y, a_->Y.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(a.Z, a_->Z.words, P256_LIMBS * sizeof(BN_ULONG));
-  ecp_nistz256_point_double(&a, &a);
-  OPENSSL_memcpy(r->X.words, a.X, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Y.words, a.Y, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(r->Z.words, a.Z, P256_LIMBS * sizeof(BN_ULONG));
+static inline void nistz_p256ord_sqr(BN_ULONG res[P256_LIMBS],
+                                     const BN_ULONG a[P256_LIMBS],
+                                     BN_ULONG rep) {
+  if (!CRYPTO_is_ADX_capable()) {
+    return ecp_nistz256_ord_sqr_montx(res, a, rep);
+  }
+  return ecp_nistz256_ord_sqr_mont(res, a, rep);
 }
 
 static void ecp_nistz256_inv0_mod_ord(const EC_GROUP *group, EC_SCALAR *out,
@@ -1242,39 +1207,39 @@ static void ecp_nistz256_inv0_mod_ord(const EC_GROUP *group, EC_SCALAR *out,
   // Pre-calculate powers.
   OPENSSL_memcpy(table[i_1], in->words, P256_LIMBS * sizeof(BN_ULONG));
 
-  ecp_nistz256_ord_sqr_mont(table[i_10], table[i_1], 1);
+  nistz_p256ord_sqr(table[i_10], table[i_1], 1);
 
-  ecp_nistz256_ord_mul_mont(table[i_11], table[i_1], table[i_10]);
+  nistz_p256ord_mul(table[i_11], table[i_1], table[i_10]);
 
-  ecp_nistz256_ord_mul_mont(table[i_101], table[i_11], table[i_10]);
+  nistz_p256ord_mul(table[i_101], table[i_11], table[i_10]);
 
-  ecp_nistz256_ord_mul_mont(table[i_111], table[i_101], table[i_10]);
+  nistz_p256ord_mul(table[i_111], table[i_101], table[i_10]);
 
-  ecp_nistz256_ord_sqr_mont(table[i_1010], table[i_101], 1);
+  nistz_p256ord_sqr(table[i_1010], table[i_101], 1);
 
-  ecp_nistz256_ord_mul_mont(table[i_1111], table[i_1010], table[i_101]);
+  nistz_p256ord_mul(table[i_1111], table[i_1010], table[i_101]);
 
-  ecp_nistz256_ord_sqr_mont(table[i_10101], table[i_1010], 1);
-  ecp_nistz256_ord_mul_mont(table[i_10101], table[i_10101], table[i_1]);
+  nistz_p256ord_sqr(table[i_10101], table[i_1010], 1);
+  nistz_p256ord_mul(table[i_10101], table[i_10101], table[i_1]);
 
-  ecp_nistz256_ord_sqr_mont(table[i_101010], table[i_10101], 1);
+  nistz_p256ord_sqr(table[i_101010], table[i_10101], 1);
 
-  ecp_nistz256_ord_mul_mont(table[i_101111], table[i_101010], table[i_101]);
+  nistz_p256ord_mul(table[i_101111], table[i_101010], table[i_101]);
 
-  ecp_nistz256_ord_mul_mont(table[i_x6], table[i_101010], table[i_10101]);
+  nistz_p256ord_mul(table[i_x6], table[i_101010], table[i_10101]);
 
-  ecp_nistz256_ord_sqr_mont(table[i_x8], table[i_x6], 2);
-  ecp_nistz256_ord_mul_mont(table[i_x8], table[i_x8], table[i_11]);
+  nistz_p256ord_sqr(table[i_x8], table[i_x6], 2);
+  nistz_p256ord_mul(table[i_x8], table[i_x8], table[i_11]);
 
-  ecp_nistz256_ord_sqr_mont(table[i_x16], table[i_x8], 8);
-  ecp_nistz256_ord_mul_mont(table[i_x16], table[i_x16], table[i_x8]);
+  nistz_p256ord_sqr(table[i_x16], table[i_x8], 8);
+  nistz_p256ord_mul(table[i_x16], table[i_x16], table[i_x8]);
 
-  ecp_nistz256_ord_sqr_mont(table[i_x32], table[i_x16], 16);
-  ecp_nistz256_ord_mul_mont(table[i_x32], table[i_x32], table[i_x16]);
+  nistz_p256ord_sqr(table[i_x32], table[i_x16], 16);
+  nistz_p256ord_mul(table[i_x32], table[i_x32], table[i_x16]);
 
   // Compute |in| raised to the order-2.
-  ecp_nistz256_ord_sqr_mont(out->words, table[i_x32], 64);
-  ecp_nistz256_ord_mul_mont(out->words, out->words, table[i_x32]);
+  nistz_p256ord_sqr(out->words, table[i_x32], 64);
+  nistz_p256ord_mul(out->words, out->words, table[i_x32]);
   static const struct {
     uint8_t p, i;
   } kChain[27] = {{32, i_x32},    {6, i_101111}, {5, i_111},    {4, i_11},
@@ -1285,8 +1250,8 @@ static void ecp_nistz256_inv0_mod_ord(const EC_GROUP *group, EC_SCALAR *out,
                   {10, i_101111}, {2, i_11},     {5, i_11},     {5, i_11},
                   {3, i_1},       {7, i_10101},  {6, i_1111}};
   for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(kChain); i++) {
-    ecp_nistz256_ord_sqr_mont(out->words, out->words, kChain[i].p);
-    ecp_nistz256_ord_mul_mont(out->words, out->words, table[kChain[i].i]);
+    nistz_p256ord_sqr(out->words, out->words, kChain[i].p);
+    nistz_p256ord_mul(out->words, out->words, table[kChain[i].i]);
   }
 }
 
@@ -1310,53 +1275,10 @@ static int ecp_nistz256_scalar_to_montgomery_inv_vartime(const EC_GROUP *group,
   return 1;
 }
 
-static int ecp_nistz256_cmp_x_coordinate(const EC_GROUP *group,
-                                         const EC_JACOBIAN *p,
-                                         const EC_SCALAR *r) {
-  if (ec_GFp_simple_is_at_infinity(group, p)) {
-    return 0;
-  }
-
-  assert(group->order.N.width == P256_LIMBS);
-  assert(group->field.N.width == P256_LIMBS);
-
-  // We wish to compare X/Z^2 with r. This is equivalent to comparing X with
-  // r*Z^2. Note that X and Z are represented in Montgomery form, while r is
-  // not.
-  BN_ULONG r_Z2[P256_LIMBS], Z2_mont[P256_LIMBS], X[P256_LIMBS];
-  ecp_nistz256_mul_mont(Z2_mont, p->Z.words, p->Z.words);
-  ecp_nistz256_mul_mont(r_Z2, r->words, Z2_mont);
-  ecp_nistz256_from_mont(X, p->X.words);
-
-  if (OPENSSL_memcmp(r_Z2, X, sizeof(r_Z2)) == 0) {
-    return 1;
-  }
-
-  // During signing the x coefficient is reduced modulo the group order.
-  // Therefore there is a small possibility, less than 1/2^128, that group_order
-  // < p.x < P. in that case we need not only to compare against |r| but also to
-  // compare against r+group_order.
-  BN_ULONG carry = bn_add_words(r_Z2, r->words, group->order.N.d, P256_LIMBS);
-  if (carry == 0 && bn_less_than_words(r_Z2, group->field.N.d, P256_LIMBS)) {
-    // r + group_order < p, so compare (r + group_order) * Z^2 against X.
-    ecp_nistz256_mul_mont(r_Z2, r_Z2, Z2_mont);
-    if (OPENSSL_memcmp(r_Z2, X, sizeof(r_Z2)) == 0) {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
 DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistz256_method) {
-  // TODO(crbug.com/42290548): The x86_64 assembly depends on initializing
-  // |OPENSSL_ia32cap_P|. Move the dispatch to C. For now, explicitly initialize
-  // things.
-  OPENSSL_init_cpuid();
-
-  out->point_get_affine_coordinates = ecp_nistz256_get_affine;
-  out->add = ecp_nistz256_add;
-  out->dbl = ecp_nistz256_dbl;
+  out->point_get_affine_coordinates = ec_GFp_nistp256_point_get_affine_coordinates;
+  out->add = ec_GFp_nistp256_add;
+  out->dbl = ec_GFp_nistp256_dbl;
   out->mul = ecp_nistz256_point_mul;
   out->mul_base = ecp_nistz256_point_mul_base;
   out->mul_public = ecp_nistz256_points_mul_public;
@@ -1371,7 +1293,7 @@ DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistz256_method) {
   out->scalar_inv0_montgomery = ecp_nistz256_inv0_mod_ord;
   out->scalar_to_montgomery_inv_vartime =
       ecp_nistz256_scalar_to_montgomery_inv_vartime;
-  out->cmp_x_coordinate = ecp_nistz256_cmp_x_coordinate;
+  out->cmp_x_coordinate = ec_GFp_nistp256_cmp_x_coordinate;
 }
 
 #endif /* !defined(OPENSSL_NO_ASM) && \
