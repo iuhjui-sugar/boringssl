@@ -61,26 +61,29 @@ static fiat_p256_limb_t fiat_p256_nz(
   return ret;
 }
 
-static void fiat_p256_copy(fiat_p256_limb_t out[P256_LIMBS],
-                           const fiat_p256_limb_t in1[P256_LIMBS]) {
-  for (size_t i = 0; i < P256_LIMBS; i++) {
-    out[i] = in1[i];
-  }
+// this function is faster than constant_time_conditional_memcpy when the
+// inputs are already in general-purpose registers, or when some inputs are
+// constants for which the bitwise selection can be simplified.
+static void fiat_p256_conditional_copy(fiat_p256_felem x,
+                                       const fiat_p256_felem y,
+                                       fiat_p256_limb_t t) {
+  fiat_p256_selectznz(x, !!t, x, y);
 }
 
-static void fiat_p256_cmovznz(fiat_p256_limb_t out[P256_LIMBS],
-                              fiat_p256_limb_t t,
-                              const fiat_p256_limb_t z[P256_LIMBS],
-                              const fiat_p256_limb_t nz[P256_LIMBS]) {
-  fiat_p256_selectznz(out, !!t, z, nz);
+static void fiat_p256_opp_conditional(fiat_p256_felem x, crypto_word_t c) {
+  fiat_p256_felem alignas(32) n;
+  fiat_p256_opp(n, x);
+  fiat_p256_conditional_copy(x, n, c);
+}
+
+static void fiat_p256_conditional_zero_or_one(fiat_p256_felem x,
+                                              crypto_word_t c) {
+  OPENSSL_memset(x, 0, sizeof(fiat_p256_felem));
+  fiat_p256_conditional_copy(x, fiat_p256_one, c);
 }
 
 static void fiat_p256_from_words(fiat_p256_felem out,
                                  const BN_ULONG in[32 / sizeof(BN_ULONG)]) {
-  // Typically, |BN_ULONG| and |fiat_p256_limb_t| will be the same type, but on
-  // 64-bit platforms without |uint128_t|, they are different. However, on
-  // little-endian systems, |uint64_t[4]| and |uint32_t[8]| have the same
-  // layout.
   OPENSSL_memcpy(out, in, 32);
 }
 
@@ -89,7 +92,6 @@ static void fiat_p256_from_generic(fiat_p256_felem out, const EC_FELEM *in) {
 }
 
 static void fiat_p256_to_generic(EC_FELEM *out, const fiat_p256_felem in) {
-  // See |fiat_p256_from_words|.
   OPENSSL_memcpy(out->words, in, 32);
 }
 
@@ -172,7 +174,7 @@ static void fiat_p256_halve(fiat_p256_felem y, const fiat_p256_felem x) {
   static const fiat_p256_felem minus_half = {
     -UINT64_C(1), -UINT64_C(1) >> 33, -UINT64_C(1) << 63, -UINT64_C(1) << 32 >> 1};
   fiat_p256_felem maybe_minus_half = {0};
-  fiat_p256_cmovznz(maybe_minus_half, x[0] & 1, maybe_minus_half, minus_half);
+  fiat_p256_conditional_copy(maybe_minus_half, minus_half, x[0] & 1);
 
   y[0] = shrd_64(y[0], y[1], 1);
   y[1] = shrd_64(y[1], y[2], 1);
@@ -253,7 +255,7 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
 
   fiat_p256_felem u1, z2z2;
   if (p2affine) {
-    fiat_p256_copy(u1, in1[0]);
+    OPENSSL_memcpy(u1, in1[0], sizeof(u1));
   } else {
     fiat_p256_square(z2z2, in2[2]);
     fiat_p256_mul(u1, in1[0], z2z2);
@@ -276,7 +278,7 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
 
   fiat_p256_felem s1;
   if (p2affine) {  // Z2 == 1
-    fiat_p256_copy(s1, in1[1]);
+    OPENSSL_memcpy(s1, in1[1], sizeof(s1));
   } else {
     // s1 = in1[1] * z2**3
     fiat_p256_mul(s1, in2[2], z2z2);
@@ -502,9 +504,7 @@ static void p256_point_mul(fiat_p256_felem out[3], const fiat_p256_felem p[3],
 
     fiat_p256_felem alignas(32) t[3];
     fiat_p256_select_point_16(t, p_pre_comp, digit-1);
-    fiat_p256_felem alignas(32) neg_Y;
-    fiat_p256_opp(neg_Y, t[1]);
-    fiat_p256_cmovznz(t[1], sign, t[1], neg_Y);
+    fiat_p256_opp_conditional(t[1], sign);
 
     if (!ret_is_zero) {
       fiat_p256_point_add(ret, ret, t);
@@ -643,7 +643,6 @@ static void fiat_p256_select_point_affine_15(
 }
 
 static void p256_point_mul_base(fiat_p256_felem ret[3], const uint8_t s[32]) {
-  fiat_p256_felem alignas(32) t[2];
   int ret_is_zero = 1;  // Save two point operations in the first round.
   for (size_t i = 31; i < 32; i--) {
     if (!ret_is_zero) {
@@ -656,14 +655,14 @@ static void p256_point_mul_base(fiat_p256_felem ret[3], const uint8_t s[32]) {
       for (size_t k = 3; k < 4; k--) {
         bits |= bit(s, i + 32 * j + 64 * k) << k;
       }
+      fiat_p256_felem alignas(32) t[2];
       fiat_p256_select_point_affine_15(t, fiat_p256_g_pre_comp[j], bits-1);
 
       if (!ret_is_zero) {
         fiat_p256_point_add_affine_conditional(ret, ret, t, bits);
       } else {
         OPENSSL_memcpy(ret, t, sizeof(t));
-        OPENSSL_memset(ret[2], 0, sizeof(fiat_p256_felem));
-        fiat_p256_cmovznz(ret[2], bits, ret[2], fiat_p256_one);
+        fiat_p256_conditional_zero_or_one(ret[2], bits);
         ret_is_zero = 0;
       }
     }
@@ -738,9 +737,7 @@ static void p256_point_mul_base(fiat_p256_felem ret[3], const uint8_t s[32]) {
     } else {
       fiat_p256_select_point_affine_64(t, ecp_nistz256_precomputed[i], (wvalue>>1)-1);
     }
-    alignas(32) fiat_p256_felem neg_Y;
-    fiat_p256_opp(neg_Y, t[1]);
-    fiat_p256_cmovznz(t[1], wvalue & 1, t[1], neg_Y);
+    fiat_p256_opp_conditional(t[1], wvalue & 1);
 
     if (!ret_is_zero) {
       fiat_p256_point_add_affine_conditional(ret, ret, t, wvalue>>1);
@@ -748,7 +745,7 @@ static void p256_point_mul_base(fiat_p256_felem ret[3], const uint8_t s[32]) {
       OPENSSL_memcpy(ret[0], t[0], sizeof(ret[0]));
       OPENSSL_memcpy(ret[1], t[1], sizeof(ret[0]));
       OPENSSL_memset(ret[2], 0, sizeof(fiat_p256_felem));
-      fiat_p256_cmovznz(ret[2], wvalue >> 1, ret[2], fiat_p256_one);
+      fiat_p256_conditional_zero_or_one(ret[2], wvalue >> 1);
       ret_is_zero = 0;
     }
   }
