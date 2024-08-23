@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a18b198e_92017896",
+        "filename": "build.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-23T20:51:17Z",
+      "side": 1,
+      "message": "Switched it to `rust_bssl_sys` on the theory that our past selves picked that one. *shrug*",
+      "parentUuid": "abad26a2_1be49a76",
+      "revId": "6434f526b8deb9a11e6477d161846952b2c35e9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "bce93809_2dab896b",
         "filename": "build.json",
         "patchSetId": 2
