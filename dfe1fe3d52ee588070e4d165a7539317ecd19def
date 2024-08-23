@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5577da08_01f88c74",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2480,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2024-08-23T17:34:58Z",
+      "side": 1,
+      "message": "(All the parsers do this. It\u0027s because the `unmarshal` function is kinda silly and includes the message header but expects you to skip past it.)",
+      "range": {
+        "startLine": 2480,
+        "startChar": 28,
+        "endLine": 2480,
+        "endChar": 37
+      },
+      "revId": "dfe1fe3d52ee588070e4d165a7539317ecd19def",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
