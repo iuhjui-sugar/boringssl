@@ -28,37 +28,30 @@
 #include "../delocate.h"
 #include "./internal.h"
 
+#define P256_LIMBS (32 / sizeof(crypto_word_t))
+typedef crypto_word_t fiat_p256_felem[P256_LIMBS];
+
+#if defined(OPENSSL_64_BIT)
 #if defined(BORINGSSL_HAS_UINT128)
 #include "../../../third_party/fiat/p256_64.h"
-#elif defined(OPENSSL_64_BIT)
-#include "../../../third_party/fiat/p256_64_msvc.h"
 #else
+#include "../../../third_party/fiat/p256_64_msvc.h"
+#endif
+static const fiat_p256_felem fiat_p256_one = {0x1, 0xffffffff00000000,
+                                              0xffffffffffffffff, 0xfffffffe};
+#elif defined(OPENSSL_32_BIT)
 #include "../../../third_party/fiat/p256_32.h"
+static const fiat_p256_felem fiat_p256_one = {
+    0x1, 0x0, 0x0, 0xffffffff, 0xffffffff, 0xffffffff, 0xfffffffe, 0x0};
+#else
+#error "Must define either OPENSSL_32_BIT or OPENSSL_64_BIT"
 #endif
 
 
-// utility functions, handwritten
-
-#if defined(OPENSSL_64_BIT)
-#define P256_LIMBS 4
-typedef uint64_t fiat_p256_limb_t;
-typedef uint64_t fiat_p256_felem[P256_LIMBS];
-static const fiat_p256_felem fiat_p256_one = {0x1, 0xffffffff00000000,
-                                              0xffffffffffffffff, 0xfffffffe};
-#else  // 64BIT; else 32BIT
-#define P256_LIMBS 8
-typedef uint32_t fiat_p256_limb_t;
-typedef uint32_t fiat_p256_felem[P256_LIMBS];
-static const fiat_p256_felem fiat_p256_one = {
-    0x1, 0x0, 0x0, 0xffffffff, 0xffffffff, 0xffffffff, 0xfffffffe, 0x0};
-#endif  // 64BIT
-
-
-static fiat_p256_limb_t fiat_p256_nz(
-    const fiat_p256_limb_t in1[P256_LIMBS]) {
-  fiat_p256_limb_t ret;
-  fiat_p256_nonzero(&ret, in1);
-  return ret;
+static crypto_word_t fiat_p256_is_zero(const fiat_p256_felem x) {
+  crypto_word_t ret;
+  fiat_p256_nonzero(&ret, x);
+  return constant_time_is_zero_w(ret);
 }
 
 // this function is faster than constant_time_conditional_memcpy when the
@@ -66,7 +59,7 @@ static fiat_p256_limb_t fiat_p256_nz(
 // constants for which the bitwise selection can be simplified.
 static void fiat_p256_conditional_copy(fiat_p256_felem x,
                                        const fiat_p256_felem y,
-                                       fiat_p256_limb_t t) {
+                                       crypto_word_t t) {
   fiat_p256_selectznz(x, !!t, x, y);
 }
 
@@ -243,7 +236,7 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
   // following HMV'04 p89 eqn 3.14
   const uint64_t* const in2[3] = {x2, y2, z2};
   fiat_p256_felem p_out[3];
-  crypto_word_t p1zero = constant_time_is_zero_w(fiat_p256_nz(in1[2]));
+  crypto_word_t p1zero = fiat_p256_is_zero(in1[2]);
 
   // z1z1 = z1z1 = z1**2
   fiat_p256_felem z1z1;
@@ -285,16 +278,15 @@ static void fiat_p256_point_add_(fiat_p256_felem out[3],
     fiat_p256_mul(s1, s1, in1[1]);
   }
 
-  fiat_p256_limb_t xneq = fiat_p256_nz(h);
+  crypto_word_t xeq = fiat_p256_is_zero(h);
 
   // r = (s2 - s1)
   fiat_p256_felem r;
   fiat_p256_sub(r, s2, s1);  // F = D - Y1
 
-  fiat_p256_limb_t yneq = fiat_p256_nz(r);
+  crypto_word_t yeq = fiat_p256_is_zero(r);
 
-  fiat_p256_limb_t is_nontrivial_double =
-    constant_time_is_zero_w(xneq | yneq) & ~p1zero & ~p2zero;
+  crypto_word_t is_nontrivial_double = xeq & yeq & ~p1zero & ~p2zero;
   if (constant_time_declassify_w(is_nontrivial_double)) {
     fiat_p256_point_double(out, in1);
     return;
@@ -335,7 +327,7 @@ static void fiat_p256_point_add(fiat_p256_felem out[3],
                                 const fiat_p256_felem in1[3],
                                 const fiat_p256_felem in2[3]) {
 
-  crypto_word_t p2zero = constant_time_is_zero_w(fiat_p256_nz(in2[2]));
+  crypto_word_t p2zero = fiat_p256_is_zero(in2[2]);
   fiat_p256_point_add_(out, in1, 0, p2zero, in2[0], in2[1], in2[2]);
 }
 
@@ -742,9 +734,7 @@ static void p256_point_mul_base(fiat_p256_felem ret[3], const uint8_t s[32]) {
     if (!ret_is_zero) {
       fiat_p256_point_add_affine_conditional(ret, ret, t, wvalue>>1);
     } else {
-      OPENSSL_memcpy(ret[0], t[0], sizeof(ret[0]));
-      OPENSSL_memcpy(ret[1], t[1], sizeof(ret[0]));
-      OPENSSL_memset(ret[2], 0, sizeof(fiat_p256_felem));
+      OPENSSL_memcpy(ret, t, sizeof(t));
       fiat_p256_conditional_zero_or_one(ret[2], wvalue >> 1);
       ret_is_zero = 0;
     }
